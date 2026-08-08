@@ -1,0 +1,13 @@
+{
+  "metadata":{"id":"CAT_INTEGRATION_PROVIDERS","json_type":"framework_catalog","scope":"framework","schema_id":null,"version":"1.4.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09"},
+  "Data":{"providers":[
+    {"id":"CALENDAR_ICS","family":"calendar","status":"stable","role":"provider_neutral_exchange"},
+    {"id":"CALENDAR_GOOGLE","family":"calendar","status":"planned","role":"provider_link_adapter"},
+    {"id":"CALENDAR_OUTLOOK","family":"calendar","status":"planned","role":"provider_link_adapter"},
+    {"id":"MEETING_JITSI","family":"meeting","status":"stable","adapter":"providers/jitsi.json"},
+    {"id":"MEETING_TEAMS","family":"meeting","status":"planned"},
+    {"id":"MEETING_ZOOM","family":"meeting","status":"planned"},
+    {"id":"MEETING_GOOGLE_MEET","family":"meeting","status":"planned"}
+  ]},
+  "dictionnaire_donnees":{"numero_version":"1.4.0","date_creation_version":"2026-08-09","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Identifie le catalogue des providers d'intégration.","Data":"Liste les providers calendrier et visioconférence et leur état.","dictionnaire_donnees":"Décrit les champs de ce JSON."}}
+}
