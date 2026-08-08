@@ -1,0 +1,26 @@
+{
+  "metadata": {"id":"THEME_SHADOW_SOFT","json_type":"framework_theme","scope":"framework","schema_id":null,"version":"1.1.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09"},
+  "Data": {
+    "name":"nLab Shadow Soft",
+    "description":"Thème générique issu des enseignements visuels de MadaNotes, sans couleur métier imposée.",
+    "tokens": {
+      "content_width_desktop":"80vw",
+      "content_width_max":"none",
+      "radius_card":"18px",
+      "shadow_soft":"0 8px 28px rgba(21,42,29,.07)",
+      "hero_max_height":"25vh",
+      "hero_width":"content",
+      "hero_radius":"18px",
+      "hero_shadow":"soft",
+      "hero_gradient":"radial-soft",
+      "control_idle":"muted",
+      "control_hover":"brand",
+      "surface":"project.surface",
+      "background":"project.background",
+      "brand":"project.brand",
+      "accent":"project.accent"
+    },
+    "rules": ["content_is_centered","hero_matches_main_content_width","hero_inside_existing_container_uses_100_percent","header_is_not_hero","controls_use_svg_currentColor"]
+  },
+  "dictionnaire_donnees": {"numero_version":"1.1.0","date_creation_version":"2026-08-09","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Métadonnées nLab.","Data":"Tokens et règles du thème.","dictionnaire_donnees":"Description des champs."}}
+}
