@@ -1,0 +1,78 @@
+{
+  "metadata": {
+    "id": "SCH_METADATA_FILE",
+    "json_type": "framework_schema",
+    "scope": "framework",
+    "schema_id": null,
+    "version": "1.0.0",
+    "status": "stable",
+    "date_creation": "2026-08-08",
+    "date_mise_a_jour": "2026-08-08"
+  },
+  "Data": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "SCH_METADATA",
+    "title": "nLab metadata",
+    "type": "object",
+    "required": [
+      "id",
+      "json_type",
+      "scope",
+      "version",
+      "status",
+      "date_creation",
+      "date_mise_a_jour"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "json_type": {
+        "type": "string",
+        "minLength": 1
+      },
+      "scope": {
+        "enum": [
+          "framework",
+          "project",
+          "source",
+          "runtime",
+          "generated",
+          "local"
+        ]
+      },
+      "schema_id": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "version": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "date_creation": {
+        "type": "string",
+        "format": "date"
+      },
+      "date_mise_a_jour": {
+        "type": "string",
+        "format": "date"
+      }
+    },
+    "additionalProperties": true
+  },
+  "dictionnaire_donnees": {
+    "numero_version": "1.0.0",
+    "date_creation_version": "2026-08-08",
+    "date_mise_a_jour_version": "2026-08-08",
+    "champs": {
+      "metadata": "Identifie la nature, la portée, le schéma, la version et le statut du JSON.",
+      "Data": "Contenu fonctionnel du fichier.",
+      "dictionnaire_donnees": "Décrit la structure et le rôle des champs du JSON."
+    }
+  }
+}

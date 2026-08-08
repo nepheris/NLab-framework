@@ -1,0 +1,56 @@
+{
+  "metadata": {
+    "id": "NLAB_FRAMEWORK",
+    "json_type": "framework_definition",
+    "scope": "framework",
+    "schema_id": null,
+    "version": "1.0.0",
+    "status": "stable",
+    "date_creation": "2026-08-08",
+    "date_mise_a_jour": "2026-08-08"
+  },
+  "Data": {
+    "name": "framework nLab",
+    "architecture_status": "stable",
+    "implementation_status": "development",
+    "architecture_freeze_date": "2026-08-08",
+    "principles": [
+      "static_first",
+      "data_driven",
+      "mobile_first",
+      "provider_agnostic",
+      "visualization_engine_agnostic",
+      "configuration_driven",
+      "progressive_enhancement",
+      "accessibility_by_design",
+      "composable_by_default",
+      "runtime_agnostic",
+      "compute_decoupled",
+      "convention_over_configuration"
+    ],
+    "runtime": {
+      "primary_local_engine": "python",
+      "browser_runtime": "javascript",
+      "platform_launchers": [
+        "linux_sh",
+        "windows_bat",
+        "macos_sh"
+      ]
+    },
+    "defaults": {
+      "visualization_engine": "plotly",
+      "geo_engine": "leaflet",
+      "geo_basemap": "openstreetmap"
+    }
+  },
+  "dictionnaire_donnees": {
+    "numero_version": "1.0.0",
+    "date_creation_version": "2026-08-08",
+    "date_mise_a_jour_version": "2026-08-08",
+    "champs": {
+      "metadata": "Identifie la nature, la portée, le schéma, la version et le statut du JSON.",
+      "Data": "Contenu fonctionnel du fichier.",
+      "dictionnaire_donnees": "Décrit la structure et le rôle des champs du JSON."
+    }
+  }
+}

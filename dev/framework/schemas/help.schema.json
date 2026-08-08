@@ -1,0 +1,67 @@
+{
+  "metadata": {
+    "id": "SCH_HELP_FILE",
+    "json_type": "framework_schema",
+    "scope": "framework",
+    "schema_id": null,
+    "version": "1.0.0",
+    "status": "stable",
+    "date_creation": "2026-08-08",
+    "date_mise_a_jour": "2026-08-08"
+  },
+  "Data": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "SCH_HELP",
+    "title": "nLab contextual help",
+    "type": "object",
+    "properties": {
+      "help_id": {
+        "type": "string"
+      },
+      "inherit": {
+        "type": "boolean"
+      },
+      "content": {
+        "type": "object",
+        "properties": {
+          "purpose": {
+            "type": "string"
+          },
+          "usage": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "layers": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "identity",
+            "purpose",
+            "usage",
+            "data",
+            "source",
+            "template",
+            "renderer",
+            "responsive",
+            "dependencies",
+            "pipeline",
+            "diagnostics"
+          ]
+        }
+      }
+    },
+    "additionalProperties": true
+  },
+  "dictionnaire_donnees": {
+    "numero_version": "1.0.0",
+    "date_creation_version": "2026-08-08",
+    "date_mise_a_jour_version": "2026-08-08",
+    "champs": {
+      "metadata": "Identifie la nature, la portée, le schéma, la version et le statut du JSON.",
+      "Data": "Contenu fonctionnel du fichier.",
+      "dictionnaire_donnees": "Décrit la structure et le rôle des champs du JSON."
+    }
+  }
+}

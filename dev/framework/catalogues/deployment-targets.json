@@ -1,0 +1,47 @@
+{
+  "metadata": {
+    "id": "CAT_DEPLOYMENT_TARGETS",
+    "json_type": "framework_catalog",
+    "scope": "framework",
+    "schema_id": null,
+    "version": "1.0.0",
+    "status": "stable",
+    "date_creation": "2026-08-08",
+    "date_mise_a_jour": "2026-08-08"
+  },
+  "Data": {
+    "targets": [
+      {
+        "id": "DEPLOYMENT_STATIC",
+        "status": "stable"
+      },
+      {
+        "id": "DEPLOYMENT_LOCAL",
+        "status": "development"
+      },
+      {
+        "id": "DEPLOYMENT_SERVER",
+        "status": "planned"
+      },
+      {
+        "id": "DEPLOYMENT_PACKAGED",
+        "status": "planned"
+      }
+    ],
+    "offline_support": [
+      "none",
+      "partial",
+      "full"
+    ]
+  },
+  "dictionnaire_donnees": {
+    "numero_version": "1.0.0",
+    "date_creation_version": "2026-08-08",
+    "date_mise_a_jour_version": "2026-08-08",
+    "champs": {
+      "metadata": "Identifie la nature, la portée, le schéma, la version et le statut du JSON.",
+      "Data": "Contenu fonctionnel du fichier.",
+      "dictionnaire_donnees": "Décrit la structure et le rôle des champs du JSON."
+    }
+  }
+}

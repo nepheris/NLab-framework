@@ -1,0 +1,67 @@
+{
+  "metadata": {
+    "id": "NLAB_STRUCTURE",
+    "json_type": "framework_structure",
+    "scope": "framework",
+    "schema_id": null,
+    "version": "1.0.0",
+    "status": "stable",
+    "date_creation": "2026-08-08",
+    "date_mise_a_jour": "2026-08-08"
+  },
+  "Data": {
+    "framework_root": "dev/framework",
+    "layers": [
+      "core",
+      "environment",
+      "layout",
+      "data",
+      "analytics",
+      "visualization",
+      "geo",
+      "rendering",
+      "ui",
+      "ux",
+      "themes",
+      "components",
+      "modules",
+      "templates",
+      "routes",
+      "seo",
+      "help",
+      "catalogues",
+      "schemas",
+      "presets"
+    ],
+    "project_root": "dev/project",
+    "source_root": "dev/source",
+    "tools_root": "dev/tools",
+    "generated_root": "dev/generated",
+    "tests_root": "dev/tests",
+    "runtime_data_root": "data",
+    "dataset_convention": [
+      "manifest.json",
+      "input",
+      "source",
+      "processed",
+      "archive",
+      "quarantine"
+    ],
+    "separation_rule": {
+      "framework": "Mécanique et définitions génériques nLab.",
+      "project": "Configuration, thème, templates et extensions propres au site.",
+      "source": "Sources métier et datasets de référence.",
+      "runtime": "Artefacts générés et publiables consommés par le navigateur."
+    }
+  },
+  "dictionnaire_donnees": {
+    "numero_version": "1.0.0",
+    "date_creation_version": "2026-08-08",
+    "date_mise_a_jour_version": "2026-08-08",
+    "champs": {
+      "metadata": "Identifie la nature, la portée, le schéma, la version et le statut du JSON.",
+      "Data": "Contenu fonctionnel du fichier.",
+      "dictionnaire_donnees": "Décrit la structure et le rôle des champs du JSON."
+    }
+  }
+}
