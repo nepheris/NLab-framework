@@ -4,7 +4,7 @@
     "json_type": "framework_definition",
     "scope": "framework",
     "schema_id": null,
-    "version": "1.1.1",
+    "version": "1.1.2",
     "status": "stable",
     "date_creation": "2026-08-08",
     "date_mise_a_jour": "2026-08-09"
@@ -21,24 +21,25 @@
     "profiles": {
       "light":{"preset":"light","description":"Sites compacts, assistés par IA et peu chargés en mécanique métier."},
       "full":{"preset":"technical","description":"Sites métiers/documentaires structurés avec composants, données, génération et tests."},
-      "shadow_sage_full":{"preset":"shadow-sage-full","description":"Profil prêt à reproduire la grammaire visuelle Shadow Sage avec toolbar générique complète et fenêtres flottantes."}
+      "shadow_sage_full":{"preset":"shadow-sage-full","description":"Profil Shadow Sage complet avec palette générée depuis une couleur dominante, toolbar générique et fenêtres flottantes."}
     },
     "themes": {
       "shadow_soft":"themes/shadow-soft.json",
       "shadow_sage":"themes/shadow-sage.json"
     },
     "ui_component_pack": {
-      "version":"1.1.1",
+      "version":"1.1.2",
       "source_experience":"MadaNotes",
       "business_neutral":true,
       "registry":"components/component-registry.json",
       "icons":"ui/icon-registry.json",
       "icon_runtime":["ui/icons.js","ui/icons-extended.js"],
       "themes":["themes/shadow-soft.json","themes/shadow-sage.json"],
+      "theme_palette_runtime":"themes/shadow-sage-palette.js",
       "toolbar":"components/toolbar-full.json",
       "floating_window":"components/floating-window.json",
       "contextual_help":"help/contextual-help.json"
     }
   },
-  "dictionnaire_donnees": {"numero_version":"1.1.1","date_creation_version":"2026-08-08","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Identifie la nature, la portée, le schéma, la version et le statut du JSON.","Data":"Contenu fonctionnel du framework et valeurs par défaut.","dictionnaire_donnees":"Décrit la structure et le rôle des champs du JSON."}}
+  "dictionnaire_donnees": {"numero_version":"1.1.2","date_creation_version":"2026-08-08","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Identifie la nature, la portée, le schéma, la version et le statut du JSON.","Data":"Contenu fonctionnel du framework et valeurs par défaut.","dictionnaire_donnees":"Décrit la structure et le rôle des champs du JSON."}}
 }
