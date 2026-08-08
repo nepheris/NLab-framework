@@ -1,48 +1,48 @@
 {
-  "metadata": {"id":"THEME_SHADOW_SAGE","json_type":"framework_theme","scope":"framework","schema_id":null,"version":"1.1.1","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09"},
+  "metadata": {"id":"THEME_SHADOW_SAGE","json_type":"framework_theme","scope":"framework","schema_id":null,"version":"1.1.2","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09"},
   "Data": {
     "name":"nLab Shadow Sage",
-    "description":"Thème visuel générique à surfaces claires, ombres douces, vert sauge profond et accent ambre. Reproduction fidèle de la grammaire visuelle validée sur le site de référence, sans dépendance métier.",
-    "palette": {
+    "description":"Thème visuel générique à surfaces claires, ombres douces et palette dérivée automatiquement d'une couleur dominante. Le profil par défaut reproduit le rendu historique vert, mais la dominante peut être remplacée par un alias ou une couleur HEX.",
+    "palette_mode":"derived_from_dominant",
+    "dominant_color":{
+      "default":"green",
+      "default_hex":"#216E51",
+      "accepted":"alias_or_hex",
+      "aliases":{"green":"#216E51","blue":"#316D9A","purple":"#6D4C91","pink":"#A34F78","red":"#A1453F","orange":"#B86B2E","teal":"#24756E","indigo":"#4D5A96"},
+      "generator":"shadow-sage-palette.js"
+    },
+    "derived_palette": {
+      "primary":"dominant hue, saturation >= 38%, lightness clamped 30-46%",
+      "soft":"dominant hue, saturation 32%, lightness 94%",
+      "accent":"dominant hue - 120 degrees, saturation 70%, lightness 57%",
+      "control":"dominant hue, saturation 10%, lightness 51%",
+      "control_hover":"primary",
+      "control_hover_bg":"soft",
+      "background":"dominant hue, saturation 16%, lightness 96%",
+      "line":"dominant hue, saturation 16%, lightness 88%",
+      "ink":"dominant hue, saturation 22%, lightness 12%",
+      "muted":"dominant hue, saturation 8%, lightness 41%",
+      "surface":"#FFFFFF",
+      "danger":"#A1453F",
+      "info":"#316D9A"
+    },
+    "default_resolved_palette": {
       "background":"#F3F6F4",
       "surface":"#FFFFFF",
       "ink":"#17231C",
       "muted":"#637067",
       "line":"#DBE3DD",
-      "brand":"#216E51",
-      "brand_soft":"#E9F4EE",
+      "primary":"#216E51",
+      "soft":"#E9F4EE",
       "accent":"#E9A53A",
-      "blue":"#316D9A",
-      "danger":"#A1453F",
-      "control_idle":"#7D8981",
+      "control":"#7D8981",
       "control_hover":"#216E51",
       "control_hover_bg":"#E9F4EE"
     },
-    "geometry": {
-      "content_width_desktop":"80vw",
-      "content_width_mobile":"calc(100% - 28px)",
-      "radius_card":"18px",
-      "radius_control":"10px",
-      "radius_panel":"16px",
-      "hero_max_height":"25vh",
-      "hero_radius":"18px"
-    },
-    "effects": {
-      "shadow_soft":"0 8px 28px rgba(21,42,29,.07)",
-      "shadow_panel":"0 16px 45px rgba(17,35,24,.18)",
-      "hero_gradient":"radial-gradient(circle at 82% 18%,rgba(233,165,58,.18),transparent 28%), radial-gradient(circle at 15% 78%,rgba(33,110,81,.14),transparent 34%)",
-      "header_background":"rgba(243,246,244,.96)",
-      "header_blur":"10px"
-    },
-    "behavioral_style": {
-      "controls":"monochrome_svg_currentColor",
-      "idle_to_hover":"muted_to_brand",
-      "hero_alignment":"main_content_width",
-      "hero_overflow":"hidden",
-      "header_style":"sticky_seamless",
-      "surface_style":"soft_shadow"
-    },
-    "rules":["content_is_centered","desktop_content_targets_80_percent","hero_matches_primary_content_width","hero_inside_existing_container_uses_100_percent","hero_has_four_rounded_corners","header_is_not_hero","controls_use_svg_currentColor","project_may_override_all_tokens"]
+    "geometry": {"content_width_desktop":"80vw","content_width_mobile":"calc(100% - 28px)","radius_card":"18px","radius_control":"10px","radius_panel":"16px","hero_max_height":"25vh","hero_radius":"18px"},
+    "effects": {"shadow_soft":"0 8px 28px rgba(21,42,29,.07)","shadow_panel":"0 16px 45px rgba(17,35,24,.18)","hero_gradient":"derived accent + derived primary radial gradients","header_blur":"10px"},
+    "behavioral_style": {"controls":"monochrome_svg_currentColor","idle_to_hover":"control_to_primary","hero_alignment":"main_content_width","hero_overflow":"hidden","header_style":"sticky_seamless","surface_style":"soft_shadow"},
+    "rules":["content_is_centered","desktop_content_targets_80_percent","hero_matches_primary_content_width","hero_inside_existing_container_uses_100_percent","hero_has_four_rounded_corners","header_is_not_hero","controls_use_svg_currentColor","dominant_color_regenerates_theme_palette","project_may_override_all_tokens"]
   },
-  "dictionnaire_donnees":{"numero_version":"1.1.1","date_creation_version":"2026-08-09","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Métadonnées nLab.","Data":"Palette, géométrie, effets et règles du thème Shadow Sage.","dictionnaire_donnees":"Description des champs."}}
+  "dictionnaire_donnees":{"numero_version":"1.1.2","date_creation_version":"2026-08-09","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Métadonnées nLab.","Data":"Configuration du thème Shadow Sage, couleur dominante, règles de dérivation, géométrie et effets.","dictionnaire_donnees":"Description des champs."}}
 }
