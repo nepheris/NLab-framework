@@ -1,0 +1,11 @@
+{
+  "metadata":{"id":"COMP_DATA_EDITOR","json_type":"framework_component","scope":"framework","version":"1.2.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09"},
+  "Data":{
+    "name":"nLab Data Editor",
+    "views":["form","structured","table","control","publication","formatted","raw_json","preview","config"],
+    "features":["registry_selector","record_navigation","record_search","status_dots","new_duplicate_delete","dirty_state","save","download","reference_resolution","field_help","array_editing","reorder","image_preview","image_selection","url_state","table_sort","table_query","column_visibility","sticky_columns"],
+    "data_contract":{"collection_detection":"config_first_then_fallback","id_field":"configurable","label_field":"configurable","reference_indexes":"configurable","dictionary_help":"supported"},
+    "rules":["views_share_one_canonical_state","business_reference_maps_are_project_config","resolved_labels_are_display_only","raw_json_and_structured_views_edit_same_data","save_adapter_is_provider_specific"]
+  },
+  "dictionnaire_donnees":{"numero_version":"1.2.0","date_creation_version":"2026-08-09","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Métadonnées nLab.","Data":"Contrat de l'éditeur générique multi-vues.","dictionnaire_donnees":"Description des champs."}}
+}
