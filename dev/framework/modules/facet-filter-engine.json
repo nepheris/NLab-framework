@@ -1,0 +1,5 @@
+{
+  "metadata":{"id":"NLAB_FACET_FILTER_ENGINE","json_type":"module_definition","scope":"framework","schema_id":null,"version":"1.3.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09"},
+  "Data":{"purpose":"Appliquer des filtres à facettes configurables avec logique booléenne explicite.","default_boolean_model":{"within_group":"OR","between_groups":"AND"},"group_contract":{"id":"string","field":"string","operator":"OR|AND","values":"array","empty_behavior":"ignore|match_none"},"supported_predicates":["equals","contains","in","range","date_range","exists","text"],"execution":["normalize_query","build_predicates","apply_groups","recalculate_result_set","sort","paginate"],"guarantees":["new_search_resets_previous_result_state","all_active_groups_are_recomputed","ui_labels_come_from_taxonomy_or_configuration"],"integration":["taxonomy_engine","search_engine","data_editor"]},
+  "dictionnaire_donnees":{"numero_version":"1.3.0","date_creation_version":"2026-08-09","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Identité et version.","Data":"Moteur de filtres à facettes.","dictionnaire_donnees":"Documentation."}}
+}
