@@ -1,39 +1,19 @@
 {
-  "metadata": {
-    "id": "NLAB_STRUCTURE",
-    "json_type": "framework_structure",
-    "scope": "framework",
-    "schema_id": null,
-    "version": "1.1.0",
-    "status": "stable",
-    "date_creation": "2026-08-08",
-    "date_mise_a_jour": "2026-08-09"
+  "metadata":{"id":"NLAB_STRUCTURE","json_type":"framework_structure","scope":"framework","schema_id":null,"version":"1.3.0","status":"stable","date_creation":"2026-08-08","date_mise_a_jour":"2026-08-09"},
+  "Data":{
+    "framework_root":"dev/framework",
+    "layers":["core","environment","layout","data","analytics","visualization","geo","rendering","ui","ux","themes","components","modules","templates","routes","seo","help","catalogues","schemas","presets"],
+    "project_root":"dev/project",
+    "source_root":"dev/source",
+    "tools_root":"dev/tools",
+    "generated_root":"dev/generated",
+    "tests_root":"dev/tests",
+    "runtime_data_root":"data",
+    "dataset_convention":["manifest.json","input","source","processed","archive","quarantine"],
+    "composition_order":["framework","preset","theme","template","components","project_configuration","business_data"],
+    "implemented_in_1_1_0":{"components":"components/component-registry.json","icons":"ui/icon-registry.json","theme":"themes/shadow-soft.json","help":"help/contextual-help.json","presets":["presets/light.json","presets/technical.json"],"templates":["templates/home-dashboard.json","templates/technical-sheet.json"]},
+    "implemented_in_1_3_0":{"core":["core/resource-registry.json","core/path-resolver.json"],"data":["data/taxonomy-engine.json","data/relation-model.json"],"modules":["modules/directory-explorer.json","modules/facet-filter-engine.json","modules/build-report.json"],"environment":["environment/runtime-modes.json"]},
+    "separation_rule":{"framework":"Mécanique et définitions génériques nLab.","project":"Configuration, thème dérivé, templates personnalisés et extensions propres au site.","source":"Sources métier et datasets de référence.","runtime":"Artefacts générés et publiables consommés par le navigateur."}
   },
-  "Data": {
-    "framework_root": "dev/framework",
-    "layers": ["core","environment","layout","data","analytics","visualization","geo","rendering","ui","ux","themes","components","modules","templates","routes","seo","help","catalogues","schemas","presets"],
-    "project_root": "dev/project",
-    "source_root": "dev/source",
-    "tools_root": "dev/tools",
-    "generated_root": "dev/generated",
-    "tests_root": "dev/tests",
-    "runtime_data_root": "data",
-    "dataset_convention": ["manifest.json","input","source","processed","archive","quarantine"],
-    "composition_order": ["framework","preset","theme","template","components","project_configuration","business_data"],
-    "implemented_in_1_1_0": {
-      "components": "components/component-registry.json",
-      "icons": "ui/icon-registry.json",
-      "theme": "themes/shadow-soft.json",
-      "help": "help/contextual-help.json",
-      "presets": ["presets/light.json","presets/technical.json"],
-      "templates": ["templates/home-dashboard.json","templates/technical-sheet.json"]
-    },
-    "separation_rule": {
-      "framework": "Mécanique et définitions génériques nLab.",
-      "project": "Configuration, thème dérivé, templates personnalisés et extensions propres au site.",
-      "source": "Sources métier et datasets de référence.",
-      "runtime": "Artefacts générés et publiables consommés par le navigateur."
-    }
-  },
-  "dictionnaire_donnees": {"numero_version":"1.1.0","date_creation_version":"2026-08-08","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Identifie la nature, la portée, le schéma, la version et le statut du JSON.","Data":"Structure physique et ordre de composition du framework.","dictionnaire_donnees":"Décrit la structure et le rôle des champs du JSON."}}
+  "dictionnaire_donnees":{"numero_version":"1.3.0","date_creation_version":"2026-08-08","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Identifie la nature, la portée, le schéma, la version et le statut du JSON.","Data":"Structure physique et ordre de composition du framework.","dictionnaire_donnees":"Décrit la structure et le rôle des champs du JSON."}}
 }
