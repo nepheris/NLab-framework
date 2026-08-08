@@ -1,0 +1,5 @@
+{
+  "metadata":{"id":"PRESET_LIGHT","json_type":"framework_preset","scope":"framework","schema_id":null,"version":"1.1.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09"},
+  "Data":{"name":"nLab Light","purpose":"Sites compacts et assistés par IA avec un minimum de mécanique projet.","theme":"shadow-soft","components":["header_navigation","footer","hero","floating_toolbar","foldable","contextual_help","document_list"],"generation_mode":"template_assisted","business_modules_optional":true,"upgrade_path":"framework_full"},
+  "dictionnaire_donnees":{"numero_version":"1.1.0","date_creation_version":"2026-08-09","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Métadonnées nLab.","Data":"Configuration du preset Light.","dictionnaire_donnees":"Description des champs."}}
+}
