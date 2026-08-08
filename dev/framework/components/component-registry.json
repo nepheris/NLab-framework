@@ -4,7 +4,7 @@
     "json_type": "framework_component_registry",
     "scope": "framework",
     "schema_id": null,
-    "version": "1.1.1",
+    "version": "1.1.3",
     "status": "stable",
     "date_creation": "2026-08-09",
     "date_mise_a_jour": "2026-08-09"
@@ -20,16 +20,25 @@
       {"id":"contextual_help","category":"help","config_driven":true,"based_on":"floating_window","features":["panel","anchor","move","lock","resize_8_directions","reset","full_help","persistence"]},
       {"id":"document_list","category":"documents","config_driven":true,"features":["open","download","source","type","language","status"]},
       {"id":"document_table","category":"documents","config_driven":true,"features":["open","download","source","type","language","status"]},
-      {"id":"kpi_grid","category":"data_display","config_driven":true,"features":["responsive_grid","label","value","status"]}
+      {"id":"repository_document_browser","category":"documents","config_driven":true,"features":["repository_tree","prefix_filter","extension_filter","regex_filter","empty_state","refresh"]},
+      {"id":"document_viewer","category":"documents","config_driven":true,"features":["safe_url_validation","embedded_view","open_original","fallback_message"]},
+      {"id":"kpi_grid","category":"data_display","config_driven":true,"features":["responsive_grid","label","value","status","compact_variant"]},
+      {"id":"tabs","category":"navigation","config_driven":true,"features":["aria_selected","tabpanel","responsive_wrap"]},
+      {"id":"form_field","category":"forms","config_driven":true,"features":["label","help_text","readonly","select","password_action","validation_state"]},
+      {"id":"semantic_badge","category":"status","config_driven":true,"features":["info","warning","danger","success","beta","priority"]},
+      {"id":"theme_configurator","category":"themes","config_driven":true,"features":["preset_palette","named_alias","custom_hex","live_preview","dominant_color_derivation"]}
     ],
+    "pattern_registry":"pattern-registry.json",
     "rules": [
       "A component contains generic rendering and behavior only. Business names, data and project-specific links stay outside the framework.",
       "Floating panels specialize floating_window instead of duplicating move, resize, lock, dock or persistence mechanics.",
-      "Toolbar starts from a maximal generic action set; projects disable unused actions and may inject project actions through extension slots."
+      "Toolbar starts from a maximal generic action set; projects disable unused actions and may inject project actions through extension slots.",
+      "Templates expose a dominant theme color and may offer preset palettes plus free HEX input.",
+      "Repository document discovery is provider/config driven; repository identity never lives in the component."
     ]
   },
   "dictionnaire_donnees": {
-    "numero_version": "1.1.1",
+    "numero_version": "1.1.3",
     "date_creation_version": "2026-08-09",
     "date_mise_a_jour_version": "2026-08-09",
     "champs": {"metadata":"Métadonnées nLab.","Data":"Registre des composants génériques.","dictionnaire_donnees":"Description des champs."}
