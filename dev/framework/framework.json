@@ -4,7 +4,7 @@
     "json_type": "framework_definition",
     "scope": "framework",
     "schema_id": null,
-    "version": "1.1.0",
+    "version": "1.1.1",
     "status": "stable",
     "date_creation": "2026-08-08",
     "date_mise_a_jour": "2026-08-09"
@@ -18,8 +18,27 @@
     "runtime": {"primary_local_engine":"python","browser_runtime":"javascript","platform_launchers":["linux_sh","windows_bat","macos_sh"]},
     "defaults": {"visualization_engine":"plotly","geo_engine":"leaflet","geo_basemap":"openstreetmap","theme":"shadow-soft","preset":"light"},
     "composition_model": ["framework","preset","theme","template","components","project_configuration","business_data"],
-    "profiles": {"light":{"preset":"light","description":"Sites compacts, assistés par IA et peu chargés en mécanique métier."},"full":{"preset":"technical","description":"Sites métiers/documentaires structurés avec composants, données, génération et tests."}},
-    "ui_component_pack": {"version":"1.1.0","source_experience":"MadaNotes","business_neutral":true,"registry":"components/component-registry.json","icons":"ui/icon-registry.json","theme":"themes/shadow-soft.json","contextual_help":"help/contextual-help.json"}
+    "profiles": {
+      "light":{"preset":"light","description":"Sites compacts, assistés par IA et peu chargés en mécanique métier."},
+      "full":{"preset":"technical","description":"Sites métiers/documentaires structurés avec composants, données, génération et tests."},
+      "shadow_sage_full":{"preset":"shadow-sage-full","description":"Profil prêt à reproduire la grammaire visuelle Shadow Sage avec toolbar générique complète et fenêtres flottantes."}
+    },
+    "themes": {
+      "shadow_soft":"themes/shadow-soft.json",
+      "shadow_sage":"themes/shadow-sage.json"
+    },
+    "ui_component_pack": {
+      "version":"1.1.1",
+      "source_experience":"MadaNotes",
+      "business_neutral":true,
+      "registry":"components/component-registry.json",
+      "icons":"ui/icon-registry.json",
+      "icon_runtime":["ui/icons.js","ui/icons-extended.js"],
+      "themes":["themes/shadow-soft.json","themes/shadow-sage.json"],
+      "toolbar":"components/toolbar-full.json",
+      "floating_window":"components/floating-window.json",
+      "contextual_help":"help/contextual-help.json"
+    }
   },
-  "dictionnaire_donnees": {"numero_version":"1.1.0","date_creation_version":"2026-08-08","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Identifie la nature, la portée, le schéma, la version et le statut du JSON.","Data":"Contenu fonctionnel du framework et valeurs par défaut.","dictionnaire_donnees":"Décrit la structure et le rôle des champs du JSON."}}
+  "dictionnaire_donnees": {"numero_version":"1.1.1","date_creation_version":"2026-08-08","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Identifie la nature, la portée, le schéma, la version et le statut du JSON.","Data":"Contenu fonctionnel du framework et valeurs par défaut.","dictionnaire_donnees":"Décrit la structure et le rôle des champs du JSON."}}
 }
