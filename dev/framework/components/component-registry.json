@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "id": "NLAB_COMPONENT_REGISTRY",
+    "json_type": "framework_component_registry",
+    "scope": "framework",
+    "schema_id": null,
+    "version": "1.1.0",
+    "status": "stable",
+    "date_creation": "2026-08-09",
+    "date_mise_a_jour": "2026-08-09"
+  },
+  "Data": {
+    "components": [
+      {"id":"header_navigation","category":"navigation","config_driven":true,"features":["sticky","quick_links","hierarchical_menu","help_trigger","responsive"]},
+      {"id":"footer","category":"layout","config_driven":true,"features":["project_content","version_slot","links"]},
+      {"id":"hero","category":"layout","config_driven":true,"features":["compact","standard","media","dashboard","full","height_limit","content_width","radius","shadow","gradient"]},
+      {"id":"floating_toolbar","category":"ui","config_driven":true,"features":["anchor","move","lock","collapse","persistence","action_registry"]},
+      {"id":"foldable","category":"ui","config_driven":true,"features":["section","subsection","default_state","global_state_control","context_help"]},
+      {"id":"contextual_help","category":"help","config_driven":true,"features":["panel","anchor","move","lock","resize_8_directions","reset","full_help","persistence"]},
+      {"id":"document_list","category":"documents","config_driven":true,"features":["open","download","source","type","language","status"]},
+      {"id":"document_table","category":"documents","config_driven":true,"features":["open","download","source","type","language","status"]},
+      {"id":"kpi_grid","category":"data_display","config_driven":true,"features":["responsive_grid","label","value","status"]}
+    ],
+    "rule": "A component contains generic rendering and behavior only. Business names, data and project-specific links stay outside the framework."
+  },
+  "dictionnaire_donnees": {
+    "numero_version": "1.1.0",
+    "date_creation_version": "2026-08-09",
+    "date_mise_a_jour_version": "2026-08-09",
+    "champs": {"metadata":"Métadonnées nLab.","Data":"Registre des composants génériques.","dictionnaire_donnees":"Description des champs."}
+  }
+}
