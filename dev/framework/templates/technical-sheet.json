@@ -1,0 +1,5 @@
+{
+  "metadata":{"id":"TPL_TECHNICAL_SHEET","json_type":"framework_template","scope":"framework","schema_id":null,"version":"1.1.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09"},
+  "Data":{"name":"Technical Sheet","purpose":"Fiche technique/documentaire générique.","layout":["header_navigation","hero","identification","documents","maintenance_or_usage","references","contextual_help","footer","floating_toolbar"],"component_defaults":{"hero":{"variant":"compact","width":"content","max_height":"25vh","radius":"lg","shadow":"soft","gradient":"theme","foldable":false},"sections":{"foldable":true,"help":true},"documents":{"variant":"table"}},"business_slots":["title","subtitle","identification_data","documents","sections","references"]},
+  "dictionnaire_donnees":{"numero_version":"1.1.0","date_creation_version":"2026-08-09","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Métadonnées nLab.","Data":"Composition générique d'une fiche technique.","dictionnaire_donnees":"Description des champs."}}
+}
