@@ -4,7 +4,7 @@
     "json_type": "framework_definition",
     "scope": "framework",
     "schema_id": null,
-    "version": "1.1.2",
+    "version": "1.1.3",
     "status": "stable",
     "date_creation": "2026-08-08",
     "date_mise_a_jour": "2026-08-09"
@@ -18,6 +18,7 @@
     "runtime": {"primary_local_engine":"python","browser_runtime":"javascript","platform_launchers":["linux_sh","windows_bat","macos_sh"]},
     "defaults": {"visualization_engine":"plotly","geo_engine":"leaflet","geo_basemap":"openstreetmap","theme":"shadow-soft","preset":"light"},
     "composition_model": ["framework","preset","theme","template","components","project_configuration","business_data"],
+    "template_theme_rule": "Templates expose a dominant color selector. Projects may use a predefined palette, named alias or custom HEX; the selected theme derives dependent visual tokens automatically.",
     "profiles": {
       "light":{"preset":"light","description":"Sites compacts, assistés par IA et peu chargés en mécanique métier."},
       "full":{"preset":"technical","description":"Sites métiers/documentaires structurés avec composants, données, génération et tests."},
@@ -25,21 +26,25 @@
     },
     "themes": {
       "shadow_soft":"themes/shadow-soft.json",
-      "shadow_sage":"themes/shadow-sage.json"
+      "shadow_sage":"themes/shadow-sage.json",
+      "palette_presets":"themes/theme-palette-presets.json"
     },
     "ui_component_pack": {
-      "version":"1.1.2",
+      "version":"1.1.3",
       "source_experience":"MadaNotes",
       "business_neutral":true,
       "registry":"components/component-registry.json",
+      "pattern_registry":"components/pattern-registry.json",
       "icons":"ui/icon-registry.json",
       "icon_runtime":["ui/icons.js","ui/icons-extended.js"],
       "themes":["themes/shadow-soft.json","themes/shadow-sage.json"],
       "theme_palette_runtime":"themes/shadow-sage-palette.js",
+      "theme_configurator":"themes/theme-configurator.js",
+      "theme_palette_presets":"themes/theme-palette-presets.json",
       "toolbar":"components/toolbar-full.json",
       "floating_window":"components/floating-window.json",
       "contextual_help":"help/contextual-help.json"
     }
   },
-  "dictionnaire_donnees": {"numero_version":"1.1.2","date_creation_version":"2026-08-08","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Identifie la nature, la portée, le schéma, la version et le statut du JSON.","Data":"Contenu fonctionnel du framework et valeurs par défaut.","dictionnaire_donnees":"Décrit la structure et le rôle des champs du JSON."}}
+  "dictionnaire_donnees": {"numero_version":"1.1.3","date_creation_version":"2026-08-08","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Identifie la nature, la portée, le schéma, la version et le statut du JSON.","Data":"Contenu fonctionnel du framework et valeurs par défaut.","dictionnaire_donnees":"Décrit la structure et le rôle des champs du JSON."}}
 }
