@@ -1,0 +1,5 @@
+{
+  "metadata":{"id":"NLAB_CONTEXTUAL_HELP","json_type":"framework_help_definition","scope":"framework","schema_id":null,"version":"1.1.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09"},
+  "Data":{"model":"context_to_panel_to_full_help","trigger":"help_id","fallback":"generic_component_help","panel":{"movable":true,"lockable":true,"resizable_edges":["n","ne","e","se","s","sw","w","nw"],"resettable":true,"persistent":true,"full_help_link":true},"rules":["help_binding_is_declarative","component_help_does_not_depend_on_visible_title_text","specific_help_overrides_generic_help"]},
+  "dictionnaire_donnees":{"numero_version":"1.1.0","date_creation_version":"2026-08-09","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Métadonnées nLab.","Data":"Contrat générique d'aide contextuelle.","dictionnaire_donnees":"Description des champs."}}
+}
