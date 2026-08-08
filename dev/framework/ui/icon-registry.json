@@ -1,0 +1,8 @@
+{
+  "metadata": {"id":"NLAB_ICON_REGISTRY","json_type":"framework_ui_registry","scope":"framework","schema_id":null,"version":"1.1.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09"},
+  "Data": {
+    "rendering_rule": "All interface/action icons use monochrome SVG with currentColor. Emojis are reserved for editorial/semantic content.",
+    "icons": ["anchor","help","lock","unlock","expand","collapse","default_state","reset","close","external_link","download","upload","menu","home","scroll_top","refresh","more","print","share","edit","fullscreen","filter"]
+  },
+  "dictionnaire_donnees": {"numero_version":"1.1.0","date_creation_version":"2026-08-09","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Métadonnées nLab.","Data":"Convention et noms fonctionnels des icônes SVG.","dictionnaire_donnees":"Description des champs."}}
+}
