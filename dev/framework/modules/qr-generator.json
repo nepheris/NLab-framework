@@ -1,0 +1,15 @@
+{
+  "metadata":{"id":"NLAB_QR_GENERATOR","json_type":"framework_module","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"2.5.0","introduced_in":"2.5.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_QR_GENERATOR","category":"export","tags":["qr","export","browser","python"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"],"dependencies":["NLAB_ICON_REGISTRY","NLAB_BUTTON_REGISTRY","NLAB_THEME_REGISTRY"]},
+  "Data":{
+    "purpose":"Contrat unique de génération de QR code pour rendu statique local et génération dynamique navigateur.",
+    "source_modes":["page_url","url","field","custom"],
+    "render_modes":["svg","canvas"],
+    "runtime_strategy":{"browser":"registered_encoder_adapter","local":"python_generator_adapter"},
+    "config":{"source":{"mode":"page_url","value":null},"size":256,"error_correction":"M","quiet_zone":4,"foreground":"theme.primary","background_mode":"solid","background":"theme.surface","module_shape":"square","eye_shape":"square","logo":{"enabled":false,"source":null,"scale":0.18,"monochrome":false,"color":"theme.primary"},"download_formats":["svg","png"]},
+    "theme_binding":{"foreground":"semantic token or explicit color","background":"semantic token or explicit color","logo_color":"semantic token or explicit color"},
+    "validation":{"scanability_check":true,"warn_on_low_contrast":true,"warn_on_large_logo":true},
+    "api":{"browser_global":"NLabQR","methods":["registerEncoder(name,adapter)","render(target,config)","resolveSource(config,context)"]},
+    "rules":["Business URLs are supplied by project configuration or runtime context.","Static and browser generators consume the same logical configuration.","No third-party encoder is silently fetched by the framework core.","SVG is preferred for lightweight scalable output when supported by the encoder."]
+  },
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"Le module définit un contrat commun statique/dynamique; l'encodeur QR concret est fourni par un adaptateur enregistré."}
+}
