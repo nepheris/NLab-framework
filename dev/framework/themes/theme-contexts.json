@@ -1,15 +1,16 @@
 {
-  "metadata":{"id":"NLAB_THEME_CONTEXTS","json_type":"framework_theme_registry","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"1.0.0","introduced_in":"1.11.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_THEME_CONTEXTS","category":"themes","tags":["themes","contexts","public","workspace"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"]},
+  "metadata":{"id":"NLAB_THEME_CONTEXTS","json_type":"framework_theme_registry","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"1.1.0","introduced_in":"1.11.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_THEME_CONTEXTS","category":"themes","tags":["themes","contexts","public","workspace"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"]},
   "Data":{
     "purpose":"Assigner des thèmes ou variantes de thème différents selon le contexte d'expérience sans dupliquer les définitions de thème.",
     "contexts":[
-      {"id":"public","theme":"theme_registry.default_theme","dominant_color":null,"overrides":{}},
-      {"id":"workspace","theme":"inherit:public","dominant_color":null,"overrides":{}},
-      {"id":"private","theme":"inherit:workspace","dominant_color":null,"overrides":{}},
-      {"id":"dev","theme":"inherit:workspace","dominant_color":null,"overrides":{}}
+      {"id":"public","theme":"theme_registry.default_theme","dominant_color":null,"overrides":{},"semantic_overlays":[]},
+      {"id":"workspace","theme":"inherit:public","dominant_color":null,"overrides":{},"semantic_overlays":["data_editor"]},
+      {"id":"private","theme":"inherit:workspace","dominant_color":null,"overrides":{},"semantic_overlays":["data_editor"]},
+      {"id":"dev","theme":"inherit:workspace","dominant_color":null,"overrides":{},"semantic_overlays":["data_editor"]}
     ],
-    "resolution_order":["theme_definition","context_theme","context_dominant_color","context_overrides","runtime_user_overrides"],
-    "rules":["A context may reuse the same theme with a different dominant color.","A context may select another registered theme.","Theme definitions remain canonical in theme-registry; contexts only reference them.","Public and personal/workspace presentation may differ without duplicating components or business data."]
+    "semantic_overlays":{"data_editor":"data-editor-semantic-theme.json"},
+    "resolution_order":["theme_definition","context_theme","context_dominant_color","context_overrides","semantic_overlays","runtime_user_overrides"],
+    "rules":["A context may reuse the same theme with a different dominant color.","A context may select another registered theme.","Theme definitions remain canonical in theme-registry; contexts only reference them.","Semantic overlays provide functional colors without redefining the visual theme.","Public and personal/workspace presentation may differ without duplicating components or business data."]
   },
-  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"Permet notamment un thème public et un thème workspace/personnel distincts ou dérivés."}
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"V1.1 ajoute les overlays sémantiques, notamment les couleurs fonctionnelles de l'éditeur de données."}
 }
