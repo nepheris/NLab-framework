@@ -1,14 +1,20 @@
 #!/usr/bin/env python3
 """nLab framework governance validator.
 
-Checks canonical sources, metadata V2 adoption and cross-registry references.
-Legacy V1 metadata is a warning by default and an error with --strict.
+Validates canonical sources, metadata V2, JSON Schemas when jsonschema is
+available, and cross-registry references. Legacy V1 metadata is a warning by
+default and an error with --strict.
 """
 from __future__ import annotations
 
 import argparse
 import json
 from pathlib import Path
+
+try:
+    from jsonschema import Draft202012Validator, RefResolver
+except Exception:  # optional dependency
+    Draft202012Validator = RefResolver = None
 
 ROOT = Path(__file__).resolve().parents[2]
 FW = ROOT / "dev" / "framework"
@@ -24,13 +30,25 @@ def walk_json():
 
 
 def collect_ids(path: Path, key: str):
-    data = load(path).get("Data", {})
-    items = data.get(key, [])
+    items = load(path).get("Data", {}).get(key, [])
     return {x.get("id") for x in items if isinstance(x, dict) and x.get("id")}
 
 
 def add(report, level, code, path, message):
     report[level].append({"code": code, "path": str(path.relative_to(ROOT)), "message": message})
+
+
+def load_schema_store():
+    registry = load(FW / "catalogues" / "schema-registry.json").get("Data", {}).get("schemas", [])
+    store, paths = {}, {}
+    for entry in registry:
+        p = (FW / "catalogues" / entry["path"]).resolve()
+        doc = load(p)
+        schema = doc["Data"]
+        store[entry["id"]] = schema
+        store[schema.get("$id", entry["id"])] = schema
+        paths[entry["id"]] = p
+    return store, paths
 
 
 def main():
@@ -53,16 +71,20 @@ def main():
     icons = set(load(FW / "ui" / "icon-registry.json").get("Data", {}).get("icons", []))
     components = {x.get("id") for x in load(FW / "components" / "component-registry.json").get("Data", {}).get("components", []) if x.get("id")}
     themes = {x.get("id") for x in load(FW / "themes" / "theme-registry.json").get("Data", {}).get("themes", []) if x.get("id")}
-    schemas = {x.get("id") for x in load(FW / "catalogues" / "schema-registry.json").get("Data", {}).get("schemas", []) if x.get("id")}
+    schema_ids = collect_ids(FW / "catalogues" / "schema-registry.json", "schemas")
+    schema_store, _ = load_schema_store()
 
     default_theme = load(FW / "themes" / "theme-registry.json").get("Data", {}).get("default_theme")
     if default_theme not in themes:
         add(report, "errors", "default_theme_unknown", FW / "themes" / "theme-registry.json", str(default_theme))
 
+    if Draft202012Validator is None:
+        add(report, "warnings", "jsonschema_unavailable", manifest_path, "pip install jsonschema for full schema validation")
+
     seen_meta_ids = {}
     required_v2 = {"id", "json_type", "scope", "schema_id", "artifact_version", "introduced_in", "status", "date_creation", "date_mise_a_jour", "visibility", "supported_runtime_modes"}
 
-    def check_button_refs(node, path):
+    def check_refs(node, path):
         if isinstance(node, dict):
             for k, v in node.items():
                 if k == "button_id" and isinstance(v, str) and v not in buttons:
@@ -78,10 +100,10 @@ def main():
                         cid = x.get("component") if isinstance(x, dict) else None
                         if cid and cid not in components:
                             add(report, "errors", "component_unknown", path, cid)
-                check_button_refs(v, path)
+                check_refs(v, path)
         elif isinstance(node, list):
             for x in node:
-                check_button_refs(x, path)
+                check_refs(x, path)
 
     for path, obj in walk_json():
         md = obj.get("metadata") if isinstance(obj, dict) else None
@@ -95,32 +117,34 @@ def main():
             seen_meta_ids[mid] = str(path.relative_to(ROOT))
 
         missing = required_v2 - set(md)
-        if missing:
-            level = "errors" if args.strict else "warnings"
-            add(report, level, "metadata_v1_legacy", path, "missing: " + ", ".join(sorted(missing)))
-        if md.get("schema_id") is None:
-            level = "errors" if "artifact_version" in md else "warnings"
-            add(report, level, "schema_missing", path, "schema_id is null")
-        elif md.get("schema_id") not in schemas and md.get("json_type") != "framework_schema":
-            add(report, "errors", "schema_unknown", path, str(md.get("schema_id")))
+        legacy = bool(missing)
+        if legacy:
+            add(report, "errors" if args.strict else "warnings", "metadata_v1_legacy", path, "missing: " + ", ".join(sorted(missing)))
+        schema_id = md.get("schema_id")
+        if schema_id is None:
+            add(report, "errors" if "artifact_version" in md else "warnings", "schema_missing", path, "schema_id is null")
+        elif schema_id not in schema_ids and md.get("json_type") != "framework_schema":
+            add(report, "errors", "schema_unknown", path, str(schema_id))
+
         if "version" in md:
             add(report, "warnings", "legacy_version_field", path, "use metadata.artifact_version")
         if obj.get("Data", {}).get("framework_version") and path != manifest_path:
             add(report, "errors", "duplicate_framework_version", path, "framework_version must exist only in framework-manifest.json")
-        check_button_refs(obj, path)
 
-    result = {
-        "framework_version": manifest["Data"]["framework_version"],
-        "status": "FAIL" if report["errors"] else "PASS",
-        "counts": {k: len(v) for k, v in report.items()},
-        **report,
-    }
+        if not legacy and Draft202012Validator is not None and schema_id in schema_store:
+            schema = schema_store[schema_id]
+            resolver = RefResolver.from_schema(schema, store=schema_store)
+            for err in Draft202012Validator(schema, resolver=resolver).iter_errors(obj):
+                where = "/".join(map(str, err.absolute_path)) or "root"
+                add(report, "errors", "schema_validation", path, f"{where}: {err.message}")
+
+        check_refs(obj, path)
+
+    result = {"framework_version": manifest["Data"]["framework_version"], "status": "FAIL" if report["errors"] else "PASS", "counts": {k: len(v) for k, v in report.items()}, **report}
     text = json.dumps(result, ensure_ascii=False, indent=2)
     print(text)
     if args.json_out:
-        out = Path(args.json_out)
-        out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(text + "\n", encoding="utf-8")
+        out = Path(args.json_out);out.parent.mkdir(parents=True, exist_ok=True);out.write_text(text + "\n", encoding="utf-8")
     raise SystemExit(1 if report["errors"] else 0)
 
 
