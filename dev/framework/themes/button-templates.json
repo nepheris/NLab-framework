@@ -1,17 +1,17 @@
 {
-  "metadata":{"id":"NLAB_BUTTON_TEMPLATES","json_type":"framework_theme_registry","scope":"framework","schema_id":null,"version":"1.5.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09"},
+  "metadata":{"id":"NLAB_BUTTON_TEMPLATES","json_type":"framework_theme_registry","scope":"framework","schema_id":"SCH_THEME","artifact_version":"2.0.0","introduced_in":"1.5.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_BUTTON_TEMPLATES","category":"themes","tags":["buttons","tokens"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"],"dependencies":["NLAB_DESIGN_TOKENS"]},
   "Data":{
-    "purpose":"Bibliothèque de styles de boutons indépendante des actions fonctionnelles.",
+    "purpose":"Styles de boutons indépendants des actions fonctionnelles; toutes les valeurs visuelles référencent des tokens sémantiques.",
     "templates":[
-      {"id":"button-minimal","shape":"rounded","icon_only":false,"border":"subtle","surface":"transparent","hover":"surface_hover","active":"surface_active","focus":"focus_ring","disabled":"muted","sizes":["xs","sm","md","lg"]},
-      {"id":"button-icon","shape":"rounded","icon_only":true,"border":"none","surface":"transparent","hover":"surface_hover","active":"surface_active","focus":"focus_ring","disabled":"muted","sizes":["sm","md","lg"]},
-      {"id":"button-solid","shape":"rounded","icon_only":false,"border":"none","surface":"accent","hover":"accent_hover","active":"accent_active","focus":"focus_ring","disabled":"muted","sizes":["sm","md","lg"]},
-      {"id":"button-outline","shape":"rounded","icon_only":false,"border":"accent","surface":"transparent","hover":"accent_soft","active":"accent_soft_active","focus":"focus_ring","disabled":"muted","sizes":["sm","md","lg"]},
-      {"id":"button-pill","shape":"pill","icon_only":false,"border":"subtle","surface":"surface","hover":"surface_hover","active":"surface_active","focus":"focus_ring","disabled":"muted","sizes":["sm","md","lg"]}
+      {"id":"button-minimal","shape_token":"radius.md","icon_only":false,"border_token":"color.border","surface_token":"transparent","hover_surface_token":"color.surface_hover","text_token":"color.control","hover_text_token":"color.control_hover","focus_token":"color.focus","disabled_token":"color.text_muted","sizes":["xs","sm","md","lg"]},
+      {"id":"button-icon","shape_token":"radius.md","icon_only":true,"border_token":"transparent","surface_token":"transparent","hover_surface_token":"color.control_hover_bg","text_token":"color.control","hover_text_token":"color.control_hover","focus_token":"color.focus","disabled_token":"color.text_muted","sizes":["sm","md","lg"]},
+      {"id":"button-solid","shape_token":"radius.md","icon_only":false,"border_token":"transparent","surface_token":"color.brand","hover_surface_token":"color.accent","text_token":"color.surface","focus_token":"color.focus","disabled_token":"color.text_muted","sizes":["sm","md","lg"]},
+      {"id":"button-outline","shape_token":"radius.md","icon_only":false,"border_token":"color.brand","surface_token":"transparent","hover_surface_token":"color.brand_soft","text_token":"color.brand","focus_token":"color.focus","disabled_token":"color.text_muted","sizes":["sm","md","lg"]},
+      {"id":"button-pill","shape_token":"radius.pill","icon_only":false,"border_token":"color.border","surface_token":"color.surface","hover_surface_token":"color.surface_hover","text_token":"color.text","focus_token":"color.focus","disabled_token":"color.text_muted","sizes":["sm","md","lg"]}
     ],
     "state_contract":["default","hover","focus","active","pressed","disabled","loading","selected","danger"],
-    "icon_rule":"Les SVG utilisent currentColor afin que couleur normale, hover, active, selected et disabled proviennent du template/thème.",
-    "customization_rule":"Un projet peut sélectionner un template existant ou ajouter un template de boutons dérivé sans modifier le button-registry."
+    "icon_rule":"SVG icons use currentColor; state colors come from tokens.",
+    "customization_rule":"Projects select or derive templates without changing button-registry or action semantics."
   },
-  "dictionnaire_donnees":{"numero_version":"1.5.0","date_creation_version":"2026-08-09","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Métadonnées nLab.","Data":"Styles et états visuels des boutons.","dictionnaire_donnees":"Description des champs."}}
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_THEME","note":"Les tokens visuels sont définis dans design-tokens.json."}
 }
