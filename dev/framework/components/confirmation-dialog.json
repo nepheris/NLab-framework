@@ -1,13 +1,5 @@
 {
-  "metadata":{"id":"COMP_CONFIRMATION_DIALOG","json_type":"framework_component_config","scope":"framework","schema_id":null,"version":"1.5.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09"},
-  "Data":{
-    "component":"confirmation_dialog",
-    "purpose":"Boîte de dialogue générique pour confirmation, alerte et choix utilisateur.",
-    "variants":["confirm","warning","danger","choice","form"],
-    "features":["modal","focus_trap","escape_policy","keyboard_navigation","primary_secondary_actions","optional_details","remember_choice"],
-    "button_registry":"../ui/button-registry.json",
-    "default_buttons":{"confirm":"confirm","cancel":"cancel","delete":"delete"},
-    "rules":["Destructive actions require explicit confirmation unless a project policy disables it.","Danger styling is semantic and independent from the site accent color.","Primary action order remains consistent across the framework."]
-  },
-  "dictionnaire_donnees":{"numero_version":"1.5.0","date_creation_version":"2026-08-09","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Métadonnées nLab.","Data":"Configuration des dialogues de confirmation et choix.","dictionnaire_donnees":"Description des champs."}}
+  "metadata":{"id":"COMP_CONFIRMATION_DIALOG","json_type":"framework_component_config","scope":"framework","schema_id":"SCH_COMPONENT","artifact_version":"2.0.0","introduced_in":"1.5.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_CONFIRMATION_DIALOG","category":"feedback","tags":["dialog","confirmation","modal"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"],"dependencies":["NLAB_BUTTON_REGISTRY","NLAB_DESIGN_TOKENS"]},
+  "Data":{"component":"confirmation_dialog","purpose":"Boîte de dialogue générique pour confirmation, alerte et choix utilisateur.","variants":["confirm","warning","danger","choice","form"],"features":["modal","focus_trap","escape_policy","keyboard_navigation","primary_secondary_actions","optional_details","remember_choice"],"button_ids":["confirm","cancel","delete"],"default_action_map":{"confirm":"confirm","cancel":"cancel","delete":"delete"},"token_bindings":{"surface":"color.surface","text":"color.text","border":"color.border","focus":"color.focus","danger":"color.danger","warning":"color.warning"},"rules":["Destructive actions require explicit confirmation unless project policy explicitly changes it.","Danger styling is semantic and independent from brand color.","Primary action order remains consistent across the framework."]},
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_COMPONENT","note":"Boutons et couleurs sémantiques proviennent des sources canoniques."}
 }
