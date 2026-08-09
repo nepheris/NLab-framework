@@ -1,5 +1,69 @@
 {
-  "metadata":{"id":"NLAB_RUNTIME_MODES","json_type":"framework_environment","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"2.0.0","introduced_in":"1.3.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_RUNTIME_MODES","category":"environment","tags":["runtime","static","local","production"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"]},
-  "Data":{"purpose":"Déclarer les capacités et contraintes des environnements d'exécution sans les disperser dans les modules.","modes":{"static":{"description":"HTML/CSS/JS publiable ou ouvrable sans serveur lorsque les fonctionnalités le permettent.","network_required":false,"local_server_required":false,"fetch_local_json":"avoid_or_inline","relative_links":true},"local":{"description":"Serveur local léger pour modules nécessitant fetch, routing ou données runtime.","network_required":false,"local_server_required":true,"fetch_local_json":"supported","relative_links":true},"production":{"description":"Hébergement web/publication.","network_required":"optional_by_project","local_server_required":false,"fetch_local_json":"supported","relative_links":"preferred"}},"experience_axis":"experience-modes.json","module_contract":{"supported_modes":"metadata.supported_runtime_modes","required_capabilities":"array","degraded_behavior":"string|null"},"rules":["Runtime mode and experience mode are independent axes.","Static first when feasible.","Modules declare runtime requirements.","No silent mode incompatibility."]},
-  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"Source canonique des modes runtime."}
+  "metadata": {
+    "id": "NLAB_RUNTIME_MODES",
+    "json_type": "framework_environment",
+    "scope": "framework",
+    "schema_id": "SCH_ARTIFACT",
+    "artifact_version": "2.1.0",
+    "introduced_in": "1.3.0",
+    "status": "stable",
+    "date_creation": "2026-08-09",
+    "date_mise_a_jour": "2026-08-09",
+    "help_id": "HELP_RUNTIME_MODES",
+    "category": "environment",
+    "tags": ["runtime", "static", "local", "production"],
+    "visibility": ["public", "dev"],
+    "supported_runtime_modes": ["static", "local", "production"]
+  },
+  "Data": {
+    "purpose": "Déclarer les capacités et contraintes des environnements d'exécution sans les disperser dans les modules.",
+    "primary_mode": "static",
+    "modes": {
+      "static": {
+        "description": "HTML/CSS/JS publiable sans backend obligatoire; le build produit les données runtime nécessaires sous forme embarquée ou de fichiers statiques.",
+        "network_required": false,
+        "local_server_required": false,
+        "fetch_local_json": "avoid_or_inline",
+        "relative_links": true,
+        "persistence": "build_time_or_none"
+      },
+      "local": {
+        "description": "Serveur local léger pour développement, fetch, modules et diagnostics nécessitant HTTP.",
+        "network_required": false,
+        "local_server_required": true,
+        "fetch_local_json": "supported",
+        "relative_links": true,
+        "persistence": "adapter_dependent"
+      },
+      "production": {
+        "description": "Hébergement web statique ou dynamique. Le backend de données est choisi indépendamment de ce mode.",
+        "network_required": "optional_by_project",
+        "local_server_required": false,
+        "fetch_local_json": "supported",
+        "relative_links": "preferred",
+        "persistence": "adapter_dependent"
+      }
+    },
+    "independent_axes": {
+      "experience": "experience-modes.json",
+      "data_backend_key": "data_access_contract"
+    },
+    "module_contract": {
+      "supported_modes": "metadata.supported_runtime_modes",
+      "required_capabilities": "array",
+      "degraded_behavior": "string|null"
+    },
+    "rules": [
+      "Runtime mode and experience mode are independent axes.",
+      "Runtime mode and data backend are independent axes.",
+      "Static is the primary delivery mode and must remain fully functional when selected capabilities allow it.",
+      "Dynamic data access is added through adapters rather than alternate UI implementations.",
+      "Modules declare runtime requirements.",
+      "No silent mode incompatibility."
+    ]
+  },
+  "dictionnaire_donnees": {
+    "generated_from_schema": "SCH_ARTIFACT",
+    "note": "Source canonique des modes runtime; le backend de données est défini séparément."
+  }
 }
