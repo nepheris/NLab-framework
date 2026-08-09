@@ -3,65 +3,81 @@
     "id": "SCH_HELP_FILE",
     "json_type": "framework_schema",
     "scope": "framework",
-    "schema_id": null,
-    "version": "1.0.0",
+    "schema_id": "SCH_SCHEMA_FILE",
+    "artifact_version": "2.0.0",
+    "introduced_in": "1.6.1",
     "status": "stable",
     "date_creation": "2026-08-08",
-    "date_mise_a_jour": "2026-08-08"
+    "date_mise_a_jour": "2026-08-09",
+    "help_id": "HELP_SCHEMA_HELP",
+    "category": "schema",
+    "tags": ["help", "schema", "contextual-help"],
+    "visibility": ["dev"],
+    "supported_runtime_modes": ["local", "production"]
   },
   "Data": {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "SCH_HELP",
-    "title": "nLab contextual help",
+    "$id": "SCH_HELP_REGISTRY",
+    "title": "nLab contextual help registry",
     "type": "object",
+    "required": ["metadata", "Data", "dictionnaire_donnees"],
     "properties": {
-      "help_id": {
-        "type": "string"
-      },
-      "inherit": {
-        "type": "boolean"
-      },
-      "content": {
+      "metadata": {"type": "object"},
+      "Data": {
         "type": "object",
+        "required": ["defaults", "entries"],
         "properties": {
-          "purpose": {
-            "type": "string"
+          "defaults": {
+            "type": "object",
+            "required": ["public_panel_mode", "long_text_initial_state", "dev_overlay"],
+            "properties": {
+              "public_panel_mode": {"enum": ["short_only", "long_only", "short_then_long"]},
+              "long_text_initial_state": {"enum": ["collapsed", "expanded"]},
+              "dev_overlay": {"enum": ["hidden", "below_public", "separate_tab"]}
+            },
+            "additionalProperties": true
           },
-          "usage": {
-            "type": "string"
+          "entries": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["help_id", "public"],
+              "properties": {
+                "help_id": {"type": "string", "minLength": 1},
+                "public": {
+                  "type": "object",
+                  "required": ["short_text", "long_text"],
+                  "properties": {
+                    "short_text": {"type": "string", "minLength": 1},
+                    "long_text": {"type": "string", "minLength": 1}
+                  },
+                  "additionalProperties": false
+                },
+                "display": {
+                  "type": "object",
+                  "properties": {
+                    "panel_mode": {"enum": ["short_only", "long_only", "short_then_long"]},
+                    "long_text_initial_state": {"enum": ["collapsed", "expanded"]}
+                  },
+                  "additionalProperties": false
+                },
+                "dev_notes": {
+                  "type": "array",
+                  "items": {"type": "string"}
+                }
+              },
+              "additionalProperties": false
+            }
           }
         },
-        "additionalProperties": true
+        "additionalProperties": false
       },
-      "layers": {
-        "type": "array",
-        "items": {
-          "enum": [
-            "identity",
-            "purpose",
-            "usage",
-            "data",
-            "source",
-            "template",
-            "renderer",
-            "responsive",
-            "dependencies",
-            "pipeline",
-            "diagnostics"
-          ]
-        }
-      }
+      "dictionnaire_donnees": {"type": "object"}
     },
-    "additionalProperties": true
+    "additionalProperties": false
   },
   "dictionnaire_donnees": {
-    "numero_version": "1.0.0",
-    "date_creation_version": "2026-08-08",
-    "date_mise_a_jour_version": "2026-08-08",
-    "champs": {
-      "metadata": "Identifie la nature, la portée, le schéma, la version et le statut du JSON.",
-      "Data": "Contenu fonctionnel du fichier.",
-      "dictionnaire_donnees": "Décrit la structure et le rôle des champs du JSON."
-    }
+    "generated_from_schema": "SCH_SCHEMA_FILE",
+    "note": "Schéma canonique des contenus d’aide publique à deux niveaux; la documentation Dev est dérivée des métadonnées et schémas."
   }
 }
