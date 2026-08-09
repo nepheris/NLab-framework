@@ -1,83 +1,18 @@
 {
-  "metadata": {
-    "id": "NLAB_FRAMEWORK",
-    "json_type": "framework_definition",
-    "scope": "framework",
-    "schema_id": "SCH_ARTIFACT",
-    "artifact_version": "2.2.1",
-    "introduced_in": "1.0.0",
-    "status": "stable",
-    "date_creation": "2026-08-08",
-    "date_mise_a_jour": "2026-08-09",
-    "help_id": "HELP_FRAMEWORK",
-    "category": "core",
-    "tags": ["framework", "definition"],
-    "visibility": ["public", "dev"],
-    "supported_runtime_modes": ["static", "local", "production"],
-    "dependencies": ["NLAB_FRAMEWORK_MANIFEST", "NLAB_COMPOSITION_ENGINE", "NLAB_DESIGN_TOKENS", "NLAB_HELP_REGISTRY"]
+  "metadata":{"id":"NLAB_FRAMEWORK","json_type":"framework_definition","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"2.3.0","introduced_in":"1.0.0","status":"stable","date_creation":"2026-08-08","date_mise_a_jour":"2026-08-09","help_id":"HELP_FRAMEWORK","category":"core","tags":["framework","definition"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"],"dependencies":["NLAB_FRAMEWORK_MANIFEST","NLAB_COMPOSITION_ENGINE","NLAB_VALUE_RESOLUTION","NLAB_DATA_ACCESS_CONTRACT","NLAB_DESIGN_TOKENS","NLAB_HELP_REGISTRY"]},
+  "Data":{
+    "name":"framework nLab","manifest_key":"framework_manifest","canonical_sources":"framework-manifest.json#Data.canonical","architecture_status":"stable","implementation_status":"development",
+    "principles":["static_first","data_driven","mobile_first","provider_agnostic","storage_agnostic","visualization_engine_agnostic","configuration_driven","progressive_enhancement","accessibility_by_design","composable_by_default","runtime_agnostic","compute_decoupled","convention_over_configuration","stable_logical_ids","centralized_path_resolution","traceable_generation","standards_first_integrations","centralized_interaction_chrome","single_source_of_truth","schema_governed","metadata_driven_documentation","layered_contextual_help","explicit_override_without_duplication","editorial_technical_separation"],
+    "runtime":{"primary_local_engine":"python","browser_runtime":"javascript","platform_launchers":["linux_sh","windows_bat","macos_sh"],"runtime_modes_key":"runtime_modes","experience_modes_key":"experience_modes","data_access_key":"data_access_contract"},
+    "configuration":{"value_resolution_key":"value_resolution","resolvable_value_schema_key":"resolvable_value_schema","editorial_schema_key":"editorial_schema","rule":"Ordinary values stay simple; only automatically-derived values that need explicit forcing use the resolvable-value contract."},
+    "composition":{"engine_key":"composition_engine","order":["framework_defaults","preset","theme","template","components","project_configuration","business_data","experience_mode"]},
+    "registry_keys":["schema_registry","json_type_catalog","component_registry","icon_registry","button_registry","theme_registry","provider_registry","help_registry"],
+    "theme_keys":["design_tokens","theme_registry","theme_engine","button_templates"],
+    "documentation_keys":["help_contract","help_registry","auto_documentation"],
+    "governance_keys":["reference_validator"],
+    "data_keys":["data_access_contract","data_provider_catalog"],
+    "capability_groups":["ui_components","generic_infrastructure","scheduling_meetings","controls_feedback"],
+    "rules":["This definition describes framework behavior and principles, not canonical file paths.","Canonical paths are resolved exclusively through framework-manifest.json.","Component/module membership is resolved through registries rather than repeated pack file lists.","Visual defaults belong to themes/presets or their domain registry, not framework core.","Storage/backend details are isolated behind the data-access contract and adapters.","Project and business data never redefine framework registries.","Free editorial content belongs to project/source public data; technical framework files use only concise purpose/description/notes when needed."]
   },
-  "Data": {
-    "name": "framework nLab",
-    "manifest": "framework-manifest.json",
-    "canonical_sources": "framework-manifest.json#Data.canonical",
-    "architecture_status": "stable",
-    "implementation_status": "development",
-    "principles": [
-      "static_first",
-      "data_driven",
-      "mobile_first",
-      "provider_agnostic",
-      "visualization_engine_agnostic",
-      "configuration_driven",
-      "progressive_enhancement",
-      "accessibility_by_design",
-      "composable_by_default",
-      "runtime_agnostic",
-      "compute_decoupled",
-      "convention_over_configuration",
-      "stable_logical_ids",
-      "centralized_path_resolution",
-      "traceable_generation",
-      "standards_first_integrations",
-      "centralized_interaction_chrome",
-      "single_source_of_truth",
-      "schema_governed",
-      "metadata_driven_documentation",
-      "layered_contextual_help"
-    ],
-    "runtime": {
-      "primary_local_engine": "python",
-      "browser_runtime": "javascript",
-      "platform_launchers": ["linux_sh", "windows_bat", "macos_sh"],
-      "runtime_modes_key": "runtime_modes",
-      "experience_modes_key": "experience_modes"
-    },
-    "defaults": {
-      "visualization_engine": "plotly",
-      "geo_engine": "leaflet",
-      "geo_basemap": "openstreetmap",
-      "calendar_exchange": "ics",
-      "meeting_provider": "jitsi"
-    },
-    "composition": {
-      "engine_key": "composition_engine",
-      "order": ["framework_defaults", "preset", "theme", "template", "components", "project_configuration", "business_data", "experience_mode"]
-    },
-    "registry_keys": ["schema_registry", "component_registry", "icon_registry", "button_registry", "theme_registry", "provider_registry", "help_registry"],
-    "theme_keys": ["design_tokens", "theme_registry", "theme_engine", "button_templates"],
-    "documentation_keys": ["help_contract", "help_registry", "auto_documentation"],
-    "governance_keys": ["reference_validator"],
-    "capability_groups": ["ui_components", "generic_infrastructure", "scheduling_meetings", "controls_feedback"],
-    "rules": [
-      "This definition describes framework behavior and principles, not canonical file paths.",
-      "Canonical paths are resolved exclusively through framework-manifest.json.",
-      "Component/module membership is resolved through registries rather than repeated pack file lists.",
-      "Visual component defaults belong to the selected theme rather than framework core.",
-      "Project and business data never redefine framework registries."
-    ]
-  },
-  "dictionnaire_donnees": {
-    "generated_from_schema": "SCH_ARTIFACT",
-    "note": "La version et les chemins canoniques sont résolus exclusivement via framework-manifest.json; les choix visuels sont délégués aux thèmes."
-  }
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"Le core ne duplique plus les moteurs/providers par défaut; configuration, éditorial et backend sont résolus par leurs contrats canoniques."}
 }
