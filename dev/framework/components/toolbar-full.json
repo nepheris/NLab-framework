@@ -1,11 +1,12 @@
 {
-  "metadata":{"id":"COMP_TOOLBAR_FULL","json_type":"framework_component_config","scope":"framework","schema_id":"SCH_COMPONENT","artifact_version":"2.0.0","introduced_in":"1.1.1","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_TOOLBAR_FULL","category":"ui","tags":["toolbar","buttons","navigation"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"],"dependencies":["NLAB_BUTTON_REGISTRY","NLAB_BUTTON_TEMPLATES"]},
+  "metadata":{"id":"COMP_TOOLBAR_FULL","json_type":"framework_component_config","scope":"framework","schema_id":"SCH_COMPONENT","artifact_version":"2.1.0","introduced_in":"1.1.1","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_TOOLBAR_FULL","category":"ui","tags":["toolbar","buttons","navigation"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"],"dependencies":["NLAB_BUTTON_REGISTRY","NLAB_BUTTON_TEMPLATES"]},
   "Data":{
     "component":"floating_toolbar",
     "name":"nLab Full Toolbar",
     "strategy":"start_full_then_disable_per_project",
-    "button_registry":"../ui/button-registry.json",
-    "button_template":"button-icon",
+    "canonical_source":"../framework-manifest.json#Data.canonical",
+    "button_registry_key":"button_registry",
+    "visual_role":"toolbar",
     "default_position":"bottom_right",
     "capabilities":["move","lock","collapse","persistence","viewport_recovery"],
     "actions":[
@@ -14,7 +15,7 @@
       {"button_id":"help","enabled":true},{"button_id":"scroll_top","enabled":true},{"button_id":"scroll_bottom","enabled":true},{"button_id":"home","enabled":true},{"button_id":"back","enabled":true},{"button_id":"forward","enabled":false},{"button_id":"refresh","enabled":true},{"button_id":"search","enabled":false},{"button_id":"filter","enabled":false},{"button_id":"share","enabled":false},{"button_id":"print","enabled":false},{"button_id":"download","enabled":false},{"button_id":"upload","enabled":false},{"button_id":"edit","enabled":false},{"button_id":"save","enabled":false},{"button_id":"calendar","enabled":false},{"button_id":"meeting","enabled":false},{"button_id":"qr_code","enabled":false},{"button_id":"logs","enabled":false},{"button_id":"inspect","enabled":false,"experience":"dev"},{"button_id":"snapshot","enabled":false,"experience":"dev"},{"button_id":"smoke_test","enabled":false,"experience":"dev"},{"button_id":"fullscreen","enabled":false},{"button_id":"settings","enabled":false},{"button_id":"info","enabled":false},{"button_id":"reset","enabled":false},{"button_id":"lock","enabled":true},{"button_id":"more","enabled":true,"role":"collapse_toolbar"}
     ],
     "extension_slots":["before_primary","after_primary","before_lock","project_actions","dev_actions"],
-    "rules":["Toolbar stores only button IDs and local enable/role/experience options.","Icon, label, state icon and accessible action identity come from button-registry.","Projects disable unused actions or add registered actions without changing toolbar runtime."]
+    "rules":["Toolbar stores only semantic button IDs and local enable/role/experience options.","Icon, label, state icon and accessible action identity come from button-registry.","The selected theme owns the toolbar button template through component_defaults.toolbar.","Canonical registry paths are resolved through framework-manifest.json.","Projects disable unused actions or add registered actions without changing toolbar runtime."]
   },
-  "dictionnaire_donnees":{"generated_from_schema":"SCH_COMPONENT","note":"La toolbar ne duplique plus les icônes ni libellés des actions."}
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_COMPONENT","note":"La toolbar ne duplique ni icône, ni libellé, ni choix visuel de template de bouton."}
 }
