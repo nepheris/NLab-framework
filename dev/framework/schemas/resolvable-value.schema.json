@@ -1,0 +1,43 @@
+{
+  "metadata": {
+    "id": "SCH_RESOLVABLE_VALUE_FILE",
+    "json_type": "framework_schema",
+    "scope": "framework",
+    "schema_id": "SCH_SCHEMA_FILE",
+    "artifact_version": "1.0.0",
+    "introduced_in": "1.7.0",
+    "status": "stable",
+    "date_creation": "2026-08-09",
+    "date_mise_a_jour": "2026-08-09",
+    "help_id": "HELP_SCHEMA_RESOLVABLE_VALUE",
+    "visibility": ["dev"],
+    "supported_runtime_modes": ["static", "local", "production"]
+  },
+  "Data": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "SCH_RESOLVABLE_VALUE",
+    "title": "nLab resolvable configuration value",
+    "description": "Contrat optionnel pour les paramètres qui peuvent être calculés automatiquement mais forcés explicitement. Les champs ordinaires restent des valeurs simples.",
+    "type": "object",
+    "required": ["mode"],
+    "properties": {
+      "mode": {"enum": ["inherit", "auto", "override"]},
+      "auto_source": {"type": ["string", "null"], "description": "Identifiant logique de la source ou règle automatique; pas de copie de la valeur canonique."},
+      "override_value": {"description": "Valeur manuelle utilisée uniquement quand mode=override."},
+      "override_reason": {"type": ["string", "null"], "description": "Motif humain facultatif du forçage."},
+      "locked": {"type": "boolean", "default": false, "description": "Empêche un recalcul automatique de remplacer le choix explicite."},
+      "comment": {"type": ["string", "null"], "description": "Commentaire libre facultatif, non destiné à devenir une source technique canonique."}
+    },
+    "allOf": [
+      {
+        "if": {"properties": {"mode": {"const": "override"}}},
+        "then": {"required": ["override_value"]}
+      }
+    ],
+    "additionalProperties": false
+  },
+  "dictionnaire_donnees": {
+    "generated_from_schema": "SCH_SCHEMA_FILE",
+    "note": "Ce schéma est un fragment réutilisable; la valeur effective est calculée et n'est pas dupliquée dans la source canonique."
+  }
+}
