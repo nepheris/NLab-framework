@@ -4,7 +4,7 @@
     "json_type": "framework_help_definition",
     "scope": "framework",
     "schema_id": "SCH_ARTIFACT",
-    "artifact_version": "1.1.0",
+    "artifact_version": "1.1.1",
     "introduced_in": "1.6.0",
     "status": "stable",
     "date_creation": "2026-08-09",
@@ -18,11 +18,17 @@
   },
   "Data": {
     "purpose": "Produire l’aide et la documentation à partir de sources canoniques, en séparant le texte public éditorial des détails techniques générés.",
-    "sources": {
-      "public_editorial": "help/help-registry.json",
-      "technical": ["metadata", "schema", "component/module registry", "composition engine", "provider/theme registries", "runtime diagnostics"],
-      "optional_editorial_dev": "help-registry entry dev_notes"
+    "canonical_source": "../framework-manifest.json#Data.canonical",
+    "source_keys": {
+      "public_editorial": "help_registry",
+      "schemas": "schema_registry",
+      "components": "component_registry",
+      "composition": "composition_engine",
+      "themes": "theme_registry",
+      "providers": "provider_registry"
     },
+    "technical_sources": ["metadata", "schema", "component/module registry", "composition engine", "provider/theme registries", "runtime diagnostics"],
+    "optional_editorial_dev": "help-registry entry dev_notes",
     "generated_sections": {
       "public": ["short_text", "long_text"],
       "dev_overlay": ["identity", "source", "schema", "dependencies", "composition", "data_contract", "tokens", "providers", "runtime", "pipeline", "diagnostics"]
@@ -35,7 +41,7 @@
     },
     "index_fields": ["metadata.id", "metadata.json_type", "metadata.category", "metadata.tags", "metadata.status", "metadata.visibility", "metadata.help_id", "metadata.dependencies"],
     "help_resolution": {
-      "public_specific": "help-registry by metadata.help_id",
+      "public_specific": "help registry by metadata.help_id",
       "public_fallback": ["public-safe artifact summary", "generic component help"],
       "technical_facts": "metadata + schemas + registries",
       "no_duplicate_rule": "Technical facts are referenced and generated, never copied into public help entries."
@@ -46,7 +52,8 @@
       "Dev documentation extends public help instead of replacing it.",
       "A missing public editorial entry may use a safe fallback but must be reported by governance tooling.",
       "Generated technical documentation must always resolve back to canonical metadata, schemas and registries.",
-      "A help override can add explanation but cannot redefine version, dependencies, schema, source path or provider facts."
+      "A help override can add explanation but cannot redefine version, dependencies, schema, source path or provider facts.",
+      "Canonical paths are resolved from framework-manifest.json and are not repeated in documentation definitions."
     ]
   },
   "dictionnaire_donnees": {
