@@ -1,5 +1,5 @@
 {
-  "metadata":{"id":"NLAB_FIELD_RENDERERS","json_type":"framework_component","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"1.0.0","introduced_in":"1.11.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_FIELD_RENDERERS","category":"data","tags":["fields","renderers","forms","display"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"]},
+  "metadata":{"id":"NLAB_FIELD_RENDERERS","json_type":"framework_component","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"1.1.0","introduced_in":"1.11.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_FIELD_RENDERERS","category":"data","tags":["fields","renderers","forms","display"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"]},
   "Data":{
     "purpose":"Registre de présentation et d'édition des champs JSON partagé par éditeurs, formulaires, vues, recherche et exports.",
     "renderers":[
@@ -8,18 +8,21 @@
       {"id":"boolean","types":["boolean"],"display":["text","badge","icon"],"input":["checkbox","toggle"]},
       {"id":"date_time","types":["date","datetime","time"],"display":["localized","iso","dynamic_svg"],"input":["date","datetime-local","time"]},
       {"id":"currency","types":["number","string"],"display":["formatted","dynamic_svg"],"input":["number","text"]},
-      {"id":"reference","types":["string","array"],"display":["id","label","short_label","svg","image","image_label","badge"],"input":["select","autocomplete","chips","hierarchical_select","hybrid"]},
-      {"id":"link","types":["string","object"],"display":["text","label","button","image","icon","card"],"input":["url","link_object"]},
-      {"id":"image","types":["string","object"],"display":["thumbnail","preview","gallery","filename"],"input":["path","file_picker"]},
+      {"id":"reference","types":["string","array"],"display":["id","label","id_label","short_label","svg","image","image_label","badge","details"],"input":["select","autocomplete","chips","hierarchical_select","hybrid"]},
+      {"id":"link","types":["string","object"],"display":["text","url","label","button","image","icon","card","source_row"],"input":["url","link_object"]},
+      {"id":"image","types":["string","object"],"display":["thumbnail","preview","gallery","filename","path","preview_filename"],"input":["path","file_picker","file_picker_on_demand"]},
+      {"id":"media","types":["string","object","array"],"display":["filename","file_type","preview","card","gallery"],"input":["path","file_picker","media_object"]},
       {"id":"icon","types":["string","object"],"display":["svg","dynamic_svg_text","image"],"input":["icon_picker","text"]},
       {"id":"color","types":["string"],"display":["swatch","hex","swatch_label"],"input":["color","text"]},
       {"id":"array","types":["array"],"display":["list","chips","cards","table","gallery","tree"],"input":["repeatable","reorderable","hierarchical"]},
       {"id":"object","types":["object"],"display":["structured","card","table","raw"],"input":["subform","raw_json"]}
     ],
+    "reference_contract":{"stored_value":"id","display_modes":["id","label","id_label"],"default_display":"id_label","details_mode":"optional_expanded_reference_card","invalid_state":"raw_id_plus_invalid_semantic"},
     "link_contract":{"fields":["url","label","target","icon","image","title","description"],"target_values":["same_tab","new_tab","viewer"],"defaults":{"target":"new_tab","display":"label"}},
+    "media_contract":{"fields":["id","type_id","filename","url","alt","title","description"],"picker_behavior":"hidden_until_edit_action","preview_source":"resolved_url_or_local_object_url","persistent_path_update":"adapter_required"},
     "fallback_media":{"resolution_order":["record_image","category_image","parent_category_image","project_default_image","framework_default_placeholder"]},
     "resolution_order":["field_config","schema_format","dictionary_metadata","type_default"],
-    "rules":["Business-specific labels and values stay in project data.","The same field renderer identity may have different display variants by view or export profile.","Links use the shared link contract instead of ad-hoc HTML.","Reference labels are resolved for display only; stored IDs remain canonical when the project contract uses IDs.","Missing media follows the declared fallback hierarchy."]
+    "rules":["Business-specific labels and values stay in project data.","The same field renderer identity may have different display variants by view or export profile.","Links use the shared link contract instead of ad-hoc HTML.","Reference labels are resolved for display only; stored IDs remain canonical when the project contract uses IDs.","ID and human label may be shown together without duplicating the label into the canonical record.","Missing media follows the declared fallback hierarchy.","Selecting a local media file may preview it immediately; persistence/copying is delegated to an adapter."]
   },
-  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"Source commune des modes d'affichage et de saisie des champs structurés."}
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"V1.1 ajoute ID+libellé, détails de référence et édition média progressive."}
 }
