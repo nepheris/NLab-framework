@@ -1,0 +1,41 @@
+{
+  "metadata":{"id":"DEMO_STRUCTURED_DATA_CONFIG","version":"1.0.0","status":"demo"},
+  "Data": {
+    "collection":"items",
+    "id_field":"id",
+    "label_field":"name",
+    "id_display":{"default":"id_label","options":["id","label","id_label"]},
+    "search":{"default":"id_label","options":["id","label","id_label","all"]},
+    "references":{
+      "category_id":{"source":"categories","id_field":"id","label_field":"label","secondary_field":"short_label","hierarchical":true,"parent_field":"parent_id","icon_field":"icon"},
+      "status_id":{"source":"statuses","id_field":"id","label_field":"label","semantic_field":"semantic"},
+      "media.type_id":{"source":"media_types","id_field":"id","label_field":"label","icon_field":"icon"},
+      "related_ids":{"source":"items","id_field":"id","label_field":"name"}
+    },
+    "editor_theme":{
+      "resolved":"#70458b",
+      "temporary":"#a85d00",
+      "invalid":"#a63131",
+      "warning":"#9a7c12",
+      "neutral":"#6e716c",
+      "system":"#5f6f72",
+      "active":"#1f6b5c"
+    },
+    "fields":{
+      "id":{"renderer":"id","editable":false},
+      "name":{"renderer":"text","input_profile":"free"},
+      "short_text":{"renderer":"text","input_profile":"free"},
+      "long_text":{"renderer":"textarea","input_profile":"free"},
+      "category_id":{"renderer":"reference","input_profile":"hierarchical_single"},
+      "status_id":{"renderer":"reference","input_profile":"fixed_single"},
+      "priority":{"renderer":"number","input_profile":"free"},
+      "price":{"renderer":"object"},
+      "active":{"renderer":"boolean"},
+      "tags":{"renderer":"array","input_profile":"hybrid_multiple","allow_add":true,"allow_remove":true,"allow_reorder":true},
+      "links":{"renderer":"links","allow_add":true,"allow_remove":true,"allow_reorder":true},
+      "media":{"renderer":"media","allow_add":true,"allow_remove":true,"allow_reorder":true,"image_preview":true,"file_picker":true},
+      "metrics":{"renderer":"metrics","conditional":{"score":[{"op":"lt","value":40,"semantic":"invalid"},{"op":"lt","value":70,"semantic":"warning"},{"op":"gte","value":70,"semantic":"resolved"}]}},
+      "related_ids":{"renderer":"reference_array","input_profile":"fixed_multiple","allow_add":true,"allow_remove":true,"allow_reorder":true}
+    }
+  }
+}
