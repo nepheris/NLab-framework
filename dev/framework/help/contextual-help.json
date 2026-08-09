@@ -1,5 +1,65 @@
 {
-  "metadata":{"id":"NLAB_CONTEXTUAL_HELP","json_type":"framework_help_definition","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"2.0.0","introduced_in":"1.1.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_CONTEXTUAL_HELP","category":"help","tags":["help","context","documentation"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"],"dependencies":["COMP_FLOATING_WINDOW","NLAB_AUTO_DOCUMENTATION"]},
-  "Data":{"model":"context_to_panel_to_full_help","trigger":"metadata.help_id","fallback":"generated_artifact_help","compose":[{"component":"floating_window","preset":"help","slot":"body"}],"source_order":["metadata","schema","registry","specific_help_override"],"public_layers":["purpose","usage","status","related_resources"],"dev_layers":["identity","data","source","template","renderer","responsive","dependencies","composition","pipeline","diagnostics"],"rules":["Help binding is declarative.","Component help does not depend on visible title text.","Specific help overrides generated prose but not schema facts.","Technical facts are referenced from metadata/schema instead of copied.","Public mode hides dev diagnostics by default."]},
-  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"L'aide contextuelle consomme les sources canoniques d'auto-documentation."}
+  "metadata": {
+    "id": "NLAB_CONTEXTUAL_HELP",
+    "json_type": "framework_help_definition",
+    "scope": "framework",
+    "schema_id": "SCH_ARTIFACT",
+    "artifact_version": "2.1.0",
+    "introduced_in": "1.1.0",
+    "status": "stable",
+    "date_creation": "2026-08-09",
+    "date_mise_a_jour": "2026-08-09",
+    "help_id": "HELP_CONTEXTUAL_HELP",
+    "category": "help",
+    "tags": ["help", "context", "documentation", "public", "dev"],
+    "visibility": ["public", "dev"],
+    "supported_runtime_modes": ["static", "local", "production"],
+    "dependencies": ["COMP_FLOATING_WINDOW", "NLAB_HELP_REGISTRY", "NLAB_AUTO_DOCUMENTATION"]
+  },
+  "Data": {
+    "model": "public_help_plus_dev_overlay",
+    "trigger": "metadata.help_id",
+    "help_registry": "help-registry.json",
+    "compose": [
+      {"component": "floating_window", "preset": "help", "slot": "body"},
+      {"component": "foldable", "preset": "help_sections", "slot": "body"}
+    ],
+    "public": {
+      "always_available": true,
+      "text_levels": ["short_text", "long_text"],
+      "tooltip_source": "public.short_text",
+      "panel_modes": ["short_only", "long_only", "short_then_long"],
+      "default_panel_mode": "short_then_long",
+      "long_text_default_state": "collapsed",
+      "language_rule": "simple_user_facing_language",
+      "technical_details": "excluded"
+    },
+    "dev": {
+      "mode": "overlay_below_public",
+      "public_block_remains_visible": true,
+      "technical_source_order": ["metadata", "schema", "registries", "composition", "runtime_diagnostics", "optional_dev_notes"],
+      "sections": ["identity", "source", "schema", "dependencies", "composition", "data_contract", "tokens", "providers", "runtime", "pipeline", "diagnostics"],
+      "section_default_state": "collapsed",
+      "subsection_default_state": "collapsed",
+      "technical_facts_are_generated": true
+    },
+    "fallback": {
+      "public": ["help_registry_entry", "public_safe_artifact_summary", "generic_component_help"],
+      "dev": "generated_artifact_help"
+    },
+    "rules": [
+      "Help binding is declarative and based on metadata.help_id.",
+      "The public help block is the same in public and dev experiences.",
+      "Dev mode only adds a technical overlay; it never replaces public help.",
+      "short_text is suitable for hover tooltips and compact hints.",
+      "long_text is editorial content intended for a contextual help window.",
+      "Technical facts are referenced from metadata, schemas and registries instead of copied into help entries.",
+      "Specific public help may override wording and display preferences but not technical facts.",
+      "All Dev technical sections are collapsible to keep the panel readable."
+    ]
+  },
+  "dictionnaire_donnees": {
+    "generated_from_schema": "SCH_ARTIFACT",
+    "note": "L’aide publique comprend un niveau court et un niveau long; le mode Dev ajoute une surcouche technique générée."
+  }
 }
