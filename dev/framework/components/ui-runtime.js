@@ -239,6 +239,6 @@
     }
   }
 
-  window.NLabUI={boot,setFoldState,state};
+  window.NLabUI={boot,setFoldState,state,makeButton,buttonDef,setButtonState};
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>boot());else boot();
 })();
