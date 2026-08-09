@@ -1,0 +1,70 @@
+{
+  "metadata":{"id":"NLAB_DESIGN_TOKENS","json_type":"framework_theme_registry","scope":"framework","schema_id":"SCH_THEME","artifact_version":"1.0.0","introduced_in":"1.6.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_DESIGN_TOKENS","category":"themes","tags":["tokens","theme","design-system"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"]},
+  "Data":{
+    "purpose":"Source canonique de la sémantique visuelle nLab. Les thèmes surchargent des valeurs; les composants référencent uniquement des token_id.",
+    "tokens":{
+      "color":{
+        "background":{"css":"--nlab-bg","default":"#F7F8FA"},
+        "surface":{"css":"--nlab-surface","default":"#FFFFFF"},
+        "surface_hover":{"css":"--nlab-surface-hover","default":"#F1F3F5"},
+        "text":{"css":"--nlab-ink","default":"#17202A"},
+        "text_muted":{"css":"--nlab-muted","default":"#667085"},
+        "border":{"css":"--nlab-line","default":"#D8DEE6"},
+        "brand":{"css":"--nlab-brand","default":"#316D9A"},
+        "brand_soft":{"css":"--nlab-brand-soft","default":"#EAF2F8"},
+        "accent":{"css":"--nlab-accent","default":"#247B78"},
+        "control":{"css":"--nlab-control","default":"#667085"},
+        "control_hover":{"css":"--nlab-control-hover","default":"{color.brand}"},
+        "control_hover_bg":{"css":"--nlab-control-hover-bg","default":"{color.brand_soft}"},
+        "focus":{"css":"--nlab-focus","default":"{color.brand}"},
+        "success":{"css":"--nlab-success","default":"#2E7D5B"},
+        "info":{"css":"--nlab-info","default":"#316D9A"},
+        "warning":{"css":"--nlab-warning","default":"#B8682C"},
+        "danger":{"css":"--nlab-danger","default":"#A1453F"}
+      },
+      "typography":{
+        "font_family":{"css":"--nlab-font-family","default":"system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"},
+        "size_xs":{"css":"--nlab-font-xs","default":"0.75rem"},
+        "size_sm":{"css":"--nlab-font-sm","default":"0.875rem"},
+        "size_md":{"css":"--nlab-font-md","default":"1rem"},
+        "size_lg":{"css":"--nlab-font-lg","default":"1.125rem"},
+        "size_xl":{"css":"--nlab-font-xl","default":"1.5rem"},
+        "weight_normal":{"css":"--nlab-weight-normal","default":"400"},
+        "weight_medium":{"css":"--nlab-weight-medium","default":"500"},
+        "weight_bold":{"css":"--nlab-weight-bold","default":"700"}
+      },
+      "spacing":{
+        "xs":{"css":"--nlab-space-xs","default":"0.25rem"},
+        "sm":{"css":"--nlab-space-sm","default":"0.5rem"},
+        "md":{"css":"--nlab-space-md","default":"1rem"},
+        "lg":{"css":"--nlab-space-lg","default":"1.5rem"},
+        "xl":{"css":"--nlab-space-xl","default":"2rem"},
+        "xxl":{"css":"--nlab-space-xxl","default":"3rem"}
+      },
+      "radius":{
+        "sm":{"css":"--nlab-radius-sm","default":"6px"},
+        "md":{"css":"--nlab-radius-md","default":"10px"},
+        "lg":{"css":"--nlab-radius-lg","default":"18px"},
+        "pill":{"css":"--nlab-radius-pill","default":"999px"}
+      },
+      "shadow":{
+        "soft":{"css":"--nlab-shadow-soft","default":"0 8px 28px rgba(16,24,40,.07)"},
+        "medium":{"css":"--nlab-shadow-medium","default":"0 12px 34px rgba(16,24,40,.12)"},
+        "strong":{"css":"--nlab-shadow-strong","default":"0 18px 48px rgba(16,24,40,.18)"}
+      },
+      "motion":{
+        "fast":{"css":"--nlab-motion-fast","default":"120ms"},
+        "normal":{"css":"--nlab-motion-normal","default":"200ms"},
+        "slow":{"css":"--nlab-motion-slow","default":"320ms"}
+      },
+      "layout":{
+        "content_width":{"css":"--nlab-content-width","default":"80vw"},
+        "content_max":{"css":"--nlab-content-max","default":"1440px"},
+        "control_height":{"css":"--nlab-control-height","default":"40px"}
+      }
+    },
+    "component_token_groups":["buttons","forms","cards","tables","notifications","windows","toolbars","documents","qr","media"],
+    "rules":["Components consume semantic token IDs only.","Themes override token values, never token meaning.","Project configuration may override exposed tokens after the selected theme.","Semantic status colors remain distinct from the dominant brand color."]
+  },
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_THEME","note":"La description des tokens est portée ici; les thèmes ne doivent pas recopier leur sémantique."}
+}
