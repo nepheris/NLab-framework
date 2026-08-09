@@ -1,0 +1,17 @@
+{
+  "metadata":{"id":"SCH_ARTIFACT_FILE","json_type":"framework_schema","scope":"framework","schema_id":"SCH_SCHEMA_FILE","artifact_version":"1.0.0","introduced_in":"1.6.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_SCHEMA_ARTIFACT","visibility":["dev"],"supported_runtime_modes":["local","production"]},
+  "Data":{
+    "$schema":"https://json-schema.org/draft/2020-12/schema",
+    "$id":"SCH_ARTIFACT",
+    "title":"nLab JSON artifact envelope",
+    "type":"object",
+    "required":["metadata","Data","dictionnaire_donnees"],
+    "properties":{
+      "metadata":{"$ref":"SCH_METADATA"},
+      "Data":{"type":["object","array"]},
+      "dictionnaire_donnees":{"type":"object","required":["generated_from_schema"],"properties":{"generated_from_schema":{"type":"string","minLength":1},"note":{"type":"string"}},"additionalProperties":true}
+    },
+    "additionalProperties":false
+  },
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_SCHEMA_FILE","note":"Enveloppe commune; la structure de Data est spécialisée par le schéma de l'artefact."}
+}
