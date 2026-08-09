@@ -1,0 +1,21 @@
+{
+  "metadata":{"id":"MOD_REFERENCE_VALIDATOR","json_type":"framework_module","scope":"framework","schema_id":"SCH_MODULE","artifact_version":"1.0.0","introduced_in":"1.6.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_REFERENCE_VALIDATOR","category":"governance","tags":["validation","registry","references"],"visibility":["dev"],"supported_runtime_modes":["local","production"],"dependencies":["NLAB_SCHEMA_REGISTRY","NLAB_COMPONENT_REGISTRY","NLAB_ICON_REGISTRY","NLAB_BUTTON_REGISTRY","NLAB_THEME_REGISTRY"]},
+  "Data":{
+    "purpose":"Valider les références croisées avant build/release et empêcher les sources fantômes ou dupliquées.",
+    "supported_modes":["local","production"],
+    "checks":[
+      {"id":"schema_exists","field":"metadata.schema_id","registry":"catalogues/schema-registry.json","severity":"error"},
+      {"id":"button_exists","field_patterns":["button_id","button_ids","default_buttons"],"registry":"ui/button-registry.json","severity":"error"},
+      {"id":"icon_exists","field":"icon","registry":"ui/icon-registry.json","severity":"error"},
+      {"id":"component_exists","field_patterns":["component","compose[].component"],"registry":"components/component-registry.json","severity":"error"},
+      {"id":"theme_exists","field_patterns":["theme","default_theme"],"registry":"themes/theme-registry.json","severity":"error"},
+      {"id":"provider_exists","field_patterns":["provider","meeting_provider"],"registry":"catalogues/integration-providers.json","severity":"error"},
+      {"id":"help_binding","field":"metadata.help_id","registry":"help","severity":"warning"},
+      {"id":"deprecated_reference","registry":"all","severity":"warning"},
+      {"id":"duplicate_semantic_id","registry":"all","severity":"error"}
+    ],
+    "release_gate":{"errors_allowed":0,"warnings_allowed":"configurable","report":"build-report"},
+    "degraded_behavior":"Validation failures block a stable release but do not prevent opening legacy artifacts in dev migration mode."
+  },
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_MODULE","note":"Contrat de validation croisée; l'implémentation Python/CI peut évoluer sans modifier ces règles."}
+}
