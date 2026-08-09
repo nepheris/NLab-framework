@@ -1,0 +1,19 @@
+{
+  "metadata":{"id":"NLAB_INPUT_PROFILES","json_type":"framework_component","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"1.0.0","introduced_in":"1.11.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_INPUT_PROFILES","category":"forms","tags":["input","forms","search","autocomplete"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"]},
+  "Data":{
+    "purpose":"Profils de saisie partagés entre formulaires, recherche, éditeur de données et filtres.",
+    "profiles":[
+      {"id":"free","accept_custom":true,"suggestions":false,"multiple":false},
+      {"id":"suggested","accept_custom":true,"suggestions":true,"multiple":false},
+      {"id":"fixed_single","accept_custom":false,"suggestions":true,"multiple":false},
+      {"id":"fixed_multiple","accept_custom":false,"suggestions":true,"multiple":true},
+      {"id":"hybrid_single","accept_custom":true,"suggestions":true,"multiple":false,"create_new":true},
+      {"id":"hybrid_multiple","accept_custom":true,"suggestions":true,"multiple":true,"create_new":true},
+      {"id":"hierarchical_single","accept_custom":false,"suggestions":true,"multiple":false,"hierarchical":true},
+      {"id":"hierarchical_multiple","accept_custom":false,"suggestions":true,"multiple":true,"hierarchical":true}
+    ],
+    "behaviors":{"autocomplete":true,"keyboard_navigation":true,"token_chips_optional":true,"clearable_optional":true,"allow_new_value_per_profile":true},
+    "rules":["Search and forms reuse the same input profiles.","Whether a value is free, suggested, fixed or creatable is configuration, not custom code.","Hierarchical input delegates option structure to the hierarchical-options contract."]
+  },
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"Mutualise les comportements de saisie qui étaient auparavant dispersés entre recherche et formulaires."}
+}
