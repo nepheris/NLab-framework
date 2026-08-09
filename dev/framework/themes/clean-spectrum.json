@@ -1,14 +1,5 @@
 {
-  "metadata":{"id":"THEME_CLEAN_SPECTRUM","json_type":"framework_theme","scope":"framework","version":"1.2.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09"},
-  "Data":{
-    "name":"nLab Clean Spectrum",
-    "description":"Thème clair à surfaces blanches, typographie sobre, dominante configurable et spectre sémantique distinct pour états et références.",
-    "dominant_color":{"mode":"configurable","default":"#176B87","accepted":["preset","alias","hex"],"derived":["accent","accent_dark","accent_soft","focus"]},
-    "base":{"background":"#FFFFFF","surface":"#FFFFFF","ink":"#243238","muted":"#5F6F72","border":"#DCE8E4"},
-    "semantic_spectrum":{"green":"#1F6B5C","purple":"#70458B","orange":"#A85D00","red":"#A63131","grey":"#6E716C"},
-    "geometry":{"container":"1320px","radius_small":".55rem","radius_medium":".9rem","radius_large":"1.2rem","radius_pill":"999px","tap_target":"44px"},
-    "effects":{"shadow":"0 8px 26px rgba(22,60,54,.10)","shadow_strong":"0 15px 38px rgba(18,62,66,.16)"},
-    "rules":["dominant_color_is_project_configurable","semantic_state_colors_remain_distinct","focus_is_high_visibility","light_surface_first","mobile_grid_collapses_progressively"]
-  },
-  "dictionnaire_donnees":{"numero_version":"1.2.0","date_creation_version":"2026-08-09","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Métadonnées nLab.","Data":"Palette, géométrie, effets et règles du thème Clean Spectrum.","dictionnaire_donnees":"Description des champs."}}
+  "metadata":{"id":"THEME_CLEAN_SPECTRUM","json_type":"framework_theme","scope":"framework","schema_id":"SCH_THEME","artifact_version":"2.0.0","introduced_in":"1.2.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_THEME_CLEAN_SPECTRUM","category":"themes","tags":["light","clean","accessible"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"],"dependencies":["NLAB_DESIGN_TOKENS","NLAB_THEME_PALETTE_PRESETS"]},
+  "Data":{"name":"nLab Clean Spectrum","description":"Thème clair sobre avec contraste élevé et spectre sémantique distinct.","dominant_color":"#176B87","token_overrides":{"color.background":"#FFFFFF","color.surface":"#FFFFFF","color.text":"#243238","color.text_muted":"#5F6F72","color.border":"#DCE8E4","color.success":"#1F6B5C","color.warning":"#A85D00","color.danger":"#A63131","layout.content_max":"1320px","layout.control_height":"44px","radius.sm":"0.55rem","radius.md":"0.9rem","radius.lg":"1.2rem","radius.pill":"999px","shadow.soft":"0 8px 26px rgba(22,60,54,.10)","shadow.medium":"0 15px 38px rgba(18,62,66,.16)"},"component_defaults":{"controls":{"focus_token":"color.focus"},"cards":{"shadow_token":"shadow.soft"},"toolbar":{"button_template":"button-outline"}},"rules":["dominant_color_is_configurable","semantic_state_colors_remain_distinct","focus_is_high_visibility","light_surface_first","mobile_grid_collapses_progressively"]},
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_THEME","note":"Les valeurs visuelles utilisent les tokens sémantiques communs."}
 }
