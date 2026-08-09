@@ -3,8 +3,8 @@
 
 Validates canonical sources, metadata V2, JSON Schemas when jsonschema is
 available, cross-registry references, layered-help coverage and selected
-single-source-of-truth rules. Only the bootstrap manifest path is fixed;
-canonical registries are resolved from framework-manifest.json.
+single-source-of-truth rules. Legacy V1 debt is summarized in normal mode and
+becomes actionable errors with --strict.
 """
 from __future__ import annotations
 
@@ -68,11 +68,12 @@ def duplicate_values(values):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--strict", action="store_true", help="treat migration warnings as errors")
+    ap.add_argument("--strict", action="store_true", help="treat migration debt as errors")
     ap.add_argument("--json", dest="json_out", help="write report JSON to this path")
     args = ap.parse_args()
 
     report = {"errors": [], "warnings": [], "info": []}
+    legacy_files = []
     manifest = load(MANIFEST_PATH)
     canonical = manifest["Data"]["canonical"]
 
@@ -159,15 +160,17 @@ def main():
         missing = required_v2 - set(md)
         legacy = bool(missing)
         if legacy:
-            add(report, "errors" if args.strict else "warnings", "metadata_v1_legacy", path, "missing: " + ", ".join(sorted(missing)))
-        schema_id = md.get("schema_id")
-        if schema_id is None:
-            add(report, "errors" if "artifact_version" in md else "warnings", "schema_missing", path, "schema_id is null")
-        elif schema_id not in schema_ids and md.get("json_type") != "framework_schema":
-            add(report, "errors", "schema_unknown", path, str(schema_id))
+            rel = str(path.relative_to(ROOT))
+            legacy_files.append({"path": rel, "missing": sorted(missing), "legacy_version": md.get("version")})
+            if args.strict:
+                add(report, "errors", "metadata_v1_legacy", path, "missing: " + ", ".join(sorted(missing)))
+        else:
+            schema_id = md.get("schema_id")
+            if not schema_id:
+                add(report, "errors", "schema_missing", path, "schema_id is required by Metadata V2")
+            elif schema_id not in schema_ids and md.get("json_type") != "framework_schema":
+                add(report, "errors", "schema_unknown", path, str(schema_id))
 
-        if "version" in md:
-            add(report, "warnings", "legacy_version_field", path, "use metadata.artifact_version")
         if obj.get("Data", {}).get("framework_version") and path != MANIFEST_PATH:
             add(report, "errors", "duplicate_framework_version", path, "framework_version must exist only in framework-manifest.json")
 
@@ -179,11 +182,13 @@ def main():
 
         if path.name == "toolbar-full.json":
             for action in obj.get("Data", {}).get("actions", []):
-                if isinstance(action, dict) and ("icon" in action or "label" in action):
+                if isinstance(action, dict) and ("icon" in action or "label" in action or "button_template" in action):
                     add(report, "errors", "toolbar_duplicates_button_chrome", path, str(action))
+            if "button_template" in obj.get("Data", {}):
+                add(report, "errors", "toolbar_owns_visual_template", path, "button template must be selected by the theme")
 
-        if not legacy and Draft202012Validator is not None and schema_id in schema_store:
-            schema = schema_store[schema_id]
+        if not legacy and Draft202012Validator is not None and md.get("schema_id") in schema_store:
+            schema = schema_store[md["schema_id"]]
             resolver = RefResolver.from_schema(schema, store=schema_store)
             for err in Draft202012Validator(schema, resolver=resolver).iter_errors(obj):
                 where = "/".join(map(str, err.absolute_path)) or "root"
@@ -191,13 +196,25 @@ def main():
 
         check_refs(obj, path)
 
+    # Source hygiene: public help wording must not be embedded in templates/runtime.
+    for path in sorted(FW.rglob("*")):
+        if path.suffix.lower() not in {".html", ".js"} or not path.is_file():
+            continue
+        text = path.read_text(encoding="utf-8")
+        if "data-help-text=" in text:
+            add(report, "errors", "embedded_help_text", path, "use data-help-id and canonical help-registry instead")
+
     for help_id in sorted(help_ids - used_help_ids):
         add(report, "warnings", "unused_help_entry", help_path, help_id)
+
+    if legacy_files and not args.strict:
+        add(report, "warnings", "legacy_metadata_summary", MANIFEST_PATH, f"{len(legacy_files)} legacy Metadata V1 artifact(s) remain; run --strict for per-file migration errors")
 
     result = {
         "framework_version": manifest["Data"]["framework_version"],
         "status": "FAIL" if report["errors"] else "PASS",
         "counts": {k: len(v) for k, v in report.items()},
+        "migration_debt": {"legacy_v1_count": len(legacy_files), "legacy_v1_files": legacy_files},
         **report,
     }
     text = json.dumps(result, ensure_ascii=False, indent=2)
