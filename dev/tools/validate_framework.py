@@ -1,25 +1,28 @@
 #!/usr/bin/env python3
 """nLab framework governance validator.
 
-Validates canonical sources, metadata V2, JSON Schemas when jsonschema is
-available, cross-registry references, layered-help coverage and selected
-single-source-of-truth rules. Legacy V1 debt is summarized in normal mode and
-becomes actionable errors with --strict.
+Validates canonical sources, metadata V2, JSON Schemas, cross-registry
+references, layered-help coverage and selected single-source-of-truth rules.
+Legacy V1 debt is summarized in normal mode and becomes actionable errors
+with --strict.
 """
 from __future__ import annotations
 
 import argparse
 import json
+import re
 from pathlib import Path
 
 try:
-    from jsonschema import Draft202012Validator, RefResolver
+    from jsonschema import Draft202012Validator
+    from referencing import Registry, Resource
 except Exception:  # optional dependency
-    Draft202012Validator = RefResolver = None
+    Draft202012Validator = Registry = Resource = None
 
 ROOT = Path(__file__).resolve().parents[2]
 FW = ROOT / "dev" / "framework"
 MANIFEST_PATH = FW / "framework-manifest.json"
+HELP_ID_RE = re.compile(r'data-help-id\s*=\s*["\']([^"\']+)["\']')
 
 
 def load(path: Path):
@@ -44,17 +47,21 @@ def add(report, level, code, path, message):
     report[level].append({"code": code, "path": str(path.relative_to(ROOT)), "message": message})
 
 
-def load_schema_store(schema_registry_path: Path):
-    registry = load(schema_registry_path).get("Data", {}).get("schemas", [])
-    store, paths = {}, {}
-    for entry in registry:
+def load_schema_registry(schema_registry_path: Path):
+    entries = load(schema_registry_path).get("Data", {}).get("schemas", [])
+    schemas = {}
+    resources = []
+    for entry in entries:
         p = (schema_registry_path.parent / entry["path"]).resolve()
-        doc = load(p)
-        schema = doc["Data"]
-        store[entry["id"]] = schema
-        store[schema.get("$id", entry["id"])] = schema
-        paths[entry["id"]] = p
-    return store, paths
+        schema = load(p)["Data"]
+        schemas[entry["id"]] = schema
+        if Resource is not None:
+            resource = Resource.from_contents(schema)
+            resources.append((entry["id"], resource))
+            if schema.get("$id") and schema["$id"] != entry["id"]:
+                resources.append((schema["$id"], resource))
+    registry = Registry().with_resources(resources) if Registry is not None else None
+    return schemas, registry
 
 
 def duplicate_values(values):
@@ -89,15 +96,13 @@ def main():
     schema_registry_path = canonical_path(manifest, "schema_registry")
     help_path = canonical_path(manifest, "help_registry")
 
-    button_doc = load(button_path)
-    button_items = button_doc.get("Data", {}).get("buttons", [])
+    button_items = load(button_path).get("Data", {}).get("buttons", [])
     button_ids_list = [x.get("id") for x in button_items if isinstance(x, dict) and x.get("id")]
     buttons = set(button_ids_list)
     for value in duplicate_values(button_ids_list):
         add(report, "errors", "duplicate_button_id", button_path, value)
 
-    icon_doc = load(icon_path)
-    icon_list = icon_doc.get("Data", {}).get("icons", [])
+    icon_list = load(icon_path).get("Data", {}).get("icons", [])
     icons = set(icon_list)
     for value in duplicate_values(icon_list):
         add(report, "errors", "duplicate_icon_id", icon_path, value)
@@ -105,10 +110,9 @@ def main():
     components = {x.get("id") for x in load(component_path).get("Data", {}).get("components", []) if x.get("id")}
     themes = {x.get("id") for x in load(theme_path).get("Data", {}).get("themes", []) if x.get("id")}
     schema_ids = collect_ids(schema_registry_path, "schemas")
-    schema_store, _ = load_schema_store(schema_registry_path)
+    schema_store, schema_registry = load_schema_registry(schema_registry_path)
 
-    help_doc = load(help_path)
-    help_entries = help_doc.get("Data", {}).get("entries", [])
+    help_entries = load(help_path).get("Data", {}).get("entries", [])
     help_ids_list = [x.get("help_id") for x in help_entries if isinstance(x, dict) and x.get("help_id")]
     help_ids = set(help_ids_list)
     for value in duplicate_values(help_ids_list):
@@ -189,20 +193,21 @@ def main():
 
         if not legacy and Draft202012Validator is not None and md.get("schema_id") in schema_store:
             schema = schema_store[md["schema_id"]]
-            resolver = RefResolver.from_schema(schema, store=schema_store)
-            for err in Draft202012Validator(schema, resolver=resolver).iter_errors(obj):
+            validator = Draft202012Validator(schema, registry=schema_registry)
+            for err in validator.iter_errors(obj):
                 where = "/".join(map(str, err.absolute_path)) or "root"
                 add(report, "errors", "schema_validation", path, f"{where}: {err.message}")
 
         check_refs(obj, path)
 
-    # Source hygiene: public help wording must not be embedded in templates/runtime.
+    # Source hygiene and help usage in browser-facing framework sources.
     for path in sorted(FW.rglob("*")):
         if path.suffix.lower() not in {".html", ".js"} or not path.is_file():
             continue
         text = path.read_text(encoding="utf-8")
         if "data-help-text=" in text:
             add(report, "errors", "embedded_help_text", path, "use data-help-id and canonical help-registry instead")
+        used_help_ids.update(HELP_ID_RE.findall(text))
 
     for help_id in sorted(help_ids - used_help_ids):
         add(report, "warnings", "unused_help_entry", help_path, help_id)
