@@ -1,0 +1,12 @@
+{
+  "metadata":{"id":"COMP_TOOLBAR_DEV_EXTENSION","json_type":"framework_component_config","scope":"framework","schema_id":"SCH_COMPONENT","artifact_version":"1.0.0","introduced_in":"1.6.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_TOOLBAR_DEV_EXTENSION","category":"devtools","tags":["toolbar","dev","diagnostics"],"visibility":["dev"],"supported_runtime_modes":["static","local","production"],"dependencies":["COMP_TOOLBAR_FULL","NLAB_BUTTON_REGISTRY"]},
+  "Data":{
+    "component":"toolbar_dev_extension",
+    "purpose":"Étendre la toolbar standard en expérience dev sans créer une deuxième mécanique de toolbar.",
+    "compose":[{"component":"floating_toolbar","preset":"toolbar-full","slot":"project_actions"}],
+    "button_ids":["inspect","snapshot","smoke_test","logs","info","settings"],
+    "activation":{"experience_mode":"dev","default_enabled":["inspect","snapshot","logs"],"optional":["smoke_test","info","settings"]},
+    "rules":["Dev actions come from button-registry.","Public toolbar behavior remains unchanged.","Disabling the extension never removes underlying public functionality."]
+  },
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_COMPONENT","note":"Extension déclarative de la toolbar existante."}
+}
