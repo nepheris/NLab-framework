@@ -1,8 +1,8 @@
 {
-  "metadata":{"id":"NLAB_BUTTON_REGISTRY","json_type":"framework_ui_registry","scope":"framework","schema_id":null,"version":"1.5.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09"},
+  "metadata":{"id":"NLAB_BUTTON_REGISTRY","json_type":"framework_ui_registry","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"2.0.0","introduced_in":"1.5.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_BUTTON_REGISTRY","category":"ui","tags":["buttons","actions","svg"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"],"dependencies":["NLAB_ICON_REGISTRY","NLAB_BUTTON_TEMPLATES"]},
   "Data":{
-    "purpose":"Catalogue central des actions UI et de leur représentation par boutons homogènes.",
-    "rendering_rule":"Les modules référencent un button_id. Le rendu visuel est fourni par un button_template et l'icône SVG par icon-registry; aucun module ne redéfinit son propre bouton.",
+    "purpose":"Source canonique des actions UI représentables par des boutons homogènes.",
+    "rendering_rule":"Modules reference a stable button_id. Visual rendering comes from button templates and SVG identity from icon-registry.",
     "button_contract":{"required":["id","icon","label","category"],"optional":["tooltip","aria_label","action","toggle","states","danger_level","shortcut"]},
     "buttons":[
       {"id":"home","icon":"home","label":"Accueil","category":"navigation"},{"id":"back","icon":"arrow_left","label":"Précédent","category":"navigation"},{"id":"forward","icon":"arrow_right","label":"Suivant","category":"navigation"},{"id":"scroll_top","icon":"scroll_top","label":"Haut","category":"navigation"},{"id":"scroll_bottom","icon":"scroll_bottom","label":"Bas","category":"navigation"},{"id":"menu","icon":"menu","label":"Menu","category":"navigation"},{"id":"more","icon":"more","label":"Plus","category":"navigation"},
@@ -12,7 +12,7 @@
       {"id":"help","icon":"help","label":"Aide","category":"system"},{"id":"info","icon":"info","label":"Informations","category":"system"},{"id":"settings","icon":"settings","label":"Réglages","category":"system"},{"id":"fullscreen","icon":"fullscreen","label":"Plein écran","category":"system"},{"id":"close","icon":"close","label":"Fermer","category":"system"},{"id":"confirm","icon":"check","label":"Confirmer","category":"system"},{"id":"cancel","icon":"close","label":"Annuler","category":"system"},{"id":"delete","icon":"trash","label":"Supprimer","category":"system","danger_level":"danger"},{"id":"logs","icon":"terminal","label":"Journal","category":"system"},{"id":"inspect","icon":"inspect","label":"Inspecter","category":"dev"},{"id":"snapshot","icon":"camera","label":"Snapshot","category":"dev"},{"id":"smoke_test","icon":"checklist","label":"Smoke test","category":"dev"}
     ],
     "categories":["navigation","content","media","integration","system","dev"],
-    "rule":"Les IDs d'action restent stables. Les projets choisissent les boutons à afficher et leur template visuel sans modifier les modules fonctionnels."
+    "rules":["Button IDs are stable semantic action IDs.","Projects select actions and templates but do not redefine generic actions.","Accessible labels are sourced from this registry unless explicitly overridden for context."]
   },
-  "dictionnaire_donnees":{"numero_version":"1.5.0","date_creation_version":"2026-08-09","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Métadonnées nLab.","Data":"Catalogue central des boutons et actions génériques.","dictionnaire_donnees":"Description des champs."}}
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"Les actions UI génériques sont définies une seule fois dans ce registre."}
 }
