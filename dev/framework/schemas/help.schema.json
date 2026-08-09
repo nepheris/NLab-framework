@@ -4,7 +4,7 @@
     "json_type": "framework_schema",
     "scope": "framework",
     "schema_id": "SCH_SCHEMA_FILE",
-    "artifact_version": "2.0.1",
+    "artifact_version": "2.0.2",
     "introduced_in": "1.6.1",
     "status": "stable",
     "date_creation": "2026-08-08",
@@ -30,13 +30,17 @@
           "purpose": {"type": "string", "minLength": 1},
           "defaults": {
             "type": "object",
-            "required": ["public_panel_mode", "long_text_initial_state", "dev_overlay"],
+            "required": ["public_panel_mode", "long_text_initial_state", "dev_overlay", "tooltip_source"],
             "properties": {
               "public_panel_mode": {"enum": ["short_only", "long_only", "short_then_long"]},
               "long_text_initial_state": {"enum": ["collapsed", "expanded"]},
               "dev_overlay": {"enum": ["hidden", "below_public", "separate_tab"]},
               "dev_section_initial_state": {"enum": ["collapsed", "expanded"]},
-              "tooltip_source": {"type": "string"}
+              "tooltip_source": {"type": "string"},
+              "global_help_id": {"type": "string", "minLength": 1},
+              "panel_title": {"type": "string", "minLength": 1},
+              "long_text_label": {"type": "string", "minLength": 1},
+              "dev_overlay_label": {"type": "string", "minLength": 1}
             },
             "additionalProperties": false
           },
@@ -88,6 +92,6 @@
   },
   "dictionnaire_donnees": {
     "generated_from_schema": "SCH_SCHEMA_FILE",
-    "note": "Schéma canonique des contenus d’aide publique à deux niveaux; la documentation Dev est dérivée des métadonnées et schémas."
+    "note": "Schéma canonique des contenus et libellés d’aide publique; la documentation Dev reste dérivée des métadonnées et schémas."
   }
 }
