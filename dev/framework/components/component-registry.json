@@ -1,34 +1,40 @@
 {
-  "metadata":{"id":"NLAB_COMPONENT_REGISTRY","json_type":"framework_component_registry","scope":"framework","schema_id":null,"version":"1.5.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09"},
+  "metadata":{"id":"NLAB_COMPONENT_REGISTRY","json_type":"framework_component_registry","scope":"framework","schema_id":"SCH_COMPONENT","artifact_version":"2.0.0","introduced_in":"1.1.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_COMPONENT_REGISTRY","category":"registry","tags":["components","composition"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"],"dependencies":["NLAB_COMPOSITION_ENGINE","NLAB_BUTTON_REGISTRY","NLAB_DESIGN_TOKENS"]},
   "Data":{
+    "component":"component_registry",
     "components":[
       {"id":"header_navigation","category":"navigation","config_driven":true,"features":["sticky","quick_links","hierarchical_menu","help_trigger","responsive"]},
       {"id":"sidebar_scrollspy","category":"navigation","config_driven":true,"default_config":"sidebar-scrollspy.json","features":["collapsed_rail","expanded_sidebar","scrollspy","hierarchical_details","hash_reveal","heading_fold"]},
       {"id":"footer","category":"layout","config_driven":true,"features":["project_content","version_slot","links"]},
       {"id":"hero","category":"layout","config_driven":true,"features":["compact","standard","media","dashboard","full","height_limit","content_width","radius","shadow","gradient"]},
-      {"id":"floating_toolbar","category":"ui","config_driven":true,"default_config":"toolbar-full.json","features":["anchor","move","lock","collapse","persistence","viewport_recovery","action_registry","button_registry","extension_slots","start_full_then_disable"]},
-      {"id":"floating_window","category":"ui","config_driven":true,"default_config":"floating-window.json","features":["move","lock","resize_8_directions","dock","undock","reset","fullscreen","close","persistence","viewport_clamp","extension_slots"]},
+      {"id":"floating_toolbar","category":"ui","config_driven":true,"default_config":"toolbar-full.json","primitive":true,"features":["anchor","move","lock","collapse","persistence","viewport_recovery","action_registry","button_registry","extension_slots"]},
+      {"id":"toolbar_dev_extension","category":"devtools","config_driven":true,"default_config":"toolbar-dev-extension.json","composes":["floating_toolbar"],"features":["inspect","snapshot","smoke_test","logs"]},
+      {"id":"floating_window","category":"ui","config_driven":true,"default_config":"floating-window.json","primitive":true,"features":["move","lock","resize_8_directions","dock","undock","reset","fullscreen","close","persistence","viewport_clamp","extension_slots"]},
       {"id":"notification_center","category":"feedback","config_driven":true,"default_config":"notification-center.json","features":["toast","banner","inline","queue","deduplicate","aria_live","history"]},
       {"id":"confirmation_dialog","category":"feedback","config_driven":true,"default_config":"confirmation-dialog.json","features":["confirm","warning","danger","choice","focus_trap","keyboard_navigation"]},
-      {"id":"log_console","category":"dev_runtime","config_driven":true,"default_config":"log-console.json","features":["compact_bar","expanded_panel","floating_panel","docked_panel","full_page","filters","history"]},
-      {"id":"foldable","category":"ui","config_driven":true,"features":["section","subsection","default_state","global_state_control","context_help"]},
-      {"id":"contextual_help","category":"help","config_driven":true,"based_on":"floating_window","features":["panel","anchor","move","lock","resize_8_directions","reset","full_help","persistence"]},
+      {"id":"log_console","category":"diagnostics","config_driven":true,"default_config":"log-console.json","composes":["floating_window"],"features":["compact_bar","expanded_panel","floating_panel","docked_panel","full_page","filters","history"]},
+      {"id":"foldable","category":"ui","config_driven":true,"primitive":true,"features":["section","subsection","default_state","global_state_control","context_help"]},
+      {"id":"contextual_help","category":"help","config_driven":true,"composes":["floating_window"],"features":["panel","full_help","metadata_binding","schema_binding","persistence"]},
       {"id":"search_engine","category":"search","config_driven":true,"default_config":"search-engine.json","features":["core","adapters","filters","scorers","renderers","cards_list_table","token_chips","autocomplete","responsive_pagination"]},
       {"id":"data_editor","category":"data","config_driven":true,"default_config":"data-editor.json","features":["multi_view","reference_resolution","field_help","table","raw_json","preview","dirty_state","provider_save_adapter"]},
       {"id":"document_list","category":"documents","config_driven":true,"features":["open","download","source","type","language","status"]},
       {"id":"document_table","category":"documents","config_driven":true,"features":["open","download","source","type","language","status"]},
       {"id":"repository_document_browser","category":"documents","config_driven":true,"features":["repository_tree","prefix_filter","extension_filter","regex_filter","empty_state","refresh"]},
       {"id":"document_viewer","category":"documents","config_driven":true,"features":["safe_url_validation","embedded_view","open_original","fallback_message"]},
+      {"id":"scheduling_actions","category":"integration","config_driven":true,"default_config":"scheduling-actions.json","features":["ics","provider_buttons","dropdown","compact"]},
+      {"id":"meeting_launcher","category":"integration","config_driven":true,"default_config":"meeting-launcher.json","features":["button","card","embed","modal","external","provider_adapter"]},
       {"id":"kpi_grid","category":"data_display","config_driven":true,"features":["responsive_grid","label","value","status","compact_variant"]},
-      {"id":"tabs","category":"navigation","config_driven":true,"features":["aria_selected","tabpanel","responsive_wrap"]},
-      {"id":"form_field","category":"forms","config_driven":true,"features":["label","help_text","readonly","select","password_action","validation_state"]},
-      {"id":"semantic_badge","category":"status","config_driven":true,"features":["info","warning","danger","success","beta","priority"]},
-      {"id":"theme_configurator","category":"themes","config_driven":true,"features":["preset_palette","named_alias","custom_hex","live_preview","dominant_color_derivation"]}
+      {"id":"tabs","category":"navigation","config_driven":true,"primitive":true,"features":["aria_selected","tabpanel","responsive_wrap"]},
+      {"id":"form_field","category":"forms","config_driven":true,"primitive":true,"features":["label","help_text","readonly","select","password_action","validation_state"]},
+      {"id":"semantic_badge","category":"status","config_driven":true,"primitive":true,"features":["info","warning","danger","success","beta","priority"]},
+      {"id":"theme_configurator","category":"themes","config_driven":true,"features":["theme_registry","preset_palette","named_alias","custom_hex","live_preview"]}
     ],
     "button_registry":"../ui/button-registry.json",
     "button_templates":"../themes/button-templates.json",
+    "theme_registry":"../themes/theme-registry.json",
+    "composition_engine":"../core/composition-engine.json",
     "pattern_registry":"pattern-registry.json",
-    "rules":["A component contains generic rendering and behavior only. Business names, data and project-specific links stay outside the framework.","Floating panels specialize floating_window instead of duplicating mechanics.","Toolbar starts maximal then projects disable unused actions.","All interactive actions reference stable button IDs; visual button style is selected independently through button templates.","Templates expose a dominant theme color with presets and free HEX input.","Search domain scorers are extensions; the generic engine owns normalization, scoring contracts, filtering, views and pagination.","Editor views share one canonical state; persistence providers stay outside the editor."]
+    "rules":["Business data and project labels stay outside framework components.","Primitive mechanics are composed, never copied.","All actions reference stable button IDs.","Visual styling comes from semantic tokens and themes.","Provider-specific behavior remains in adapters.","A new component must justify behavior that cannot be assembled from registered primitives."]
   },
-  "dictionnaire_donnees":{"numero_version":"1.5.0","date_creation_version":"2026-08-09","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Métadonnées nLab.","Data":"Registre des composants génériques.","dictionnaire_donnees":"Description des champs."}}
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_COMPONENT","note":"Registre canonique des composants disponibles."}
 }
