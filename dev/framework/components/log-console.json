@@ -1,17 +1,17 @@
 {
-  "metadata":{"id":"COMP_LOG_CONSOLE","json_type":"framework_component_config","scope":"framework","schema_id":null,"version":"1.5.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09"},
+  "metadata":{"id":"COMP_LOG_CONSOLE","json_type":"framework_component_config","scope":"framework","schema_id":"SCH_COMPONENT","artifact_version":"2.0.0","introduced_in":"1.5.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_LOG_CONSOLE","category":"diagnostics","tags":["logs","runtime","build","dev"],"visibility":["dev"],"supported_runtime_modes":["static","local","production"],"dependencies":["COMP_FLOATING_WINDOW","NLAB_BUTTON_REGISTRY"]},
   "Data":{
     "component":"log_console",
-    "purpose":"Panneau générique de visualisation des journaux runtime, build et dev.",
+    "purpose":"Visualiser les journaux runtime, build et dev sans dupliquer la mécanique de fenêtrage.",
+    "compose":[{"component":"floating_window","preset":"diagnostic","slot":"body"}],
     "display_modes":["compact_bar","expanded_panel","floating_panel","docked_panel","full_page"],
-    "features":["movable","dockable","lockable","collapsible","resize","auto_scroll","pause_stream","level_filter","text_filter","copy","download","clear_view","open_full_log","history_limit"],
+    "features":["auto_scroll","pause_stream","level_filter","text_filter","copy","download","clear_view","open_full_log","history_limit"],
     "levels":["debug","info","success","warning","error","critical"],
     "compact_defaults":{"visible_lines":5,"overflow_action":"expand","full_log_action":"open_full_log"},
     "data_contract":{"fields":["timestamp","level","source","message","context_id","details","resource_id"]},
-    "button_registry":"../ui/button-registry.json",
-    "default_buttons":["logs","pause","play","filter","search","copy","download","close"],
+    "button_ids":["logs","pause","play","filter","search","copy","download","close"],
     "integration":["build_report","notification_center","devtools","runtime_modules"],
-    "rules":["The compact console shows recent entries only; full history remains in a structured log source.","Runtime UI never becomes the source of truth for logs.","Sensitive data must be filtered before entries are exposed to browser-visible logs."]
+    "rules":["Full history remains in a structured log source.","Runtime UI never becomes the source of truth for logs.","Sensitive data is filtered before browser exposure.","Move, resize, dock, lock and persistence are inherited from floating_window."]
   },
-  "dictionnaire_donnees":{"numero_version":"1.5.0","date_creation_version":"2026-08-09","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Métadonnées nLab.","Data":"Configuration du panneau de logs générique.","dictionnaire_donnees":"Description des champs."}}
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_COMPONENT","note":"La console compose floating_window; elle ne réimplémente pas ses primitives."}
 }
