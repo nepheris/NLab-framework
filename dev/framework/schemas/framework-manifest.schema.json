@@ -1,0 +1,14 @@
+{
+  "metadata":{"id":"SCH_FRAMEWORK_MANIFEST_FILE","json_type":"framework_schema","scope":"framework","schema_id":"SCH_SCHEMA_FILE","artifact_version":"1.0.0","introduced_in":"1.6.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_SCHEMA_FRAMEWORK_MANIFEST","visibility":["dev"],"supported_runtime_modes":["local","production"]},
+  "Data":{
+    "$schema":"https://json-schema.org/draft/2020-12/schema",
+    "$id":"SCH_FRAMEWORK_MANIFEST",
+    "title":"nLab canonical framework manifest",
+    "allOf":[{"$ref":"SCH_ARTIFACT"}],
+    "properties":{
+      "metadata":{"allOf":[{"$ref":"SCH_METADATA"}],"properties":{"json_type":{"const":"framework_manifest"}}},
+      "Data":{"type":"object","required":["name","framework_version","release_name","release_date","canonical","single_source_rules","versioning","governance"],"properties":{"framework_version":{"type":"string","pattern":"^[0-9]+\\.[0-9]+\\.[0-9]+$"},"canonical":{"type":"object","additionalProperties":{"type":"string"}},"single_source_rules":{"type":"array","items":{"type":"string"}},"versioning":{"type":"object"},"governance":{"type":"object"}},"additionalProperties":true}
+    }
+  },
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_SCHEMA_FILE","note":"Contrat de la source canonique de version et de gouvernance."}
+}
