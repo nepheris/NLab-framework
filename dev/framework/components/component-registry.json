@@ -1,5 +1,5 @@
 {
-  "metadata":{"id":"NLAB_COMPONENT_REGISTRY","json_type":"framework_component_registry","scope":"framework","schema_id":"SCH_COMPONENT","artifact_version":"2.0.0","introduced_in":"1.1.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_COMPONENT_REGISTRY","category":"registry","tags":["components","composition"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"],"dependencies":["NLAB_COMPOSITION_ENGINE","NLAB_BUTTON_REGISTRY","NLAB_DESIGN_TOKENS"]},
+  "metadata":{"id":"NLAB_COMPONENT_REGISTRY","json_type":"framework_component_registry","scope":"framework","schema_id":"SCH_COMPONENT","artifact_version":"2.1.0","introduced_in":"1.1.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_COMPONENT_REGISTRY","category":"registry","tags":["components","composition"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"],"dependencies":["NLAB_COMPOSITION_ENGINE","NLAB_BUTTON_REGISTRY","NLAB_DESIGN_TOKENS","NLAB_HELP_REGISTRY"]},
   "Data":{
     "component":"component_registry",
     "components":[
@@ -14,7 +14,7 @@
       {"id":"confirmation_dialog","category":"feedback","config_driven":true,"default_config":"confirmation-dialog.json","features":["confirm","warning","danger","choice","focus_trap","keyboard_navigation"]},
       {"id":"log_console","category":"diagnostics","config_driven":true,"default_config":"log-console.json","composes":["floating_window"],"features":["compact_bar","expanded_panel","floating_panel","docked_panel","full_page","filters","history"]},
       {"id":"foldable","category":"ui","config_driven":true,"primitive":true,"features":["section","subsection","default_state","global_state_control","context_help"]},
-      {"id":"contextual_help","category":"help","config_driven":true,"composes":["floating_window"],"features":["panel","full_help","metadata_binding","schema_binding","persistence"]},
+      {"id":"contextual_help","category":"help","config_driven":true,"composes":["floating_window","foldable"],"features":["public_short_text","public_long_text","tooltip_from_short_text","collapsible_long_text","dev_overlay","collapsible_dev_sections","metadata_binding","schema_binding","help_registry_binding"]},
       {"id":"search_engine","category":"search","config_driven":true,"default_config":"search-engine.json","features":["core","adapters","filters","scorers","renderers","cards_list_table","token_chips","autocomplete","responsive_pagination"]},
       {"id":"data_editor","category":"data","config_driven":true,"default_config":"data-editor.json","features":["multi_view","reference_resolution","field_help","table","raw_json","preview","dirty_state","provider_save_adapter"]},
       {"id":"document_list","category":"documents","config_driven":true,"features":["open","download","source","type","language","status"]},
@@ -32,9 +32,10 @@
     "button_registry":"../ui/button-registry.json",
     "button_templates":"../themes/button-templates.json",
     "theme_registry":"../themes/theme-registry.json",
+    "help_registry":"../help/help-registry.json",
     "composition_engine":"../core/composition-engine.json",
     "pattern_registry":"pattern-registry.json",
-    "rules":["Business data and project labels stay outside framework components.","Primitive mechanics are composed, never copied.","All actions reference stable button IDs.","Visual styling comes from semantic tokens and themes.","Provider-specific behavior remains in adapters.","A new component must justify behavior that cannot be assembled from registered primitives."]
+    "rules":["Business data and project labels stay outside framework components.","Primitive mechanics are composed, never copied.","All actions reference stable button IDs.","Visual styling comes from semantic tokens and themes.","Provider-specific behavior remains in adapters.","Public help wording comes from the help registry; Dev facts are generated.","A new component must justify behavior that cannot be assembled from registered primitives."]
   },
-  "dictionnaire_donnees":{"generated_from_schema":"SCH_COMPONENT","note":"Registre canonique des composants disponibles."}
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_COMPONENT","note":"Registre canonique des composants disponibles; la composition de l’aide contextuelle utilise floating_window + foldable."}
 }
