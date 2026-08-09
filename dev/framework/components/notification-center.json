@@ -1,0 +1,16 @@
+{
+  "metadata":{"id":"COMP_NOTIFICATION_CENTER","json_type":"framework_component_config","scope":"framework","schema_id":null,"version":"1.5.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09"},
+  "Data":{
+    "component":"notification_center",
+    "purpose":"Système générique de notifications temporaires ou persistantes.",
+    "types":["info","success","warning","error","progress"],
+    "placements":["top_left","top_center","top_right","bottom_left","bottom_center","bottom_right"],
+    "modes":["toast","banner","inline","center_panel"],
+    "features":["queue","deduplicate","auto_dismiss","manual_close","progress","actions","aria_live","persistent_history"],
+    "default_actions":{"close":"close","details":"info"},
+    "button_registry":"../ui/button-registry.json",
+    "icon_registry":"../ui/icon-registry.json",
+    "rules":["Success/info notifications may auto-dismiss.","Warnings/errors remain visible when user action may be required.","Critical actions must not rely on color alone.","Notifications can reference a log entry id for detailed diagnostics."]
+  },
+  "dictionnaire_donnees":{"numero_version":"1.5.0","date_creation_version":"2026-08-09","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Métadonnées nLab.","Data":"Configuration du centre de notifications.","dictionnaire_donnees":"Description des champs."}}
+}
