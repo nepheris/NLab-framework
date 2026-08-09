@@ -3,76 +3,46 @@
     "id": "SCH_METADATA_FILE",
     "json_type": "framework_schema",
     "scope": "framework",
-    "schema_id": null,
-    "version": "1.0.0",
+    "schema_id": "SCH_SCHEMA_FILE",
+    "artifact_version": "2.0.0",
+    "introduced_in": "1.0.0",
     "status": "stable",
     "date_creation": "2026-08-08",
-    "date_mise_a_jour": "2026-08-08"
+    "date_mise_a_jour": "2026-08-09",
+    "help_id": "HELP_SCHEMA_METADATA",
+    "visibility": ["dev"],
+    "supported_runtime_modes": ["local", "production"]
   },
   "Data": {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "SCH_METADATA",
-    "title": "nLab metadata",
+    "title": "nLab metadata V2",
+    "description": "En-tête normatif commun à tout artefact JSON nLab nouveau ou modifié à partir de 1.6.0.",
     "type": "object",
-    "required": [
-      "id",
-      "json_type",
-      "scope",
-      "version",
-      "status",
-      "date_creation",
-      "date_mise_a_jour"
-    ],
+    "required": ["id", "json_type", "scope", "schema_id", "artifact_version", "introduced_in", "status", "date_creation", "date_mise_a_jour", "visibility", "supported_runtime_modes"],
     "properties": {
-      "id": {
-        "type": "string",
-        "minLength": 1
-      },
-      "json_type": {
-        "type": "string",
-        "minLength": 1
-      },
-      "scope": {
-        "enum": [
-          "framework",
-          "project",
-          "source",
-          "runtime",
-          "generated",
-          "local"
-        ]
-      },
-      "schema_id": {
-        "type": [
-          "string",
-          "null"
-        ]
-      },
-      "version": {
-        "type": "string"
-      },
-      "status": {
-        "type": "string"
-      },
-      "date_creation": {
-        "type": "string",
-        "format": "date"
-      },
-      "date_mise_a_jour": {
-        "type": "string",
-        "format": "date"
-      }
+      "id": {"type": "string", "minLength": 1},
+      "json_type": {"type": "string", "minLength": 1},
+      "scope": {"enum": ["framework", "project", "source", "runtime", "generated", "local"]},
+      "schema_id": {"type": "string", "minLength": 1},
+      "artifact_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+      "introduced_in": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+      "status": {"enum": ["experimental", "draft", "stable", "deprecated", "archived"]},
+      "date_creation": {"type": "string", "format": "date"},
+      "date_mise_a_jour": {"type": "string", "format": "date"},
+      "help_id": {"type": ["string", "null"]},
+      "category": {"type": ["string", "null"]},
+      "tags": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+      "visibility": {"type": "array", "items": {"enum": ["public", "dev"]}, "minItems": 1, "uniqueItems": true},
+      "supported_runtime_modes": {"type": "array", "items": {"enum": ["static", "local", "production"]}, "minItems": 1, "uniqueItems": true},
+      "dependencies": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+      "deprecated_by": {"type": ["string", "null"]},
+      "version": {"type": "string", "deprecated": true, "description": "Legacy V1 field; do not use in new or modified artifacts."}
     },
-    "additionalProperties": true
+    "additionalProperties": false
   },
   "dictionnaire_donnees": {
-    "numero_version": "1.0.0",
-    "date_creation_version": "2026-08-08",
-    "date_mise_a_jour_version": "2026-08-08",
-    "champs": {
-      "metadata": "Identifie la nature, la portée, le schéma, la version et le statut du JSON.",
-      "Data": "Contenu fonctionnel du fichier.",
-      "dictionnaire_donnees": "Décrit la structure et le rôle des champs du JSON."
-    }
+    "generated_from_schema": "SCH_SCHEMA_FILE",
+    "note": "La documentation détaillée des champs est portée par le JSON Schema."
   }
 }
