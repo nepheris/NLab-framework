@@ -1,0 +1,82 @@
+{
+  "metadata": {"id":"DEMO_CATALOG","json_type":"demo_structured_catalog","version":"1.0.0","status":"demo"},
+  "Data": {
+    "items": [
+      {
+        "id":"ITM001",
+        "name":"Guide de démarrage",
+        "short_text":"Un exemple de fiche mêlant texte, références, liens et média.",
+        "long_text":"Ce texte long sert à vérifier le rendu des zones multilignes, l'aide contextuelle et les variantes de présentation entre fiche, tableau et export.",
+        "category_id":"CAT_GUIDE",
+        "status_id":"STA_OK",
+        "priority":1,
+        "price":{"value":12.5,"currency":"EUR"},
+        "active":true,
+        "tags":["démo","guide","framework"],
+        "links":[
+          {"label":"Documentation","url":"https://example.com/docs","target":"new_tab","icon":"external_link"},
+          {"label":"Page interne","url":"./demo.html#ITM001","target":"same_tab","icon":"link"}
+        ],
+        "media":[
+          {"id":"MEDIA001","type_id":"MED_IMAGE","filename":"demo-cover.svg","url":"./demo-cover.svg","alt":"Illustration générique de démonstration"},
+          {"id":"MEDIA002","type_id":"MED_PDF","filename":"guide-demo.pdf","url":"https://example.com/guide-demo.pdf","alt":"PDF de démonstration"}
+        ],
+        "metrics":{"score":82,"views":143,"duration_min":18},
+        "related_ids":["ITM002","ITM003"]
+      },
+      {
+        "id":"ITM002",
+        "name":"Galerie média",
+        "short_text":"Exemple orienté média et listes.",
+        "long_text":"Cette entrée montre les références vers les types média, les listes ordonnables et les valeurs susceptibles d'être affichées en galerie ou en liste.",
+        "category_id":"CAT_MEDIA",
+        "status_id":"STA_REVIEW",
+        "priority":2,
+        "price":{"value":0,"currency":"MGA"},
+        "active":true,
+        "tags":["média","galerie"],
+        "links":[{"label":"Source externe","url":"https://example.com/media","target":"new_tab","icon":"external_link"}],
+        "media":[
+          {"id":"MEDIA010","type_id":"MED_IMAGE","filename":"demo-cover.svg","url":"./demo-cover.svg","alt":"Image exemple"},
+          {"id":"MEDIA011","type_id":"MED_AUDIO","filename":"sample.ogg","url":"https://example.com/sample.ogg","alt":"Audio exemple"}
+        ],
+        "metrics":{"score":61,"views":77,"duration_min":5},
+        "related_ids":["ITM001"]
+      },
+      {
+        "id":"ITM003",
+        "name":"Jeu de données exemple",
+        "short_text":"Entrée destinée aux vues tableau, graphique et export.",
+        "long_text":"Les métriques numériques permettent de tester le formatage conditionnel et les mini-visualisations.",
+        "category_id":"CAT_DATA",
+        "status_id":"STA_DRAFT",
+        "priority":3,
+        "price":{"value":45000,"currency":"MGA"},
+        "active":false,
+        "tags":["data","csv","json"],
+        "links":[],
+        "media":[],
+        "metrics":{"score":35,"views":21,"duration_min":2},
+        "related_ids":[]
+      }
+    ]
+  },
+  "dictionnaire_donnees": {
+    "champs": {
+      "id":{"libelle":"ID","description":"Identifiant stable de la fiche.","type":"id"},
+      "name":{"libelle":"Nom humain","description":"Nom principal affiché à l'utilisateur.","type":"text"},
+      "short_text":{"libelle":"Texte court","description":"Résumé court.","type":"text_short"},
+      "long_text":{"libelle":"Texte long","description":"Description détaillée.","type":"text_long"},
+      "category_id":{"libelle":"Catégorie","description":"Référence hiérarchique vers demo-references.json / categories.","type":"reference","reference":"categories"},
+      "status_id":{"libelle":"Statut","description":"Référence vers les statuts et leur couleur sémantique.","type":"reference","reference":"statuses"},
+      "priority":{"libelle":"Priorité","description":"Valeur numérique ordonnable.","type":"number"},
+      "price":{"libelle":"Prix","description":"Objet valeur + monnaie.","type":"object"},
+      "active":{"libelle":"Actif","description":"Valeur booléenne.","type":"boolean"},
+      "tags":{"libelle":"Tags","description":"Liste libre ordonnable.","type":"array"},
+      "links":{"libelle":"Liens","description":"Liste de liens avec cible et icône.","type":"links"},
+      "media":{"libelle":"Médias","description":"Liste de médias avec type, nom de fichier, URL et texte alternatif.","type":"media"},
+      "metrics":{"libelle":"Indicateurs","description":"Mesures numériques pour KPI et mini-graphiques.","type":"metrics"},
+      "related_ids":{"libelle":"Fiches liées","description":"Références vers d'autres fiches du même JSON.","type":"reference_array","reference":"items"}
+    }
+  }
+}
