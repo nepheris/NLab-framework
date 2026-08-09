@@ -1,0 +1,17 @@
+{
+  "metadata":{"id":"NLAB_BUTTON_TEMPLATES","json_type":"framework_theme_registry","scope":"framework","schema_id":null,"version":"1.5.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09"},
+  "Data":{
+    "purpose":"Bibliothèque de styles de boutons indépendante des actions fonctionnelles.",
+    "templates":[
+      {"id":"button-minimal","shape":"rounded","icon_only":false,"border":"subtle","surface":"transparent","hover":"surface_hover","active":"surface_active","focus":"focus_ring","disabled":"muted","sizes":["xs","sm","md","lg"]},
+      {"id":"button-icon","shape":"rounded","icon_only":true,"border":"none","surface":"transparent","hover":"surface_hover","active":"surface_active","focus":"focus_ring","disabled":"muted","sizes":["sm","md","lg"]},
+      {"id":"button-solid","shape":"rounded","icon_only":false,"border":"none","surface":"accent","hover":"accent_hover","active":"accent_active","focus":"focus_ring","disabled":"muted","sizes":["sm","md","lg"]},
+      {"id":"button-outline","shape":"rounded","icon_only":false,"border":"accent","surface":"transparent","hover":"accent_soft","active":"accent_soft_active","focus":"focus_ring","disabled":"muted","sizes":["sm","md","lg"]},
+      {"id":"button-pill","shape":"pill","icon_only":false,"border":"subtle","surface":"surface","hover":"surface_hover","active":"surface_active","focus":"focus_ring","disabled":"muted","sizes":["sm","md","lg"]}
+    ],
+    "state_contract":["default","hover","focus","active","pressed","disabled","loading","selected","danger"],
+    "icon_rule":"Les SVG utilisent currentColor afin que couleur normale, hover, active, selected et disabled proviennent du template/thème.",
+    "customization_rule":"Un projet peut sélectionner un template existant ou ajouter un template de boutons dérivé sans modifier le button-registry."
+  },
+  "dictionnaire_donnees":{"numero_version":"1.5.0","date_creation_version":"2026-08-09","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Métadonnées nLab.","Data":"Styles et états visuels des boutons.","dictionnaire_donnees":"Description des champs."}}
+}
