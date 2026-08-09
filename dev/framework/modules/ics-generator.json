@@ -1,17 +1,5 @@
 {
-  "metadata":{"id":"NLAB_ICS_GENERATOR","json_type":"framework_module","scope":"framework","schema_id":null,"version":"1.4.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09"},
-  "Data":{
-    "name":"ics-generator",
-    "purpose":"Générer des fichiers iCalendar portables à partir du modèle calendar-event.",
-    "input_model":"modules/calendar-event.json",
-    "output":{"extension":".ics","mime_type":"text/calendar","encoding":"utf-8","line_endings":"CRLF"},
-    "components":["VCALENDAR","VEVENT"],
-    "required_calendar_properties":["PRODID","VERSION"],
-    "event_mapping":{"uid":"UID","title":"SUMMARY","description":"DESCRIPTION","start":"DTSTART","end":"DTEND","location":"LOCATION","url":"URL","status":"STATUS","categories":"CATEGORIES"},
-    "timezone_strategy":"Utiliser TZID explicite ou UTC; ne pas produire d'heure flottante par défaut.",
-    "validation":["required_fields","date_order","timezone_presence","uid_presence","rfc5545_serialization"],
-    "download_action":"Créer un Blob text/calendar côté navigateur ou un fichier lors d'une génération locale.",
-    "runtime_modes":["static","local","production"]
-  },
-  "dictionnaire_donnees":{"numero_version":"1.4.0","date_creation_version":"2026-08-09","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Identifie le générateur ICS.","Data":"Décrit la sérialisation iCalendar et ses contrôles.","dictionnaire_donnees":"Décrit les champs de ce JSON."}}
+  "metadata":{"id":"NLAB_ICS_GENERATOR","json_type":"framework_module","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"1.4.0","introduced_in":"1.4.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","visibility":["public","dev"],"supported_runtime_modes":["static","local","production"]},
+  "Data":{"name":"ics-generator","purpose":"Générer des fichiers iCalendar portables à partir du modèle calendar-event.","input_model":"modules/calendar-event.json","output":{"extension":".ics","mime_type":"text/calendar","encoding":"utf-8","line_endings":"CRLF"},"components":["VCALENDAR","VEVENT"],"required_calendar_properties":["PRODID","VERSION"],"event_mapping":{"uid":"UID","title":"SUMMARY","description":"DESCRIPTION","start":"DTSTART","end":"DTEND","location":"LOCATION","url":"URL","status":"STATUS","categories":"CATEGORIES"},"timezone_strategy":"Utiliser TZID explicite ou UTC; ne pas produire d'heure flottante par défaut.","validation":["required_fields","date_order","timezone_presence","uid_presence","rfc5545_serialization"],"download_action":"Créer un Blob text/calendar côté navigateur ou un fichier lors d'une génération locale.","runtime_modes":["static","local","production"]},
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"Générateur ICS migré vers Metadata V2."}
 }

@@ -1,15 +1,5 @@
 {
-  "metadata":{"id":"NLAB_VIDEO_MEETING","json_type":"framework_module","scope":"framework","schema_id":null,"version":"1.4.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09"},
-  "Data":{
-    "name":"video-meeting",
-    "purpose":"Composant générique de visioconférence piloté par provider.",
-    "fields":["provider","room","domain","title","language","display_mode","width","height","start_with_audio_muted","start_with_video_muted","prejoin_enabled","user_info","provider_options"],
-    "required_fields":["provider","room"],
-    "display_modes":["button","card","embedded","modal","external"],
-    "provider_contract":{"create_url":true,"embed":true,"mobile_compatible":true,"events_optional":true,"commands_optional":true,"self_hosted_domain_optional":true},
-    "security_rules":["Ne jamais injecter directement une configuration non validée dans un provider.","Les jetons ou secrets ne sont jamais stockés dans les JSON publics du framework.","Les permissions caméra et microphone restent sous contrôle du navigateur et de l'utilisateur."],
-    "fallback":"Si l'embed est indisponible, proposer l'ouverture externe de l'URL de réunion.",
-    "runtime_modes":["local","production"]
-  },
-  "dictionnaire_donnees":{"numero_version":"1.4.0","date_creation_version":"2026-08-09","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Identifie le module de visioconférence.","Data":"Décrit le modèle neutre, les modes d'affichage et le contrat provider.","dictionnaire_donnees":"Décrit les champs de ce JSON."}}
+  "metadata":{"id":"NLAB_VIDEO_MEETING","json_type":"framework_module","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"1.4.0","introduced_in":"1.4.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","visibility":["public","dev"],"supported_runtime_modes":["local","production"]},
+  "Data":{"name":"video-meeting","purpose":"Composant générique de visioconférence piloté par provider.","fields":["provider","room","domain","title","language","display_mode","width","height","start_with_audio_muted","start_with_video_muted","prejoin_enabled","user_info","provider_options"],"required_fields":["provider","room"],"display_modes":["button","card","embedded","modal","external"],"provider_contract":{"create_url":true,"embed":true,"mobile_compatible":true,"events_optional":true,"commands_optional":true,"self_hosted_domain_optional":true},"security_rules":["Ne jamais injecter directement une configuration non validée dans un provider.","Les jetons ou secrets ne sont jamais stockés dans les JSON publics du framework.","Les permissions caméra et microphone restent sous contrôle du navigateur et de l'utilisateur."],"fallback":"Si l'embed est indisponible, proposer l'ouverture externe de l'URL de réunion.","runtime_modes":["local","production"]},
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"Module visioconférence migré vers Metadata V2."}
 }

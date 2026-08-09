@@ -1,16 +1,5 @@
 {
-  "metadata":{"id":"NLAB_CALENDAR_EVENT","json_type":"framework_module","scope":"framework","schema_id":null,"version":"1.4.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09"},
-  "Data":{
-    "name":"calendar-event",
-    "purpose":"Modèle générique d'événement calendrier indépendant du fournisseur.",
-    "standard":"iCalendar RFC 5545",
-    "fields":["uid","title","description","start","end","timezone","location","url","meeting_url","organizer","attendees","status","categories","alarms"],
-    "required_fields":["uid","title","start"],
-    "time_rules":{"timezone_explicit":true,"floating_time_allowed":false,"default_timezone_source":"project_configuration"},
-    "actions":["download_ics","provider_link","copy_event_link"],
-    "display_modes":["button","card","compact","inline"],
-    "provider_strategy":"Le modèle de l'événement reste neutre; les adapters transforment ce modèle vers les formats ou URL propres aux fournisseurs.",
-    "runtime_modes":["static","local","production"]
-  },
-  "dictionnaire_donnees":{"numero_version":"1.4.0","date_creation_version":"2026-08-09","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Identifie le module calendrier.","Data":"Décrit le modèle générique, les actions et les règles temporelles.","dictionnaire_donnees":"Décrit les champs de ce JSON."}}
+  "metadata":{"id":"NLAB_CALENDAR_EVENT","json_type":"framework_module","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"1.4.0","introduced_in":"1.4.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","visibility":["public","dev"],"supported_runtime_modes":["static","local","production"]},
+  "Data":{"name":"calendar-event","purpose":"Modèle générique d'événement calendrier indépendant du fournisseur.","standard":"iCalendar RFC 5545","fields":["uid","title","description","start","end","timezone","location","url","meeting_url","organizer","attendees","status","categories","alarms"],"required_fields":["uid","title","start"],"time_rules":{"timezone_explicit":true,"floating_time_allowed":false,"default_timezone_source":"project_configuration"},"actions":["download_ics","provider_link","copy_event_link"],"display_modes":["button","card","compact","inline"],"provider_strategy":"Le modèle de l'événement reste neutre; les adapters transforment ce modèle vers les formats ou URL propres aux fournisseurs.","runtime_modes":["static","local","production"]},
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"Module calendrier migré vers Metadata V2."}
 }
