@@ -1,0 +1,25 @@
+{
+  "metadata":{"id":"NLAB_FIELD_RENDERERS","json_type":"framework_component","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"1.0.0","introduced_in":"1.11.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_FIELD_RENDERERS","category":"data","tags":["fields","renderers","forms","display"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"]},
+  "Data":{
+    "purpose":"Registre de présentation et d'édition des champs JSON partagé par éditeurs, formulaires, vues, recherche et exports.",
+    "renderers":[
+      {"id":"text","types":["string"],"display":["plain","short","multiline","code"],"input":["text","textarea"]},
+      {"id":"number","types":["integer","number"],"display":["plain","formatted","badge","dynamic_svg"],"input":["number","range"]},
+      {"id":"boolean","types":["boolean"],"display":["text","badge","icon"],"input":["checkbox","toggle"]},
+      {"id":"date_time","types":["date","datetime","time"],"display":["localized","iso","dynamic_svg"],"input":["date","datetime-local","time"]},
+      {"id":"currency","types":["number","string"],"display":["formatted","dynamic_svg"],"input":["number","text"]},
+      {"id":"reference","types":["string","array"],"display":["id","label","short_label","svg","image","image_label","badge"],"input":["select","autocomplete","chips","hierarchical_select","hybrid"]},
+      {"id":"link","types":["string","object"],"display":["text","label","button","image","icon","card"],"input":["url","link_object"]},
+      {"id":"image","types":["string","object"],"display":["thumbnail","preview","gallery","filename"],"input":["path","file_picker"]},
+      {"id":"icon","types":["string","object"],"display":["svg","dynamic_svg_text","image"],"input":["icon_picker","text"]},
+      {"id":"color","types":["string"],"display":["swatch","hex","swatch_label"],"input":["color","text"]},
+      {"id":"array","types":["array"],"display":["list","chips","cards","table","gallery","tree"],"input":["repeatable","reorderable","hierarchical"]},
+      {"id":"object","types":["object"],"display":["structured","card","table","raw"],"input":["subform","raw_json"]}
+    ],
+    "link_contract":{"fields":["url","label","target","icon","image","title","description"],"target_values":["same_tab","new_tab","viewer"],"defaults":{"target":"new_tab","display":"label"}},
+    "fallback_media":{"resolution_order":["record_image","category_image","parent_category_image","project_default_image","framework_default_placeholder"]},
+    "resolution_order":["field_config","schema_format","dictionary_metadata","type_default"],
+    "rules":["Business-specific labels and values stay in project data.","The same field renderer identity may have different display variants by view or export profile.","Links use the shared link contract instead of ad-hoc HTML.","Reference labels are resolved for display only; stored IDs remain canonical when the project contract uses IDs.","Missing media follows the declared fallback hierarchy."]
+  },
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"Source commune des modes d'affichage et de saisie des champs structurés."}
+}
