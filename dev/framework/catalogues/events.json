@@ -1,41 +1,5 @@
 {
-  "metadata": {
-    "id": "CAT_EVENTS",
-    "json_type": "framework_catalog",
-    "scope": "framework",
-    "schema_id": null,
-    "version": "1.0.0",
-    "status": "stable",
-    "date_creation": "2026-08-08",
-    "date_mise_a_jour": "2026-08-08"
-  },
-  "Data": {
-    "events": [
-      "on_init",
-      "on_mount",
-      "on_ready",
-      "on_open",
-      "on_close",
-      "on_select",
-      "on_change",
-      "on_sort",
-      "on_filter",
-      "on_search",
-      "on_save",
-      "on_success",
-      "on_error",
-      "on_update",
-      "on_destroy"
-    ]
-  },
-  "dictionnaire_donnees": {
-    "numero_version": "1.0.0",
-    "date_creation_version": "2026-08-08",
-    "date_mise_a_jour_version": "2026-08-08",
-    "champs": {
-      "metadata": "Identifie la nature, la portée, le schéma, la version et le statut du JSON.",
-      "Data": "Contenu fonctionnel du fichier.",
-      "dictionnaire_donnees": "Décrit la structure et le rôle des champs du JSON."
-    }
-  }
+  "metadata":{"id":"CAT_EVENTS","json_type":"framework_catalog","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"1.0.0","introduced_in":"1.0.0","status":"stable","date_creation":"2026-08-08","date_mise_a_jour":"2026-08-09","visibility":["dev"],"supported_runtime_modes":["static","local","production"]},
+  "Data":{"events":["on_init","on_mount","on_ready","on_open","on_close","on_select","on_change","on_sort","on_filter","on_search","on_save","on_success","on_error","on_update","on_destroy"]},
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"Catalogue migré vers Metadata V2; le contenu fonctionnel est inchangé."}
 }

@@ -1,40 +1,5 @@
 {
-  "metadata": {
-    "id": "CAT_SEMANTIC_TYPES",
-    "json_type": "framework_catalog",
-    "scope": "framework",
-    "schema_id": null,
-    "version": "1.0.0",
-    "status": "stable",
-    "date_creation": "2026-08-08",
-    "date_mise_a_jour": "2026-08-08"
-  },
-  "Data": {
-    "types": [
-      "string",
-      "number",
-      "boolean",
-      "date",
-      "datetime",
-      "duration",
-      "currency",
-      "percentage",
-      "quantity",
-      "category",
-      "geo",
-      "id",
-      "url",
-      "media"
-    ]
-  },
-  "dictionnaire_donnees": {
-    "numero_version": "1.0.0",
-    "date_creation_version": "2026-08-08",
-    "date_mise_a_jour_version": "2026-08-08",
-    "champs": {
-      "metadata": "Identifie la nature, la portée, le schéma, la version et le statut du JSON.",
-      "Data": "Contenu fonctionnel du fichier.",
-      "dictionnaire_donnees": "Décrit la structure et le rôle des champs du JSON."
-    }
-  }
+  "metadata":{"id":"CAT_SEMANTIC_TYPES","json_type":"framework_catalog","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"1.0.0","introduced_in":"1.0.0","status":"stable","date_creation":"2026-08-08","date_mise_a_jour":"2026-08-09","visibility":["dev"],"supported_runtime_modes":["static","local","production"]},
+  "Data":{"types":["string","number","boolean","date","datetime","duration","currency","percentage","quantity","category","geo","id","url","media"]},
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"Catalogue migré vers Metadata V2."}
 }
