@@ -1,16 +1,20 @@
 {
-  "metadata":{"id":"NLAB_PDF_RENDERER","json_type":"framework_module","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"2.5.0","introduced_in":"2.5.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_PDF_RENDERER","category":"export","tags":["pdf","export","print","browser","python"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"],"dependencies":["NLAB_THEME_REGISTRY","NLAB_COMPONENT_REGISTRY"]},
+  "metadata":{"id":"NLAB_PDF_RENDERER","json_type":"framework_module","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"2.6.0","introduced_in":"2.5.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_PDF_RENDERER","category":"export","tags":["pdf","export","print","browser","python"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"],"dependencies":["NLAB_THEME_REGISTRY","NLAB_COMPONENT_REGISTRY","NLAB_VIEW_VARIANTS"]},
   "Data":{
-    "purpose":"Générer une sortie PDF depuis les mêmes données, composants et tokens de thème que la vue HTML, sans rasteriser la page entière.",
+    "purpose":"Générer une sortie PDF depuis les mêmes données, composants et tokens de thème que la vue HTML, sans imposer la même présentation ni rasteriser la page entière.",
     "source_modes":["current_view","component","dataset","selection","search_results"],
     "browser_strategies":["print_css","registered_pdf_adapter"],
     "local_strategies":["python_renderer_adapter"],
     "default_strategy":"print_css",
-    "config":{"paper":"A4","orientation":"portrait","margins_mm":{"top":12,"right":12,"bottom":14,"left":12},"include_header":true,"include_footer":true,"include_version":true,"include_qr":false,"theme_mode":"inherit","image_quality":"optimized","page_break_policy":"component_aware","filename_template":"{slug}-{version}.pdf"},
+    "config":{"paper":"A4","orientation":"portrait","margins_mm":{"top":12,"right":12,"bottom":14,"left":12},"include_header":true,"include_footer":true,"include_version":true,"include_qr":false,"theme_mode":"inherit","image_quality":"optimized","page_break_policy":"component_aware","filename_template":"{slug}-{version}.pdf","export_profile":"default","field_visibility":{"mode":"page_default","include":[],"exclude":[]},"variant_overrides":{}},
+    "export_profiles":{"default":{"field_visibility":{"mode":"page_default","include":[],"exclude":[]},"variant_overrides":{}},"compact":{"field_visibility":{"mode":"page_default","include":[],"exclude":[]},"variant_overrides":{"cards":"list","gallery":"list"}},"data_dense":{"field_visibility":{"mode":"page_default","include":[],"exclude":[]},"variant_overrides":{"cards":"table","gallery":"table"}}},
+    "markup_contract":{"field":"data-export-field","screen_only":"data-screen-only","pdf_only":"data-pdf-only","page_variant":"data-view-variant","pdf_variant":"data-export-variant"},
+    "field_rules":["If include is non-empty, only listed data-export-field values are exported except explicit pdf-only blocks.","Exclude always wins over include.","A field may keep the same data while changing visual variant for PDF.","Project templates may define additional named export profiles without changing the renderer."],
+    "variant_rules":{"supported":["cards","list","table","gallery"],"inherit_by_default":true,"override_per_field":true,"override_by_source_variant":true},
     "content_contract":{"input":"structured view model","preferred":"text/vector/layout primitives","avoid":"full-page bitmap capture"},
     "theme_binding":{"inherit_typography":true,"inherit_palette":true,"inherit_spacing":true,"inherit_component_variants":true,"print_overrides_allowed":true},
     "lightweight_rules":["Prefer selectable text over rasterized text.","Reuse vector SVG assets where possible.","Downscale embedded raster images to print need.","Do not duplicate hidden/non-exported UI chrome.","Generate from current data/version so exported PDF cannot silently lag behind the displayed page."],
-    "api":{"browser_global":"NLabPDF","methods":["exportView(config,context)","registerAdapter(name,adapter)"]}
+    "api":{"browser_global":"NLabPDF","methods":["exportView(config,context)","prepare(config,context)","restore(state)","registerAdapter(name,adapter)"]}
   },
-  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"Le mode navigateur sans dépendance utilise CSS print; un adaptateur PDF direct peut être enregistré pour téléchargement sans dialogue d'impression."}
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"V1.10 ajoute profils d'export, visibilité par champ et variantes de rendu HTML/PDF distinctes."}
 }
