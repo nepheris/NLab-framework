@@ -1,0 +1,82 @@
+{
+  "metadata": {
+    "id": "NLAB_DATA_ACCESS_CONTRACT",
+    "json_type": "framework_data_definition",
+    "scope": "framework",
+    "schema_id": "SCH_ARTIFACT",
+    "artifact_version": "1.0.0",
+    "introduced_in": "1.7.0",
+    "status": "stable",
+    "date_creation": "2026-08-09",
+    "date_mise_a_jour": "2026-08-09",
+    "help_id": "HELP_DATA_ACCESS_CONTRACT",
+    "category": "data",
+    "tags": ["data", "static", "api", "sql", "adapter"],
+    "visibility": ["dev"],
+    "supported_runtime_modes": ["static", "local", "production"]
+  },
+  "Data": {
+    "purpose": "Découpler les composants et modèles de données du support physique afin de fonctionner d'abord en statique puis d'ajouter des backends dynamiques sans réécrire l'interface.",
+    "principle": "runtime_mode and data_backend are independent axes",
+    "default_backend": "static_json",
+    "backends": {
+      "embedded_json": {
+        "status": "stable",
+        "server_required": false,
+        "read": true,
+        "write": false,
+        "description": "Données sérialisées directement dans la page ou le bundle; convient au file:// et aux petits jeux de données."
+      },
+      "static_json": {
+        "status": "stable",
+        "server_required": false,
+        "read": true,
+        "write": false,
+        "description": "Fichiers JSON relatifs générés avec le site. En file://, les données peuvent être inlinées au build si fetch local n'est pas disponible."
+      },
+      "http_api": {
+        "status": "planned",
+        "server_required": true,
+        "read": true,
+        "write": true,
+        "description": "API HTTP derrière un adaptateur; le contrat de données côté composants reste identique."
+      },
+      "sql_gateway": {
+        "status": "planned",
+        "server_required": true,
+        "read": true,
+        "write": true,
+        "description": "Base SQL accessible uniquement derrière un service/API. Le navigateur ne se connecte jamais directement à SQL."
+      }
+    },
+    "source_descriptor": {
+      "required": ["backend", "resource_id"],
+      "optional": ["path", "endpoint", "adapter_id", "schema_id", "cache_policy", "read_only", "parameters"],
+      "rule": "Consumers depend on the logical resource/schema contract, not on storage-specific paths or SQL details."
+    },
+    "static_build_strategy": {
+      "canonical_source": "project/source data",
+      "normalize": true,
+      "validate": true,
+      "runtime_output": "generated relative JSON or embedded JSON",
+      "write_back_from_browser": false
+    },
+    "dynamic_bridge": {
+      "preserve_logical_ids": true,
+      "preserve_schemas": true,
+      "preserve_component_contracts": true,
+      "replace_only": ["data adapter", "persistence provider", "authentication/authorization boundary when required"]
+    },
+    "rules": [
+      "Static is the primary supported delivery model for 1.7.x.",
+      "Dynamic persistence is an adapter concern and must not leak into generic UI components.",
+      "SQL-specific tables, queries and credentials never belong in framework/public JSON.",
+      "Generated runtime data is not canonical and may be rebuilt from source data.",
+      "A backend change must not require changing stable entity IDs or public component contracts."
+    ]
+  },
+  "dictionnaire_donnees": {
+    "generated_from_schema": "SCH_ARTIFACT",
+    "note": "Pont de données statique vers API/SQL future, sans coupler les composants à la persistance."
+  }
+}
