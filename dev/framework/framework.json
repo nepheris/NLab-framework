@@ -4,7 +4,7 @@
     "json_type": "framework_definition",
     "scope": "framework",
     "schema_id": "SCH_ARTIFACT",
-    "artifact_version": "2.2.0",
+    "artifact_version": "2.2.1",
     "introduced_in": "1.0.0",
     "status": "stable",
     "date_creation": "2026-08-08",
@@ -57,15 +57,14 @@
       "geo_engine": "leaflet",
       "geo_basemap": "openstreetmap",
       "calendar_exchange": "ics",
-      "meeting_provider": "jitsi",
-      "button_template": "button-icon"
+      "meeting_provider": "jitsi"
     },
     "composition": {
       "engine_key": "composition_engine",
       "order": ["framework_defaults", "preset", "theme", "template", "components", "project_configuration", "business_data", "experience_mode"]
     },
     "registry_keys": ["schema_registry", "component_registry", "icon_registry", "button_registry", "theme_registry", "provider_registry", "help_registry"],
-    "theme_keys": ["design_tokens", "theme_registry", "theme_engine"],
+    "theme_keys": ["design_tokens", "theme_registry", "theme_engine", "button_templates"],
     "documentation_keys": ["help_contract", "help_registry", "auto_documentation"],
     "governance_keys": ["reference_validator"],
     "capability_groups": ["ui_components", "generic_infrastructure", "scheduling_meetings", "controls_feedback"],
@@ -73,11 +72,12 @@
       "This definition describes framework behavior and principles, not canonical file paths.",
       "Canonical paths are resolved exclusively through framework-manifest.json.",
       "Component/module membership is resolved through registries rather than repeated pack file lists.",
+      "Visual component defaults belong to the selected theme rather than framework core.",
       "Project and business data never redefine framework registries."
     ]
   },
   "dictionnaire_donnees": {
     "generated_from_schema": "SCH_ARTIFACT",
-    "note": "La version et les chemins canoniques sont résolus exclusivement via framework-manifest.json."
+    "note": "La version et les chemins canoniques sont résolus exclusivement via framework-manifest.json; les choix visuels sont délégués aux thèmes."
   }
 }
