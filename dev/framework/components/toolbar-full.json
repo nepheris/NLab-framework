@@ -1,9 +1,11 @@
 {
-  "metadata":{"id":"COMP_TOOLBAR_FULL","json_type":"framework_component_config","scope":"framework","schema_id":null,"version":"1.1.1","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09"},
+  "metadata":{"id":"COMP_TOOLBAR_FULL","json_type":"framework_component_config","scope":"framework","schema_id":null,"version":"1.5.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09"},
   "Data":{
     "component":"floating_toolbar",
     "name":"nLab Full Toolbar",
     "strategy":"start_full_then_disable_per_project",
+    "button_registry":"../ui/button-registry.json",
+    "button_template":"button-icon",
     "default_position":"bottom_right",
     "movable":true,
     "lockable":true,
@@ -13,30 +15,10 @@
     "actions":[
       {"id":"anchor","icon":"anchor","enabled":true,"role":"drag_handle"},
       {"id":"fold_state","icon":"default_state","enabled":true,"states":["default","open_all","collapse_all"]},
-      {"id":"help","icon":"help","enabled":true},
-      {"id":"scroll_top","icon":"scroll_top","enabled":true},
-      {"id":"scroll_bottom","icon":"scroll_bottom","enabled":true},
-      {"id":"home","icon":"home","enabled":true},
-      {"id":"back","icon":"arrow_left","enabled":true},
-      {"id":"forward","icon":"arrow_right","enabled":false},
-      {"id":"refresh","icon":"refresh","enabled":true},
-      {"id":"search","icon":"search","enabled":false},
-      {"id":"filter","icon":"filter","enabled":false},
-      {"id":"share","icon":"share","enabled":false},
-      {"id":"print","icon":"print","enabled":false},
-      {"id":"download","icon":"download","enabled":false},
-      {"id":"upload","icon":"upload","enabled":false},
-      {"id":"edit","icon":"edit","enabled":false},
-      {"id":"save","icon":"save","enabled":false},
-      {"id":"fullscreen","icon":"fullscreen","enabled":false},
-      {"id":"settings","icon":"settings","enabled":false},
-      {"id":"info","icon":"info","enabled":false},
-      {"id":"reset","icon":"reset","enabled":false},
-      {"id":"lock","icon":"lock","enabled":true,"state_icons":{"locked":"lock","unlocked":"unlock"}},
-      {"id":"collapse_toolbar","icon":"more","enabled":true}
+      {"id":"help","button_id":"help","enabled":true},{"id":"scroll_top","button_id":"scroll_top","enabled":true},{"id":"scroll_bottom","button_id":"scroll_bottom","enabled":true},{"id":"home","button_id":"home","enabled":true},{"id":"back","button_id":"back","enabled":true},{"id":"forward","button_id":"forward","enabled":false},{"id":"refresh","button_id":"refresh","enabled":true},{"id":"search","button_id":"search","enabled":false},{"id":"filter","button_id":"filter","enabled":false},{"id":"share","button_id":"share","enabled":false},{"id":"print","button_id":"print","enabled":false},{"id":"download","button_id":"download","enabled":false},{"id":"upload","button_id":"upload","enabled":false},{"id":"edit","button_id":"edit","enabled":false},{"id":"save","button_id":"save","enabled":false},{"id":"calendar","button_id":"calendar","enabled":false},{"id":"meeting","button_id":"meeting","enabled":false},{"id":"qr_code","button_id":"qr_code","enabled":false},{"id":"logs","button_id":"logs","enabled":false},{"id":"inspect","button_id":"inspect","enabled":false,"dev_only":true},{"id":"snapshot","button_id":"snapshot","enabled":false,"dev_only":true},{"id":"smoke_test","button_id":"smoke_test","enabled":false,"dev_only":true},{"id":"fullscreen","button_id":"fullscreen","enabled":false},{"id":"settings","button_id":"settings","enabled":false},{"id":"info","button_id":"info","enabled":false},{"id":"reset","icon":"reset","enabled":false},{"id":"lock","icon":"lock","enabled":true,"state_icons":{"locked":"lock","unlocked":"unlock"}},{"id":"collapse_toolbar","icon":"more","enabled":true}
     ],
-    "extension_slots":["before_primary","after_primary","before_lock","project_actions"],
-    "rule":"Project configuration disables unused actions and may inject project-specific actions without modifying the generic toolbar runtime."
+    "extension_slots":["before_primary","after_primary","before_lock","project_actions","dev_actions"],
+    "rule":"Project configuration selects stable button IDs and disables unused actions. Toolbars and modules consume the shared button library instead of redefining icon, label or interaction chrome."
   },
-  "dictionnaire_donnees":{"numero_version":"1.1.1","date_creation_version":"2026-08-09","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Métadonnées nLab.","Data":"Configuration maximale de la toolbar générique.","dictionnaire_donnees":"Description des champs."}}
+  "dictionnaire_donnees":{"numero_version":"1.5.0","date_creation_version":"2026-08-09","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Métadonnées nLab.","Data":"Configuration maximale de la toolbar générique.","dictionnaire_donnees":"Description des champs."}}
 }
