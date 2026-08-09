@@ -1,26 +1,5 @@
 {
-  "metadata": {"id":"THEME_SHADOW_SOFT","json_type":"framework_theme","scope":"framework","schema_id":null,"version":"1.1.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09"},
-  "Data": {
-    "name":"nLab Shadow Soft",
-    "description":"Thème générique issu des enseignements visuels de MadaNotes, sans couleur métier imposée.",
-    "tokens": {
-      "content_width_desktop":"80vw",
-      "content_width_max":"none",
-      "radius_card":"18px",
-      "shadow_soft":"0 8px 28px rgba(21,42,29,.07)",
-      "hero_max_height":"25vh",
-      "hero_width":"content",
-      "hero_radius":"18px",
-      "hero_shadow":"soft",
-      "hero_gradient":"radial-soft",
-      "control_idle":"muted",
-      "control_hover":"brand",
-      "surface":"project.surface",
-      "background":"project.background",
-      "brand":"project.brand",
-      "accent":"project.accent"
-    },
-    "rules": ["content_is_centered","hero_matches_main_content_width","hero_inside_existing_container_uses_100_percent","header_is_not_hero","controls_use_svg_currentColor"]
-  },
-  "dictionnaire_donnees": {"numero_version":"1.1.0","date_creation_version":"2026-08-09","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Métadonnées nLab.","Data":"Tokens et règles du thème.","dictionnaire_donnees":"Description des champs."}}
+  "metadata":{"id":"THEME_SHADOW_SOFT","json_type":"framework_theme","scope":"framework","schema_id":"SCH_THEME","artifact_version":"2.0.0","introduced_in":"1.1.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_THEME_SHADOW_SOFT","category":"themes","tags":["light","soft","shadow"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"],"dependencies":["NLAB_DESIGN_TOKENS","NLAB_THEME_PALETTE_PRESETS"]},
+  "Data":{"name":"nLab Shadow Soft","description":"Thème clair générique à ombres douces et géométrie arrondie.","dominant_preset":"ocean_blue","token_overrides":{"layout.content_width":"80vw","layout.content_max":"none","radius.lg":"18px","shadow.soft":"0 8px 28px rgba(21,42,29,.07)"},"component_defaults":{"hero":{"max_height":"25vh","width":"content","radius_token":"radius.lg","shadow_token":"shadow.soft","gradient":"radial-soft"},"controls":{"idle_token":"color.control","hover_token":"color.control_hover"},"cards":{"radius_token":"radius.lg","shadow_token":"shadow.soft"},"toolbar":{"button_template":"button-icon"}},"rules":["content_is_centered","hero_matches_main_content_width","header_is_not_hero","controls_use_svg_currentColor","visual_values_use_design_tokens"]},
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_THEME","note":"La sémantique des tokens est définie dans design-tokens.json."}
 }
