@@ -1,0 +1,38 @@
+{
+  "package":"nLab Framework 1.4.0 — Scheduling & Meetings",
+  "date":"2026-08-09",
+  "purpose":"Ajouter un socle générique d'agenda portable et de visioconférence provider-agnostic.",
+  "business_neutral":true,
+  "standards":["RFC 5545 iCalendar"],
+  "primary_meeting_provider":"Jitsi Meet",
+  "files":[
+    "dev/framework/modules/calendar-event.json",
+    "dev/framework/modules/ics-generator.json",
+    "dev/framework/modules/video-meeting.json",
+    "dev/framework/components/scheduling-actions.json",
+    "dev/framework/components/meeting-launcher.json",
+    "dev/framework/catalogues/integration-providers.json",
+    "dev/framework/providers/jitsi.json",
+    "dev/framework/framework.json",
+    "dev/framework/structure.json",
+    "NLAB_SCHEDULING_MEETINGS_PACK_V1.4.0.json"
+  ],
+  "implemented_bricks":[
+    "provider-neutral calendar event model",
+    "RFC 5545 ICS generation contract",
+    "standard agenda action buttons with ICS fallback",
+    "provider-neutral video meeting model",
+    "meeting launcher button/card/embed/modal/external modes",
+    "integration provider catalogue",
+    "Jitsi IFrame API adapter with custom-domain support"
+  ],
+  "future_adapters":["Google Calendar","Outlook","Microsoft Teams","Zoom","Google Meet"],
+  "design_rules":[
+    "ICS is the universal calendar fallback.",
+    "Provider-specific URL generation and API mappings live only in adapters.",
+    "Jitsi is the default meeting provider but not embedded in the generic meeting model.",
+    "Self-hosted Jitsi domains are supported through configuration.",
+    "Secrets and JWT tokens must never be serialized into public framework artefacts.",
+    "Calendar events use explicit timezone information by default."
+  ]
+}
