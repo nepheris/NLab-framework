@@ -1,33 +1,53 @@
 {
-  "metadata":{"id":"NLAB_SCHEMA_REGISTRY","json_type":"framework_catalog","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"1.0.0","introduced_in":"1.6.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_SCHEMA_REGISTRY","visibility":["dev"],"supported_runtime_modes":["local","production"]},
-  "Data":{
-    "purpose":"Registre canonique des schémas et association json_type -> schema_id.",
-    "schemas":[
-      {"id":"SCH_SCHEMA_FILE","path":"../schemas/schema-file.schema.json","status":"stable"},
-      {"id":"SCH_METADATA","path":"../schemas/metadata.schema.json","status":"stable"},
-      {"id":"SCH_ARTIFACT","path":"../schemas/artifact.schema.json","status":"stable"},
-      {"id":"SCH_COMPONENT","path":"../schemas/component.schema.json","status":"stable"},
-      {"id":"SCH_MODULE","path":"../schemas/module.schema.json","status":"stable"},
-      {"id":"SCH_THEME","path":"../schemas/theme.schema.json","status":"stable"},
-      {"id":"SCH_FRAMEWORK_MANIFEST","path":"../schemas/framework-manifest.schema.json","status":"stable"}
+  "metadata": {
+    "id": "NLAB_SCHEMA_REGISTRY",
+    "json_type": "framework_catalog",
+    "scope": "framework",
+    "schema_id": "SCH_ARTIFACT",
+    "artifact_version": "1.1.0",
+    "introduced_in": "1.6.0",
+    "status": "stable",
+    "date_creation": "2026-08-09",
+    "date_mise_a_jour": "2026-08-09",
+    "help_id": "HELP_SCHEMA_REGISTRY",
+    "category": "governance",
+    "tags": ["schema", "registry", "validation"],
+    "visibility": ["dev"],
+    "supported_runtime_modes": ["local", "production"]
+  },
+  "Data": {
+    "purpose": "Registre canonique des schémas et association json_type -> schema_id.",
+    "schemas": [
+      {"id": "SCH_SCHEMA_FILE", "path": "../schemas/schema-file.schema.json", "status": "stable"},
+      {"id": "SCH_METADATA", "path": "../schemas/metadata.schema.json", "status": "stable"},
+      {"id": "SCH_ARTIFACT", "path": "../schemas/artifact.schema.json", "status": "stable"},
+      {"id": "SCH_COMPONENT", "path": "../schemas/component.schema.json", "status": "stable"},
+      {"id": "SCH_MODULE", "path": "../schemas/module.schema.json", "status": "stable"},
+      {"id": "SCH_THEME", "path": "../schemas/theme.schema.json", "status": "stable"},
+      {"id": "SCH_FRAMEWORK_MANIFEST", "path": "../schemas/framework-manifest.schema.json", "status": "stable"},
+      {"id": "SCH_HELP_REGISTRY", "path": "../schemas/help.schema.json", "status": "stable"}
     ],
-    "type_bindings":{
-      "framework_schema":"SCH_SCHEMA_FILE",
-      "framework_manifest":"SCH_FRAMEWORK_MANIFEST",
-      "framework_component_config":"SCH_COMPONENT",
-      "framework_component_registry":"SCH_COMPONENT",
-      "framework_theme":"SCH_THEME",
-      "framework_theme_registry":"SCH_THEME",
-      "framework_theme_palette_registry":"SCH_THEME"
+    "type_bindings": {
+      "framework_schema": "SCH_SCHEMA_FILE",
+      "framework_manifest": "SCH_FRAMEWORK_MANIFEST",
+      "framework_component_config": "SCH_COMPONENT",
+      "framework_component_registry": "SCH_COMPONENT",
+      "framework_theme": "SCH_THEME",
+      "framework_theme_registry": "SCH_THEME",
+      "framework_theme_palette_registry": "SCH_THEME",
+      "framework_help_registry": "SCH_HELP_REGISTRY"
     },
-    "fallback_schema":"SCH_ARTIFACT",
-    "validation_policy":{
-      "new_artifacts":"error_on_missing_or_invalid_schema",
-      "modified_artifacts":"error_on_missing_or_invalid_schema",
-      "legacy_unmodified_artifacts":"warning_until_migrated",
-      "unknown_references":"error",
-      "deprecated_references":"warning"
+    "fallback_schema": "SCH_ARTIFACT",
+    "validation_policy": {
+      "new_artifacts": "error_on_missing_or_invalid_schema",
+      "modified_artifacts": "error_on_missing_or_invalid_schema",
+      "legacy_unmodified_artifacts": "warning_until_migrated",
+      "unknown_references": "error",
+      "deprecated_references": "warning"
     }
   },
-  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"Les associations de types et schémas sont centralisées ici."}
+  "dictionnaire_donnees": {
+    "generated_from_schema": "SCH_ARTIFACT",
+    "note": "Les associations de types et schémas sont centralisées ici."
+  }
 }
