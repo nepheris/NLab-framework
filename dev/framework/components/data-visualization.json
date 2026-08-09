@@ -1,0 +1,14 @@
+{
+  "metadata":{"id":"NLAB_DATA_VISUALIZATION","json_type":"framework_component","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"1.0.0","introduced_in":"1.11.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_DATA_VISUALIZATION","category":"data_display","tags":["charts","statistics","conditional-formatting","table"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"]},
+  "Data":{
+    "purpose":"Visualisations légères et règles de présentation dérivées de données tabulaires ou de collections JSON.",
+    "statistics":["count","sum","min","max","mean","median","distinct_count"],
+    "mini_charts":["bar","histogram","sparkline","progress","distribution"],
+    "full_view_variants":["chart"],
+    "chart_contract":{"source":"field_or_expression","group_by":null,"aggregate":null,"sort":null,"limit":null,"orientation":"auto","theme_binding":true},
+    "conditional_formatting":{"rules":[{"when":"expression","apply":["semantic_color","background_token","text_token","badge_variant","icon","font_weight"]}],"first_match":false,"fallback":"default"},
+    "table_integration":{"column_summary":true,"cell_rules":true,"header_statistics":true,"inline_chart":true},
+    "rules":["Charts read structured data, not rendered DOM text.","Business thresholds live in project configuration.","Conditional formatting uses semantic theme tokens instead of hard-coded colors when possible.","Mini charts are optional progressive enhancement; underlying numeric/text values remain accessible."]
+  },
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"Ajoute statistiques, mini-graphiques et formatage conditionnel réutilisables."}
+}
