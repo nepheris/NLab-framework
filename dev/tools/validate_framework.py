@@ -2,8 +2,9 @@
 """nLab framework governance validator.
 
 Validates canonical sources, metadata V2, JSON Schemas when jsonschema is
-available, and cross-registry references. Legacy V1 metadata is a warning by
-default and an error with --strict.
+available, cross-registry references, layered-help coverage and selected
+single-source-of-truth rules. Legacy V1 metadata is a warning by default and
+an error with --strict.
 """
 from __future__ import annotations
 
@@ -51,9 +52,18 @@ def load_schema_store():
     return store, paths
 
 
+def duplicate_values(values):
+    seen, dup = set(), set()
+    for value in values:
+        if value in seen:
+            dup.add(value)
+        seen.add(value)
+    return dup
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--strict", action="store_true", help="treat legacy metadata as errors")
+    ap.add_argument("--strict", action="store_true", help="treat migration warnings as errors")
     ap.add_argument("--json", dest="json_out", help="write report JSON to this path")
     args = ap.parse_args()
 
@@ -67,12 +77,31 @@ def main():
         if not p.exists():
             add(report, "errors", "canonical_missing", manifest_path, f"{name}: {rel} not found")
 
-    buttons = collect_ids(FW / "ui" / "button-registry.json", "buttons")
-    icons = set(load(FW / "ui" / "icon-registry.json").get("Data", {}).get("icons", []))
+    button_doc = load(FW / "ui" / "button-registry.json")
+    button_items = button_doc.get("Data", {}).get("buttons", [])
+    button_ids_list = [x.get("id") for x in button_items if isinstance(x, dict) and x.get("id")]
+    buttons = set(button_ids_list)
+    for value in duplicate_values(button_ids_list):
+        add(report, "errors", "duplicate_button_id", FW / "ui" / "button-registry.json", value)
+
+    icon_doc = load(FW / "ui" / "icon-registry.json")
+    icon_list = icon_doc.get("Data", {}).get("icons", [])
+    icons = set(icon_list)
+    for value in duplicate_values(icon_list):
+        add(report, "errors", "duplicate_icon_id", FW / "ui" / "icon-registry.json", value)
+
     components = {x.get("id") for x in load(FW / "components" / "component-registry.json").get("Data", {}).get("components", []) if x.get("id")}
     themes = {x.get("id") for x in load(FW / "themes" / "theme-registry.json").get("Data", {}).get("themes", []) if x.get("id")}
     schema_ids = collect_ids(FW / "catalogues" / "schema-registry.json", "schemas")
     schema_store, _ = load_schema_store()
+
+    help_path = FW / "help" / "help-registry.json"
+    help_doc = load(help_path)
+    help_entries = help_doc.get("Data", {}).get("entries", [])
+    help_ids_list = [x.get("help_id") for x in help_entries if isinstance(x, dict) and x.get("help_id")]
+    help_ids = set(help_ids_list)
+    for value in duplicate_values(help_ids_list):
+        add(report, "errors", "duplicate_help_id", help_path, value)
 
     default_theme = load(FW / "themes" / "theme-registry.json").get("Data", {}).get("default_theme")
     if default_theme not in themes:
@@ -82,6 +111,7 @@ def main():
         add(report, "warnings", "jsonschema_unavailable", manifest_path, "pip install jsonschema for full schema validation")
 
     seen_meta_ids = {}
+    used_help_ids = set()
     required_v2 = {"id", "json_type", "scope", "schema_id", "artifact_version", "introduced_in", "status", "date_creation", "date_mise_a_jour", "visibility", "supported_runtime_modes"}
 
     def check_refs(node, path):
@@ -131,6 +161,17 @@ def main():
         if obj.get("Data", {}).get("framework_version") and path != manifest_path:
             add(report, "errors", "duplicate_framework_version", path, "framework_version must exist only in framework-manifest.json")
 
+        help_id = md.get("help_id")
+        if help_id:
+            used_help_ids.add(help_id)
+        if md.get("json_type") == "framework_component_config" and "public" in md.get("visibility", []) and help_id and help_id not in help_ids:
+            add(report, "errors" if args.strict else "warnings", "public_help_missing", path, f"{help_id} has no editorial entry in help-registry.json")
+
+        if path.name == "toolbar-full.json":
+            for action in obj.get("Data", {}).get("actions", []):
+                if isinstance(action, dict) and ("icon" in action or "label" in action):
+                    add(report, "errors", "toolbar_duplicates_button_chrome", path, str(action))
+
         if not legacy and Draft202012Validator is not None and schema_id in schema_store:
             schema = schema_store[schema_id]
             resolver = RefResolver.from_schema(schema, store=schema_store)
@@ -140,11 +181,21 @@ def main():
 
         check_refs(obj, path)
 
-    result = {"framework_version": manifest["Data"]["framework_version"], "status": "FAIL" if report["errors"] else "PASS", "counts": {k: len(v) for k, v in report.items()}, **report}
+    for help_id in sorted(help_ids - used_help_ids):
+        add(report, "warnings", "unused_help_entry", help_path, help_id)
+
+    result = {
+        "framework_version": manifest["Data"]["framework_version"],
+        "status": "FAIL" if report["errors"] else "PASS",
+        "counts": {k: len(v) for k, v in report.items()},
+        **report,
+    }
     text = json.dumps(result, ensure_ascii=False, indent=2)
     print(text)
     if args.json_out:
-        out = Path(args.json_out);out.parent.mkdir(parents=True, exist_ok=True);out.write_text(text + "\n", encoding="utf-8")
+        out = Path(args.json_out)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(text + "\n", encoding="utf-8")
     raise SystemExit(1 if report["errors"] else 0)
 
 
