@@ -1,5 +1,5 @@
 {
-  "metadata": {"id":"DEMO_REFERENCES","json_type":"demo_reference_catalog","version":"1.0.0","status":"demo"},
+  "metadata":{"id":"DEMO_REFERENCES","json_type":"source_referential","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"1.0.0","introduced_in":"1.12.0","status":"experimental","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","visibility":["dev"],"supported_runtime_modes":["static","local","production"]},
   "Data": {
     "categories": [
       {"id":"CAT_ROOT","label":"Documentation","short_label":"Docs","parent_id":null,"order":10,"icon":"folder","image":"","active":true,"description":"Racine documentaire."},
@@ -20,12 +20,5 @@
       {"id":"MED_PDF","label":"PDF","icon":"file_pdf"}
     ]
   },
-  "dictionnaire_donnees": {
-    "champs": {
-      "id":{"libelle":"Identifiant","description":"Identifiant stable de la valeur de référence."},
-      "label":{"libelle":"Libellé humain","description":"Nom destiné à l'affichage."},
-      "parent_id":{"libelle":"Parent","description":"Identifiant du parent pour une liste hiérarchique."},
-      "semantic":{"libelle":"Couleur sémantique","description":"État visuel utilisé par l'éditeur de données."}
-    }
-  }
+  "dictionnaire_donnees":{"champs":{"id":{"libelle":"Identifiant","description":"Identifiant stable de la valeur de référence."},"label":{"libelle":"Libellé humain","description":"Nom destiné à l'affichage."},"parent_id":{"libelle":"Parent","description":"Identifiant du parent pour une liste hiérarchique."},"semantic":{"libelle":"Couleur sémantique","description":"État visuel utilisé par l'éditeur de données."}}}
 }
