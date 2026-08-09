@@ -1,6 +1,7 @@
 {
-  "metadata":{"id":"NLAB_STRUCTURE","json_type":"framework_structure","scope":"framework","schema_id":null,"version":"1.4.0","status":"stable","date_creation":"2026-08-08","date_mise_a_jour":"2026-08-09"},
+  "metadata":{"id":"NLAB_STRUCTURE","json_type":"framework_structure","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"2.0.0","introduced_in":"1.0.0","status":"stable","date_creation":"2026-08-08","date_mise_a_jour":"2026-08-09","help_id":"HELP_FRAMEWORK_STRUCTURE","category":"core","tags":["structure","paths","layers"],"visibility":["dev"],"supported_runtime_modes":["static","local","production"],"dependencies":["NLAB_FRAMEWORK_MANIFEST","NLAB_COMPOSITION_ENGINE"]},
   "Data":{
+    "manifest":"framework-manifest.json",
     "framework_root":"dev/framework",
     "layers":["core","environment","layout","data","analytics","visualization","geo","rendering","ui","ux","themes","components","modules","templates","routes","seo","help","catalogues","schemas","presets","providers"],
     "project_root":"dev/project",
@@ -10,11 +11,11 @@
     "tests_root":"dev/tests",
     "runtime_data_root":"data",
     "dataset_convention":["manifest.json","input","source","processed","archive","quarantine"],
-    "composition_order":["framework","preset","theme","template","components","project_configuration","business_data"],
-    "implemented_in_1_1_0":{"components":"components/component-registry.json","icons":"ui/icon-registry.json","theme":"themes/shadow-soft.json","help":"help/contextual-help.json","presets":["presets/light.json","presets/technical.json"],"templates":["templates/home-dashboard.json","templates/technical-sheet.json"]},
-    "implemented_in_1_3_0":{"core":["core/resource-registry.json","core/path-resolver.json"],"data":["data/taxonomy-engine.json","data/relation-model.json"],"modules":["modules/directory-explorer.json","modules/facet-filter-engine.json","modules/build-report.json"],"environment":["environment/runtime-modes.json"]},
-    "implemented_in_1_4_0":{"modules":["modules/calendar-event.json","modules/ics-generator.json","modules/video-meeting.json"],"components":["components/scheduling-actions.json","components/meeting-launcher.json"],"catalogues":["catalogues/integration-providers.json"],"providers":["providers/jitsi.json"]},
-    "separation_rule":{"framework":"Mécanique et définitions génériques nLab.","project":"Configuration, thème dérivé, templates personnalisés et extensions propres au site.","source":"Sources métier et datasets de référence.","runtime":"Artefacts générés et publiables consommés par le navigateur.","providers":"Adapters externes isolant les spécificités fournisseurs du modèle générique."}
+    "composition_engine":"core/composition-engine.json",
+    "composition_order":["framework_defaults","preset","theme","template","components","project_configuration","business_data","experience_mode"],
+    "canonical_registries":{"schemas":"catalogues/schema-registry.json","components":"components/component-registry.json","icons":"ui/icon-registry.json","buttons":"ui/button-registry.json","themes":"themes/theme-registry.json","providers":"catalogues/integration-providers.json"},
+    "separation_rule":{"framework":"Generic mechanics, schemas, registries and defaults.","project":"Project configuration, derived theme overrides, template selection and extensions.","source":"Business/source datasets and reference inputs.","runtime":"Generated browser-consumable artifacts.","providers":"External-service adapters isolated from generic models.","generated":"Non-canonical outputs regenerated from canonical sources."},
+    "rules":["Release history belongs to release manifests, not structure.json.","Global framework version belongs only to framework-manifest.json.","Missing physical layers may be created lazily when first used."]
   },
-  "dictionnaire_donnees":{"numero_version":"1.4.0","date_creation_version":"2026-08-08","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Identifie la nature, la portée, le schéma, la version et le statut du JSON.","Data":"Structure physique et ordre de composition du framework.","dictionnaire_donnees":"Décrit la structure et le rôle des champs du JSON."}}
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"Structure courante; l'historique de versions n'est pas dupliqué ici."}
 }
