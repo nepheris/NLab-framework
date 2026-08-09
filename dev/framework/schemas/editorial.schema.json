@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "id": "SCH_EDITORIAL_FILE",
+    "json_type": "framework_schema",
+    "scope": "framework",
+    "schema_id": "SCH_SCHEMA_FILE",
+    "artifact_version": "1.0.0",
+    "introduced_in": "1.7.0",
+    "status": "stable",
+    "date_creation": "2026-08-09",
+    "date_mise_a_jour": "2026-08-09",
+    "help_id": "HELP_SCHEMA_EDITORIAL",
+    "visibility": ["dev"],
+    "supported_runtime_modes": ["static", "local", "production"]
+  },
+  "Data": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "SCH_EDITORIAL",
+    "title": "nLab editorial content",
+    "description": "Bloc éditorial réutilisable pour les contenus projet/public. Il est facultatif dans les artefacts techniques.",
+    "type": "object",
+    "properties": {
+      "short_text": {"type": ["string", "null"], "description": "Texte bref pour cartes, résumés, infobulles ou présentations compactes."},
+      "long_text": {"type": ["string", "null"], "description": "Texte rédigé et détaillé destiné à l'utilisateur."},
+      "title": {"type": ["string", "null"]},
+      "subtitle": {"type": ["string", "null"]},
+      "note": {"type": ["string", "null"], "description": "Note éditoriale libre destinée au contenu, pas à la gouvernance technique."},
+      "credits": {"type": ["string", "null"]}
+    },
+    "additionalProperties": false
+  },
+  "dictionnaire_donnees": {
+    "generated_from_schema": "SCH_SCHEMA_FILE",
+    "note": "Les textes éditoriaux restent séparés des métadonnées techniques et sont utilisés seulement lorsque le modèle métier/projet en a besoin."
+  }
+}
