@@ -1,5 +1,5 @@
 {
-  "metadata":{"id":"NLAB_COMPONENT_REGISTRY","json_type":"framework_component_registry","scope":"framework","schema_id":"SCH_COMPONENT","artifact_version":"2.2.0","introduced_in":"1.1.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_COMPONENT_REGISTRY","category":"registry","tags":["components","composition"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"],"dependencies":["NLAB_COMPOSITION_ENGINE","NLAB_BUTTON_REGISTRY","NLAB_DESIGN_TOKENS","NLAB_HELP_REGISTRY"]},
+  "metadata":{"id":"NLAB_COMPONENT_REGISTRY","json_type":"framework_component_registry","scope":"framework","schema_id":"SCH_COMPONENT","artifact_version":"2.3.0","introduced_in":"1.1.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_COMPONENT_REGISTRY","category":"registry","tags":["components","composition"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"],"dependencies":["NLAB_COMPOSITION_ENGINE","NLAB_BUTTON_REGISTRY","NLAB_DESIGN_TOKENS","NLAB_HELP_REGISTRY"]},
   "Data":{
     "component":"component_registry",
     "components":[
@@ -23,6 +23,9 @@
       {"id":"document_viewer","category":"documents","config_driven":true,"features":["safe_url_validation","embedded_view","open_original","fallback_message"]},
       {"id":"scheduling_actions","category":"integration","config_driven":true,"default_config":"scheduling-actions.json","features":["ics","provider_buttons","dropdown","compact"]},
       {"id":"meeting_launcher","category":"integration","config_driven":true,"default_config":"meeting-launcher.json","features":["button","card","embed","modal","external","provider_adapter"]},
+      {"id":"file_attachment_input","category":"forms","config_driven":true,"default_config":"file-attachment-input.json","features":["file_picker","drag_drop","multiple","validation","remove","local_memory"]},
+      {"id":"audio_recorder","category":"media","config_driven":true,"default_config":"audio-recorder.json","features":["microphone_permission","record","pause","stop","preview","blob_output","file_fallback"]},
+      {"id":"draft_controls","category":"forms","config_driven":true,"default_config":"draft-controls.json","features":["save","restore","clear","export","import","optional_local_persistence"]},
       {"id":"kpi_grid","category":"data_display","config_driven":true,"features":["responsive_grid","label","value","status","compact_variant"]},
       {"id":"tabs","category":"navigation","config_driven":true,"primitive":true,"features":["aria_selected","tabpanel","responsive_wrap"]},
       {"id":"form_field","category":"forms","config_driven":true,"primitive":true,"features":["label","help_text","readonly","select","password_action","validation_state"]},
