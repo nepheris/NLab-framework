@@ -6,6 +6,17 @@
   const emit=(host,name,detail)=>host.dispatchEvent(new CustomEvent(name,{bubbles:true,detail}));
   const fileMeta=f=>({name:f.name,type:f.type||'application/octet-stream',size:f.size,lastModified:f.lastModified||null});
 
+  function acceptFile(file,accept){
+    if(!accept)return true;
+    const name=(file.name||'').toLowerCase();
+    const type=(file.type||'').toLowerCase();
+    return accept.split(',').map(x=>x.trim().toLowerCase()).filter(Boolean).some(rule=>{
+      if(rule.startsWith('.'))return name.endsWith(rule);
+      if(rule.endsWith('/*'))return type.startsWith(rule.slice(0,-1));
+      return type===rule;
+    });
+  }
+
   function initAttachments(host){
     if(host.dataset.nlabReady)return;
     host.dataset.nlabReady='1';
@@ -36,6 +47,7 @@
     function add(incoming){
       for(const f of incoming){
         if(maxFiles&&files.length>=maxFiles){emit(host,'nlab:attachment-error',{code:'max_files',file:fileMeta(f)});break;}
+        if(!acceptFile(f,host.dataset.accept||'')){emit(host,'nlab:attachment-error',{code:'type_not_allowed',file:fileMeta(f)});continue;}
         if(maxBytes&&f.size>maxBytes){emit(host,'nlab:attachment-error',{code:'file_too_large',file:fileMeta(f)});continue;}
         if(totalLimit&&(files.reduce((n,x)=>n+x.size,0)+f.size)>totalLimit){emit(host,'nlab:attachment-error',{code:'total_too_large',file:fileMeta(f)});continue;}
         files.push(f);
@@ -53,31 +65,38 @@
   function initAudio(host){
     if(host.dataset.nlabReady)return;
     host.dataset.nlabReady='1';
-    const record=uiButton('record'), pause=uiButton('pause'), stop=uiButton('stop'), remove=uiButton('delete');
+    const record=uiButton('record'), play=uiButton('play'), pause=uiButton('pause'), stop=uiButton('stop'), remove=uiButton('delete');
     const audio=document.createElement('audio'); audio.controls=true; audio.hidden=true;
+    const fallback=document.createElement('input'); fallback.type='file'; fallback.accept='audio/*'; fallback.capture='user'; fallback.hidden=true;
     const status=document.createElement('span'); status.className='nlab-field-status'; status.setAttribute('aria-live','polite');
-    [record,pause,stop,remove].filter(Boolean).forEach(b=>host.append(b)); host.append(audio,status);
-    let recorder=null,stream=null,chunks=[],blob=null,url=null;
+    if(play)play.hidden=true;
+    [record,play,pause,stop,remove].filter(Boolean).forEach(b=>host.append(b)); host.append(audio,fallback,status);
+    let recorder=null,stream=null,chunks=[],blob=null,url=null,discardOnStop=false;
     const setStatus=s=>{status.textContent=s;emit(host,'nlab:audio-state',{state:s});};
-    function clearBlob(){if(url)URL.revokeObjectURL(url);url=null;blob=null;audio.removeAttribute('src');audio.hidden=true;emit(host,'nlab:audio-ready',{blob:null,metadata:null});}
+    const stopTracks=()=>{stream?.getTracks().forEach(t=>t.stop());stream=null;};
+    function clearBlob(){if(url)URL.revokeObjectURL(url);url=null;blob=null;audio.pause?.();audio.removeAttribute('src');audio.hidden=true;if(play)play.hidden=true;emit(host,'nlab:audio-ready',{blob:null,metadata:null});}
+    function setBlob(next,metadata={}){if(url)URL.revokeObjectURL(url);blob=next;url=URL.createObjectURL(blob);audio.src=url;audio.hidden=false;if(play)play.hidden=false;setStatus('Enregistrement prêt');emit(host,'nlab:audio-ready',{blob,metadata:{type:blob.type,size:blob.size,...metadata}});}
     function chooseMime(){const wanted=(host.dataset.mimeTypes||'audio/webm;codecs=opus,audio/webm,audio/mp4,audio/ogg').split(',');return wanted.find(x=>window.MediaRecorder?.isTypeSupported?.(x.trim()))?.trim()||'';}
     async function start(){
-      if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder){setStatus('Enregistrement direct indisponible');emit(host,'nlab:audio-error',{code:'unsupported'});return;}
+      if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder){setStatus('Enregistrement direct indisponible');emit(host,'nlab:audio-error',{code:'unsupported'});fallback.click();return;}
       try{
         stream=await navigator.mediaDevices.getUserMedia({audio:true,video:false});
-        chunks=[]; const mimeType=chooseMime(); recorder=new MediaRecorder(stream,mimeType?{mimeType}:undefined);
+        chunks=[];discardOnStop=false; const mimeType=chooseMime(); recorder=new MediaRecorder(stream,mimeType?{mimeType}:undefined);
         recorder.addEventListener('dataavailable',e=>{if(e.data?.size)chunks.push(e.data);});
         recorder.addEventListener('stop',()=>{
-          blob=new Blob(chunks,{type:recorder.mimeType||mimeType||'audio/webm'}); if(url)URL.revokeObjectURL(url);url=URL.createObjectURL(blob);audio.src=url;audio.hidden=false;
-          stream?.getTracks().forEach(t=>t.stop());stream=null;setStatus('Enregistrement prêt');emit(host,'nlab:audio-ready',{blob,metadata:{type:blob.type,size:blob.size}});
+          stopTracks();
+          if(discardOnStop){discardOnStop=false;chunks=[];clearBlob();setStatus('');return;}
+          const next=new Blob(chunks,{type:recorder.mimeType||mimeType||'audio/webm'});chunks=[];setBlob(next);
         });
         recorder.start();setStatus('Enregistrement en cours');
-      }catch(error){stream?.getTracks().forEach(t=>t.stop());stream=null;setStatus('Accès au microphone refusé ou indisponible');emit(host,'nlab:audio-error',{code:error?.name||'capture_error',error});}
+      }catch(error){stopTracks();setStatus('Accès au microphone refusé ou indisponible');emit(host,'nlab:audio-error',{code:error?.name||'capture_error',error});}
     }
+    fallback.addEventListener('change',()=>{const f=fallback.files?.[0];if(f){setBlob(f,{name:f.name,lastModified:f.lastModified||null,source:'file_fallback'});}fallback.value='';});
     record?.addEventListener('click',()=>{if(!recorder||recorder.state==='inactive')start();else if(recorder.state==='paused'){recorder.resume();setStatus('Enregistrement en cours');}});
-    pause?.addEventListener('click',()=>{if(recorder?.state==='recording'){recorder.pause();setStatus('Enregistrement en pause');}});
-    stop?.addEventListener('click',()=>{if(recorder&&recorder.state!=='inactive')recorder.stop();});
-    remove?.addEventListener('click',()=>{if(recorder&&recorder.state!=='inactive')recorder.stop();clearBlob();setStatus('');});
+    play?.addEventListener('click',()=>{if(blob)audio.play?.();});
+    pause?.addEventListener('click',()=>{if(recorder?.state==='recording'){recorder.pause();setStatus('Enregistrement en pause');}else audio.pause?.();});
+    stop?.addEventListener('click',()=>{if(recorder&&recorder.state!=='inactive')recorder.stop();else if(!audio.hidden){audio.pause?.();audio.currentTime=0;}});
+    remove?.addEventListener('click',()=>{if(recorder&&recorder.state!=='inactive'){discardOnStop=true;recorder.stop();}else{clearBlob();setStatus('');}});
     state.set(host,{type:'audio',get blob(){return blob;}});
   }
 
