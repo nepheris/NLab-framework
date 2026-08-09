@@ -1,17 +1,18 @@
 {
-  "metadata":{"id":"COMP_FLOATING_WINDOW","json_type":"framework_component_config","scope":"framework","schema_id":null,"version":"1.1.1","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09"},
+  "metadata":{"id":"COMP_FLOATING_WINDOW","json_type":"framework_component_config","scope":"framework","schema_id":"SCH_COMPONENT","artifact_version":"2.0.0","introduced_in":"1.1.1","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_FLOATING_WINDOW","category":"windowing","tags":["window","floating","dock","resize"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"]},
   "Data":{
     "component":"floating_window",
-    "description":"Fenêtre générique réutilisable pour aide, inspecteur, filtres, formulaires, outils et extensions projet.",
+    "purpose":"Primitive générique réutilisable pour aide, inspecteur, filtres, formulaires, logs et extensions projet.",
     "capabilities":["move","lock","resize_8_directions","dock","undock","reset","fullscreen","close","persistence","viewport_clamp"],
     "default":{"width":"390px","min_width":"300px","min_height":"260px","position":"top_right","locked":false,"docked":false,"resizable":true,"persistent":true},
     "dock_targets":["left","right","top","bottom","center"],
+    "button_ids":["lock","reset","fullscreen","close"],
     "header_actions":["anchor","lock","reset","fullscreen","close"],
     "content_modes":["html","iframe","component","project_slot"],
     "persistence":{"position":true,"size":true,"locked":true,"docked":true,"open_state":false},
     "accessibility":{"keyboard_close":true,"focusable_controls":true,"aria_title_required":true},
     "extension_slots":["header_before_title","header_actions","body","footer"],
-    "rule":"Domain-specific floating panels are specializations of floating_window and must not duplicate drag/resize/lock/persistence mechanics."
+    "rules":["Specialized floating panels compose floating_window.","Drag, resize, lock, dock and persistence mechanics are defined only here."]
   },
-  "dictionnaire_donnees":{"numero_version":"1.1.1","date_creation_version":"2026-08-09","date_mise_a_jour_version":"2026-08-09","champs":{"metadata":"Métadonnées nLab.","Data":"Contrat générique des fenêtres flottantes/ancrables.","dictionnaire_donnees":"Description des champs."}}
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_COMPONENT","note":"Primitive canonique de fenêtrage."}
 }
