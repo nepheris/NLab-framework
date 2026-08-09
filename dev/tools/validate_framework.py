@@ -3,7 +3,7 @@
 
 All active framework JSON artifacts must use Metadata V2. The validator also
 checks schemas, canonical references, json_type vocabulary, layered-help
-source hygiene and selected single-source-of-truth rules.
+source hygiene, SVG runtime coverage and selected single-source-of-truth rules.
 """
 from __future__ import annotations
 
@@ -22,6 +22,8 @@ ROOT = Path(__file__).resolve().parents[2]
 FW = ROOT / "dev" / "framework"
 MANIFEST_PATH = FW / "framework-manifest.json"
 HELP_ID_RE = re.compile(r'data-help-id\s*=\s*["\']([^"\']+)["\']')
+ICON_OBJECT_RE = re.compile(r'\b([A-Za-z][A-Za-z0-9_]*)\s*:\s*svg\(')
+ICON_ASSIGN_RE = re.compile(r'\bicons\.([A-Za-z][A-Za-z0-9_]*)\s*=\s*svg\(')
 REQUIRED_V2 = {"id","json_type","scope","schema_id","artifact_version","introduced_in","status","date_creation","date_mise_a_jour","visibility","supported_runtime_modes"}
 
 
@@ -92,9 +94,19 @@ def main():
     buttons=set(button_list)
     for x in duplicates(button_list): add(report,"errors","duplicate_button_id",button_path,x)
 
-    icon_list=load(icon_path).get("Data",{}).get("icons",[])
+    icon_data=load(icon_path).get("Data",{})
+    icon_list=icon_data.get("icons",[])
     icons=set(icon_list)
     for x in duplicates(icon_list): add(report,"errors","duplicate_icon_id",icon_path,x)
+    runtime_icons=set()
+    for rel in icon_data.get("runtime_files",[]):
+        p=icon_path.parent/rel
+        if not p.exists():
+            add(report,"errors","icon_runtime_file_missing",icon_path,rel); continue
+        text=p.read_text(encoding="utf-8")
+        runtime_icons.update(ICON_OBJECT_RE.findall(text)); runtime_icons.update(ICON_ASSIGN_RE.findall(text))
+    for x in sorted(icons-runtime_icons): add(report,"errors","icon_runtime_missing",icon_path,x)
+    for x in sorted(runtime_icons-icons): add(report,"warnings","icon_runtime_unregistered",icon_path,x)
 
     components={x.get("id") for x in load(component_path).get("Data",{}).get("components",[]) if x.get("id")}
     themes={x.get("id") for x in load(theme_path).get("Data",{}).get("themes",[]) if x.get("id")}
@@ -165,11 +177,20 @@ def main():
 
     if (FW/"catalogues"/"scopes.json").exists(): add(report,"errors","duplicate_scope_catalog",FW/"catalogues"/"scopes.json","metadata.schema.json is the single source of truth for scope values")
     framework=load(canonical_path(manifest,"framework_definition"))
-    if "defaults" in framework.get("Data",{}): add(report,"errors","framework_duplicates_domain_defaults",canonical_path(manifest,"framework_definition"),"visualization/geo/provider defaults belong to their own registries or project configuration")
+    if "defaults" in framework.get("Data",{}): add(report,"errors","framework_duplicates_domain_defaults",canonical_path(manifest,"framework_definition"),"domain defaults belong to their own registries/contracts or project configuration")
     runtime=load(canonical_path(manifest,"runtime_modes"))
     if runtime.get("Data",{}).get("primary_mode")!="static": add(report,"errors","static_not_primary",canonical_path(manifest,"runtime_modes"),"static must be the primary runtime mode")
     data_access=load(canonical_path(manifest,"data_access_contract"))
     if data_access.get("Data",{}).get("default_backend") not in {"embedded_json","static_json"}: add(report,"errors","static_backend_not_default",canonical_path(manifest,"data_access_contract"),"default backend must remain static")
+    storage_policy=load(canonical_path(manifest,"client_storage_policy"))
+    if storage_policy.get("Data",{}).get("default")!="ephemeral_memory": add(report,"errors","persistent_storage_default",canonical_path(manifest,"client_storage_policy"),"client storage must default to ephemeral_memory")
+    if storage_policy.get("Data",{}).get("cookie_policy",{}).get("default_enabled") is not False: add(report,"errors","cookies_enabled_by_default",canonical_path(manifest,"client_storage_policy"),"cookies must be disabled by default")
+    persistence=load(canonical_path(manifest,"client_persistence"))
+    if persistence.get("Data",{}).get("default_adapter")!="memory": add(report,"errors","persistent_draft_default",canonical_path(manifest,"client_persistence"),"draft persistence must default to memory")
+    personal=load(canonical_path(manifest,"personal_storage"))
+    if personal.get("Data",{}).get("default_provider")!="none": add(report,"errors","personal_storage_enabled_by_default",canonical_path(manifest,"personal_storage"),"personal storage must be opt-in")
+    submission=load(canonical_path(manifest,"form_submission"))
+    if submission.get("Data",{}).get("adapters",{}).get("mailto_text",{}).get("attachments") is not False: add(report,"errors","mailto_attachment_claim",canonical_path(manifest,"form_submission"),"mailto must not claim reliable automatic attachment support")
 
     for path in sorted(FW.rglob("*")):
         if path.is_file() and path.suffix.lower() in {".html",".js"}:
