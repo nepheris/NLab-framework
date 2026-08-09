@@ -1,0 +1,14 @@
+{
+  "metadata":{"id":"NLAB_EXPORT_ENGINE","json_type":"framework_module","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"2.5.0","introduced_in":"2.5.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","help_id":"HELP_EXPORT_ENGINE","category":"export","tags":["export","pdf","csv","image","data"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"],"dependencies":["NLAB_PDF_RENDERER","NLAB_QR_GENERATOR","NLAB_ICON_REGISTRY","NLAB_BUTTON_REGISTRY"]},
+  "Data":{
+    "purpose":"Couche d'export générique pour une vue, un composant, une sélection ou un résultat de recherche.",
+    "source_modes":["current_view","component","selection","dataset","search_results"],
+    "formats":["pdf","csv","json","image","qr"],
+    "format_contracts":{"pdf":"NLAB_PDF_RENDERER","qr":"NLAB_QR_GENERATOR","csv":"tabular serializer","json":"structured serializer","image":"registered image adapter"},
+    "config":{"formats":["pdf","csv"],"filename_template":"{slug}-{date}","include_metadata":true,"include_filters":true,"include_version":true,"respect_current_sort":true,"respect_current_selection":true},
+    "search_integration":{"export_visible_page":true,"export_all_filtered_results":true,"export_current_view":true,"preserve_sort":true,"preserve_active_filters":true},
+    "data_editor_integration":{"export_current_record":true,"export_current_view":true,"export_selection":true,"export_table":true},
+    "rules":["Export consumes structured data/view state rather than scraping business-specific markup when a view model is available.","PDF export reuses theme tokens and print variants.","CSV and JSON remain data-first and do not inherit visual theme.","Project-specific export formats are added through adapters, not core branching."]
+  },
+  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"Orchestrateur d'exports génériques depuis recherche, éditeur, fiche, tableau ou composant."}
+}
