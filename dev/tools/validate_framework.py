@@ -3,8 +3,8 @@
 
 Validates canonical sources, metadata V2, JSON Schemas when jsonschema is
 available, cross-registry references, layered-help coverage and selected
-single-source-of-truth rules. Legacy V1 metadata is a warning by default and
-an error with --strict.
+single-source-of-truth rules. Only the bootstrap manifest path is fixed;
+canonical registries are resolved from framework-manifest.json.
 """
 from __future__ import annotations
 
@@ -19,6 +19,7 @@ except Exception:  # optional dependency
 
 ROOT = Path(__file__).resolve().parents[2]
 FW = ROOT / "dev" / "framework"
+MANIFEST_PATH = FW / "framework-manifest.json"
 
 
 def load(path: Path):
@@ -30,6 +31,10 @@ def walk_json():
         yield p, load(p)
 
 
+def canonical_path(manifest: dict, key: str) -> Path:
+    return FW / manifest["Data"]["canonical"][key]
+
+
 def collect_ids(path: Path, key: str):
     items = load(path).get("Data", {}).get(key, [])
     return {x.get("id") for x in items if isinstance(x, dict) and x.get("id")}
@@ -39,11 +44,11 @@ def add(report, level, code, path, message):
     report[level].append({"code": code, "path": str(path.relative_to(ROOT)), "message": message})
 
 
-def load_schema_store():
-    registry = load(FW / "catalogues" / "schema-registry.json").get("Data", {}).get("schemas", [])
+def load_schema_store(schema_registry_path: Path):
+    registry = load(schema_registry_path).get("Data", {}).get("schemas", [])
     store, paths = {}, {}
     for entry in registry:
-        p = (FW / "catalogues" / entry["path"]).resolve()
+        p = (schema_registry_path.parent / entry["path"]).resolve()
         doc = load(p)
         schema = doc["Data"]
         store[entry["id"]] = schema
@@ -68,34 +73,39 @@ def main():
     args = ap.parse_args()
 
     report = {"errors": [], "warnings": [], "info": []}
-    manifest_path = FW / "framework-manifest.json"
-    manifest = load(manifest_path)
+    manifest = load(MANIFEST_PATH)
     canonical = manifest["Data"]["canonical"]
 
     for name, rel in canonical.items():
         p = FW / rel
         if not p.exists():
-            add(report, "errors", "canonical_missing", manifest_path, f"{name}: {rel} not found")
+            add(report, "errors", "canonical_missing", MANIFEST_PATH, f"{name}: {rel} not found")
 
-    button_doc = load(FW / "ui" / "button-registry.json")
+    button_path = canonical_path(manifest, "button_registry")
+    icon_path = canonical_path(manifest, "icon_registry")
+    component_path = canonical_path(manifest, "component_registry")
+    theme_path = canonical_path(manifest, "theme_registry")
+    schema_registry_path = canonical_path(manifest, "schema_registry")
+    help_path = canonical_path(manifest, "help_registry")
+
+    button_doc = load(button_path)
     button_items = button_doc.get("Data", {}).get("buttons", [])
     button_ids_list = [x.get("id") for x in button_items if isinstance(x, dict) and x.get("id")]
     buttons = set(button_ids_list)
     for value in duplicate_values(button_ids_list):
-        add(report, "errors", "duplicate_button_id", FW / "ui" / "button-registry.json", value)
+        add(report, "errors", "duplicate_button_id", button_path, value)
 
-    icon_doc = load(FW / "ui" / "icon-registry.json")
+    icon_doc = load(icon_path)
     icon_list = icon_doc.get("Data", {}).get("icons", [])
     icons = set(icon_list)
     for value in duplicate_values(icon_list):
-        add(report, "errors", "duplicate_icon_id", FW / "ui" / "icon-registry.json", value)
+        add(report, "errors", "duplicate_icon_id", icon_path, value)
 
-    components = {x.get("id") for x in load(FW / "components" / "component-registry.json").get("Data", {}).get("components", []) if x.get("id")}
-    themes = {x.get("id") for x in load(FW / "themes" / "theme-registry.json").get("Data", {}).get("themes", []) if x.get("id")}
-    schema_ids = collect_ids(FW / "catalogues" / "schema-registry.json", "schemas")
-    schema_store, _ = load_schema_store()
+    components = {x.get("id") for x in load(component_path).get("Data", {}).get("components", []) if x.get("id")}
+    themes = {x.get("id") for x in load(theme_path).get("Data", {}).get("themes", []) if x.get("id")}
+    schema_ids = collect_ids(schema_registry_path, "schemas")
+    schema_store, _ = load_schema_store(schema_registry_path)
 
-    help_path = FW / "help" / "help-registry.json"
     help_doc = load(help_path)
     help_entries = help_doc.get("Data", {}).get("entries", [])
     help_ids_list = [x.get("help_id") for x in help_entries if isinstance(x, dict) and x.get("help_id")]
@@ -103,12 +113,12 @@ def main():
     for value in duplicate_values(help_ids_list):
         add(report, "errors", "duplicate_help_id", help_path, value)
 
-    default_theme = load(FW / "themes" / "theme-registry.json").get("Data", {}).get("default_theme")
+    default_theme = load(theme_path).get("Data", {}).get("default_theme")
     if default_theme not in themes:
-        add(report, "errors", "default_theme_unknown", FW / "themes" / "theme-registry.json", str(default_theme))
+        add(report, "errors", "default_theme_unknown", theme_path, str(default_theme))
 
     if Draft202012Validator is None:
-        add(report, "warnings", "jsonschema_unavailable", manifest_path, "pip install jsonschema for full schema validation")
+        add(report, "warnings", "jsonschema_unavailable", MANIFEST_PATH, "pip install jsonschema for full schema validation")
 
     seen_meta_ids = {}
     used_help_ids = set()
@@ -158,14 +168,14 @@ def main():
 
         if "version" in md:
             add(report, "warnings", "legacy_version_field", path, "use metadata.artifact_version")
-        if obj.get("Data", {}).get("framework_version") and path != manifest_path:
+        if obj.get("Data", {}).get("framework_version") and path != MANIFEST_PATH:
             add(report, "errors", "duplicate_framework_version", path, "framework_version must exist only in framework-manifest.json")
 
         help_id = md.get("help_id")
         if help_id:
             used_help_ids.add(help_id)
         if md.get("json_type") == "framework_component_config" and "public" in md.get("visibility", []) and help_id and help_id not in help_ids:
-            add(report, "errors" if args.strict else "warnings", "public_help_missing", path, f"{help_id} has no editorial entry in help-registry.json")
+            add(report, "errors" if args.strict else "warnings", "public_help_missing", path, f"{help_id} has no editorial entry in canonical help registry")
 
         if path.name == "toolbar-full.json":
             for action in obj.get("Data", {}).get("actions", []):
