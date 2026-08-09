@@ -1,24 +1,40 @@
 {
-  "metadata":{"id":"NLAB_FRAMEWORK","json_type":"framework_definition","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"2.0.0","introduced_in":"1.0.0","status":"stable","date_creation":"2026-08-08","date_mise_a_jour":"2026-08-09","help_id":"HELP_FRAMEWORK","category":"core","tags":["framework","definition"],"visibility":["public","dev"],"supported_runtime_modes":["static","local","production"],"dependencies":["NLAB_FRAMEWORK_MANIFEST","NLAB_COMPOSITION_ENGINE","NLAB_DESIGN_TOKENS"]},
-  "Data":{
-    "name":"framework nLab",
-    "manifest":"framework-manifest.json",
-    "architecture_status":"stable",
-    "implementation_status":"development",
-    "principles":["static_first","data_driven","mobile_first","provider_agnostic","visualization_engine_agnostic","configuration_driven","progressive_enhancement","accessibility_by_design","composable_by_default","runtime_agnostic","compute_decoupled","convention_over_configuration","stable_logical_ids","centralized_path_resolution","traceable_generation","standards_first_integrations","centralized_interaction_chrome","single_source_of_truth","schema_governed","metadata_driven_documentation"],
-    "runtime":{"primary_local_engine":"python","browser_runtime":"javascript","platform_launchers":["linux_sh","windows_bat","macos_sh"],"runtime_modes":"environment/runtime-modes.json","experience_modes":"environment/experience-modes.json"},
-    "defaults":{"visualization_engine":"plotly","geo_engine":"leaflet","geo_basemap":"openstreetmap","calendar_exchange":"ics","meeting_provider":"jitsi","theme_source":"themes/theme-registry.json","button_template":"button-icon"},
-    "composition":{"engine":"core/composition-engine.json","order":["framework_defaults","preset","theme","template","components","project_configuration","business_data","experience_mode"]},
-    "registries":{"schemas":"catalogues/schema-registry.json","components":"components/component-registry.json","icons":"ui/icon-registry.json","buttons":"ui/button-registry.json","themes":"themes/theme-registry.json","providers":"catalogues/integration-providers.json"},
-    "themes":{"design_tokens":"themes/design-tokens.json","registry":"themes/theme-registry.json","button_templates":"themes/button-templates.json","engine":"themes/theme-engine.js","configurator":"themes/theme-configurator.js"},
-    "documentation":{"contextual_help":"help/contextual-help.json","auto_documentation":"help/auto-documentation.json","dictionary_generator":"modules/dictionary-generator.json","generated_indexes":"dev/generated"},
-    "governance":{"reference_validator":"modules/reference-validator.json","validator_tool":"../tools/validate_framework.py","documentation_tool":"../tools/generate_framework_docs.py"},
-    "packs":{
-      "ui_components":{"registry":"components/component-registry.json"},
-      "generic_infrastructure":{"resource_registry":"core/resource-registry.json","path_resolver":"core/path-resolver.json","taxonomy_engine":"data/taxonomy-engine.json","relation_model":"data/relation-model.json","directory_explorer":"modules/directory-explorer.json","facet_filter_engine":"modules/facet-filter-engine.json","build_report":"modules/build-report.json"},
-      "scheduling_meetings":{"calendar_event":"modules/calendar-event.json","ics_generator":"modules/ics-generator.json","scheduling_actions":"components/scheduling-actions.json","video_meeting":"modules/video-meeting.json","meeting_launcher":"components/meeting-launcher.json","jitsi_provider":"providers/jitsi.json"},
-      "controls_feedback":{"toolbar":"components/toolbar-full.json","dev_toolbar_extension":"components/toolbar-dev-extension.json","notification_center":"components/notification-center.json","confirmation_dialog":"components/confirmation-dialog.json","log_console":"components/log-console.json"}
+  "metadata": {
+    "id": "NLAB_FRAMEWORK",
+    "json_type": "framework_definition",
+    "scope": "framework",
+    "schema_id": "SCH_ARTIFACT",
+    "artifact_version": "2.1.0",
+    "introduced_in": "1.0.0",
+    "status": "stable",
+    "date_creation": "2026-08-08",
+    "date_mise_a_jour": "2026-08-09",
+    "help_id": "HELP_FRAMEWORK",
+    "category": "core",
+    "tags": ["framework", "definition"],
+    "visibility": ["public", "dev"],
+    "supported_runtime_modes": ["static", "local", "production"],
+    "dependencies": ["NLAB_FRAMEWORK_MANIFEST", "NLAB_COMPOSITION_ENGINE", "NLAB_DESIGN_TOKENS", "NLAB_HELP_REGISTRY"]
+  },
+  "Data": {
+    "name": "framework nLab",
+    "manifest": "framework-manifest.json",
+    "architecture_status": "stable",
+    "implementation_status": "development",
+    "principles": ["static_first", "data_driven", "mobile_first", "provider_agnostic", "visualization_engine_agnostic", "configuration_driven", "progressive_enhancement", "accessibility_by_design", "composable_by_default", "runtime_agnostic", "compute_decoupled", "convention_over_configuration", "stable_logical_ids", "centralized_path_resolution", "traceable_generation", "standards_first_integrations", "centralized_interaction_chrome", "single_source_of_truth", "schema_governed", "metadata_driven_documentation", "layered_contextual_help"],
+    "runtime": {"primary_local_engine": "python", "browser_runtime": "javascript", "platform_launchers": ["linux_sh", "windows_bat", "macos_sh"], "runtime_modes": "environment/runtime-modes.json", "experience_modes": "environment/experience-modes.json"},
+    "defaults": {"visualization_engine": "plotly", "geo_engine": "leaflet", "geo_basemap": "openstreetmap", "calendar_exchange": "ics", "meeting_provider": "jitsi", "theme_source": "themes/theme-registry.json", "button_template": "button-icon"},
+    "composition": {"engine": "core/composition-engine.json", "order": ["framework_defaults", "preset", "theme", "template", "components", "project_configuration", "business_data", "experience_mode"]},
+    "registries": {"schemas": "catalogues/schema-registry.json", "components": "components/component-registry.json", "icons": "ui/icon-registry.json", "buttons": "ui/button-registry.json", "themes": "themes/theme-registry.json", "providers": "catalogues/integration-providers.json", "help": "help/help-registry.json"},
+    "themes": {"design_tokens": "themes/design-tokens.json", "registry": "themes/theme-registry.json", "button_templates": "themes/button-templates.json", "engine": "themes/theme-engine.js", "configurator": "themes/theme-configurator.js"},
+    "documentation": {"contextual_help": "help/contextual-help.json", "help_registry": "help/help-registry.json", "auto_documentation": "help/auto-documentation.json", "dictionary_generator": "modules/dictionary-generator.json", "generated_indexes": "dev/generated"},
+    "governance": {"reference_validator": "modules/reference-validator.json", "validator_tool": "../tools/validate_framework.py", "documentation_tool": "../tools/generate_framework_docs.py"},
+    "packs": {
+      "ui_components": {"registry": "components/component-registry.json"},
+      "generic_infrastructure": {"resource_registry": "core/resource-registry.json", "path_resolver": "core/path-resolver.json", "taxonomy_engine": "data/taxonomy-engine.json", "relation_model": "data/relation-model.json", "directory_explorer": "modules/directory-explorer.json", "facet_filter_engine": "modules/facet-filter-engine.json", "build_report": "modules/build-report.json"},
+      "scheduling_meetings": {"calendar_event": "modules/calendar-event.json", "ics_generator": "modules/ics-generator.json", "scheduling_actions": "components/scheduling-actions.json", "video_meeting": "modules/video-meeting.json", "meeting_launcher": "components/meeting-launcher.json", "jitsi_provider": "providers/jitsi.json"},
+      "controls_feedback": {"toolbar": "components/toolbar-full.json", "dev_toolbar_extension": "components/toolbar-dev-extension.json", "notification_center": "components/notification-center.json", "confirmation_dialog": "components/confirmation-dialog.json", "log_console": "components/log-console.json"}
     }
   },
-  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"La version globale du framework est résolue exclusivement via framework-manifest.json."}
+  "dictionnaire_donnees": {"generated_from_schema": "SCH_ARTIFACT", "note": "La version globale du framework est résolue exclusivement via framework-manifest.json; les textes d’aide publique sont résolus via help-registry.json."}
 }
