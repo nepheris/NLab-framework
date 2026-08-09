@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Generate nLab framework documentation from canonical metadata and help sources.
 
-Public help is editorial (short + long) and comes from help-registry.json.
-Dev documentation extends public help with generated technical metadata.
+Public help is editorial (short + long) and comes from the canonical help
+registry. Dev documentation extends public help with generated technical data.
+Only the bootstrap manifest path is fixed; other canonical paths are resolved
+from framework-manifest.json.
 """
 from __future__ import annotations
 
@@ -12,14 +14,19 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 FW = ROOT / "dev" / "framework"
 OUT = ROOT / "dev" / "generated"
+MANIFEST_PATH = FW / "framework-manifest.json"
 
 
 def load(path: Path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def help_map():
-    registry = load(FW / "help" / "help-registry.json")
+def canonical_path(manifest: dict, key: str) -> Path:
+    return FW / manifest["Data"]["canonical"][key]
+
+
+def help_map(manifest: dict):
+    registry = load(canonical_path(manifest, "help_registry"))
     return {x["help_id"]: x for x in registry.get("Data", {}).get("entries", [])}
 
 
@@ -66,8 +73,8 @@ def summary(path: Path, obj: dict, dev: bool, helps: dict):
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    manifest = load(FW / "framework-manifest.json")
-    helps = help_map()
+    manifest = load(MANIFEST_PATH)
+    helps = help_map(manifest)
     public, dev = [], []
     for path in sorted(FW.rglob("*.json")):
         obj = load(path)
@@ -82,7 +89,7 @@ def main():
         return {
             "framework_version": manifest["Data"]["framework_version"],
             "experience_mode": mode,
-            "generated_from": "help-registry + metadata + schemas + registries",
+            "generated_from": "canonical help registry + metadata + schemas + registries",
             "count": len(items),
             "items": items,
         }
@@ -92,7 +99,7 @@ def main():
 
     public_help_payload = {
         "framework_version": manifest["Data"]["framework_version"],
-        "source": "dev/framework/help/help-registry.json",
+        "source": manifest["Data"]["canonical"]["help_registry"],
         "items": [{"id": x["id"], "help_id": x["help_id"], **x["help"]} for x in public if x.get("help_id")],
     }
     (OUT / "framework-help-public.json").write_text(json.dumps(public_help_payload, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
