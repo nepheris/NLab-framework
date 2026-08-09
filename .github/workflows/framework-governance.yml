@@ -27,5 +27,8 @@ jobs:
       - name: Validate framework governance
         run: python dev/tools/validate_framework.py
 
+      - name: Check JavaScript syntax
+        run: find dev/framework -type f -name '*.js' -print0 | xargs -0 -n1 node --check
+
       - name: Test generated documentation
         run: python dev/tools/generate_framework_docs.py
