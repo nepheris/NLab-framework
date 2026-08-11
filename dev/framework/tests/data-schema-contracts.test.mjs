@@ -6,11 +6,12 @@ import { DataValidator } from '../core/data-validator.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const dataDir = path.resolve(here, '../data');
-const readJson = (name) => JSON.parse(fs.readFileSync(path.join(dataDir, name), 'utf8'));
+const demoDataDir = path.resolve(here, '../demo/data');
+const readJson = (baseDir, name) => JSON.parse(fs.readFileSync(path.join(baseDir, name), 'utf8'));
 
-const collectionSchema = readJson('collection.schema.json');
-const registrySchema = readJson('data-registry.schema.json');
-const relationSchema = readJson('relation.schema.json');
+const collectionSchema = readJson(dataDir, 'collection.schema.json');
+const registrySchema = readJson(dataDir, 'data-registry.schema.json');
+const relationSchema = readJson(dataDir, 'relation.schema.json');
 
 // Contrats structurels des trois schémas.
 assert.equal(collectionSchema.$schema, 'https://json-schema.org/draft/2020-12/schema');
@@ -76,6 +77,16 @@ const validRegistry = {
   }
 };
 assert.deepEqual(validateRegistryShape(validRegistry), []);
+
+// Le registre réellement utilisé par la démo doit rester conforme au contrat structurel.
+const demoRegistry = readJson(demoDataDir, 'registry.json');
+assert.deepEqual(validateRegistryShape(demoRegistry), []);
+for (const [collectionName, definition] of Object.entries(demoRegistry.collections)) {
+  assert.ok(demoRegistry.providers[definition.provider], `provider inconnu pour ${collectionName}: ${definition.provider}`);
+  for (const relation of definition.relations ?? []) {
+    assert.ok(demoRegistry.collections[relation.target], `cible de relation inconnue pour ${collectionName}.${relation.field}: ${relation.target}`);
+  }
+}
 
 const invalidRegistry = {
   version:'1.0.0',
