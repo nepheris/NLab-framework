@@ -1,0 +1,5 @@
+[
+  {"id":"DEMO001","name":"Tarte aux pommes","category":"Dessert","score":8.7,"active":true},
+  {"id":"DEMO002","name":"Soupe de carottes","category":"Plat","score":7.9,"active":true},
+  {"id":"DEMO003","name":"Salade de lentilles","category":"Entrée","score":8.2,"active":false}
+]

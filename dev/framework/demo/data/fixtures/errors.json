@@ -1,0 +1,6 @@
+[
+  {"id":"ERR001","name":"ID dupliqué","category_id":"CAT404"},
+  {"id":"ERR001","name":"Deuxième ID identique","category_id":"CAT001"},
+  {"id":"ERR003","name":"","category_id":null},
+  {"id":"ERR004","name":"Texte très long pour vérifier le retour à la ligne et la robustesse des cellules du tableau lorsqu'une valeur dépasse largement la largeur habituelle attendue dans une interface.","category_id":"CAT001"}
+]

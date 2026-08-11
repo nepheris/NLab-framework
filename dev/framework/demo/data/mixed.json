@@ -1,0 +1,6 @@
+[
+  {"id":"MIX001","name":"Tarte rustique aux pommes","category":"Dessert","tags":["Fruit","Facile"],"minutes":45,"rating":4.8,"active":true,"image":"assets/apple.svg","url":"#demo-tarte","notes":"Donnée mixte : texte, nombre, booléen, array, image et URL."},
+  {"id":"MIX002","name":"Soupe de carottes","category":"Plat","tags":["Légume","Anti-gaspi"],"minutes":30,"rating":4.3,"active":true,"image":"assets/carrot.svg","url":"#demo-soupe","notes":"Exemple destiné aux cartes, listes, filtres et tableaux."},
+  {"id":"MIX003","name":"Salade de lentilles","category":"Entrée","tags":["Végétal","Rapide"],"minutes":18,"rating":4.5,"active":true,"image":"assets/leaf.svg","url":"#demo-salade","notes":"Exemple court pour la pellicule et la vue compacte."},
+  {"id":"MIX004","name":"Compote anti-gaspi","category":"Dessert","tags":["Fruit","Anti-gaspi"],"minutes":25,"rating":4.6,"active":false,"image":"assets/apple.svg","url":"#demo-compote","notes":"Entrée inactive pour tester les filtres et statuts."}
+]

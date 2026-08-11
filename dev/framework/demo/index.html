@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Framework V2 — Catalogue / Playground</title>
+  <link rel="stylesheet" href="../ui/base.css">
+  <link rel="stylesheet" href="demo.css">
+</head>
+<body>
+<div class="demo-shell">
+  <aside class="demo-nav"><strong>Framework V2</strong><nav id="demo-nav"></nav></aside>
+  <div class="demo-main">
+    <header class="demo-header">
+      <strong>Catalogue / Playground</strong>
+      <div class="demo-controls">
+        <label>Breakpoint <select id="breakpoint"><option value="360">360 px</option><option value="480">480 px</option><option value="768">768 px</option><option value="1024" selected>1024 px</option><option value="1280">1280 px</option></select></label>
+        <button id="unlock">Déverrouiller</button>
+        <button id="lock-all">Verrouiller tout</button>
+        <button id="export-theme">Exporter thème</button>
+        <button id="reset-theme">Reset</button>
+      </div>
+    </header>
+
+    <main id="demo-content">
+      <section id="overview" class="nlab-section demo-section" data-theme-editable data-theme-id="overview">
+        <div class="nlab-container">
+          <h1>Framework V2 — page de démonstration</h1>
+          <p>Une seule page pour tester les composants, thèmes, données, rendus, panneaux et sorties du framework.</p>
+          <p class="demo-status" id="status">Initialisation…</p>
+        </div>
+      </section>
+
+      <section id="theme-workshop" class="nlab-section demo-section" data-theme-editable data-theme-id="theme-workshop">
+        <div class="nlab-container nlab-stack">
+          <h2>Theme Workshop</h2>
+          <div class="demo-panel">
+            <div id="theme-pickers" class="demo-theme-pickers"></div>
+            <label>Densité <select id="density"><option>normal</option><option>compact</option><option>comfortable</option></select></label>
+            <label>Import thème <textarea id="theme-json" rows="5" placeholder="JSON exporté"></textarea></label>
+            <button id="import-theme">Importer / appliquer</button>
+          </div>
+          <div class="demo-grid2">
+            <header class="nlab-header demo-panel" data-theme-editable data-theme-id="demo-header"><strong>Header redimensionnable</strong></header>
+            <div class="nlab-hero demo-panel" data-theme-editable data-theme-id="demo-hero"><div><h3>Hero redimensionnable</h3><p>Utilise la poignée après déverrouillage.</p></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="responsive" class="nlab-section demo-section">
+        <div class="nlab-container nlab-stack">
+          <h2>Responsive simulé</h2>
+          <div class="demo-stage-wrap"><div id="demo-stage" class="demo-stage"><div class="nlab-section"><div class="nlab-container"><h3>Zone simulée</h3><p id="responsive-info"></p><div id="responsive-results"></div></div></div></div></div>
+        </div>
+      </section>
+
+      <section id="data-explorer" class="nlab-section demo-section" data-theme-editable data-theme-id="data-explorer">
+        <div class="nlab-container nlab-stack">
+          <h2>Search / Filter / Renderer</h2>
+          <div class="demo-panel demo-controls">
+            <label>Recherche <input id="search" type="search" placeholder="pommes, anti-gaspi…"></label>
+            <label>Catégorie <select id="category"><option value="">Toutes</option><option>Dessert</option><option>Plat</option><option>Entrée</option></select></label>
+            <label>Vue <select id="renderer"><option value="cards">Cartes</option><option value="compact-cards">Cartes compactes</option><option value="list">Liste</option><option value="filmstrip">Pellicule</option><option value="gallery">Galerie</option><option value="table">Table</option></select></label>
+          </div>
+          <div id="results"></div>
+        </div>
+      </section>
+
+      <section id="table-wiz" class="nlab-section demo-section">
+        <div class="nlab-container nlab-stack"><h2>TableWiz</h2><div class="demo-panel demo-controls"><input id="table-search" type="search" placeholder="Recherche tableau"><button id="table-export">Exporter CSV</button></div><div id="table"></div><pre id="csv-preview" class="demo-code" hidden></pre></div>
+      </section>
+
+      <section id="json-studio" class="nlab-section demo-section">
+        <div class="nlab-container nlab-stack"><h2>JSON Studio</h2><div class="demo-controls"><button data-json-view="raw">Raw</button><button data-json-view="tree">Tree</button><button data-json-view="form">Form</button><button data-json-view="table">Table</button><button id="json-diff">Diff</button></div><div id="json-editor" class="demo-panel demo-json"></div><pre id="json-diff-output" class="demo-code"></pre></div>
+      </section>
+
+      <section id="data-wiz" class="nlab-section demo-section"><div class="nlab-container nlab-stack"><h2>DataWiz</h2><div class="demo-grid2"><pre id="stats" class="demo-code"></pre><div id="groups" class="demo-panel"></div></div></div></section>
+
+      <section id="floating-panel" class="nlab-section demo-section"><div class="nlab-container"><h2>FloatingPanel / Help</h2><button id="open-panel">Afficher panneau flottant</button><button data-help-id="demo.help">?</button></div></section>
+
+      <section id="output" class="nlab-section demo-section"><div class="nlab-container nlab-stack"><h2>Media / QR / Share / Document</h2><div class="demo-grid2"><div class="demo-panel"><h3>QR réel via adapter de démo</h3><div id="qr"></div></div><div class="demo-panel"><h3>Document</h3><button id="document-preview">Prévisualiser HTML</button><pre id="document-output" class="demo-code"></pre></div></div></div></section>
+
+      <section id="config" class="nlab-section demo-section"><div class="nlab-container nlab-stack"><h2>Configuration active</h2><pre id="config-output" class="demo-code"></pre></div></section>
+    </main>
+  </div>
+</div>
+
+<div id="panel" class="nlab-floating-panel" hidden style="left:24px;top:90px;width:390px;height:300px">
+  <div class="nlab-floating-panel__bar" data-panel-bar><strong>FloatingPanel</strong><button id="panel-close" type="button">×</button></div>
+  <div class="nlab-floating-panel__body"><p>Panneau déplaçable et redimensionnable. Il sert aussi de cible à HelpWiz.</p><div id="help-content"></div></div>
+  <div class="nlab-floating-panel__resize" data-panel-resize></div>
+</div>
+
+<script type="module" src="demo.js"></script>
+</body>
+</html>

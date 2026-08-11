@@ -1,0 +1,8 @@
+[
+  {"id":"N001","value":4.2,"duration":12,"quantity":1},
+  {"id":"N002","value":6.8,"duration":22,"quantity":3},
+  {"id":"N003","value":9.1,"duration":35,"quantity":5},
+  {"id":"N004","value":12.5,"duration":48,"quantity":8},
+  {"id":"N005","value":18.0,"duration":65,"quantity":13},
+  {"id":"N006","value":24.7,"duration":90,"quantity":21}
+]
