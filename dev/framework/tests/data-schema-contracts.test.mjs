@@ -23,12 +23,15 @@ assert.equal(collectionSchema.properties.requiredFields.uniqueItems, true);
 assert.equal(registrySchema.$schema, 'https://json-schema.org/draft/2020-12/schema');
 assert.deepEqual(registrySchema.required, ['version','providers','collections']);
 assert.equal(registrySchema.additionalProperties, false);
+assert.equal(registrySchema.properties.version.minLength, 1);
 assert.equal(registrySchema.properties.collections.additionalProperties.$ref, 'collection.schema.json');
 assert.equal(registrySchema.properties.providers.additionalProperties.additionalProperties, false);
 
 assert.equal(relationSchema.$schema, 'https://json-schema.org/draft/2020-12/schema');
 assert.deepEqual(relationSchema.required, ['field','target']);
 assert.equal(relationSchema.additionalProperties, false);
+assert.equal(relationSchema.properties.targetField.minLength, 1);
+assert.equal('default' in relationSchema.properties.targetField, false, 'targetField ne doit pas annoncer un faux défaut statique');
 assert.deepEqual(relationSchema.properties.cardinality.enum, ['one','many']);
 assert.deepEqual(relationSchema.properties.onMissing.enum, ['error','warn','keep','null']);
 
@@ -36,6 +39,7 @@ assert.deepEqual(relationSchema.properties.onMissing.enum, ['error','warn','keep
 const validateRelationShape = (relation) => {
   const issues = [];
   for (const key of relationSchema.required) if (!relation?.[key]) issues.push(`missing:${key}`);
+  if (relation?.targetField != null && relation.targetField.length < relationSchema.properties.targetField.minLength) issues.push('invalid:targetField');
   if (relation?.cardinality != null && !relationSchema.properties.cardinality.enum.includes(relation.cardinality)) issues.push('invalid:cardinality');
   if (relation?.onMissing != null && !relationSchema.properties.onMissing.enum.includes(relation.onMissing)) issues.push('invalid:onMissing');
   for (const key of Object.keys(relation ?? {})) if (!(key in relationSchema.properties)) issues.push(`additional:${key}`);
@@ -54,6 +58,7 @@ const validateCollectionShape = (collection) => {
 const validateRegistryShape = (registry) => {
   const issues = [];
   for (const key of registrySchema.required) if (registry?.[key] == null) issues.push(`missing:${key}`);
+  if (registry?.version != null && registry.version.length < registrySchema.properties.version.minLength) issues.push('invalid:version');
   for (const [name, provider] of Object.entries(registry?.providers ?? {})) {
     if (!provider?.type) issues.push(`provider:${name}:missing:type`);
     for (const key of Object.keys(provider ?? {})) if (!['type','options'].includes(key)) issues.push(`provider:${name}:additional:${key}`);
@@ -89,22 +94,24 @@ for (const [collectionName, definition] of Object.entries(demoRegistry.collectio
 }
 
 const invalidRegistry = {
-  version:'1.0.0',
+  version:'',
   providers:{ local:{ options:{}, unexpected:true } },
   collections:{
     items:{
       provider:'local', source:'items.json', idField:'', requiredFields:['name','name'], unexpected:true,
-      relations:[{ field:'category_id', target:'categories', cardinality:'several', onMissing:'ignore', extra:true }]
+      relations:[{ field:'category_id', target:'categories', targetField:'', cardinality:'several', onMissing:'ignore', extra:true }]
     }
   },
   extra:true
 };
 const invalidIssues = validateRegistryShape(invalidRegistry);
+assert.ok(invalidIssues.includes('invalid:version'));
 assert.ok(invalidIssues.includes('provider:local:missing:type'));
 assert.ok(invalidIssues.includes('provider:local:additional:unexpected'));
 assert.ok(invalidIssues.includes('collection:items:missing:idField'));
 assert.ok(invalidIssues.includes('collection:items:duplicate:requiredFields'));
 assert.ok(invalidIssues.includes('collection:items:additional:unexpected'));
+assert.ok(invalidIssues.includes('collection:items:relation:invalid:targetField'));
 assert.ok(invalidIssues.includes('collection:items:relation:invalid:cardinality'));
 assert.ok(invalidIssues.includes('collection:items:relation:invalid:onMissing'));
 assert.ok(invalidIssues.includes('collection:items:relation:additional:extra'));
@@ -146,5 +153,29 @@ report = await missingReferenceValidator.validateCollection('items');
 assert.equal(report.valid, true, 'onMissing=warn ne doit pas invalider la collection');
 assert.equal(report.warnings, 1);
 assert.equal(report.issues[0].code, 'REFERENCE_NOT_FOUND');
+
+// Si targetField est omis, le runtime doit utiliser l'idField de la collection cible.
+const codeTargetRegistry = {
+  version:'1.0.0',
+  providers:{ local:{ type:'json-static' } },
+  collections:{
+    tags:{ provider:'local', source:'tags.json', idField:'code' },
+    items:{
+      provider:'local', source:'items.json', idField:'id',
+      relations:[{ field:'tag_code', target:'tags', cardinality:'one', onMissing:'error' }]
+    }
+  }
+};
+assert.deepEqual(validateRegistryShape(codeTargetRegistry), []);
+const codeTargetDatasets = {
+  tags:[{ code:'TAG001', label:'Végétarien' }],
+  items:[{ id:'REC002', tag_code:'TAG001' }]
+};
+const codeTargetValidator = new DataValidator({ provider:{ registry:codeTargetRegistry, async getCollection(name){ return codeTargetDatasets[name] ?? []; } } });
+await codeTargetValidator.init();
+report = await codeTargetValidator.validateCollection('items');
+assert.equal(report.valid, true);
+assert.equal(report.errors, 0);
+assert.equal(report.warnings, 0);
 
 console.log('data schema contracts tests: ok');
