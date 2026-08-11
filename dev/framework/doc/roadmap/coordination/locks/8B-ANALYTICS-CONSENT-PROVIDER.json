@@ -1,0 +1,15 @@
+{
+  "task_id": "8B-ANALYTICS-CONSENT-PROVIDER",
+  "agent": "C",
+  "status": "reserved",
+  "base": "57ffb1f29b69492f35295a36cb67c62dbb47a3ff",
+  "branch": "agent-c/analytics-consent-provider-contract",
+  "file_scope": [
+    "dev/framework/analytics/analytics-wiz.js",
+    "dev/framework/analytics/providers/ga4.js",
+    "dev/framework/tests/analytics-contracts.test.mjs",
+    "dev/framework/doc/analytics/contract.md"
+  ],
+  "reserved_at": "2026-08-12T00:27:00+02:00",
+  "notes": "Renforcer le contrat AnalyticsWiz/consentement/provider et le fallback GA4 sans toucher aux verrous A/B, à la démo, au Theme Workshop, à SEO/Share, Observability, QR/Media, Data schemas, Header ou TableWiz. Couvrir refus de consentement, provider absent/indisponible, résultat provider, erreurs et consentement mémoire."
+}
