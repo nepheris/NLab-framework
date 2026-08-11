@@ -2,32 +2,37 @@ export class QRWiz {
   constructor({ urlResolver = null, encoder = null } = {}) { this.urlResolver = urlResolver; this.encoder = encoder; }
 
   payload({ url = null, canonical = false, stripHash = false } = {}) {
-    if (url) return this.urlResolver ? this.urlResolver.resolve(url) : String(url);
-    if (!this.urlResolver) return globalThis.location?.href ?? '';
-    return canonical ? this.urlResolver.current({ stripHash:true, stripQuery:true }) : this.urlResolver.current({ stripHash });
+    if (url) return String(this.urlResolver ? this.urlResolver.resolve(url) : url);
+    if (!this.urlResolver) return String(globalThis.location?.href ?? '');
+    return String(canonical ? this.urlResolver.current({ stripHash:true, stripQuery:true }) : this.urlResolver.current({ stripHash }));
   }
 
   options(options = {}) {
+    const width = this.#number(options.width, 256, { min:64, max:4096, integer:true });
+    const margin = this.#number(options.margin, 2, { min:0, max:64, integer:true });
+    const errorCorrectionLevel = String(options.errorCorrectionLevel ?? 'M').toUpperCase();
+    const format = String(options.format ?? 'svg').toLowerCase();
     return {
-      width: options.width ?? 256,
-      margin: options.margin ?? 2,
-      errorCorrectionLevel: options.errorCorrectionLevel ?? 'M',
+      width,
+      margin,
+      errorCorrectionLevel: ['L','M','Q','H'].includes(errorCorrectionLevel) ? errorCorrectionLevel : 'M',
       color: {
-        dark: options.dark ?? options.color?.dark ?? '#000000',
-        light: options.light ?? options.color?.light ?? '#ffffff'
+        dark: String(options.dark ?? options.color?.dark ?? '#000000'),
+        light: String(options.light ?? options.color?.light ?? '#ffffff')
       },
       transparent: Boolean(options.transparent),
       logo: options.logo ?? null,
-      logoSize: options.logoSize ?? 0.22,
-      logoBackground: options.logoBackground ?? '#ffffff',
-      logoRadius: options.logoRadius ?? 12,
-      format: options.format ?? 'svg'
+      logoSize: this.#number(options.logoSize, 0.22, { min:0.10, max:0.32 }),
+      logoBackground: String(options.logoBackground ?? '#ffffff'),
+      logoRadius: this.#number(options.logoRadius, 12, { min:0, max:256 }),
+      format: ['svg','png'].includes(format) ? format : 'svg'
     };
   }
 
   async generate(config = {}) {
-    if (!this.encoder) throw new Error('QRWiz requires an encoder adapter');
+    if (!this.encoder || typeof this.encoder.encode !== 'function') throw new Error('QRWiz requires an encoder adapter');
     const payload = this.payload(config);
+    if (!payload.trim()) throw new Error('QRWiz payload is empty');
     const options = this.options(config);
     const output = await this.encoder.encode(payload, {
       ...options,
@@ -40,20 +45,28 @@ export class QRWiz {
   }
 
   async render(container, config = {}) {
-    if (!container) return;
+    if (!container) return null;
     const output = await this.generate(config);
-    if (typeof output === 'string' && output.trim().startsWith('<svg')) container.innerHTML = output;
-    else if (typeof output === 'string') {
-      const img = document.createElement('img');
+    if (typeof output === 'string' && output.trim().startsWith('<svg')) {
+      container.innerHTML = output;
+      return output;
+    }
+    if (typeof output === 'string') {
+      const doc = container.ownerDocument ?? globalThis.document;
+      if (!doc?.createElement) return output;
+      const img = doc.createElement('img');
       img.src = output;
       img.alt = config.alt ?? 'QR code';
-      container.replaceChildren(img);
-    } else if (output instanceof Node) container.replaceChildren(output);
+      container.replaceChildren?.(img);
+      return output;
+    }
+    if (output && typeof output === 'object' && Number.isInteger(output.nodeType)) container.replaceChildren?.(output);
+    return output;
   }
 
   #decorate(output, options) {
     if (!options.logo || typeof output !== 'string' || !output.trim().startsWith('<svg')) return output;
-    const size = Math.max(0.10, Math.min(0.32, Number(options.logoSize) || 0.22));
+    const size = options.logoSize;
     const pct = size * 100;
     const pos = (100 - pct) / 2;
     const pad = 2.5;
@@ -61,9 +74,16 @@ export class QRWiz {
     const rectSize = pct + pad * 2;
     const href = this.#escapeAttribute(options.logo);
     const background = this.#escapeAttribute(options.logoBackground || '#ffffff');
-    const radius = Math.max(0, Number(options.logoRadius) || 0);
+    const radius = options.logoRadius;
     const overlay = `<g class="nlab-qr-logo"><rect x="${rectPos}%" y="${rectPos}%" width="${rectSize}%" height="${rectSize}%" rx="${radius}" fill="${background}"/><image href="${href}" x="${pos}%" y="${pos}%" width="${pct}%" height="${pct}%" preserveAspectRatio="xMidYMid meet"/></g>`;
     return output.replace('</svg>', `${overlay}</svg>`);
+  }
+
+  #number(value, fallback, { min = -Infinity, max = Infinity, integer = false } = {}) {
+    const number = Number(value);
+    if (!Number.isFinite(number)) return fallback;
+    const bounded = Math.max(min, Math.min(max, number));
+    return integer ? Math.round(bounded) : bounded;
   }
 
   #escapeAttribute(value) {
