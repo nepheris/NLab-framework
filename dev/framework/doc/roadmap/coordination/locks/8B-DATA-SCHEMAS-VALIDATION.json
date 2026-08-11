@@ -1,9 +1,9 @@
 {
   "task_id": "8B-DATA-SCHEMAS-VALIDATION",
   "agent": "B",
-  "status": "in_progress",
-  "base": "641583b6c49b40832aa3314fd033db6dcd8e71b0",
-  "branch": "agent-b/data-schemas-validation",
+  "status": "review",
+  "base": "3d424e31afff4c09cde94dc3fefe7ad8eb03fa1a",
+  "branch": "agent-b/data-schemas-validation-r2",
   "file_scope": [
     "dev/framework/data/collection.schema.json",
     "dev/framework/data/data-registry.schema.json",
@@ -12,5 +12,12 @@
     "dev/framework/doc/data-schemas/*.md"
   ],
   "reserved_at": "2026-08-12T00:10:00+02:00",
-  "notes": "Valider les schémas collection/registry/relation avec fixtures positives et négatives, compatibilité des identifiants et relations. Aucun changement TableWiz, Header, V20 ou démo."
+  "final_sha": "fa78ff67da09a7da7257717e90f4ebf11c31ae34",
+  "verification": {
+    "diff": "4 commits / 4 fichiers, tous dans le file_scope réservé",
+    "json_schema": "Draft 2020-12 : registre réel de démo = 0 erreur ; fixture invalide rejetée",
+    "runtime_focus": "scénario Node ciblé : targetField omis + target idField=code = 0 erreur / 0 warning",
+    "full_branch_node": "non exécuté depuis le checkout distant : DNS github.com indisponible dans le conteneur"
+  },
+  "notes": "Branche historique agent-b/data-schemas-validation abandonnée pour intégration car trop en retard sur New. Reprise propre sur r2 depuis le HEAD courant. Corrige le faux default targetField=id, documente le fallback dynamique vers target.idField et rejette version vide. Aucun fichier A/C, TableWiz, Header, V20 ou démo modifié."
 }
