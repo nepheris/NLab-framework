@@ -29,13 +29,15 @@ function highlightScript(source, language) {
 }
 
 export class CodeBlock {
-  constructor({ value='', language='text', filename='export.txt', theme='light', highlighted=false }={}) {
-    this.value=String(value); this.language=language; this.filename=filename; this.theme=theme; this.highlighted=highlighted; this.element=null;
+  constructor({ value='', language='text', filename='export.txt', theme='light', highlighted=false, editable=false }={}) {
+    this.value=String(value); this.language=language; this.filename=filename; this.theme=theme; this.highlighted=highlighted; this.editable=Boolean(editable); this.editing=false; this.element=null;
   }
   setValue(value) { this.value=String(value ?? ''); this.render(); return this; }
   setTheme(theme) { this.theme=theme==='dark'?'dark':'light'; this.render(); return this; }
   setHighlighted(value) { this.highlighted=Boolean(value); this.render(); return this; }
   setLanguage(language) { this.language=language || 'text'; this.render(); return this; }
+  setEditable(value=true){ this.editable=Boolean(value); if(!this.editable)this.editing=false; this.render(); return this; }
+  setEditing(value=true){ if(!this.editable)return this; this.editing=Boolean(value); this.render(); return this; }
 
   async copy() { await navigator.clipboard.writeText(this.value); return true; }
   download() {
@@ -59,15 +61,17 @@ export class CodeBlock {
     this.element.innerHTML=`
       <div class="nlab-codeblock__toolbar">
         <span class="nlab-codeblock__meta">${escapeHtml(this.filename)} · ${escapeHtml(this.language)}</span>
-        <button type="button" data-code-theme title="Mode clair / sombre" aria-label="Basculer le thème du bloc de code">◐ <span>Thème</span></button>
+        <button type="button" data-code-theme title="Basculer le thème local">${this.theme==='dark'?'☀':'◐'} <span>${this.theme==='dark'?'Thème sombre':'Thème clair'}</span></button>
         <button type="button" data-code-highlight title="Visualisation brute / colorisée" aria-pressed="${this.highlighted}">${this.highlighted?'◈':'◇'} <span>${this.highlighted?'Colorisé':'Brut'}</span></button>
+        ${this.editable?`<button type="button" data-code-edit title="Modifier le contenu">✎ <span>${this.editing?'Valider':'Modifier'}</span></button>`:''}
         <button type="button" data-code-copy title="Copier tout dans le presse-papiers">⧉ <span>Copier tout</span></button>
         <button type="button" data-code-download title="Télécharger le contenu">⇩ <span>Télécharger</span></button>
       </div>
-      <pre class="nlab-codeblock__pre"><code>${this.formatted()}</code></pre>
+      ${this.editing?`<textarea class="nlab-codeblock__editor" spellcheck="false">${escapeHtml(this.value)}</textarea>`:`<pre class="nlab-codeblock__pre"><code>${this.formatted()}</code></pre>`}
       <div class="nlab-codeblock__feedback" role="status" aria-live="polite" hidden></div>`;
-    this.element.querySelector('[data-code-theme]')?.addEventListener('click',()=>this.setTheme(this.theme==='dark'?'light':'dark'));
-    this.element.querySelector('[data-code-highlight]')?.addEventListener('click',()=>this.setHighlighted(!this.highlighted));
+    this.element.querySelector('[data-code-theme]')?.addEventListener('click',()=>{const next=this.theme==='dark'?'light':'dark';this.setTheme(next);this.feedback(`Thème ${next==='dark'?'sombre':'clair'} activé ✓`);});
+    this.element.querySelector('[data-code-highlight]')?.addEventListener('click',()=>{const next=!this.highlighted;this.setHighlighted(next);this.feedback(`${next?'Colorisation':'Vue brute'} activée ✓`);});
+    this.element.querySelector('[data-code-edit]')?.addEventListener('click',()=>{if(this.editing){const editor=this.element.querySelector('.nlab-codeblock__editor');if(editor)this.value=editor.value;this.setEditing(false);this.feedback('Modifications appliquées ✓');}else this.setEditing(true);});
     this.element.querySelector('[data-code-copy]')?.addEventListener('click',async()=>{ try{await this.copy();this.feedback('Copié dans le presse-papiers ✓');}catch{this.feedback('Copie indisponible','error');} });
     this.element.querySelector('[data-code-download]')?.addEventListener('click',()=>{ this.download();this.feedback('Téléchargement lancé ✓'); });
   }
