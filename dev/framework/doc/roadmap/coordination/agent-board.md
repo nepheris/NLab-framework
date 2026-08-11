@@ -64,6 +64,15 @@
 | 🟧 C | ✅ `done` | `8B-RESULTSET-ROBUSTNESS` | PR #20 — `f23baf9e723aae7055fb4167ed0e0b723a28087d` | ResultSet : contexte isolé, total logique conservé et helpers d'itération/introspection |
 | 🟧 C | ✅ `done` | `8B-DATA-PROVIDER-ROBUSTNESS` | PR #21 — `539f418b38e5f5b82743d16df362e5653b558d81` | DataProvider : options clonées, capabilities, getRecord et erreurs structurées |
 | 🟧 C | ✅ `done` | `8B-DATA-RUNTIME-REGISTRY` | PR #23 — `80293795b9c1039be640288259930b744c0d1adc` | DataRuntimeRegistry : types normalisés, remplacements explicites, providers/adapters séparés |
+| 🟧 C | ✅ `done` | `8B-DATA-SOURCE-CONTRACT` | PR #24 — `f49217180fee3ee726cba675fc9a63f7044d4aff` | DataSource : id/type normalisés, options/metadata validées et sérialisation isolée |
+
+## Collision DataSource — traitée
+
+- 🟩 B avait réservé `8B-DATA-SOURCE-ROBUSTNESS` avant le chantier C ;
+- 🟧 C a ensuite créé `8B-DATA-SOURCE-CONTRACT` avec un `file_scope` chevauchant `core/data-source.js` et a intégré PR #24 ;
+- B a détecté le changement de `New` avant PR, **n'a pas fusionné sa branche** et a passé son lock à `released` ;
+- la livraison effective reste donc **🟧 C ✅** ;
+- la procédure a été durcie : contrôle complet des `file_scope` après réservation et avant merge, avec priorité au lock actif le plus ancien.
 
 ## Règle de lecture et d'historique
 
