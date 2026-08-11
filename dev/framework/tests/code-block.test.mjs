@@ -35,6 +35,18 @@ assert.match(highlightedHtml, /nlab-codeblock__string/);
 assert.match(highlightedHtml, /nlab-codeblock__literal/);
 assert.match(highlightedHtml, /nlab-codeblock__number/);
 
+const scriptHighlighted = new CodeBlock({
+  value: 'const x = "<tag>"; // class 2',
+  language: 'js',
+  highlighted: true
+});
+const scriptHtml = scriptHighlighted.formatted();
+assert.match(scriptHtml, /nlab-codeblock__keyword/);
+assert.match(scriptHtml, /nlab-codeblock__string/);
+assert.match(scriptHtml, /nlab-codeblock__comment/);
+assert.ok(!scriptHtml.includes('<tag>'));
+assert.ok(scriptHtml.includes('&lt;tag&gt;'));
+
 const json = new CodeBlock({ value: '{"b":2,"a":1}', language: 'json' });
 const formatted = json.formatJson({ indent: 2 });
 assert.equal(formatted.formatted, true);
