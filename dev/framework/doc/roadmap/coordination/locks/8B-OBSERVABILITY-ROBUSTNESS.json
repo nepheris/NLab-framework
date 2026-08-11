@@ -1,7 +1,7 @@
 {
   "task_id": "8B-OBSERVABILITY-ROBUSTNESS",
   "agent": "B",
-  "status": "in_progress",
+  "status": "review",
   "base": "e5169b32ecd6e0b5c615960026be41cd235632b2",
   "branch": "agent-b/observability-robustness-r2",
   "file_scope": [
@@ -10,5 +10,11 @@
     "dev/framework/doc/observability/*.md"
   ],
   "reserved_at": "2026-08-12T00:05:00+02:00",
-  "notes": "Reprise sur branche r2 depuis le HEAD récent de New. Renforcer RuntimeMonitor sans toucher aux fichiers A/C, démo V19/V20, Theme Workshop, Header ou TableWiz. Cible : limites maxErrors robustes, compteurs, événements, snapshots détachés et clear."
+  "final_sha": "cc7c39cdd4a5a979ce5cd34a6d7441f1ef08b9ac",
+  "verification": {
+    "diff": "3 commits / 3 fichiers, tous dans le file_scope réservé",
+    "tests": "tests/runtime-monitor-robustness.test.mjs exécuté localement sur le contenu exact du lot",
+    "result": "runtime monitor robustness tests: ok"
+  },
+  "notes": "RuntimeMonitor durci : maxErrors normalisé, snapshots/événements/retours détachés, meta/context protégés des mutations externes, delta count non fini rejeté. Aucun fichier A/C ni démo modifié."
 }
