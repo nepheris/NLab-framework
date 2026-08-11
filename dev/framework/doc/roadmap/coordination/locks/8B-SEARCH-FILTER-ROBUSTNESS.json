@@ -1,0 +1,15 @@
+{
+  "task_id": "8B-SEARCH-FILTER-ROBUSTNESS",
+  "agent": "B",
+  "status": "in_progress",
+  "base": "f76045defe11bb42f7f744b1eed7459876325b3d",
+  "branch": "agent-b/search-filter-robustness",
+  "file_scope": [
+    "dev/framework/wiz/search-wiz.js",
+    "dev/framework/wiz/filter-wiz.js",
+    "dev/framework/tests/search-filter-robustness.test.mjs",
+    "dev/framework/doc/search-filter/*.md"
+  ],
+  "reserved_at": "2026-08-12T00:57:00+02:00",
+  "notes": "Robustesse SearchWiz/FilterWiz uniquement : normalisation requêtes, tokens/stopwords/locale, suggestions, opérateurs de filtre, entrées invalides et immutabilité. TableWiz explicitement exclu ; aucun fichier A/C, Navigation, Preset Manager, CodeBlock, démo ou V20."
+}
