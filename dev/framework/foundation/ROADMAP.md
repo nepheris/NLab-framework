@@ -3,7 +3,7 @@
 > Branche de construction : `New`  
 > Progression = lots construits techniquement ; les lots visuels restent `🟠 À tester` jusqu'au crash-test humain.
 
-# AVANCEMENT GLOBAL — 69 % — 🔵 EN COURS
+# AVANCEMENT GLOBAL — 69 % MACRO — 🔵 CONSOLIDATION 8B EN COURS
 
 ## Tableau de bord
 
@@ -18,6 +18,8 @@
 | 6 | Media, QR, Share, Document | 100 % | 🟠 À tester |
 | 7 | SEO, Analytics, Performance, Monitoring | 100 % | 🟠 À tester |
 | 8 | Catalogue, datasets, responsive, tests/itérations | 100 % | 🟠 À tester |
+| 8B | Consolidation UX transverse / atelier Webmaster | 25 % | 🔵 En cours |
+| 8C | Diagnostic avancé / notifications / observabilité UI | 0 % | ⬜ À faire |
 | 9 | Webmaster privé — atelier Recettes du Cœur | 0 % | 🔵 En cours |
 | 10 | Webmaster — web Recettes du Cœur | 0 % | ⬜ À faire |
 | 11 | Preview public — crash-test intégral | 0 % | ⬜ À faire |
@@ -199,6 +201,122 @@ Priorité conservée : recherche + cartes/listes/pellicules/tableaux avant les g
 
 ---
 
+# LOT 8B — Consolidation UX transverse / Atelier Webmaster — 25 % 🔵
+
+Objectif : figer maintenant les primitives qui seront réutilisées dans toutes les pages, afin d'éviter leur duplication dans le framework et dans les sites consommateurs.
+
+## 8B.1 Identification / Info / InspectorPanel — 35 % 🔵
+- [x] IDs humains stables sur les sections actuelles du catalogue ;
+- [x] IDs techniques stables associés ;
+- [x] bouton global pour afficher/masquer les informations de développement ;
+- [x] boutons Info/Test injectés sur les sections actuelles ;
+- [x] InspectorPanel basé sur FloatingPanel pour afficher aide et métadonnées ;
+- [ ] généraliser aux sous-sections et composants testables ;
+- [ ] onglets Test / Technique / Dépendances / État / Configuration ;
+- [ ] inventaire des fichiers JS/CSS/JSON/providers actifs par module.
+
+## 8B.2 CodeBlock standard — 70 % 🔵
+- [x] composant générique `CodeBlock` ;
+- [x] thème local clair/sombre ;
+- [x] mode brut/colorisé JSON ;
+- [x] copier dans le presse-papiers avec feedback ;
+- [x] télécharger en fichier texte/JSON ;
+- [x] utilisation dans le catalogue pour exporter la configuration machine ;
+- [ ] prise en charge syntaxique additionnelle HTML/CSS/JS/CSV ;
+- [ ] adoption progressive dans tous les écrans qui affichent du code/configuration.
+
+## 8B.3 FloatingPanel / handles / états — 35 % 🔵
+- [x] pin/unpin fonctionnel et persistant ;
+- [x] pin empêche le déplacement tout en laissant le resize disponible ;
+- [x] fermeture séparée ;
+- [ ] SVG sémantiques pin/close/lock/resize ;
+- [ ] lock/unlock séparé du handle ;
+- [ ] poignée resize commune FloatingPanel/Header/Hero/composants éditables ;
+- [ ] taille de poignée configurable ;
+- [ ] états visuels default/hover/active/inactive/locked/unlocked.
+
+## 8B.4 QR Studio / presets — 35 % 🔵
+- [x] génération JavaScript live ;
+- [x] Standard / Transparent / Fond coloré / Avec logo / Monochrome / Personnalisé ;
+- [x] labels explicites pour couleur QR et couleur arrière-plan ;
+- [x] niveaux de correction L/M/Q/H explicités ;
+- [x] feedback visuel sur Régénérer ;
+- [x] fond de la démo permettant de contrôler visuellement la transparence ;
+- [ ] vue pellicule compacte ;
+- [ ] édition d'un preset sélectionné ;
+- [ ] validation/figeage d'un preset ;
+- [ ] sauvegarde locale des presets ;
+- [ ] import/export JSON des presets ;
+- [ ] bouton copier via CodeBlock ;
+- [ ] statut visuel du preset actif/validé.
+
+## 8B.5 Preset Manager générique — 0 % ⬜
+- [ ] créer/dupliquer/renommer/supprimer ;
+- [ ] modifier puis valider ;
+- [ ] reset canonique ;
+- [ ] sauvegarde `localStorage` ;
+- [ ] import/export JSON ;
+- [ ] utiliser le même moteur pour QR, thèmes, densité, backgrounds, Header, Hero, Table et renderers.
+
+## 8B.6 Theme Workshop V2 — 0 % ⬜
+- [ ] BackgroundWiz : transparent, couleur unie, gradient, image ;
+- [ ] gradients 2/3/N couleurs avec stops ;
+- [ ] orientation horizontale/verticale/diagonale + angle avancé ;
+- [ ] portée Global / Type de composant / Instance ;
+- [ ] TypographyWiz ;
+- [ ] densité Compact/Normal/Confortable éditable + presets personnalisés ;
+- [ ] Undo/Redo + Reset commun ;
+- [ ] styles de liens normal/hover/focus/visited/active/disabled ;
+- [ ] liens internes/externes/ancres/médias et surfaces cliquables.
+
+## 8B.7 Navigation de développement — 0 % ⬜
+- [ ] hiérarchie pliable ;
+- [ ] Tout plier ;
+- [ ] Tout déplier ;
+- [ ] État par défaut H1/H2 ;
+- [ ] bouton Actualiser avec feedback ;
+- [ ] affichage optionnel des IDs ;
+- [ ] toggle Web public / Webmaster.
+
+## 8B.8 JSON Studio / Data UX V2 — 0 % ⬜
+- [ ] Tree réellement pliable/dépliable ;
+- [ ] expand/collapse all ;
+- [ ] Form réellement éditable selon schéma ;
+- [ ] Raw seul / Raw + vue colorisée ;
+- [ ] clair/sombre local ;
+- [ ] Diff expliqué original vs modifié ;
+- [ ] DataWiz explicite source/variable/mesure/résultat ;
+- [ ] Filmstrip avec contrôleurs interchangeables.
+
+## 8B.9 Media / Link / Asset — 0 % ⬜
+- [ ] LinkWiz : ancre, section, page interne, externe, média, action ;
+- [ ] ouverture même contexte / nouvel onglet / viewer / téléchargement ;
+- [ ] image/vignette/carte/surface cliquable sans liens HTML imbriqués ;
+- [ ] MediaWiz : inline, vignette, galerie, viewer, lien, téléchargement ;
+- [ ] PDF : page initiale configurable, viewer ou nouvel onglet, fallback icône ;
+- [ ] Asset/Logo Workshop : transparent, fond, monochrome recolorable, favicon ;
+- [ ] aperçu clair/sombre et fond carré/arrondi.
+
+Critère de sortie du Lot 8B : chaque grande abstraction transverse doit être prouvée au moins une fois et réutilisable sans réécriture dans Recettes du Cœur.
+
+---
+
+# LOT 8C — Diagnostic avancé / notifications / observabilité UI — 0 % ⬜
+
+- [ ] InspectorPanel à onglets : Test / Technique / Dépendances / État / Configuration ;
+- [ ] inventaire dynamique des boutons/contrôles visibles sur la page ;
+- [ ] état `active|inactive|disabled|locked|pinned|hidden` ;
+- [ ] snapshot JSON de diagnostic copiable/téléchargeable via CodeBlock ;
+- [ ] ouverture/fermeture des FloatingPanels depuis des boutons, titres ou événements ;
+- [ ] FloatingPanel spécialisé notification/toast/état ;
+- [ ] historique des notifications ;
+- [ ] actions de notification avec niveaux info/success/warning/error ;
+- [ ] mini vue globale/Live Preview de la page pendant l'édition Header/Hero/Sections ;
+- [ ] inspecteur de cascade de thème et configuration héritée ;
+- [ ] contrôle contraste/accessibilité live de base.
+
+---
+
 # LOT 9 — Webmaster privé : atelier Recettes du Cœur — 0 % 🔵 En cours
 
 Cible : `nepheris/NLab-Webmaster/Sites/Recettes-du-Coeur/atelier/`.
@@ -330,10 +448,29 @@ Cible : `nepheris/NLab-Webmaster-Preview-`.
 
 ---
 
-# Différé après le premier crash-test
+# Différé après le premier crash-test — explicitement tracé
 
-IdentityWiz, ExternalDataWiz Drive/OneDrive/GitHub privé, AccessGate serveur/edge, SQLite, statistiques avancées, fuzzy search avancée et traitements média complexes.
+## Données / identité / accès
+- [ ] IdentityWiz / OAuth ;
+- [ ] ExternalDataWiz Drive/OneDrive/GitHub privé ;
+- [ ] AccessGate serveur/edge ;
+- [ ] provider SQLite ;
+- [ ] persistance serveur/backoffice des presets et configurations.
+
+## Documents / médias
+- [ ] génération avancée de miniatures PDF multi-pages ;
+- [ ] annotation PDF ;
+- [ ] vectorisation automatique avancée des bitmaps complexes ;
+- [ ] traitements audio/vidéo avancés.
+
+## UI / rendu
+- [ ] packs d'icônes alternatifs complets ;
+- [ ] animations complexes entre thèmes/renderers ;
+- [ ] statistiques/graphiques avancés ;
+- [ ] fuzzy search avancée.
+
+Aucun élément différé ne doit rester seulement dans `BACKLOG-UX.md` ou dans la conversation : la roadmap reste la source de visibilité macro, le backlog sert au détail opérationnel.
 
 # Règle d'exécution autonome
 
-Pour les Lots 9 à 11 : refetch → implémentation → contrôles → itération → checkpoint RETEX lorsque prévu → roadmap → commit → poursuite automatique. Les vraies décisions humaines sont marquées 🟣 et regroupées au Lot 12 autant que possible.
+Pour les Lots 8B à 11 : refetch → implémentation → contrôles → itération → checkpoint RETEX lorsque prévu → roadmap → commit → poursuite automatique. Les vraies décisions humaines sont marquées 🟣 et regroupées au Lot 12 autant que possible.
