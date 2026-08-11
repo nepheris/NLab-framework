@@ -1,0 +1,72 @@
+{
+  "metadata": {
+    "id": "REC_POC_001",
+    "json_type": "recette",
+    "status": "prototype",
+    "version": "0.1.0"
+  },
+  "Data": {
+    "titre": "Soupe de légumes anti-gaspi",
+    "description": "Jeu de données de démonstration inspiré de la structure métier Recettes du Cœur. Ce fichier n'est pas présenté comme une copie d'un référentiel canonique du projet.",
+    "portions": 4,
+    "temps": {
+      "preparation_minutes": 15,
+      "cuisson_minutes": 30
+    },
+    "publication": {
+      "actif": true,
+      "categorie_id": "CAT_SOUPE",
+      "tags": ["TAG_ANTI_GASPI", "TAG_FACILE", "TAG_HIVER"]
+    },
+    "ingredients": [
+      {
+        "ingredient_id": "ING_CAROTTE",
+        "quantite": 300,
+        "unite": "g",
+        "optionnel": false
+      },
+      {
+        "ingredient_id": "ING_POMME_TERRE",
+        "quantite": 400,
+        "unite": "g",
+        "optionnel": false
+      },
+      {
+        "ingredient_id": "ING_OIGNON",
+        "quantite": 1,
+        "unite": "piece",
+        "optionnel": true
+      }
+    ],
+    "etapes": [
+      {
+        "ordre": 1,
+        "titre": "Préparer",
+        "instruction": "Laver, éplucher si nécessaire et couper les légumes en morceaux réguliers."
+      },
+      {
+        "ordre": 2,
+        "titre": "Cuire",
+        "instruction": "Couvrir d'eau, porter à frémissement puis cuire jusqu'à ce que les légumes soient tendres."
+      },
+      {
+        "ordre": 3,
+        "titre": "Mixer",
+        "instruction": "Mixer selon la texture souhaitée puis ajuster l'assaisonnement."
+      }
+    ],
+    "nutrition": {
+      "calcul_disponible": false,
+      "energie_kcal_par_portion": null
+    },
+    "sources": [
+      {
+        "label": "Démonstration POC Agent D",
+        "url": ""
+      }
+    ]
+  },
+  "dictionnaire_donnees": {
+    "note": "Échantillon autonome servant uniquement à démontrer le rendu formulaire hiérarchique JSON dans le bac à sable."
+  }
+}
