@@ -1,7 +1,7 @@
 {
   "task_id": "8B-RESULTSET-ROBUSTNESS",
   "agent": "C",
-  "status": "in_progress",
+  "status": "review",
   "base": "906aa08ec87b07bf26dd6e0738418af763468abe",
   "branch": "agent-c/resultset-robustness",
   "file_scope": [
@@ -10,5 +10,11 @@
     "dev/framework/doc/result-set/result-set.md"
   ],
   "reserved_at": "2026-08-12T01:31:00+02:00",
-  "notes": "Durcir ResultSet sans toucher TableWiz réservé A : validation iterable/total/meta, propagation query/filters/meta sans fuite de conteneurs, map/slice/withMeta validés, helpers length/isEmpty/first/at/iterator/toJSON et tests dédiés."
+  "final_sha": "e509df344fe92b61f22e4d572a031a993f0292fd",
+  "verification": {
+    "diff": "3 commits / 3 files, all inside reserved file_scope",
+    "tests": "local Node contract test",
+    "result": "ResultSet tests: OK"
+  },
+  "notes": "ResultSet valide iterable/total/meta, propage query/filters/meta sans partager les conteneurs, expose length/isEmpty/first/at/iterator/toJSON et conserve le total logique sur map/slice. Aucun fichier TableWiz/A/B ni démo/roadmap dans la branche."
 }
