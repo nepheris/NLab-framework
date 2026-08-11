@@ -24,15 +24,21 @@
 | Agent | Statut | Tâche | Branche | Périmètre synthétique |
 |---|---|---|---|---|
 | 🟦 A | 🛠️ `in_progress` | `8B-V20-SCOPE-LAYOUT` | `review-v20-from-v16` | Scope Lab / Layout Lab V20, démo |
-| 🟦 A | 🛠️ `in_progress` | `8B-SEMANTIC-ARCHITECTURE` | `agent-a/semantic-architecture` | nomenclature et responsabilités architecturales |
+| 🟦 A | 👀 `review` | `8B-SEMANTIC-ARCHITECTURE` | `agent-a/semantic-architecture` | nomenclature et responsabilités architecturales |
 | 🟦 A | 🔒 `reserved` | `8B-HEADER-LEGACY-EXTRACTION` | `agent-a/header-studio-from-v16` | Header Studio générique |
 | 🟦 A | 🔒 `reserved` | `8B-TABLEWIZ-LEGACY-EXTRACTION` | `agent-a/tablewiz-legacy-from-v16` | TableWiz legacy → API générique |
-| 🟩 B | 🛠️ `in_progress` | `8B-OBSERVABILITY-ROBUSTNESS` | `agent-b/observability-robustness` | RuntimeMonitor / tests robustesse |
-| 🟩 B | 🛠️ `in_progress` | `8B-SEO-SHARE-CONTRACTS` | `agent-b/seo-share-contracts` | SEO / Share / fallbacks navigateur |
-| 🟩 B | 🛠️ `in_progress` | `8B-DATA-SCHEMAS-VALIDATION` | `agent-b/data-schemas-validation` | schémas data et relations |
-| 🟩 B | 🔒 `reserved` | `8B-QR-MEDIA-ROBUSTNESS` | `agent-b/qr-media-robustness` | QRWiz / MediaWiz robustesse |
+| 🟩 B | 🛠️ `in_progress` | `8B-SEARCH-FILTER-ROBUSTNESS` | `agent-b/search-filter-robustness` | SearchWiz / FilterWiz robustesse, hors TableWiz |
 
-> 🟧 **C n'a plus de lock métier actif dans ce snapshot.** Les trois derniers lots ont été intégrés dans `New` et restent historisés dans leurs locks `done`.
+> 🟧 **C n'a pas de lock métier actif dans ce snapshot.** Les lots CodeBlock, PresetManager et NavigationWiz viennent d'être intégrés puis fermés en `done`.
+
+## Livraisons B récemment intégrées
+
+| Agent | Statut | Tâche | Intégration | Résultat |
+|---|---|---|---|---|
+| 🟩 B | ✅ `done` | `8B-DATA-SCHEMAS-VALIDATION` | PR #7 — `1257647aa0f9862bc98cadf7938796d7db6fcff4` | schémas data/relations validés, fallback `targetField` corrigé |
+| 🟩 B | ✅ `done` | `8B-QR-MEDIA-ROBUSTNESS` | PR #8 — `5490fd3f1bc13532d1a7d28ba8ec276edf42fa5e` | QRWiz / MediaWiz durcis, fallbacks et entrées invalides couverts |
+| 🟩 B | ✅ `done` | `8B-OBSERVABILITY-ROBUSTNESS` | PR #9 — `0a5f08e762f1167ec1991199a33f0da3e63726ac` | RuntimeMonitor durci et testé |
+| 🟩 B | ✅ `done` | `8B-SEO-SHARE-CONTRACTS` | PR #10 — `5d95554858a5a4a60ed205e779dcd4aa4d77b61f` | SEO/Share déterministes et fallbacks navigateur durcis |
 
 ## Livraisons C récemment intégrées
 
@@ -41,6 +47,9 @@
 | 🟧 C | ✅ `done` | `8B-ANALYTICS-CONSENT-PROVIDER` | PR #2 — `6571142bba33e8d684a7da37bf217761e4c3cba4` | contrat AnalyticsWiz / consentement / provider GA4 renforcé + tests dédiés |
 | 🟧 C | ✅ `done` | `9-PREFLIGHT-MACHINE-CHECKLIST` | PR #3 — `3a999b6044f4a360897c8a2f794f5ffe887f1dca` | checklist machine + fiche humaine du pré-vol Lot 9 intégrées |
 | 🟧 C | ✅ `done` | `8B-NOTIFICATION-CENTER-CONTRACT` | PR #4 — `8a8c1a8b01efd445e06aae5125c4f02395741a84` | NotificationCenter sans DOM, niveaux complets, cycle de vie, thème et tests dédiés |
+| 🟧 C | ✅ `done` | `8B-CODEBLOCK-CONTRACT` | PR #5 — `86f12ae01f199f60c422e79c5f5fa81ee0c4d1d9` | presets/alias langage, formatage JSON, export/copie sûrs et tokeniseur corrigé |
+| 🟧 C | ✅ `done` | `8B-PRESET-MANAGER-IMPORT` | PR #6 — `ff9ab4ed974ea4a8a83bdf84f545e9b7313434d6` | import de collections atomique et validé, canoniques protégés |
+| 🟧 C | ✅ `done` | `8B-NAVIGATION-CONTRACT` | PR #11 — `9d02216a3395002da7ef300dc83aa1c70567cae5` | NavigationWiz sans DOM implicite, IDs sûrs, observer/hash robustes |
 
 ## Règle de lecture
 
