@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-DATA-INDEX-ROBUSTNESS",
+  "agent": "B",
+  "status": "in_progress",
+  "base": "6c33b486f681bc21ade5efc43b62c4eb466f8b33",
+  "branch": "agent-b/data-index-robustness",
+  "file_scope": [
+    "dev/framework/core/data-index.js",
+    "dev/framework/tests/data-index-robustness.test.mjs",
+    "dev/framework/doc/data-index/*.md"
+  ],
+  "reserved_at": "2026-08-12T01:20:00+02:00",
+  "notes": "Durcir DataIndex sans toucher aux chantiers A/C : validation collection/champ/records, clés Map stables, doublons déterministes, clear ciblé exact, introspection minimale et tests dédiés. Aucun TableWiz, Registry, EventBus, StateStore, démo ou roadmap dans la branche métier."
+}
