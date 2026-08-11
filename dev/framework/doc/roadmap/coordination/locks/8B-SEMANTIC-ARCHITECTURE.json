@@ -1,12 +1,13 @@
 {
   "task_id": "8B-SEMANTIC-ARCHITECTURE",
   "agent": "A",
-  "status": "in_progress",
+  "status": "review",
   "base": "03ce17412117129b14be7dad6993fa0094a0df39",
   "branch": "agent-a/semantic-architecture",
   "file_scope": [
     "dev/framework/doc/architecture/semantic-architecture.md"
   ],
   "reserved_at": "2026-08-12T00:26:00+02:00",
-  "notes": "Redéfinir la nomenclature et les responsabilités des moteurs, contrôles, vues, visualisations et studios. Aucun renommage de code ni modification des fichiers réservés par Agent B pendant cette tâche."
+  "draft_sha": "ccd8f6572ad4b2edf9709d3fc42cae0d10b97ba1",
+  "notes": "Proposition de nomenclature et responsabilités prête à relire. Aucun renommage de code effectué ; migration différée après validation de l'architecture."
 }
