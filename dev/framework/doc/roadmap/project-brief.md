@@ -9,7 +9,7 @@
 - **Nom :** nLab Web Framework
 - **Type nLab :** FRMW
 - **Statut :** DEV / ACTIVE
-- **Dépôt :** [nepheris/NLab-framework](https://github.com/nepheris/NLab-framework)
+- **Dépôt :** [nepheris/nLab-Web-Framework](https://github.com/nepheris/nLab-Web-Framework)
 - **Roadmap :** [`roadmap.md`](./roadmap.md)
 - **REX machine :** [`project-brief.rex.machine.json`](./project-brief.rex.machine.json)
 
