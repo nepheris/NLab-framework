@@ -1,7 +1,7 @@
 {
   "task_id": "8B-DATA-SOURCE-CONSOLIDATION",
   "agent": "C",
-  "status": "review",
+  "status": "done",
   "base": "505b6e56604cf43d9bb0b7da3806ea8c3bcc45f2",
   "branch": "agent-c/data-source-consolidation",
   "file_scope": [
@@ -12,10 +12,12 @@
   "reserved_at": "2026-08-12T01:55:00+02:00",
   "supersedes_released_lock": "8B-DATA-SOURCE-ROBUSTNESS",
   "final_sha": "4545b6e3db16b29e8bceee991eae9d2f1a214323",
+  "merged_sha": "8eff874f9a9343d8884008bb971fc7709fdd5f86",
+  "pull_request": 26,
   "verification": {
     "diff": "3 commits / 3 files, all inside reserved file_scope",
     "tests": "DataSource consolidated contract test",
     "result": "DataSource tests: OK"
   },
-  "notes": "Consolidation des apports compatibles B/C : DataSourceError structurée, clone récursif options/metadata, cycles rejetés ; location reste libre pour compatibilité historique."
+  "notes": "Consolidation des apports compatibles B/C : DataSourceError structurée, clone récursif options/metadata, cycles rejetés ; location reste libre pour compatibilité historique. Intégré via PR #26."
 }
