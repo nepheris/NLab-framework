@@ -47,7 +47,6 @@ resolver.clearIndexes('categories');
 await resolver.resolveRecord('recipes', datasets.recipes[0]);
 assert.equal(calls.get('categories'), 2, 'targeted clear must force rebuild');
 
-assert.throws(() => resolver.resolveRecord('constructor', {}), /Unknown collection|Promise/);
 await assert.rejects(resolver.resolveRecord('constructor', {}), (error) => error.code === 'UNKNOWN_COLLECTION');
 await assert.rejects(resolver.resolveRecord('recipes', null), (error) => error.code === 'INVALID_RECORD');
 
