@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-NAVIGATION-CONTRACT",
+  "agent": "C",
+  "status": "in_progress",
+  "base": "7e1ef884f14cf9a2b25477a6d6d52308752a06db",
+  "branch": "agent-c/navigation-contract",
+  "file_scope": [
+    "dev/framework/navigation/navigation-wiz.js",
+    "dev/framework/tests/navigation-wiz.test.mjs",
+    "dev/framework/doc/navigation/navigation-wiz.md"
+  ],
+  "reserved_at": "2026-08-12T00:54:00+02:00",
+  "notes": "Robustesse NavigationWiz indépendante de la démo : fonctionnement sans DOM, document injecté, IDs générés sans collision, observer remplaçable/nettoyé, restore hash sûr et tests de hiérarchie. Aucun fichier A/B ni roadmap dans la branche."
+}
