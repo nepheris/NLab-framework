@@ -1,0 +1,16 @@
+{
+  "task_id": "8B-DATA-SCHEMAS-VALIDATION",
+  "agent": "B",
+  "status": "reserved",
+  "base": "641583b6c49b40832aa3314fd033db6dcd8e71b0",
+  "branch": "agent-b/data-schemas-validation",
+  "file_scope": [
+    "dev/framework/data/collection.schema.json",
+    "dev/framework/data/data-registry.schema.json",
+    "dev/framework/data/relation.schema.json",
+    "dev/framework/tests/data-schema*.mjs",
+    "dev/framework/doc/data-schemas/*.md"
+  ],
+  "reserved_at": "2026-08-12T00:10:00+02:00",
+  "notes": "Valider les schémas collection/registry/relation avec fixtures positives et négatives, compatibilité des identifiants et relations. Aucun changement TableWiz, Header, V20 ou démo."
+}
