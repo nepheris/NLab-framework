@@ -14,6 +14,8 @@ La création du fichier est volontairement utilisée comme verrou atomique : si 
 
 Le suivi humain est complété par [`agent-board.md`](./agent-board.md), qui reprend les locks sous forme de tableau coloré A/B/C. **En cas d'écart, le lock JSON prime toujours.**
 
+Le ticket GitHub central reste **Issue #1 — Coordination agents — finalisation parallèle du framework** ; il sert de point de discussion, tandis que les locks + la roadmap constituent le contrôle opérationnel.
+
 ## Couleurs des agents
 
 La couleur est dérivée du champ `agent` du lock ; il n'est pas nécessaire de dupliquer une valeur `color` dans chaque JSON.
