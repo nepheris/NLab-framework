@@ -22,22 +22,26 @@ const configObject = (value, label) => {
   return cloneConfig(value);
 };
 
-const cloneConfig = (value, seen = new WeakMap()) => {
+const cloneConfig = (value, ancestors = new WeakSet()) => {
+  const plainObject = value && typeof value === 'object' && [Object.prototype, null].includes(Object.getPrototypeOf(value));
+  if (!Array.isArray(value) && !plainObject) return value;
+  if (ancestors.has(value)) {
+    throw new DataSourceError('DataSource configuration must not contain circular references', 'CIRCULAR_CONFIG');
+  }
+
+  ancestors.add(value);
+  const copy = Array.isArray(value) ? [] : {};
   if (Array.isArray(value)) {
-    if (seen.has(value)) return seen.get(value);
-    const copy = [];
-    seen.set(value, copy);
-    for (const item of value) copy.push(cloneConfig(item, seen));
-    return copy;
+    for (const item of value) copy.push(cloneConfig(item, ancestors));
+  } else {
+    for (const [key, item] of Object.entries(value)) {
+      Object.defineProperty(copy, key, {
+        value: cloneConfig(item, ancestors), enumerable: true, configurable: true, writable: true
+      });
+    }
   }
-  if (value && typeof value === 'object' && Object.getPrototypeOf(value) === Object.prototype) {
-    if (seen.has(value)) return seen.get(value);
-    const copy = {};
-    seen.set(value, copy);
-    for (const [key, item] of Object.entries(value)) copy[key] = cloneConfig(item, seen);
-    return copy;
-  }
-  return value;
+  ancestors.delete(value);
+  return copy;
 };
 
 const normalizeLocation = (value) => {
