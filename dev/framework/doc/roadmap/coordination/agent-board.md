@@ -27,9 +27,8 @@
 | 🟦 A | 👀 `review` | `8B-SEMANTIC-ARCHITECTURE` | `agent-a/semantic-architecture` | nomenclature et responsabilités architecturales |
 | 🟦 A | 🔒 `reserved` | `8B-HEADER-LEGACY-EXTRACTION` | `agent-a/header-studio-from-v16` | Header Studio générique |
 | 🟦 A | 🔒 `reserved` | `8B-TABLEWIZ-LEGACY-EXTRACTION` | `agent-a/tablewiz-legacy-from-v16` | TableWiz legacy → API générique |
-| 🟩 B | 🛠️ `in_progress` | `8B-SEARCH-FILTER-ROBUSTNESS` | `agent-b/search-filter-robustness` | SearchWiz / FilterWiz robustesse, hors TableWiz |
 
-> 🟧 **C n'a pas de lock métier actif dans ce snapshot.** Les lots CodeBlock, PresetManager et NavigationWiz viennent d'être intégrés puis fermés en `done`.
+> 🟩 **B** et 🟧 **C** n'ont pas de lock métier actif dans ce snapshot. Les tâches `done` restent historisées dans leurs locks.
 
 ## Livraisons B récemment intégrées
 
@@ -39,6 +38,8 @@
 | 🟩 B | ✅ `done` | `8B-QR-MEDIA-ROBUSTNESS` | PR #8 — `5490fd3f1bc13532d1a7d28ba8ec276edf42fa5e` | QRWiz / MediaWiz durcis, fallbacks et entrées invalides couverts |
 | 🟩 B | ✅ `done` | `8B-OBSERVABILITY-ROBUSTNESS` | PR #9 — `0a5f08e762f1167ec1991199a33f0da3e63726ac` | RuntimeMonitor durci et testé |
 | 🟩 B | ✅ `done` | `8B-SEO-SHARE-CONTRACTS` | PR #10 — `5d95554858a5a4a60ed205e779dcd4aa4d77b61f` | SEO/Share déterministes et fallbacks navigateur durcis |
+| 🟩 B | ✅ `done` | `8B-SEARCH-FILTER-ROBUSTNESS` | PR #12 — `7572591e4f4987c2478d5891f7e5fc3453db785c` | SearchWiz Unicode/stopwords/fields et FilterWiz fail-closed consolidés |
+| 🟩 B | ✅ `done` | `8B-URL-RESOLVER-ROBUSTNESS` | PR #13 — `cf606f256329567200bc8d054d7ef073a1e393cc` | URL Resolver résilient, bases relatives et contexte hors navigateur couverts |
 
 ## Livraisons C récemment intégrées
 
@@ -50,6 +51,8 @@
 | 🟧 C | ✅ `done` | `8B-CODEBLOCK-CONTRACT` | PR #5 — `86f12ae01f199f60c422e79c5f5fa81ee0c4d1d9` | presets/alias langage, formatage JSON, export/copie sûrs et tokeniseur corrigé |
 | 🟧 C | ✅ `done` | `8B-PRESET-MANAGER-IMPORT` | PR #6 — `ff9ab4ed974ea4a8a83bdf84f545e9b7313434d6` | import de collections atomique et validé, canoniques protégés |
 | 🟧 C | ✅ `done` | `8B-NAVIGATION-CONTRACT` | PR #11 — `9d02216a3395002da7ef300dc83aa1c70567cae5` | NavigationWiz sans DOM implicite, IDs sûrs, observer/hash robustes |
+| 🟧 C | ✅ `done` | `8B-HELPWIZ-CONTRACT` | PR #14 — `181ab313a73e00bd74749119e41a939f526856a9` | HelpWiz cloné/contextualisé, attach idempotent, detach/destroy et événements injectables |
+| 🟧 C | ✅ `done` | `8B-STORAGE-ROBUSTNESS` | PR #15 — `1b84292ee6d10c0de0b34cc4dc11150ccf499de8` | BrowserStorage résilient aux erreurs quota/security/sérialisation et clear best-effort |
 
 ## Règle de lecture
 
