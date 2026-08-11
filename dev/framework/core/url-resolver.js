@@ -1,6 +1,14 @@
 const FALLBACK_BASE = 'http://localhost/';
 const text = (value) => value instanceof URL ? value.toString() : String(value ?? '');
-const absolute = (value, fallback = FALLBACK_BASE) => new URL(text(value), text(fallback || FALLBACK_BASE)).toString();
+const absolute = (value, fallback = FALLBACK_BASE) => {
+  const target = text(value);
+  const base = text(fallback || FALLBACK_BASE);
+  try { return new URL(target, base).toString(); }
+  catch {
+    if (base === FALLBACK_BASE) throw new TypeError(`Invalid URL: ${target}`);
+    return new URL(target, FALLBACK_BASE).toString();
+  }
+};
 
 export class URLResolver {
   constructor({ baseUrl = null, assetsBase = 'assets/', apiBase = null } = {}) {
