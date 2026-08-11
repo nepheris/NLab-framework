@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-NOTIFICATION-CENTER-CONTRACT",
+  "agent": "C",
+  "status": "reserved",
+  "base": "892f95c3038f5afa1e5e62482eced87e45f8db4b",
+  "branch": "agent-c/notification-center-contract",
+  "file_scope": [
+    "dev/framework/components/notification-center.js",
+    "dev/framework/tests/notification-center.test.mjs",
+    "dev/framework/doc/components/notification-center.md"
+  ],
+  "reserved_at": "2026-08-12T00:39:00+02:00",
+  "notes": "Renforcer NotificationCenter sans toucher aux zones A/B : compatibilité sans DOM, niveaux info/success/warning/error/dev avec alias danger, cycle dismiss/clear, limite de notifications et contrat de thème. Aucun changement de démo ni de roadmap pendant le chantier."
+}
