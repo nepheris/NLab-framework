@@ -1,7 +1,7 @@
 {
   "task_id": "8B-SEARCH-FILTER-ROBUSTNESS",
   "agent": "B",
-  "status": "in_progress",
+  "status": "done",
   "base": "f76045defe11bb42f7f744b1eed7459876325b3d",
   "branch": "agent-b/search-filter-robustness",
   "file_scope": [
@@ -11,5 +11,14 @@
     "dev/framework/doc/search-filter/*.md"
   ],
   "reserved_at": "2026-08-12T00:57:00+02:00",
-  "notes": "Robustesse SearchWiz/FilterWiz uniquement : normalisation requêtes, tokens/stopwords/locale, suggestions, opérateurs de filtre, entrées invalides et immutabilité. TableWiz explicitement exclu ; aucun fichier A/C, Navigation, Preset Manager, CodeBlock, démo ou V20."
+  "final_sha": "db9bd66bbf344bafe4ededea521f1cf4ebb109bd",
+  "merged_sha": "7572591e4f4987c2478d5891f7e5fc3453db785c",
+  "pull_request": 12,
+  "verification": {
+    "diff": "6 commits / 4 fichiers, tous dans le file_scope réservé",
+    "collision_check": "SearchWiz et FilterWiz sur New conservaient les SHA du point de départ avant fusion",
+    "tests": "tests/search-filter-robustness.test.mjs exécuté localement sur le contenu exact du lot",
+    "result": "search filter robustness tests: ok"
+  },
+  "notes": "Intégré dans New via PR #12 en squash. SearchWiz : Unicode, stopwords, fields normalisés, regex globale stable. FilterWiz : entrées invalides et opérateurs inconnus fail-closed. TableWiz et tous les fichiers A/C explicitement exclus."
 }
