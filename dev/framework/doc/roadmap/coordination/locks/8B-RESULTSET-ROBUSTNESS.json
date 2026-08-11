@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-RESULTSET-ROBUSTNESS",
+  "agent": "C",
+  "status": "in_progress",
+  "base": "906aa08ec87b07bf26dd6e0738418af763468abe",
+  "branch": "agent-c/resultset-robustness",
+  "file_scope": [
+    "dev/framework/data/result-set.js",
+    "dev/framework/tests/result-set-robustness.test.mjs",
+    "dev/framework/doc/result-set/result-set.md"
+  ],
+  "reserved_at": "2026-08-12T01:31:00+02:00",
+  "notes": "Durcir ResultSet sans toucher TableWiz réservé A : validation iterable/total/meta, propagation query/filters/meta sans fuite de conteneurs, map/slice/withMeta validés, helpers length/isEmpty/first/at/iterator/toJSON et tests dédiés."
+}
