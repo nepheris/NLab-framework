@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-PRESET-MANAGER-IMPORT",
+  "agent": "C",
+  "status": "in_progress",
+  "base": "e5169b32ecd6e0b5c615960026be41cd235632b2",
+  "branch": "agent-c/preset-manager-import",
+  "file_scope": [
+    "dev/framework/components/preset-manager.js",
+    "dev/framework/tests/preset-manager.test.mjs",
+    "dev/framework/doc/components/preset-manager.md"
+  ],
+  "reserved_at": "2026-08-12T00:50:00+02:00",
+  "notes": "Rendre import/export PresetManager atomique et validé : version/type/namespace/shape, doublons, activeId, replace sans état partiel, avec tests de non-régression. Aucun fichier A/B, aucune démo ni roadmap dans la branche."
+}
