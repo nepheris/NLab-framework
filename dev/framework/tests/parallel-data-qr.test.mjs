@@ -10,17 +10,21 @@ const rows = [
   { id:'B', score:'20', category:'plat', tags:['legume'] },
   { id:'C', score:null, category:'dessert', tags:['fruit'] },
   { id:'D', category:'', tags:[] },
+  { id:'E', category:null },
 ];
 const stats = data.describe(rows, ['score','category']);
-assert.equal(stats.rows, 4);
+assert.equal(stats.rows, 5);
 assert.equal(stats.fields.score.count, 2);
-assert.equal(stats.fields.score.missing, 2);
+assert.equal(stats.fields.score.missing, 3);
 assert.equal(stats.fields.score.numeric.min, 10);
 assert.equal(stats.fields.score.numeric.max, 20);
 assert.equal(stats.fields.score.numeric.mean, 15);
 assert.equal(stats.fields.category.unique, 2);
-assert.equal(data.groupBy(rows,'category').find((g)=>g.value==='dessert').count, 2);
-assert.equal(data.groupBy(rows,'category').find((g)=>g.value==='(vide)').count, 1);
+const categoryGroups = data.groupBy(rows,'category');
+assert.equal(categoryGroups.find((g)=>g.value==='dessert').count, 2);
+// Contrat actuel : null/undefined => `(vide)`, chaîne vide => groupe `''` distinct.
+assert.equal(categoryGroups.find((g)=>g.value==='(vide)').count, 1);
+assert.equal(categoryGroups.find((g)=>g.value==='').count, 1);
 assert.equal(data.groupBy(rows,'tags').find((g)=>g.value==='fruit').count, 2);
 const histogram = data.histogram(rows,'score',{bins:2});
 assert.equal(histogram.length, 2);
