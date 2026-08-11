@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-DATA-SOURCE-ROBUSTNESS",
+  "agent": "B",
+  "status": "in_progress",
+  "base": "8498a2b2989c8a4e980e17ecde3c7b0763ce3279",
+  "branch": "agent-b/data-source-robustness",
+  "file_scope": [
+    "dev/framework/core/data-source.js",
+    "dev/framework/tests/data-source-robustness.test.mjs",
+    "dev/framework/doc/data-source/*.md"
+  ],
+  "reserved_at": "2026-08-12T01:33:00+02:00",
+  "notes": "Durcir DataSource sans toucher aux chantiers A/C : validation id/type, normalisation location, isolation options/metadata, sérialisation stable et tests dédiés. Aucun TableWiz, DataProvider, DataResolver, DataRuntimeRegistry, démo ou roadmap dans la branche métier."
+}
