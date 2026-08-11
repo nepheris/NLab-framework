@@ -1,7 +1,7 @@
 {
   "task_id": "COORD-ROADMAP-AGENT-DASHBOARD",
   "agent": "C",
-  "status": "in_progress",
+  "status": "released",
   "base": "0874c4a8da29c830cc7d60ffa5451cdc9b34d2f0",
   "branch": "New",
   "file_scope": [
@@ -10,5 +10,8 @@
     "dev/framework/doc/roadmap/coordination/agent-board.md"
   ],
   "reserved_at": "2026-08-12T00:42:00+02:00",
-  "notes": "Agent C rafraîchit le snapshot documentaire après intégration de `8B-NOTIFICATION-CENTER-CONTRACT` via PR #4. Delta limité au statut NotificationCenter ; arbitrages A/B inchangés."
+  "released_at": "2026-08-12T00:44:00+02:00",
+  "final_sha": "9b0e8cf42af021fce5e7eb10b37f75cda3b6a0eb",
+  "roadmap_sha": "3ad82fc1f43b671664a5b9df8fe526f3c4f63507",
+  "notes": "Agent C a synchronisé NotificationCenter après intégration via PR #4 : roadmap et agent-board mis à jour, arbitrages A/B inchangés, mutex documentaire libéré."
 }
