@@ -1,476 +1,539 @@
-# Roadmap — Framework V2 + crash-test Recettes du Cœur
+# 🗺️ Roadmap GitHub — Framework nLab V2 + crash-test Recettes du Cœur
 
-> Branche de construction : `New`  
-> Progression = lots construits techniquement ; les lots visuels restent `🟠 À tester` jusqu'au crash-test humain.
+> Objectif : stabiliser le Framework nLab V2 par un catalogue testable, une consolidation UX transverse puis un crash-test réel sur Recettes du Cœur. Principe de lecture : **pilotage immédiatement visible, détail à la demande**.
 
-# AVANCEMENT GLOBAL — 69 % MACRO — 🔵 CONSOLIDATION 8B EN COURS
+<a name="haut"></a>
 
-## Tableau de bord
+## 1. Pilotage
 
-| Lot | Objet | Avancement | État |
+### 1.1 Phase active
+
+> 👇👇👇 **POINT DE TRAVAIL ACTIF** 👇👇👇  
+> 🎯 **PHASE ACTIVE : [Phase 8B — Consolidation UX transverse / Atelier Webmaster](#phase-8b)**  
+> ▶️ **Reprise : valider le Preset Manager générique puis l’intégrer à QR Studio, Theme Workshop, responsive/cartes et TableWiz.**  
+> 🟣👤 **Jalon HUMAN actif : [H001 — Validation UX de la consolidation 8B](#human-h001)** — non bloquant pour les travaux indépendants.
+
+> **Règle de lecture :** cette roadmap n’est pas strictement séquentielle. Un lot techniquement construit peut rester à tester ; une phase antérieure peut rester sous 100 % si son critère bloquant est franchi. Les améliorations non bloquantes restent suivies sans empêcher la progression.
+
+<details>
+<summary><strong>🧭 1.2 Sommaire — cliquer pour déplier</strong></summary>
+
+- [📎 1.3 Fichiers associés](#fichiers-associes)
+- [📘 1.4 Légende](#legende)
+- [📊 1.5 Vue globale](#vue-globale)
+- [📍 1.6 État actuel](#etat-actuel)
+- [🟣👤 1.7 Jalons HUMAN](#jalons-human)
+- [2. Fondations et runtime](#bloc-a)
+- [3. UI, présentation, données et sorties](#bloc-b)
+- [4. Catalogue et consolidation UX](#bloc-c)
+- [5. Crash-test Recettes du Cœur](#bloc-d)
+- [6. Validation finale](#bloc-e)
+- [7. Méthode autonome et RETEX](#methode-autonome)
+- [8. 💡 Backlog / boîte à idées](#backlog-roadmap)
+- [9. Capitalisation / clôture](#capitalisation)
+
+</details>
+
+<a name="fichiers-associes"></a>
+
+### 📎 1.3 Fichiers associés
+
+> Le lien principal ouvre normalement. Le petit `↗` offre une ouverture séparée compacte.
+
+- 🗂️ **Dépôt Framework :** [nepheris/NLab-framework](https://github.com/nepheris/NLab-framework) <a href="https://github.com/nepheris/NLab-framework" target="_blank">↗</a>
+- 🌐 **Preview publique :** [NLab Webmaster Preview](https://nepheris.github.io/NLab-Webmaster-Preview-/) <a href="https://nepheris.github.io/NLab-Webmaster-Preview-/" target="_blank">↗</a>
+- 📈 **Détail opérationnel 8B :** [`ROADMAP-8B-DETAIL.md`](./ROADMAP-8B-DETAIL.md) <a href="./ROADMAP-8B-DETAIL.md" target="_blank">↗</a>
+- 🤖 **REX machine cumulatif :** [`roadmap-framework-v2.rex.machine.json`](./roadmap-framework-v2.rex.machine.json) <a href="./roadmap-framework-v2.rex.machine.json" target="_blank">↗</a>
+- 🟣👤 **Fiche HUMAN active / dernière :** [`roadmap-framework-v2.human-check.md`](./roadmap-framework-v2.human-check.md) <a href="./roadmap-framework-v2.human-check.md" target="_blank">↗</a>
+- 🧠 **RETEX narratif :** [`RETEX-AUTONOMIE.md`](./RETEX-AUTONOMIE.md) <a href="./RETEX-AUTONOMIE.md" target="_blank">↗</a>
+- 📋 **Backlog UX :** [`BACKLOG-UX.md`](./BACKLOG-UX.md) <a href="./BACKLOG-UX.md" target="_blank">↗</a>
+- 💡 **Boîte à idées :** [`IDEAS.md`](./IDEAS.md) <a href="./IDEAS.md" target="_blank">↗</a>
+- ⚖️ **Décisions :** [`DECISIONS.md`](./DECISIONS.md) <a href="./DECISIONS.md" target="_blank">↗</a>
+
+<a name="legende"></a>
+
+### 📘 1.4 Légende
+
+<details>
+<summary><strong>Cliquer pour déplier / replier la légende</strong></summary>
+
+- ⚪ `0 %` — à faire
+- 🟡 `1–99 %` — en cours
+- 🟢 `100 %` — terminé / validé techniquement
+- 🟠 — construit mais validation UX/fonctionnelle encore requise
+- ⏸️ `—` — différé volontairement
+- 🟣👤 `HUMAN` — intervention humaine utile à la décision
+- 🤖 — brief / mémoire machine
+- 💡 — idée / capitalisation
+- 🔎 — audit / contrôle
+- 🔷 — navigation interne
+- 🎯 — phase ou point actif
+- 📈 — tableau d’avancement / détail de phase
+- ↗ — ouverture séparée
+
+Les pourcentages expriment la maturité du périmètre décrit, pas le temps restant.
+
+</details>
+
+<a name="vue-globale"></a>
+
+### 📊 1.5 Vue globale
+
+<details open>
+<summary><strong>📊 Avancement global — ouvert par défaut</strong></summary>
+
+| Domaine | État | Avancement | Cible |
 |---|---|---:|---|
-| 0 | Gouvernance, conventions, roadmap | 100 % | ✅ Terminé |
-| 1 | Fondation data | 100 % | ✅ Terminé |
-| 2 | Core runtime | 100 % | ✅ Terminé |
-| 3 | Primitives UI | 100 % | 🟠 À tester |
-| 4 | Theme Workshop, thème, icônes, aide, navigation | 100 % | 🟠 À tester |
-| 5 | Data UX : Search, Filter, Renderer, Table, JSON Studio | 100 % | 🟠 À tester |
-| 6 | Media, QR, Share, Document | 100 % | 🟠 À tester |
-| 7 | SEO, Analytics, Performance, Monitoring | 100 % | 🟠 À tester |
-| 8 | Catalogue, datasets, responsive, tests/itérations | 100 % | 🟠 À tester |
-| 8B | Consolidation UX transverse / atelier Webmaster | 25 % | 🔵 En cours |
-| 8C | Diagnostic avancé / notifications / observabilité UI | 0 % | ⬜ À faire |
-| 9 | Webmaster privé — atelier Recettes du Cœur | 0 % | 🔵 En cours |
-| 10 | Webmaster — web Recettes du Cœur | 0 % | ⬜ À faire |
-| 11 | Preview public — crash-test intégral | 0 % | ⬜ À faire |
-| 12 | Validation humaine finale et corrections | 0 % | 🟣 Décision humaine |
+| Gouvernance + fondations data | 🟢 | 100 % | Contrats, validation, providers et décisions stabilisés |
+| Core runtime | 🟢 | 100 % | State, events, registry, URL, storage, environment |
+| Primitives UI + présentation | 🟠 | 100 % technique | Validation UX via catalogue puis site réel |
+| Data UX | 🟠 | 100 % technique | Search/Filter/Renderer/Table/JSON/DataWiz éprouvés visuellement |
+| Media / QR / Share / Document | 🟠 | 100 % technique | Studios interactifs et sorties éprouvés |
+| Web / observabilité | 🟠 | 100 % technique | SEO, analytics, performance et monitoring éprouvés |
+| Catalogue / Playground | 🟠 | 100 % socle | Page unique de test, Preview versionnée et protocole de recette |
+| Consolidation UX 8B | 🟡 | 40 % | Primitives transverses factorisées + presets reproductibles |
+| Diagnostic avancé 8C | ⚪ | 0 % | Inspector/notifications/observabilité UI avancés |
+| Crash-test Recettes du Cœur | ⚪ | 0 % | Atelier privé → web généré → Preview public |
+| Validation finale | 🟣👤 | 0 % | Revue humaine + audits + décision de stabilisation V2 |
 
-## Légende
+</details>
 
-- ✅ **Terminé** — contrôlé techniquement, pas de validation visuelle restante pour le lot.
-- 🔵 **En cours** — travail actif.
-- 🟠 **À tester** — construit mais validation UX/fonctionnelle globale différée.
-- ⬜ **À faire** — planifié.
-- 🔴 **Bloqué** — dépendance réelle empêchant de continuer.
-- 🟣 **Décision humaine** — validation/arbitrage explicitement réservé à l'utilisateur.
+🔷 **[↑ Retour au sommaire](#haut)**
 
-## Checkpoints RETEX / amélioration continue
+<a name="etat-actuel"></a>
 
-Le fichier machine [`RETEX-AUTONOMIE.md`](./RETEX-AUTONOMIE.md) capitalise les enseignements réutilisables.
+### 📍 1.6 État actuel
 
-- [x] **RETEX 01 — après construction autonome des Lots 0 à 8 et premier incident Preview** : capitaliser Git, publication, validation réelle et erreurs à ne pas répéter.
-- [ ] **RETEX 02 — avant passage Atelier → Web** : vérifier les enseignements de modélisation métier et de génération.
-- [ ] **RETEX 03 — après premier site Recettes du Cœur fonctionnel** : capitaliser UX, responsive, Theme Workshop et data-driven.
-- [ ] **RETEX 04 — après publication Preview du crash-test** : capitaliser publication, cache, assets, liens et contrôle utilisateur réel.
-- [ ] **RETEX 05 — avant stabilisation V2** : synthèse finale, règles à conserver et dette à reporter.
-
-Règle : un checkpoint RETEX doit transformer les incidents et réussites en **règles opérationnelles réutilisables**, pas seulement en historique narratif.
-
----
-
-# LOT 0 — Gouvernance — 100 % ✅
-
-- [x] branche `New` propre ;
-- [x] historique commit par commit ;
-- [x] `foundation/` segmenté ;
-- [x] `DECISIONS.md` ;
-- [x] roadmap avec pourcentages/statuts ;
-- [x] séparation framework / métier / public / privé.
-
-# LOT 1 — Fondation data — 100 % ✅
-
-- [x] DataProvider / DataSource / DataAdapter ;
-- [x] DataRegistry / DataSchema / DataRelation ;
-- [x] JsonDataProvider ;
-- [x] DataIndex factorisé ;
-- [x] DataResolver `one` / `many` sans mutation des IDs ;
-- [x] DataValidator : IDs, doublons, required, cardinalités, références ;
-- [x] provider/adapter registry ;
-- [x] tests de fondation.
-
-# LOT 2 — Core runtime — 100 % ✅
-
-- [x] StateStore ;
-- [x] EventBus ;
-- [x] FrameworkRegistry ;
-- [x] URLResolver ;
-- [x] BrowserStorage ;
-- [x] Environment `production|preview|development` ;
-- [x] Experience `visitor|webmaster` UX uniquement.
-
-# LOT 3 — Primitives UI — 100 % 🟠 À tester
-
-- [x] Container / stack / row / grid ;
-- [x] Header / Footer / Hero / Section / Sidebar ;
-- [x] tokens de dimensions/espacements/densité ;
-- [x] FloatingPanel : move, resize, lock, minimize, dock, clamp, persistence adapter ;
-- [x] Toolbar : actions, priorité, favoris, visibilité, overflow, reorder model ;
-- [x] Foldable : open/close/all/reset/ancres/persistance ;
-- [x] Pagination : tailles/pages/first/prev/next/last ;
-- [x] tests modèles UI.
-
-🟠 Validation : ergonomie réelle sur la page catalogue puis Recettes du Cœur.
-
-# LOT 4 — Theme Workshop / Présentation — 100 % 🟠 À tester
-
-## ThemeWiz
-- [x] cascade `base → site → variante → section → composant → utilisateur` ;
-- [x] tokens CSS ;
-- [x] light/dark/presets compatibles ;
-- [x] variantes ;
-- [x] import/export JSON ;
-- [x] persistance.
-
-## Theme Workshop Webmaster
-- [x] mode `Déverrouiller` ;
-- [x] poignées sur `data-theme-editable` ;
-- [x] redimensionnement live ;
-- [x] lock individuel / lock all ;
-- [x] color pickers ;
-- [x] patchs par composant ;
-- [x] export/import du workshop + thème ;
-- [x] commit du patch vers le thème site ;
-- [x] reset session.
-
-## Personnalisation visiteur
-- [x] options autorisées par le Webmaster ;
-- [x] sous-thème local ;
-- [x] accent/densité/scheme ;
-- [x] reset vers défaut canonique.
-
-## Présentation
-- [x] Icon Registry SVG `currentColor` ;
-- [x] HelpWiz ;
-- [x] NavigationWiz H1/H2/H3, arbre, scrollspy, ancres.
-
-🟣 Décision différée : thèmes/variantes à retenir après le crash-test.
-
-# LOT 5 — Data UX — 100 % 🟠 À tester
-
-- [x] ResultSet indépendant du rendu ;
-- [x] SearchWiz texte/champs/exact/regex/score ;
-- [x] FilterWiz ET/OU, arrays, ranges, dates, regex ;
-- [x] PresentationResolver ID/label/image/icon ;
-- [x] RendererWiz : cards, compact-cards, list, links, gallery, tiles, filmstrip, table ;
-- [x] renderer conseillé par breakpoint ;
-- [x] TableWiz : colonnes, visibilité, ordre, largeur, sticky, recherche, filtre, tri, pagination, images, CSV/JSON ;
-- [x] JSON Studio : raw/tree/form/table/preview, arrays, diff, import/export, validation/resolver/save adapters ;
-- [x] DataWiz : descriptif, groupBy, histogrammes simples ;
-- [x] tests des moteurs data.
-
-Priorité conservée : recherche + cartes/listes/pellicules/tableaux avant les graphiques avancés.
-
-# LOT 6 — Media / QR / Share / Document — 100 % 🟠 À tester
-
-- [x] MediaWiz image/SVG/audio/vidéo/PDF/gallery/filmstrip ;
-- [x] QRWiz URL courante/canonique, taille, marge, niveau correction, couleurs, transparence, logo, format ;
-- [x] contrat d'encodeur QR injecté ;
-- [x] ShareWiz copy/email/Web Share/print/QR ;
-- [x] DocumentWiz data-driven, profils, champs, labels, logo, HTML print, QR ;
-- [x] tests avec encodeur QR de test.
-
-# LOT 7 — Web / Observabilité — 100 % 🟠 À tester
-
-- [x] SEOWiz structuré : title, description, canonical, language, robots, image, JSON-LD, breadcrumbs ;
-- [x] OpenGraph/social générés depuis la même source ;
-- [x] AnalyticsWiz provider-neutral ;
-- [x] pageView/event/search/filter/download/share/print ;
-- [x] Memory provider ;
-- [x] adapter GA4 ;
-- [x] ConsentAdapter ;
-- [x] RuntimeMonitor : temps, compteurs, erreurs, snapshots ;
-- [x] tests.
-
-# LOT 8 — Catalogue / Datasets / Itérations — 100 % 🟠 À tester
-
-## Datasets
-- [x] `simple.json` ;
-- [x] `errors.json` ;
-- [x] `references.json` ;
-- [x] `images.json` ;
-- [x] `discrete.json` ;
-- [x] `continuous.json` ;
-- [x] `mixed.json` ;
-- [x] SVG de démonstration légers.
-
-## Catalogue HTML
-- [x] page unique `demo/index.html` ;
-- [x] Header/Hero/Sections ;
-- [x] NavigationWiz ;
-- [x] Theme Workshop + color picker + handles + locks ;
-- [x] breakpoint simulé 360/480/768/1024/1280 ;
-- [x] renderer automatique par largeur ;
-- [x] recherche / filtre / choix de renderer ;
-- [x] cartes/listes/pellicule/galerie/table ;
-- [x] TableWiz ;
-- [x] JSON Studio ;
-- [x] DataWiz ;
-- [x] FloatingPanel + HelpWiz ;
-- [x] QR réel via adapter de playground ;
-- [x] DocumentWiz ;
-- [x] configuration active et JSON de thème visibles.
-
-## Cycles internes
-- [x] itération A : primitives structurées avant Theme Workshop ;
-- [x] itération B : Theme Workshop composé avec les primitives ;
-- [x] itération C : renderers séparés de Search/Filter ;
-- [x] itération D : composition dans une page unique de démonstration.
-- [x] RETEX 01 après premier essai de publication Preview.
-
-🟠 Validation visuelle finale regroupée au Lot 12.
-
----
-
-# LOT 8B — Consolidation UX transverse / Atelier Webmaster — 25 % 🔵
-
-Objectif : figer maintenant les primitives qui seront réutilisées dans toutes les pages, afin d'éviter leur duplication dans le framework et dans les sites consommateurs.
-
-## 8B.1 Identification / Info / InspectorPanel — 35 % 🔵
-- [x] IDs humains stables sur les sections actuelles du catalogue ;
-- [x] IDs techniques stables associés ;
-- [x] bouton global pour afficher/masquer les informations de développement ;
-- [x] boutons Info/Test injectés sur les sections actuelles ;
-- [x] InspectorPanel basé sur FloatingPanel pour afficher aide et métadonnées ;
-- [ ] généraliser aux sous-sections et composants testables ;
-- [ ] onglets Test / Technique / Dépendances / État / Configuration ;
-- [ ] inventaire des fichiers JS/CSS/JSON/providers actifs par module.
-
-## 8B.2 CodeBlock standard — 70 % 🔵
-- [x] composant générique `CodeBlock` ;
-- [x] thème local clair/sombre ;
-- [x] mode brut/colorisé JSON ;
-- [x] copier dans le presse-papiers avec feedback ;
-- [x] télécharger en fichier texte/JSON ;
-- [x] utilisation dans le catalogue pour exporter la configuration machine ;
-- [ ] prise en charge syntaxique additionnelle HTML/CSS/JS/CSV ;
-- [ ] adoption progressive dans tous les écrans qui affichent du code/configuration.
-
-## 8B.3 FloatingPanel / handles / états — 35 % 🔵
-- [x] pin/unpin fonctionnel et persistant ;
-- [x] pin empêche le déplacement tout en laissant le resize disponible ;
-- [x] fermeture séparée ;
-- [ ] SVG sémantiques pin/close/lock/resize ;
-- [ ] lock/unlock séparé du handle ;
-- [ ] poignée resize commune FloatingPanel/Header/Hero/composants éditables ;
-- [ ] taille de poignée configurable ;
-- [ ] états visuels default/hover/active/inactive/locked/unlocked.
-
-## 8B.4 QR Studio / presets — 35 % 🔵
-- [x] génération JavaScript live ;
-- [x] Standard / Transparent / Fond coloré / Avec logo / Monochrome / Personnalisé ;
-- [x] labels explicites pour couleur QR et couleur arrière-plan ;
-- [x] niveaux de correction L/M/Q/H explicités ;
-- [x] feedback visuel sur Régénérer ;
-- [x] fond de la démo permettant de contrôler visuellement la transparence ;
-- [ ] vue pellicule compacte ;
-- [ ] édition d'un preset sélectionné ;
-- [ ] validation/figeage d'un preset ;
-- [ ] sauvegarde locale des presets ;
-- [ ] import/export JSON des presets ;
-- [ ] bouton copier via CodeBlock ;
-- [ ] statut visuel du preset actif/validé.
-
-## 8B.5 Preset Manager générique — 0 % ⬜
-- [ ] créer/dupliquer/renommer/supprimer ;
-- [ ] modifier puis valider ;
-- [ ] reset canonique ;
-- [ ] sauvegarde `localStorage` ;
-- [ ] import/export JSON ;
-- [ ] utiliser le même moteur pour QR, thèmes, densité, backgrounds, Header, Hero, Table et renderers.
-
-## 8B.6 Theme Workshop V2 — 0 % ⬜
-- [ ] BackgroundWiz : transparent, couleur unie, gradient, image ;
-- [ ] gradients 2/3/N couleurs avec stops ;
-- [ ] orientation horizontale/verticale/diagonale + angle avancé ;
-- [ ] portée Global / Type de composant / Instance ;
-- [ ] TypographyWiz ;
-- [ ] densité Compact/Normal/Confortable éditable + presets personnalisés ;
-- [ ] Undo/Redo + Reset commun ;
-- [ ] styles de liens normal/hover/focus/visited/active/disabled ;
-- [ ] liens internes/externes/ancres/médias et surfaces cliquables.
-
-## 8B.7 Navigation de développement — 0 % ⬜
-- [ ] hiérarchie pliable ;
-- [ ] Tout plier ;
-- [ ] Tout déplier ;
-- [ ] État par défaut H1/H2 ;
-- [ ] bouton Actualiser avec feedback ;
-- [ ] affichage optionnel des IDs ;
-- [ ] toggle Web public / Webmaster.
-
-## 8B.8 JSON Studio / Data UX V2 — 0 % ⬜
-- [ ] Tree réellement pliable/dépliable ;
-- [ ] expand/collapse all ;
-- [ ] Form réellement éditable selon schéma ;
-- [ ] Raw seul / Raw + vue colorisée ;
-- [ ] clair/sombre local ;
-- [ ] Diff expliqué original vs modifié ;
-- [ ] DataWiz explicite source/variable/mesure/résultat ;
-- [ ] Filmstrip avec contrôleurs interchangeables.
-
-## 8B.9 Media / Link / Asset — 0 % ⬜
-- [ ] LinkWiz : ancre, section, page interne, externe, média, action ;
-- [ ] ouverture même contexte / nouvel onglet / viewer / téléchargement ;
-- [ ] image/vignette/carte/surface cliquable sans liens HTML imbriqués ;
-- [ ] MediaWiz : inline, vignette, galerie, viewer, lien, téléchargement ;
-- [ ] PDF : page initiale configurable, viewer ou nouvel onglet, fallback icône ;
-- [ ] Asset/Logo Workshop : transparent, fond, monochrome recolorable, favicon ;
-- [ ] aperçu clair/sombre et fond carré/arrondi.
-
-Critère de sortie du Lot 8B : chaque grande abstraction transverse doit être prouvée au moins une fois et réutilisable sans réécriture dans Recettes du Cœur.
-
----
-
-# LOT 8C — Diagnostic avancé / notifications / observabilité UI — 0 % ⬜
-
-- [ ] InspectorPanel à onglets : Test / Technique / Dépendances / État / Configuration ;
-- [ ] inventaire dynamique des boutons/contrôles visibles sur la page ;
-- [ ] état `active|inactive|disabled|locked|pinned|hidden` ;
-- [ ] snapshot JSON de diagnostic copiable/téléchargeable via CodeBlock ;
-- [ ] ouverture/fermeture des FloatingPanels depuis des boutons, titres ou événements ;
-- [ ] FloatingPanel spécialisé notification/toast/état ;
-- [ ] historique des notifications ;
-- [ ] actions de notification avec niveaux info/success/warning/error ;
-- [ ] mini vue globale/Live Preview de la page pendant l'édition Header/Hero/Sections ;
-- [ ] inspecteur de cascade de thème et configuration héritée ;
-- [ ] contrôle contraste/accessibilité live de base.
-
----
-
-# LOT 9 — Webmaster privé : atelier Recettes du Cœur — 0 % 🔵 En cours
-
-Cible : `nepheris/NLab-Webmaster/Sites/Recettes-du-Coeur/atelier/`.
-
-## 9.1 Audit/import
-- [ ] inventorier recettes, astuces, ingrédients ;
-- [ ] inventorier allergènes, saisonnalité, catégories, tags, sources ;
-- [ ] inventorier médias, logos, mascotte et images publiques réutilisables ;
-- [ ] identifier les anciennes structures utiles sans recopier les moteurs obsolètes.
-
-## 9.2 Modèle métier canonique
-- [ ] `data/registry.json` ;
-- [ ] collections JSON séparées ;
-- [ ] IDs canoniques ;
-- [ ] relations déclaratives ;
-- [ ] aucune répétition de libellé lorsqu'un ID suffit ;
-- [ ] sources/médias liés par IDs ;
-- [ ] schémas de collections.
-
-🟣 Décision humaine uniquement si un mapping métier est réellement ambigu et impossible à déduire.
-
-## 9.3 Structure atelier
-- [ ] `data/` ;
-- [ ] `schemas/` ;
-- [ ] `media/` ;
-- [ ] `documents/` ;
-- [ ] `imports/` ;
-- [ ] `exports/` ;
-- [ ] `config/` ;
-- [ ] `tools/` ;
-- [ ] validation avant génération ;
-- [ ] génération atelier → web ;
-- [ ] diagnostics IDs/relations/assets/liens.
-
-## 9.4 Racine publiable obligatoire
+<details open>
+<summary><strong>📍 État technique actuel — ouvert par défaut</strong></summary>
 
 ```text
-Sites/Recettes-du-Coeur/web/
+Lots 0 → 8 : socle technique construit
+   ↓
+Catalogue public versionné + IDs + Info/Test + Preview
+   ↓
+Theme / Responsive / QR / CodeBlock / Inspector consolidés
+   ↓
+PresetManager + PresetManagerView + démo isolée construits
+   ↓
+Preview #13 déclenchée pour validation du Preset Manager
+   ↓
+PHASE ACTIVE : intégration progressive du Preset Manager
+   ↓
+PROCHAINE ÉTAPE : QR Studio → Theme/Densité → Responsive/Cartes → TableWiz
 ```
 
-- [ ] `source_root` privé peut pointer vers ce chemin ;
-- [ ] dans l'artefact, `web/` est traité comme `/` ;
-- [ ] aucune URL publique ne contient le chemin interne Webmaster ;
-- [ ] assets/data/liens restent relatifs ;
-- [ ] Preview reçoit le **contenu** de `web/` à sa racine ;
-- [ ] production suit le même contrat.
+**Cible du cycle V2 :**
 
-- [ ] **RETEX 02 avant passage Atelier → Web**.
+```text
+Framework générique
+→ réglage visuel dans le catalogue
+→ preset/config exportable en JSON
+→ reproduction déterministe sans explication verbale
+→ crash-test Recettes du Cœur
+→ génération atelier privé → web publiable
+→ Preview public
+→ audit + validation humaine
+```
 
----
+</details>
 
-# LOT 10 — Webmaster : web Recettes du Cœur — 0 % ⬜
+🔷 **[↑ Retour au sommaire](#haut)**
 
-## Identité et pages
-- [ ] reprendre logo/mascotte/images publiques pertinentes ;
-- [ ] thème Recettes du Cœur basé sur ThemeWiz ;
-- [ ] accueil ;
-- [ ] recettes + fiche ;
-- [ ] astuces + fiche ;
-- [ ] ingrédients si données suffisantes ;
-- [ ] recherche ;
-- [ ] contact/informations sans secret en dur.
+<a name="jalons-human"></a>
 
-## Crash-test du framework
-- [ ] Header/Footer/Hero/Sections ;
-- [ ] Navigation/Help/Theme ;
-- [ ] Theme Workshop en expérience Webmaster ;
-- [ ] Search/Filter/Renderer/Pagination ;
-- [ ] cards/list/filmstrip adaptatifs ;
-- [ ] TableWiz ;
-- [ ] QR/Share/Document ;
-- [ ] SEO ;
-- [ ] Analytics configurable/désactivable ;
-- [ ] personnalisation visiteur locale dans le cadre Webmaster.
+### 🟣👤 1.7 Jalons HUMAN
 
-## Responsive
-- [ ] téléphone petit ;
-- [ ] téléphone ;
-- [ ] tablette ;
-- [ ] desktop ;
-- [ ] large ;
-- [ ] renderer par défaut adapté au breakpoint.
+Vue courte : statut ici, détail dans la phase concernée.
 
-- [ ] **RETEX 03 après premier site Recettes du Cœur fonctionnel**.
+- 🟣👤 **H001 — Validation UX de la consolidation 8B : actif.** → [Phase 8B](#human-h001)
+- 🟣👤 **H002 — Mapping métier réellement ambigu Recettes du Cœur : conditionnel.** → [Phase 9](#human-h002)
+- 🟣👤 **H003 — Choix thème / variantes publiques Recettes du Cœur : planifié.** → [Phase 10](#human-h003)
+- 🟣👤 **H004 — Validation Preview public : planifié.** → [Phase 11](#human-h004)
+- 🟣👤 **H005 — Stabilisation Framework V2 : planifié.** → [Phase 12](#human-h005)
 
-🟣 Décision différée : thème public et variantes finales.
+🔷 **[↑ Retour au sommaire](#haut)**
 
 ---
 
-# LOT 11 — Preview public — 0 % ⬜
+<a name="bloc-a"></a>
 
-Cible : `nepheris/NLab-Webmaster-Preview-`.
+# 2. Fondations et runtime
 
-- [ ] refetch/reset Preview ;
-- [ ] publier seulement le contenu autonome de `web/` ;
-- [ ] aucun `atelier/` ;
-- [ ] aucun secret/donnée privée ;
-- [ ] vérifier chemins relatifs ;
-- [ ] assets/images/logo ;
-- [ ] JSON et relations ;
-- [ ] recherche/filtres/rendus/table ;
-- [ ] thème/preferences ;
-- [ ] QR/share/document ;
-- [ ] responsive ;
-- [ ] console JS ;
-- [ ] Pages build artifact contrôlé ;
-- [ ] deployment GitHub Pages contrôlé ;
-- [ ] contenu public réellement servi contrôlé séparément du statut workflow ;
-- [ ] `PREVIEW_BUILD.json` permet d'identifier la version servie ;
-- [ ] **RETEX 04 après publication Preview**.
+<a name="phase-0"></a>
+<details>
+<summary><strong>📈 Phase 0 — Gouvernance — 🟢 100 %</strong></summary>
 
-État attendu après déploiement : 🟠 **À tester**.
+| État | Avancement | Action |
+|---|---:|---|
+| 🟢 | 100 % | Branche `New`, historique incrémental, `foundation/`, décisions et séparation framework/métier/public/privé. |
+| 🟢 | 100 % | Roadmap, backlog UX, RETEX et boîte à idées distincts. |
+
+🔷 [↑ Sommaire](#haut)
+</details>
+
+<a name="phase-1"></a>
+<details>
+<summary><strong>📈 Phase 1 — Fondation data — 🟢 100 %</strong></summary>
+
+| État | Avancement | Action |
+|---|---:|---|
+| 🟢 | 100 % | DataProvider / DataSource / DataAdapter / Registry / Schema / Relation. |
+| 🟢 | 100 % | JsonDataProvider, DataIndex, DataResolver, DataValidator, registries runtime. |
+| 🟢 | 100 % | Tests de fondation ajoutés. |
+
+🔷 [↑ Sommaire](#haut)
+</details>
+
+<a name="phase-2"></a>
+<details>
+<summary><strong>📈 Phase 2 — Core runtime — 🟢 100 %</strong></summary>
+
+| État | Avancement | Action |
+|---|---:|---|
+| 🟢 | 100 % | StateStore, EventBus, FrameworkRegistry. |
+| 🟢 | 100 % | URLResolver, BrowserStorage, Environment. |
+| 🟢 | 100 % | Expérience `visitor|webmaster` définie comme état UX, jamais comme autorisation. |
+
+🔷 [↑ Sommaire](#haut)
+</details>
+
+🔷 **[↑ Retour au sommaire](#haut)**
 
 ---
 
-# LOT 12 — Validation humaine finale — 0 % 🟣
+<a name="bloc-b"></a>
 
-- [ ] 🟣 revue visuelle catalogue/framework ;
-- [ ] 🟣 Theme Workshop : poignées, locks, color pickers, export/import ;
-- [ ] 🟣 choix thème/variantes Recettes du Cœur ;
-- [ ] 🟣 responsive et renderers automatiques ;
-- [ ] 🟣 revue du Preview public ;
-- [ ] audit factorisation / source unique de vérité ;
-- [ ] audit framework/métier et public/privé ;
-- [ ] audit UX/accessibilité/performance/SEO/docs ;
-- [ ] corrections finales ;
-- [ ] **RETEX 05 avant stabilisation V2** ;
-- [ ] 🟣 décision : stabiliser V2 ou lancer un cycle suivant.
+# 3. UI, présentation, données et sorties
+
+<a name="phase-3"></a>
+<details>
+<summary><strong>📈 Phase 3 — Primitives UI — 🟠 100 % technique / à tester</strong></summary>
+
+| État | Avancement | Action |
+|---|---:|---|
+| 🟢 | 100 % | Layout, Header/Footer/Hero/Section/Sidebar. |
+| 🟢 | 100 % | FloatingPanel, Toolbar, Foldable, Pagination. |
+| 🟠 | — | Ergonomie réelle suivie dans la consolidation 8B. |
+
+🔷 [↑ Sommaire](#haut)
+</details>
+
+<a name="phase-4"></a>
+<details>
+<summary><strong>📈 Phase 4 — Theme Workshop / présentation — 🟠 100 % technique / à tester</strong></summary>
+
+| État | Avancement | Action |
+|---|---:|---|
+| 🟢 | 100 % | Cascade `base → site → variante → section → composant → utilisateur`. |
+| 🟢 | 100 % | Theme Workshop, préférences visiteur, Icon Registry, HelpWiz, NavigationWiz. |
+| 🟠 | — | UX, presets, backgrounds, typographie et portées consolidés en 8B. |
+
+🔷 [↑ Sommaire](#haut)
+</details>
+
+<a name="phase-5"></a>
+<details>
+<summary><strong>📈 Phase 5 — Data UX — 🟠 100 % technique / à tester</strong></summary>
+
+| État | Avancement | Action |
+|---|---:|---|
+| 🟢 | 100 % | ResultSet, SearchWiz, FilterWiz, PresentationResolver, RendererWiz. |
+| 🟢 | 100 % | TableWiz, JSON Studio, DataWiz. |
+| 🟠 | — | Vues avancées et ergonomie sont précisées dans 8B. |
+
+🔷 [↑ Sommaire](#haut)
+</details>
+
+<a name="phase-6"></a>
+<details>
+<summary><strong>📈 Phase 6 — Media / QR / Share / Document — 🟠 100 % technique / à tester</strong></summary>
+
+| État | Avancement | Action |
+|---|---:|---|
+| 🟢 | 100 % | MediaWiz, QRWiz, ShareWiz, DocumentWiz et contrats d’encodeur. |
+| 🟠 | — | QR Studio, Media/Link/Asset Workshop servent à éprouver les variantes réelles. |
+
+🔷 [↑ Sommaire](#haut)
+</details>
+
+<a name="phase-7"></a>
+<details>
+<summary><strong>📈 Phase 7 — Web / observabilité — 🟠 100 % technique / à tester</strong></summary>
+
+| État | Avancement | Action |
+|---|---:|---|
+| 🟢 | 100 % | SEOWiz, OpenGraph, AnalyticsWiz, GA4 adapter, consent, RuntimeMonitor. |
+| 🟠 | — | Validation intégrée au crash-test réel. |
+
+🔷 [↑ Sommaire](#haut)
+</details>
+
+🔷 **[↑ Retour au sommaire](#haut)**
 
 ---
 
-# Différé après le premier crash-test — explicitement tracé
+<a name="bloc-c"></a>
 
-## Données / identité / accès
-- [ ] IdentityWiz / OAuth ;
-- [ ] ExternalDataWiz Drive/OneDrive/GitHub privé ;
-- [ ] AccessGate serveur/edge ;
-- [ ] provider SQLite ;
-- [ ] persistance serveur/backoffice des presets et configurations.
+# 4. Catalogue et consolidation UX
 
-## Documents / médias
-- [ ] génération avancée de miniatures PDF multi-pages ;
-- [ ] annotation PDF ;
-- [ ] vectorisation automatique avancée des bitmaps complexes ;
-- [ ] traitements audio/vidéo avancés.
+<a name="phase-8"></a>
+<details>
+<summary><strong>📈 Phase 8 — Catalogue / Playground — 🟠 100 % socle / à tester</strong></summary>
 
-## UI / rendu
-- [ ] packs d'icônes alternatifs complets ;
-- [ ] animations complexes entre thèmes/renderers ;
-- [ ] statistiques/graphiques avancés ;
-- [ ] fuzzy search avancée.
+| État | Avancement | Action |
+|---|---:|---|
+| 🟢 | 100 % | Datasets de test, page unique, responsive simulé, renderers, Table/JSON/DataWiz. |
+| 🟢 | 100 % | FloatingPanel/Help, QR réel, DocumentWiz, configuration active. |
+| 🟢 | 100 % | IDs humains/techniques, Info/Test, CodeBlock et Preview versionnée. |
+| 🟠 | — | Validation visuelle progressive via Preview. |
 
-Aucun élément différé ne doit rester seulement dans `BACKLOG-UX.md` ou dans la conversation : la roadmap reste la source de visibilité macro, le backlog sert au détail opérationnel.
+🔷 [↑ Sommaire](#haut)
+</details>
 
-# Règle d'exécution autonome
+<a name="phase-8b"></a>
 
-Pour les Lots 8B à 11 : refetch → implémentation → contrôles → itération → checkpoint RETEX lorsque prévu → roadmap → commit → poursuite automatique. Les vraies décisions humaines sont marquées 🟣 et regroupées au Lot 12 autant que possible.
+> 👇👇👇 **POINT DE TRAVAIL ACTIF** 👇👇👇
+
+<details open>
+<summary><strong>🎯📈 Phase 8B — Consolidation UX transverse / Atelier Webmaster — 🟡 40 % — ACTIVE</strong></summary>
+
+**Objectif :** figer les primitives qui seront dupliquées partout avant de construire le site métier.
+
+| Sous-phase | État | Avancement | Prochaine cible |
+|---|---|---:|---|
+| 8B.1 IDs / Info / InspectorPanel | 🟡 | 45 % | Généraliser aux sous-sections + détails techniques |
+| 8B.2 CodeBlock | 🟡 | 80 % | HTML/CSS/CSV + adoption dans autres studios |
+| 8B.3 FloatingPanel / handles | 🟡 | 70 % | États/dock overlay-push + primitive commune |
+| 8B.4 QR Studio | 🟡 | 65 % | Presets éditables/validables via Preset Manager |
+| 8B.5 Preset Manager générique | 🟡 | 70 % | **Intégrer QR → Theme/Density → Responsive/Cards → Table** |
+| 8B.6 Theme Workshop V2 | 🟡 | 35 % | BackgroundWiz N couleurs, portée Global/Type/Instance, liens |
+| 8B.7 Navigation développement | 🟡 | 55 % | Web/Public ↔ Webmaster + primitive breakpoint local |
+| 8B.8 JSON Studio / Data UX V2 | 🟡 | 15 % | Tree/Form/Raw+CodeBlock/Filmstrip controllers |
+| 8B.9 Media / Link / Asset | ⚪ | 0 % | LinkWiz, MediaWiz, PDF, Asset/Logo Workshop |
+
+**Preuves Preset Manager déjà construites :**
+- moteur générique avec presets canoniques et utilisateur ;
+- création / duplication / renommage / suppression ;
+- preset actif + validation + reset ;
+- persistance `localStorage` ;
+- import/export JSON ;
+- vue UI générique ;
+- démo isolée ;
+- tests automatisés ajoutés.
+
+📈 **Détail complet :** [`ROADMAP-8B-DETAIL.md`](./ROADMAP-8B-DETAIL.md) <a href="./ROADMAP-8B-DETAIL.md" target="_blank">↗</a>
+
+<a name="human-h001"></a>
+<details open>
+<summary><strong>🟣👤 H001 — Validation UX de la consolidation 8B — ACTIF</strong></summary>
+
+**Pourquoi l’humain intervient :**
+1. les choix d’ergonomie du catalogue influencent toutes les briques réutilisées ensuite ;
+2. les presets doivent correspondre à une manière de travailler réellement efficace ;
+3. les retours Preview peuvent modifier le design de la primitive avant duplication.
+
+**Contrôle :** 🟣👤 [`roadmap-framework-v2.human-check.md`](./roadmap-framework-v2.human-check.md) <a href="./roadmap-framework-v2.human-check.md" target="_blank">↗</a>
+
+**Après validation :** intégrer le Preset Manager dans QR Studio puis poursuivre automatiquement les intégrations indépendantes.
+
+🟣👤 [Retour aux jalons HUMAN](#jalons-human) · 🔷 [↑ Sommaire](#haut)
+</details>
+
+**Critère de sortie 8B :** chaque grande abstraction transverse est prouvée au moins une fois et un réglage visuel peut être exporté en JSON puis reproduit sans explication verbale détaillée.
+
+🔷 [↑ Sommaire](#haut)
+</details>
+
+<a name="phase-8c"></a>
+<details>
+<summary><strong>📈 Phase 8C — Diagnostic avancé / notifications / observabilité UI — ⚪ 0 %</strong></summary>
+
+| État | Avancement | Action |
+|---|---:|---|
+| ⚪ | 0 % | InspectorPanel à onglets Test / Technique / Dépendances / État / Configuration. |
+| ⚪ | 0 % | Inventaire dynamique des contrôles et snapshot JSON. |
+| ⚪ | 0 % | FloatingPanel notification/toast + historique. |
+| ⚪ | 0 % | Live Preview, inspecteur de cascade et contraste/accessibilité live. |
+
+🔷 [↑ Sommaire](#haut)
+</details>
+
+---
+
+<a name="bloc-d"></a>
+
+# 5. Crash-test Recettes du Cœur
+
+<a name="phase-9"></a>
+<details>
+<summary><strong>📈 Phase 9 — Webmaster privé / atelier métier — ⚪ 0 %</strong></summary>
+
+**Cible :** `nepheris/NLab-Webmaster/Sites/Recettes-du-Coeur/atelier/`.
+
+| État | Avancement | Action |
+|---|---:|---|
+| ⚪ | 0 % | Audit recettes, astuces, ingrédients, référentiels, sources et médias existants. |
+| ⚪ | 0 % | Modèle métier canonique en collections JSON + IDs + relations + schémas. |
+| ⚪ | 0 % | Structure `data/schemas/media/documents/imports/exports/config/tools`. |
+| ⚪ | 0 % | Validation puis génération `atelier → web`. |
+| ⚪ | 0 % | Garantir `Sites/Recettes-du-Coeur/web/` comme racine logique publiable. |
+
+<a name="human-h002"></a>
+**🟣👤 H002 — uniquement si un mapping métier est réellement ambigu et impossible à déduire.**
+
+- [ ] RETEX 02 avant passage Atelier → Web.
+
+🔷 [↑ Sommaire](#haut)
+</details>
+
+<a name="phase-10"></a>
+<details>
+<summary><strong>📈 Phase 10 — Web Recettes du Cœur — ⚪ 0 %</strong></summary>
+
+| État | Avancement | Action |
+|---|---:|---|
+| ⚪ | 0 % | Reprendre identité, logo, mascotte et médias publics pertinents. |
+| ⚪ | 0 % | Accueil, recettes, astuces, ingrédients si pertinent, recherche, contact/informations. |
+| ⚪ | 0 % | Crash-test Layout/Nav/Help/Theme/Search/Filter/Renderer/Table/QR/Share/Document/SEO/Analytics. |
+| ⚪ | 0 % | Responsive téléphone → large et renderer adapté au breakpoint. |
+
+<a name="human-h003"></a>
+**🟣👤 H003 — choix du thème public et des variantes finales.**
+
+- [ ] RETEX 03 après premier site fonctionnel.
+
+🔷 [↑ Sommaire](#haut)
+</details>
+
+<a name="phase-11"></a>
+<details>
+<summary><strong>📈 Phase 11 — Preview public / crash-test intégral — ⚪ 0 %</strong></summary>
+
+| État | Avancement | Action |
+|---|---:|---|
+| ⚪ | 0 % | Refetch/reset Preview puis publier uniquement le contenu de `web/` à la racine. |
+| ⚪ | 0 % | Contrôler absence d’atelier/secrets, chemins relatifs, assets, JSON, relations et navigation. |
+| ⚪ | 0 % | Contrôler recherche/filtres/rendus/table, thème, QR/share/document, responsive et console. |
+| ⚪ | 0 % | Distinguer build artifact, deployment Pages et contenu réellement servi. |
+| ⚪ | 0 % | Identifier chaque publication avec version visible + `PREVIEW_BUILD.json`. |
+
+<a name="human-h004"></a>
+**🟣👤 H004 — validation réelle du Preview public dans le navigateur utilisateur.**
+
+- [ ] RETEX 04 après publication Preview.
+
+🔷 [↑ Sommaire](#haut)
+</details>
+
+---
+
+<a name="bloc-e"></a>
+
+# 6. Validation finale
+
+<a name="phase-12"></a>
+<details>
+<summary><strong>📈 Phase 12 — Validation humaine finale et corrections — 🟣👤 0 %</strong></summary>
+
+| État | Avancement | Action |
+|---|---:|---|
+| 🟣👤 | 0 % | Revue visuelle catalogue/framework et Theme Workshop. |
+| 🟣👤 | 0 % | Responsive, renderers, thème Recettes du Cœur et Preview public. |
+| ⚪ | 0 % | Audit factorisation, source de vérité, framework/métier, public/privé. |
+| ⚪ | 0 % | Audit UX, accessibilité, performance, SEO et documentation. |
+| ⚪ | 0 % | Corrections finales et RETEX 05. |
+
+<a name="human-h005"></a>
+**🟣👤 H005 — décision finale : stabiliser Framework V2 ou ouvrir un nouveau cycle.**
+
+🔷 [↑ Sommaire](#haut)
+</details>
+
+---
+
+<a name="methode-autonome"></a>
+
+# 7. Méthode autonome et RETEX
+
+<details open>
+<summary><strong>⚙️ Mode d’exécution — ouvert par défaut</strong></summary>
+
+```text
+1. lire ROADMAP + REX machine + DECISIONS
+2. vérifier le HEAD GitHub avant toute écriture
+3. analyser le besoin réel / retour Preview
+4. trier : maintenant / BEFORE_CLOSE / LATER / NOTE
+5. implémenter la plus petite primitive factorisable
+6. ajouter tests et contrôles techniques
+7. confronter au catalogue / cas réel
+8. simplifier et réutiliser les briques existantes
+9. mettre à jour la roadmap si l’état structurel change
+10. mettre à jour le REX à chaque jalon structurel
+11. re-vérifier HEAD
+12. commit sans force
+13. publier Preview si le rendu humain doit être vérifié
+14. contrôler artifact ≠ deployment ≠ page réellement servie
+15. continuer automatiquement si aucun vrai jalon HUMAN ne bloque
+```
+
+**Chat / rapport :** réponse courte avec changements, statut, prochaine étape et liens directs. Les détails, preuves et listes longues vivent dans GitHub.
+
+**Après chaque commit :** SHA complet, message, repo, URL commit et liens vers les principaux fichiers modifiés.
+
+**Déclencher 🟣👤 HUMAN uniquement si le jugement humain peut réellement modifier la décision.**
+
+### Checkpoints RETEX
+- 🟢 RETEX 01 — Lots 0→8 + incident Preview : réalisé.
+- ⚪ RETEX 02 — avant Atelier → Web.
+- ⚪ RETEX 03 — après premier site Recettes du Cœur fonctionnel.
+- ⚪ RETEX 04 — après publication Preview du crash-test.
+- ⚪ RETEX 05 — avant stabilisation V2.
+
+</details>
+
+🔷 **[↑ Retour au sommaire](#haut)**
+
+---
+
+<a name="backlog-roadmap"></a>
+
+# 8. 💡 Backlog / boîte à idées non bloquante
+
+> Une nouvelle idée ne modifie pas automatiquement le périmètre du livrable courant.
+
+| Classe | Usage | Bloque la clôture ? |
+|---|---|---|
+| `BEFORE_CLOSE` | nécessaire avant la fin du cycle V2 courant | oui |
+| `LATER` | évolution d’une roadmap ultérieure | non |
+| `NOTE` | remarque, piste ou enseignement à capitaliser | non |
+
+<details open>
+<summary><strong>💡 Sources de suivi — ouvertes par défaut</strong></summary>
+
+- `BEFORE_CLOSE` / détail opérationnel UX : [`BACKLOG-UX.md`](./BACKLOG-UX.md)
+- `LATER` / `NOTE` : [`IDEAS.md`](./IDEAS.md)
+- détail des tâches de consolidation : [`ROADMAP-8B-DETAIL.md`](./ROADMAP-8B-DETAIL.md)
+
+**Exemples `LATER` déjà capitalisés :** éditeur riche, calendrier/agenda/ICS, timelines, données spatiales/cartes, types spécialisés téléphone/SIRET/monnaie, analyses statistiques avancées, affichage conditionnel, cellules typées et exports avancés.
+
+</details>
+
+🔷 **[↑ Retour au sommaire](#haut)**
+
+---
+
+<a name="capitalisation"></a>
+
+# 9. Capitalisation / clôture
+
+- finaliser le REX machine ;
+- consolider `RETEX-AUTONOMIE.md` avec réussites, difficultés et anti-patterns ;
+- vérifier les éléments `BEFORE_CLOSE` ;
+- transférer les `LATER` / `NOTE` utiles vers la boîte à idées ;
+- auditer les décisions canoniques ;
+- archiver roadmap finale + REX + fiche HUMAN ;
+- décider 🟣👤 de stabiliser V2 ou d’ouvrir une roadmap suivante ;
+- améliorer le template de roadmap uniquement à partir de l’expérience réelle.
+
+🔷 **[↑ Retour au sommaire](#haut)**
