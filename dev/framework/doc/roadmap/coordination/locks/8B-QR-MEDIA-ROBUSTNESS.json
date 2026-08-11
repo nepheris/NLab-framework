@@ -1,0 +1,15 @@
+{
+  "task_id": "8B-QR-MEDIA-ROBUSTNESS",
+  "agent": "B",
+  "status": "reserved",
+  "base": "4754e3d1fc1badef0bb6ff539aa7de0028065134",
+  "branch": "agent-b/qr-media-robustness",
+  "file_scope": [
+    "dev/framework/wiz/qr-wiz.js",
+    "dev/framework/wiz/media-wiz.js",
+    "dev/framework/tests/qr-media*.mjs",
+    "dev/framework/doc/qr-media/*.md"
+  ],
+  "reserved_at": "2026-08-12T00:10:30+02:00",
+  "notes": "Robustesse QR/Media hors démo : payloads, encodeur absent, transparence/logo/SVG, image fallback, ratio/object-fit et options invalides. Aucun changement visuel V20."
+}
