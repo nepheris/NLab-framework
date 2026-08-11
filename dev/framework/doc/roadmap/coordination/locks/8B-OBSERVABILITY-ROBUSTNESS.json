@@ -1,7 +1,7 @@
 {
   "task_id": "8B-OBSERVABILITY-ROBUSTNESS",
   "agent": "B",
-  "status": "review",
+  "status": "done",
   "base": "e5169b32ecd6e0b5c615960026be41cd235632b2",
   "branch": "agent-b/observability-robustness-r2",
   "file_scope": [
@@ -11,10 +11,12 @@
   ],
   "reserved_at": "2026-08-12T00:05:00+02:00",
   "final_sha": "cc7c39cdd4a5a979ce5cd34a6d7441f1ef08b9ac",
+  "merged_sha": "0a5f08e762f1167ec1991199a33f0da3e63726ac",
+  "pull_request": 9,
   "verification": {
     "diff": "3 commits / 3 fichiers, tous dans le file_scope réservé",
     "tests": "tests/runtime-monitor-robustness.test.mjs exécuté localement sur le contenu exact du lot",
     "result": "runtime monitor robustness tests: ok"
   },
-  "notes": "RuntimeMonitor durci : maxErrors normalisé, snapshots/événements/retours détachés, meta/context protégés des mutations externes, delta count non fini rejeté. Aucun fichier A/C ni démo modifié."
+  "notes": "Intégré dans New via PR #9 en squash. RuntimeMonitor durci sans fichier A/C ni démo modifié."
 }
