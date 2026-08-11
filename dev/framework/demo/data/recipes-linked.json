@@ -1,0 +1,5 @@
+[
+  {"id":"REC001","name":"Tarte pommes démo","ingredients":[{"ingredient_id":"ING001","quantity":4,"unit":"pièce"}],"category":"Dessert","active":true},
+  {"id":"REC002","name":"Soupe carottes démo","ingredients":[{"ingredient_id":"ING002","quantity":600,"unit":"g"}],"category":"Plat","active":true},
+  {"id":"REC003","name":"Salade lentilles démo","ingredients":[{"ingredient_id":"ING003","quantity":250,"unit":"g"}],"category":"Entrée","active":true}
+]
