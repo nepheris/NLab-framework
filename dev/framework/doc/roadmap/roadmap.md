@@ -61,6 +61,7 @@
 - 🟧 **Contrat FrameworkRegistry :** [`../registry/registry.md`](../registry/registry.md) <a href="../registry/registry.md" target="_blank">↗</a>
 - 🟩 **Contrat DataIndex :** [`../data-index/data-index.md`](../data-index/data-index.md) <a href="../data-index/data-index.md" target="_blank">↗</a>
 - 🟩 **Contrat DataResolver :** [`../data-resolver/data-resolver.md`](../data-resolver/data-resolver.md) <a href="../data-resolver/data-resolver.md" target="_blank">↗</a>
+- 🟧 **Contrat DataSource :** [`../data-source/data-source.md`](../data-source/data-source.md) <a href="../data-source/data-source.md" target="_blank">↗</a>
 - 🟧 **Pré-vol Lot 9 — checklist humaine :** [`lot9-preflight-checklist.md`](./lot9-preflight-checklist.md) <a href="./lot9-preflight-checklist.md" target="_blank">↗</a>
 - 🟧 **Pré-vol Lot 9 — checklist machine :** [`lot9-preflight.machine.json`](./lot9-preflight.machine.json) <a href="./lot9-preflight.machine.json" target="_blank">↗</a>
 - 💡 **Boîte à idées :** backlog de cette roadmap jusqu’à création d’un fichier dédié.
@@ -131,16 +132,18 @@
 > 🟩 **B** et 🟧 **C** n’ont pas de lock métier actif dans ce snapshot après leurs dernières intégrations. De nouveaux locks peuvent apparaître pendant que les autres agents continuent ; les fichiers JSON restent la source de vérité.
 
 **Dernières intégrations B :** Data Schemas #7, QR/Media #8, Observability #9, SEO/Share #10, Search/Filter #12, URL Resolver #13, DataIndex #19, DataResolver #22.  
-**Dernières intégrations C :** Analytics #2, pré-vol Lot 9 #3, NotificationCenter #4, CodeBlock #5, PresetManager #6, NavigationWiz #11, HelpWiz #14, BrowserStorage #15, StateStore #16, EventBus #17, FrameworkRegistry #18, ResultSet #20, DataProvider #21, DataRuntimeRegistry #23.
+**Dernières intégrations C :** Analytics #2, pré-vol Lot 9 #3, NotificationCenter #4, CodeBlock #5, PresetManager #6, NavigationWiz #11, HelpWiz #14, BrowserStorage #15, StateStore #16, EventBus #17, FrameworkRegistry #18, ResultSet #20, DataProvider #21, DataRuntimeRegistry #23, DataSource #24.
 
 **Lecture rapide :**
 
 - 🟦 **A** conserve le chantier visuel/HUMAN, les extractions Header/TableWiz et deux livrables d’architecture en review.
 - 🟩 **B** a consolidé les contrats data, média, observabilité, SEO/Share, Search/Filter, URL Resolver, DataIndex et DataResolver.
-- 🟧 **C** a consolidé plusieurs briques autonomes UI/core/data et le pré-vol métier sans toucher aux fichiers A/B.
+- 🟧 **C** a consolidé plusieurs briques autonomes UI/core/data et le pré-vol métier sans toucher volontairement aux fichiers A/B.
 - 🟣👤 **HUMAN** reste requis pour H001 et les arbitrages visuels associés.
 
 **Historique détaillé :** [`coordination/agent-board.md`](./coordination/agent-board.md) conserve les tâches `done`, PR et SHA par agent.
+
+> ⚠️ **Collision DataSource traitée :** B avait un lock actif antérieur sur `core/data-source.js`; C a néanmoins intégré PR #24. B a détecté la divergence avant PR, n’a rien fusionné et a libéré son lock. La tâche effective reste donc `🟧 C ✅`. La procédure de contrôle des `file_scope` a été renforcée.
 
 </details>
 
@@ -199,7 +202,7 @@ Robustesse data / recherche / média / URL / SEO / observabilité consolidée
 ↓
 Core consolidé : Storage / StateStore / EventBus / FrameworkRegistry / DataIndex
 ↓
-Runtime data consolidé : ResultSet / DataProvider / DataResolver / DataRuntimeRegistry
+Runtime data consolidé : DataSource / ResultSet / DataProvider / DataResolver / DataRuntimeRegistry
 ↓
 Briques autonomes Analytics / Notification / Code / Presets / Navigation / Help consolidées
 ↓
@@ -313,6 +316,7 @@ Le détail exact de l’ancienne numérotation interne ne doit pas être réinve
 | 🟢 | 100 % | 🟧 C ✅ | ResultSet : contexte isolé, total logique et helpers d’itération/introspection via PR #20 |
 | 🟢 | 100 % | 🟧 C ✅ | DataProvider : options/capabilities/getRecord et erreurs structurées via PR #21 |
 | 🟢 | 100 % | 🟧 C ✅ | DataRuntimeRegistry : types normalisés, remplacements explicites, providers/adapters séparés via PR #23 |
+| 🟢 | 100 % | 🟧 C ✅ | DataSource : id/type normalisés, options/metadata validées, sérialisation isolée via PR #24 |
 | 🟡 | HUMAN actif | 🟦 A + 🟣👤 | validation visuelle des portées, profils, resets et contrôles historiques V19/V20 |
 | 🟡 | review | 🟦 A 👀 | architecture sémantique — nomenclature et responsabilités |
 | 🟡 | review | 🟦 A 👀 | carte hiérarchique Framework + Data métier |
@@ -325,8 +329,8 @@ Le détail exact de l’ancienne numérotation interne ne doit pas être réinve
 **Chantiers parallèles actuellement verrouillés dans le Lot 8B :**
 
 - 🟦 A — V20 Scope/Layout 🛠️ ; architecture sémantique 👀 ; carte d’architecture 👀 ; Header 🔒 ; TableWiz 🔒.
-- 🟩 B — aucun lock métier actif dans ce snapshot ; huit lots autonomes sont 🟩 B ✅ intégrés.
-- 🟧 C — aucun lock métier actif dans ce snapshot ; treize lots 8B autonomes sont 🟧 C ✅ intégrés, plus le pré-vol Lot 9.
+- 🟩 B — aucun lock métier actif dans ce snapshot ; huit lots autonomes sont 🟩 B ✅ intégrés. Le lock DataSource B a été ♻️ `released` après collision détectée avant PR.
+- 🟧 C — aucun lock métier actif dans ce snapshot ; quatorze lots 8B autonomes sont 🟧 C ✅ intégrés, plus le pré-vol Lot 9.
 
 > Le tableau garde les pastilles des agents sur les lignes `done` : cette trace sert à mesurer les domaines où chaque agent a été efficace et à préparer les prochains découpages parallèles.
 
@@ -409,7 +413,7 @@ Ces lots existaient dans l’ancienne roadmap. Leurs intitulés exacts ne sont p
 7. 🟧 C ✅ **CodeBlock — socle contractuel** : presets/alias, formatage JSON, export/copie défensifs et tokeniseur sûr intégrés via PR #5 ; le pliage JSON hiérarchique avancé reste une évolution distincte.
 8. 🟧 C ✅ **PresetManager** — import/export atomique et validation de collection intégrés via PR #6.
 9. 🟧 C ✅ **NavigationWiz / HelpWiz** — navigation et aide contextuelle génériques durcies via PR #11/#14.
-10. 🟩 B ✅ / 🟧 C ✅ **Core/runtime data robuste** — URL Resolver #13, BrowserStorage #15, StateStore #16, EventBus #17, FrameworkRegistry #18, DataIndex #19, ResultSet #20, DataProvider #21, DataResolver #22 et DataRuntimeRegistry #23 consolidés.
+10. 🟩 B ✅ / 🟧 C ✅ **Core/runtime data robuste** — URL Resolver #13, BrowserStorage #15, StateStore #16, EventBus #17, FrameworkRegistry #18, DataIndex #19, ResultSet #20, DataProvider #21, DataResolver #22, DataRuntimeRegistry #23 et DataSource #24 consolidés.
 11. ⚪ **Identité visuelle** — intégrer dans le dépôt le pack du logo nLab Web Framework déjà validé et raccorder les références documentaires.
 12. 🟩 B / 🟧 C **Consolidation / tests / documentation** — poursuivre sur les briques encore libres après contrôle des locks.
 13. 🟧 C ✅ **Lot 9 — pré-vol intégré**, puis crash-test Recettes du Cœur après critères de sortie.
@@ -435,25 +439,27 @@ Ces lots existaient dans l’ancienne roadmap. Leurs intitulés exacts ne sont p
 3. lire roadmap + REX + décisions canoniques
 4. choisir une tâche réellement libre et indépendante
 5. créer / reprendre son lock avant toute modification
-6. travailler sur une branche dédiée si le chantier est substantiel
-7. analyser les cas réels
-8. choisir le minimum nécessaire
-9. POC si utile
-10. tests positifs + négatifs
-11. confrontation au corpus réel
-12. simplifier / factoriser
-13. documenter
-14. implémenter
-15. re-tester
-16. audit vérité / sécurité / factorisation
-17. mettre à jour REX à chaque jalon structurel
-18. re-vérifier locks A/B/C + HEAD
-19. comparer la branche avec sa base et contrôler le file_scope
-20. commit sans force
-21. mettre le lock en review/done/released selon le cas
-22. rafraîchir le tableau multi-agent dès que le mutex documentaire est disponible
-23. conserver la pastille de l'agent sur toute tâche `done`
-24. continuer si le critère de sortie est satisfait
+6. relire tous les file_scope après réservation et avant création de branche
+7. travailler sur une branche dédiée si le chantier est substantiel
+8. analyser les cas réels
+9. choisir le minimum nécessaire
+10. POC si utile
+11. tests positifs + négatifs
+12. confrontation au corpus réel
+13. simplifier / factoriser
+14. documenter
+15. implémenter
+16. re-tester
+17. audit vérité / sécurité / factorisation
+18. mettre à jour REX à chaque jalon structurel
+19. re-vérifier locks A/B/C + HEAD
+20. comparer la branche avec sa base et contrôler le file_scope
+21. si New a touché un fichier réservé, identifier le propriétaire et ne pas fusionner par-dessus
+22. commit sans force
+23. mettre le lock en review/done/released selon le cas
+24. rafraîchir le tableau multi-agent dès que le mutex documentaire est disponible
+25. conserver la pastille de l'agent sur toute tâche `done`
+26. continuer si le critère de sortie est satisfait
 ```
 
 ### Règle spéciale roadmap / tableau
