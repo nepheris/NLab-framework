@@ -1,7 +1,7 @@
 {
   "task_id": "8B-SEO-SHARE-CONTRACTS",
   "agent": "B",
-  "status": "in_progress",
+  "status": "review",
   "base": "ee870d31e906605ed5b1f7ed812a5a11e1f5a5a0",
   "branch": "agent-b/seo-share-contracts-r2",
   "file_scope": [
@@ -11,5 +11,11 @@
     "dev/framework/doc/seo-share/*.md"
   ],
   "reserved_at": "2026-08-12T00:09:00+02:00",
-  "notes": "Reprise sur branche r2 depuis le HEAD courant. Contrats SEO/Share hors démo : globals navigateur sûrs, canonical/meta/JSON-LD sans état obsolète, URL/payload, fallbacks Clipboard/Web Share et erreurs d'API. Aucun fichier A/C."
+  "final_sha": "eeb2c9beb69d6dc5f591ea62ef2035dc9ae6d33b",
+  "verification": {
+    "diff": "4 commits / 4 fichiers, tous dans le file_scope réservé",
+    "tests": "tests/seo-share-contracts.test.mjs exécuté localement sur le contenu exact du lot",
+    "result": "seo share contracts tests: ok"
+  },
+  "notes": "SEOWiz : mode sans DOM, nettoyage des meta/canonical/JSON-LD obsolètes, breadcrumbs normalisés. ShareWiz : Clipboard/Web Share via globalThis.navigator, fallbacks et erreurs explicites. Aucun fichier A/C ni démo modifié."
 }
