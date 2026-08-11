@@ -1,7 +1,7 @@
 {
   "task_id": "8B-DATA-RUNTIME-REGISTRY",
   "agent": "C",
-  "status": "in_progress",
+  "status": "review",
   "base": "f8d42138f4aa73f3ea90bf1fcb7bec3a2923d9d8",
   "branch": "agent-c/data-runtime-registry",
   "file_scope": [
@@ -10,5 +10,11 @@
     "dev/framework/doc/data-runtime-registry/data-runtime-registry.md"
   ],
   "reserved_at": "2026-08-12T01:41:00+02:00",
-  "notes": "Durcir DataRuntimeRegistry : types normalisés, remplacement explicite, has/unregister/clear/size, options de factory copiées et tests providers/adapters. Aucun fichier A/B, DataProvider concret, démo ou roadmap dans la branche."
+  "final_sha": "28ee73f784302f2d21117f91c461037875fe3dbf",
+  "verification": {
+    "diff": "4 commits / 3 files, all inside reserved file_scope",
+    "tests": "local Node contract test after correcting an invalid test case",
+    "result": "DataRuntimeRegistry tests: OK"
+  },
+  "notes": "DataRuntimeRegistry normalise les types, interdit les remplacements silencieux, copie les options de factory, sépare providers/adapters et expose has/unregister/size/clear. Aucun fichier A/B, provider concret, démo ou roadmap dans la branche."
 }
