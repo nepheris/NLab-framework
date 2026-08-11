@@ -1,7 +1,7 @@
 {
   "task_id": "8B-DATA-VALIDATOR-ROBUSTNESS",
   "agent": "B",
-  "status": "reserved",
+  "status": "in_progress",
   "base": "2ddb998d1364384deceb2ddb255ad0dce240952f",
   "branch": "agent-b/data-validator-robustness",
   "file_scope": [
@@ -10,5 +10,5 @@
     "dev/framework/doc/data-validator/*.md"
   ],
   "reserved_at": "2026-08-12T02:06:00+02:00",
-  "notes": "Durcir DataValidator : own-property collections, provider/data/record shape, relation/cardinality/policy checks, index cache et rapports stables. Aucun TableWiz, DataSource, DataProvider, DataResolver, démo ou roadmap dans la branche métier. Pré-contrôle locks : aucun exact/glob core concurrent détecté."
+  "notes": "Contrôle post-réservation sur le dossier complet : aucun autre lock exact/glob ne couvre data-validator.js. Durcir own-property collections, provider/data/record shape, relation/cardinality/policy checks, cache et rapports stables."
 }
