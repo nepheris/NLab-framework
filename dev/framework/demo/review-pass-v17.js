@@ -1,0 +1,11 @@
+const V='17';
+document.documentElement.dataset.demoVersion=V;
+document.title=`Framework V2 — Démonstration V${V}`;
+const title=document.querySelector('#overview h1');
+if(title) title.textContent=`Framework V2 — page de démonstration V${V}`;
+const badge=document.querySelector('.v16-version');
+if(badge) badge.textContent=`V${V}`;
+const headerTitle=document.querySelector('.demo-header>strong');
+if(headerTitle) headerTitle.textContent=`Catalogue / Playground · V${V}`;
+const status=document.querySelector('.v16-status');
+if(status) status.title=`Page de démonstration V${V}`;

@@ -1,0 +1,52 @@
+{
+  "catalogue": {
+    "nom": "Catalogue recettes — démonstration JSON Studio V16",
+    "version": 16,
+    "locale": "fr-FR",
+    "description": "Jeu de données volontairement hétérogène pour tester l'édition hiérarchique, les relations par ID, les listes et les champs typés."
+  },
+  "recettes": [
+    {
+      "id": "REC001",
+      "titre": "Tarte rustique aux pommes",
+      "categorie": "Dessert",
+      "description": "Une recette volontairement détaillée afin de tester les champs éditoriaux longs, le redimensionnement des zones de texte et l'affichage en tableau.",
+      "image": "assets/apple.svg",
+      "source_url": "https://example.org/recettes/tarte-rustique-pommes",
+      "ingredients": [
+        {"sical": "SICAL001", "quantite": 4, "unite": "pièce"},
+        {"sical": "SICAL004", "quantite": 180, "unite": "g"}
+      ],
+      "tags": ["fruit", "dessert", "anti-gaspi"],
+      "meta": {"actif": true, "difficulte": 2, "note": 4.7, "telephone_test": "+33 3 86 00 00 01", "code_postal_test": "89100"}
+    },
+    {
+      "id": "REC002",
+      "titre": "Carottes rôties au cumin",
+      "categorie": "Plat",
+      "description": "Carottes rôties, cumin, herbes et sauce légère. Cette seconde entrée permet de tester les listes, les catégories et la navigation entre items.",
+      "image": "assets/carrot.svg",
+      "source_url": "https://example.org/recettes/carottes-roties",
+      "ingredients": [
+        {"sical": "SICAL002", "quantite": 500, "unite": "g"},
+        {"sical": "SICAL005", "quantite": 2, "unite": "c. à café"}
+      ],
+      "tags": ["légume", "plat", "four"],
+      "meta": {"actif": true, "difficulte": 1, "note": 4.3, "telephone_test": "+33 1 40 00 00 02", "code_postal_test": "75011"}
+    },
+    {
+      "id": "REC003",
+      "titre": "Soupe de fanes et pomme de terre",
+      "categorie": "Entrée",
+      "description": "Recette anti-gaspillage destinée à démontrer une troisième branche du JSON et plusieurs références croisées vers le référentiel ingrédients.",
+      "image": "assets/leaf.svg",
+      "source_url": "https://example.org/recettes/soupe-fanes",
+      "ingredients": [
+        {"sical": "SICAL003", "quantite": 1, "unite": "botte"},
+        {"sical": "SICAL006", "quantite": 350, "unite": "g"}
+      ],
+      "tags": ["anti-gaspi", "soupe", "entrée"],
+      "meta": {"actif": false, "difficulte": 1, "note": 4.1, "telephone_test": "+33 4 72 00 00 03", "code_postal_test": "69002"}
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "referentiel": {
+    "nom": "Ingrédients — démonstration de relation inter-JSON",
+    "cle_relation": "sical",
+    "version": 16
+  },
+  "ingredients": [
+    {"sical": "SICAL001", "nom": "Pomme", "latin": "Malus domestica", "image": "assets/apple.svg", "kcal": 52, "allergenes": []},
+    {"sical": "SICAL002", "nom": "Carotte", "latin": "Daucus carota subsp. sativus", "image": "assets/carrot.svg", "kcal": 41, "allergenes": []},
+    {"sical": "SICAL003", "nom": "Fanes de légumes", "latin": "—", "image": "assets/leaf.svg", "kcal": 28, "allergenes": []},
+    {"sical": "SICAL004", "nom": "Farine de blé", "latin": "Triticum aestivum", "image": "assets/leaf.svg", "kcal": 364, "allergenes": ["gluten"]},
+    {"sical": "SICAL005", "nom": "Cumin", "latin": "Cuminum cyminum", "image": "assets/leaf.svg", "kcal": 375, "allergenes": []},
+    {"sical": "SICAL006", "nom": "Pomme de terre", "latin": "Solanum tuberosum", "image": "assets/leaf.svg", "kcal": 77, "allergenes": []}
+  ]
+}
