@@ -1,9 +1,9 @@
 {
   "task_id": "8B-QR-MEDIA-ROBUSTNESS",
   "agent": "B",
-  "status": "reserved",
-  "base": "4754e3d1fc1badef0bb6ff539aa7de0028065134",
-  "branch": "agent-b/qr-media-robustness",
+  "status": "in_progress",
+  "base": "a6fe26de64a67223bb767c03a997230b141c4f8e",
+  "branch": "agent-b/qr-media-robustness-r2",
   "file_scope": [
     "dev/framework/wiz/qr-wiz.js",
     "dev/framework/wiz/media-wiz.js",
@@ -11,5 +11,5 @@
     "dev/framework/doc/qr-media/*.md"
   ],
   "reserved_at": "2026-08-12T00:10:30+02:00",
-  "notes": "Robustesse QR/Media hors démo : payloads, encodeur absent, transparence/logo/SVG, image fallback, ratio/object-fit et options invalides. Aucun changement visuel V20."
+  "notes": "Branche r2 recréée depuis le HEAD récent de New. Robustesse QR/Media hors démo : payloads, encodeur absent, transparence/logo/SVG, rendu sans globals navigateur, image fallback, ratio/object-fit, normalisation d'options et URLs dangereuses. Aucun changement visuel V20 ni fichier A/C."
 }
