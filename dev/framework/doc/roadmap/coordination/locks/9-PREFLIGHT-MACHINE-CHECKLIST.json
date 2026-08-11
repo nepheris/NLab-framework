@@ -1,7 +1,7 @@
 {
   "task_id": "9-PREFLIGHT-MACHINE-CHECKLIST",
   "agent": "C",
-  "status": "review",
+  "status": "done",
   "base": "701bbec549c386718d450df032ad672f184840db",
   "branch": "agent-c/lot9-preflight-machine-checklist",
   "file_scope": [
@@ -10,11 +10,13 @@
   ],
   "reserved_at": "2026-08-12T00:18:00+02:00",
   "final_sha": "d6bdbe21e6d1d7e23f6b8203b3c8954fc8d853d0",
+  "merged_sha": "3a999b6044f4a360897c8a2f794f5ffe887f1dca",
+  "pull_request": 3,
   "diff_check": {
     "base": "701bbec549c386718d450df032ad672f184840db",
     "ahead_by": 2,
     "changed_files": 2,
     "scope_ok": true
   },
-  "notes": "Pré-vol Lot 9 converti en checklist machine + fiche humaine. Diff vérifié : uniquement les deux fichiers annoncés, aucun runtime, aucune démo, aucun fichier réservé par A/B, aucune modification de roadmap.md. Prêt pour revue/consolidation."
+  "notes": "Pré-vol Lot 9 converti en checklist machine + fiche humaine et intégré dans New via PR #3. Diff vérifié : uniquement les deux fichiers annoncés, aucun runtime, aucune démo, aucun fichier réservé par A/B."
 }
