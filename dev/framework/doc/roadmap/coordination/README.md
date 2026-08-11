@@ -28,6 +28,16 @@ La couleur est dérivée du champ `agent` du lock ; il n'est pas nécessaire de 
 
 Les couleurs d'agent sont des **carrés** afin de ne pas les confondre avec les cercles de statut de la roadmap (`🟢` terminé, `🟡` en cours, etc.).
 
+### Persistance de l'attribution
+
+La couleur du propriétaire **ne disparaît pas quand une tâche passe à `done`**.
+
+- `🟦 A ✅` = tâche terminée par A ;
+- `🟩 B ✅` = tâche terminée par B ;
+- `🟧 C ✅` = tâche terminée par C.
+
+La roadmap et `agent-board.md` doivent conserver cette attribution afin de savoir, a posteriori, qui a réalisé chaque chantier et d'améliorer le découpage des futurs travaux parallèles. Les tâches historiques antérieures au protocole de locks ne sont pas attribuées rétroactivement sans preuve Git/lock/PR fiable.
+
 ## Règles obligatoires
 
 1. Lire `coordination/locks/` avant de choisir une action.
@@ -42,6 +52,7 @@ Les couleurs d'agent sont des **carrés** afin de ne pas les confondre avec les 
 10. Une tâche terminée n'est pas supprimée : son verrou passe à `done` avec le SHA final. On conserve ainsi l'historique d'attribution.
 11. Si une tâche change d'agent, le verrou existant est mis à jour explicitement ; aucun second verrou concurrent n'est créé.
 12. Après création ou changement d'état d'un lock, le tableau multi-agent doit être rafraîchi dès que le mutex documentaire est disponible.
+13. Après intégration d'une tâche, conserver la **pastille de l'agent + `✅`** dans la roadmap et le tableau historique.
 
 ## Statuts
 
@@ -82,7 +93,8 @@ Procédure :
 2. s'il est `in_progress` chez un autre agent, ne pas éditer le pilotage ;
 3. s'il est `released` ou `done`, mettre à jour **ce même lock** à son nom, statut `in_progress`, avant édition ;
 4. rafraîchir la roadmap et `agent-board.md` depuis les locks réels ;
-5. passer ensuite le mutex à `released` avec le SHA de sortie.
+5. conserver dans les lignes `done` la couleur de l'agent qui a livré ;
+6. passer ensuite le mutex à `released` avec le SHA de sortie.
 
 Les agents peuvent continuer leurs chantiers métier pendant qu'un autre agent possède le mutex documentaire : seuls les fichiers de pilotage sont sérialisés.
 
