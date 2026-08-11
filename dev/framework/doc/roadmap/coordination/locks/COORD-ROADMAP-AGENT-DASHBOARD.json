@@ -1,18 +1,14 @@
 {
   "task_id": "COORD-ROADMAP-AGENT-DASHBOARD",
   "agent": "B",
-  "status": "released",
-  "base": "bd0e0dfb0e30eddc45f8c43c9562721c7ad4602d",
+  "status": "in_progress",
+  "base": "f314154003c38450f41e138812224c51e1d4e88f",
   "branch": "New",
   "file_scope": [
     "dev/framework/doc/roadmap/roadmap.md",
     "dev/framework/doc/roadmap/coordination/README.md",
     "dev/framework/doc/roadmap/coordination/agent-board.md"
   ],
-  "reserved_at": "2026-08-12T01:20:00+02:00",
-  "released_at": "2026-08-12T01:21:00+02:00",
-  "roadmap_sha": "ae2260ed36a8c7223dcc63eca7770e0f997504f5",
-  "agent_board_sha": "ebd08c253a5c99a3fb2636ba917144bb034cc695",
-  "procedure_sha": "420183c67037a5753c1f3c161332d9a5a8e46f44",
-  "notes": "Roadmap, tableau et procédure synchronisés jusqu'aux intégrations B #19 et C #18. L'attribution A/B/C est désormais persistante sur les tâches done ; les travaux antérieurs au protocole ne sont pas réattribués sans preuve fiable. Mutex libéré."
+  "reserved_at": "2026-08-12T01:30:00+02:00",
+  "notes": "Synchroniser les nouvelles intégrations C #20/#21 et B #22 en conservant la pastille de propriété permanente."
 }
