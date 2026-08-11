@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>nLab — Architecture Map</title>
+<style>
+:root{--bg:#f4f7f6;--surface:#fff;--surface2:#f8faf9;--ink:#18231d;--muted:#66736c;--line:#d8e1dc;--accent:#1677a8;--accent2:#e48a27;--green:#247a55;--purple:#7656a8;--red:#ad4148;--shadow:0 12px 32px rgba(20,36,28,.08);--radius:16px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#eef6f3,#f7f9f8 38%,#fff9f1);color:var(--ink);font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer}.app{width:min(97vw,1760px);margin:auto;padding:16px 0 56px}.top{position:sticky;top:0;z-index:100;padding:8px 0 10px;background:linear-gradient(180deg,rgba(244,247,246,.98),rgba(244,247,246,.90),rgba(244,247,246,0));backdrop-filter:blur(12px)}
+.hero{border:1px solid var(--line);border-radius:20px;background:radial-gradient(circle at 90% 0,rgba(228,138,39,.15),transparent 34%),radial-gradient(circle at 5% 100%,rgba(22,119,168,.11),transparent 36%),var(--surface);box-shadow:var(--shadow);padding:18px 20px}.hero-row{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}.brand h1{font-size:clamp(23px,3vw,34px);margin:0 0 5px}.brand p{margin:0;color:var(--muted);max-width:970px}.statusline{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.pill{display:inline-flex;align-items:center;gap:5px;padding:5px 8px;border:1px solid var(--line);border-radius:999px;background:var(--surface2);font-size:10px;font-weight:800;color:var(--muted)}
+.controls{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-top:12px}.controls input{min-width:230px;flex:1 1 280px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:9px 11px}.btn,.controls select{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:8px 10px;font-weight:750}.btn:hover{border-color:#98b8aa}.btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+.bridge{margin:13px 0;border:1px solid var(--line);border-radius:16px;background:var(--surface);box-shadow:var(--shadow);padding:12px 14px}.bridge-title{font-weight:900;margin-bottom:8px}.flow{display:flex;align-items:center;gap:7px;overflow-x:auto;padding-bottom:3px}.flow .step{flex:0 0 auto;padding:7px 9px;border-radius:10px;border:1px solid var(--line);background:var(--surface2);font-size:11px;font-weight:800}.flow .arrow{color:var(--muted);font-weight:900}.flow .business{border-color:#e8c79f;background:#fff7ec}.flow .framework{border-color:#b9d5e4;background:#eef8fd}.flow .result{border-color:#bfdacb;background:#eef8f2}.flow .presentation{border-color:#d3c4e7;background:#f6f1fb}
+.columns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}.domain{border:1px solid var(--line);background:rgba(255,255,255,.80);border-radius:18px;box-shadow:var(--shadow);min-width:0;overflow:hidden}.domain-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 15px;border-bottom:1px solid var(--line);background:var(--surface)}.domain-head h2{margin:0;font-size:18px}.domain-body{padding:10px 10px 14px;overflow:auto;max-height:calc(100vh - 270px)}
+.tree,.children{list-style:none;margin:0;padding:0}.children{margin-left:18px;padding-left:12px;border-left:1px solid var(--line)}.node{margin:5px 0}.node details{border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:visible;transition:.15s}.node details.selected{outline:3px solid rgba(22,119,168,.19);border-color:#8ebed6}.node details.search-hit{border-color:#d9a153;box-shadow:0 0 0 2px rgba(228,138,39,.11)}.node summary{list-style:none;display:flex;align-items:center;gap:7px;padding:8px 9px;cursor:pointer;min-width:0}.node summary::-webkit-details-marker{display:none}.chev{width:18px;height:18px;border-radius:6px;background:#edf2ef;color:#516159;display:grid;place-items:center;flex:0 0 auto;font-size:15px;font-weight:900}.node details[open]>summary .chev{transform:rotate(90deg)}.leaf .chev{opacity:.35}.label{font-weight:850;min-width:0;overflow:hidden;text-overflow:ellipsis}.badges{display:flex;align-items:center;gap:4px;margin-left:auto;flex:0 0 auto}.badge{padding:3px 6px;border-radius:999px;border:1px solid var(--line);font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:.035em}.kind{background:#f5f7f6;color:#607068}.existing{background:#ebf7f0;color:#246b4c;border-color:#c7e2d2}.target{background:#edf7fc;color:#1d6b93;border-color:#c3ddea}.planned{background:#fff7e9;color:#9a650f;border-color:#ecd5a8}.legacy{background:#fdeff0;color:#a13d45;border-color:#efc5c8}.node-info{padding:0 9px 9px 34px;color:var(--muted);font-size:11px}.node-info p{margin:0 0 6px}.rels{display:flex;gap:5px;flex-wrap:wrap}.rel{border:1px dashed var(--line);border-radius:8px;background:var(--surface2);padding:3px 6px;color:var(--muted);font-size:9px;cursor:pointer}.rel:hover{border-color:#8ebed6;color:var(--accent)}.paths{display:grid;gap:3px;margin-top:6px}.path{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:9px;background:#f5f7f6;border-radius:6px;padding:4px 6px;overflow-wrap:anywhere}.empty{padding:22px;color:var(--muted);text-align:center}
+.inspector{margin-top:14px;border:1px solid var(--line);border-radius:16px;background:var(--surface);box-shadow:var(--shadow);overflow:hidden}.inspector-head{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:11px 13px;border-bottom:1px solid var(--line)}.inspector-head strong{font-size:15px}.inspector-body{padding:13px;display:grid;grid-template-columns:1.2fr .8fr;gap:14px}.inspector h3{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:0 0 7px}.inspector p{margin:0 0 9px}.kv{display:grid;grid-template-columns:110px 1fr;gap:5px 9px;font-size:11px}.kv b{color:var(--muted)}
+.legend{display:flex;gap:5px;flex-wrap:wrap}.footer{padding:18px 4px 0;text-align:center;color:var(--muted);font-size:10px}.hidden{display:none!important}.match-dim{opacity:.28}.theme-toggle{min-width:38px}
+body.dark{--bg:#0e1411;--surface:#17201b;--surface2:#1d2821;--ink:#edf4ef;--muted:#a9b5ad;--line:#354239;--shadow:0 12px 32px rgba(0,0,0,.24);background:radial-gradient(circle at 15% 0,rgba(21,99,69,.20),transparent 30%),radial-gradient(circle at 90% 8%,rgba(131,83,31,.18),transparent 29%),linear-gradient(180deg,#0e1411,#111914)}body.dark .top{background:linear-gradient(180deg,rgba(14,20,17,.98),rgba(14,20,17,.90),rgba(14,20,17,0))}body.dark .path{background:#111814}body.dark .chev{background:#243028;color:#b9c7be}body.dark .flow .business{background:#332719;border-color:#5c4930}body.dark .flow .framework{background:#172b35;border-color:#315264}body.dark .flow .result{background:#172b20;border-color:#315642}body.dark .flow .presentation{background:#282033;border-color:#4b3b62}
+@media(max-width:980px){.columns{grid-template-columns:1fr}.domain-body{max-height:none}.inspector-body{grid-template-columns:1fr}}@media(max-width:620px){.app{width:min(98vw,1760px)}.hero{padding:14px}.badges .kind{display:none}.children{margin-left:8px;padding-left:7px}.node-info{padding-left:29px}.kv{grid-template-columns:84px 1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <section class="hero">
+      <div class="hero-row">
+        <div class="brand">
+          <h1>nLab — Architecture Map</h1>
+          <p>Vue hiérarchique canonique du Framework et des données métier. Les nœuds se déplient par niveau ; les dépendances sont cliquables. La source de vérité est <code>nlab-architecture-map.json</code>.</p>
+        </div>
+        <button class="btn theme-toggle" id="themeToggle" type="button" title="Clair / sombre">◐</button>
+      </div>
+      <div class="statusline" id="metaLine"></div>
+      <div class="controls">
+        <input id="search" type="search" placeholder="Rechercher Studio, module, engine, adapter, KPI…">
+        <button class="btn" id="expandAll" type="button">Tout déplier</button>
+        <button class="btn" id="collapseAll" type="button">Tout replier</button>
+        <label class="pill">Niveau
+          <select id="depthSelect" aria-label="Niveau d'ouverture">
+            <option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="99">Tous</option>
+          </select>
+        </label>
+        <select id="statusFilter" aria-label="Filtrer par statut"><option value="all">Tous les statuts</option><option value="existing">Existing</option><option value="target">Target</option><option value="planned">Planned</option><option value="legacy">Legacy</option></select>
+      </div>
+    </section>
+  </div>
+
+  <section class="bridge">
+    <div class="bridge-title">Pont Data ↔ Framework</div>
+    <div class="flow" aria-label="Flux principal de données">
+      <span class="step business">Sources métier</span><span class="arrow">→</span>
+      <span class="step business">Data Manifest</span><span class="arrow">→</span>
+      <span class="step framework">Adapters / DataHub</span><span class="arrow">→</span>
+      <span class="step framework">Relations / Engines</span><span class="arrow">→</span>
+      <span class="step result">ResultSet</span><span class="arrow">→</span>
+      <span class="step presentation">Views / Viz</span><span class="arrow">→</span>
+      <span class="step presentation">Toolbar / Studios</span>
+    </div>
+  </section>
+
+  <main class="columns">
+    <section class="domain" id="frameworkDomain">
+      <div class="domain-head"><h2>⚙ Framework</h2><span class="pill" id="frameworkCount"></span></div>
+      <div class="domain-body"><ul class="tree" id="frameworkTree"></ul></div>
+    </section>
+    <section class="domain" id="businessDomain">
+      <div class="domain-head"><h2>◈ Données métier</h2><span class="pill" id="businessCount"></span></div>
+      <div class="domain-body"><ul class="tree" id="businessTree"></ul></div>
+    </section>
+  </main>
+
+  <section class="inspector" id="inspector">
+    <div class="inspector-head"><strong id="inspectTitle">Sélectionnez un nœud</strong><div class="legend"><span class="badge existing">existing</span><span class="badge target">target</span><span class="badge planned">planned</span><span class="badge legacy">legacy</span></div></div>
+    <div class="inspector-body" id="inspectBody"><p class="empty">Cliquez sur un élément pour afficher son rôle, ses dépendances et les fichiers existants associés.</p></div>
+  </section>
+
+  <footer class="footer">Architecture de travail — ce schéma décrit la cible et les composants existants ; il ne renomme aucun runtime à lui seul.</footer>
+</div>
+<script>
+const DATA_URL='./nlab-architecture-map.json';
+let map=null;let parentMap=new Map();let nodeEls=new Map();let selectedId=null;
+const $=(s)=>document.querySelector(s);
+const esc=(v)=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function iconFor(kind){const icons={workbench:'▣','studio-core':'◆',studio:'▤','studio-module':'◇',engine:'⚙',adapter:'↪',model:'◫',control:'◉',view:'▦',viz:'◒',toolbar:'☷',panel:'▥',service:'⚡',manifest:'≡',system:'▧',group:'·',legacy:'↶',domain:'◎',catalog:'≣',schema:'{}',registry:'⌗',provider:'⇄',component:'□',placement:'⌖','panel-role':'▥','operation-family':'ƒ','business-source':'◌','manifest-section':'•'};return icons[kind]||'•'}
+function nodeCount(rootId){let n=0;const seen=new Set();function walk(id){if(seen.has(id))return;seen.add(id);n++;(map.nodes[id]?.children||[]).forEach(walk)}walk(rootId);return n-1}
+function buildParentMap(){parentMap=new Map();Object.entries(map.nodes).forEach(([id,n])=>(n.children||[]).forEach(c=>parentMap.set(c,id)))}
+function makeNode(id,depth=0){const n=map.nodes[id];if(!n)return document.createTextNode('');const li=document.createElement('li');li.className='node';li.dataset.id=id;li.dataset.depth=depth;li.dataset.status=n.status||'';li.dataset.kind=n.kind||'';
+ const details=document.createElement('details');if(depth<2)details.open=true;if(!(n.children||[]).length)li.classList.add('leaf');
+ const summary=document.createElement('summary');summary.innerHTML=`<span class="chev">›</span><span aria-hidden="true">${esc(iconFor(n.kind))}</span><span class="label">${esc(n.label||id)}</span><span class="badges"><span class="badge kind">${esc(n.kind||'node')}</span><span class="badge ${esc(n.status||'target')}">${esc(n.status||'target')}</span></span>`;
+ summary.addEventListener('click',e=>{if(e.target.closest('.rel'))return;setTimeout(()=>selectNode(id),0)});
+ details.appendChild(summary);
+ if(n.summary||n.depends_on||n.extends||n.source_paths){const info=document.createElement('div');info.className='node-info';let html=n.summary?`<p>${esc(n.summary)}</p>`:'';const refs=[];if(n.extends)refs.push(['extends',n.extends]);(n.depends_on||[]).forEach(r=>refs.push(['depends',r]));if(refs.length)html+=`<div class="rels">${refs.map(([t,r])=>`<button class="rel" type="button" data-ref="${esc(r)}">${esc(t)} → ${esc(map.nodes[r]?.label||r)}</button>`).join('')}</div>`;if((n.source_paths||[]).length)html+=`<div class="paths">${n.source_paths.map(p=>`<span class="path">${esc(p)}</span>`).join('')}</div>`;info.innerHTML=html;info.querySelectorAll('.rel').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();jumpTo(b.dataset.ref)}));details.appendChild(info)}
+ if((n.children||[]).length){const ul=document.createElement('ul');ul.className='children';n.children.forEach(c=>ul.appendChild(makeNode(c,depth+1)));details.appendChild(ul)}
+ li.appendChild(details);nodeEls.set(id,li);return li}
+function render(){nodeEls.clear();buildParentMap();const roots=map.roots||[];const f=roots[0],b=roots[1];$('#frameworkTree').replaceChildren(...(map.nodes[f]?.children||[]).map(id=>makeNode(id,1)));$('#businessTree').replaceChildren(...(map.nodes[b]?.children||[]).map(id=>makeNode(id,1)));$('#frameworkCount').textContent=`${nodeCount(f)} éléments`;$('#businessCount').textContent=`${nodeCount(b)} éléments`;$('#metaLine').innerHTML=`<span class="pill">Version ${esc(map.version)}</span><span class="pill">Statut ${esc(map.status)}</span><span class="pill">${Object.keys(map.nodes).length} nœuds</span><span class="pill">${(map.relations||[]).length} relations</span>`;applyDepth(Number($('#depthSelect').value));applyFilters()}
+function applyDepth(max){document.querySelectorAll('.node').forEach(li=>{const d=li.querySelector(':scope > details');if(d)d.open=Number(li.dataset.depth)<=max})}
+function ancestors(id){const out=[];let cur=id;while(parentMap.has(cur)){cur=parentMap.get(cur);out.push(cur)}return out}
+function jumpTo(id){const li=nodeEls.get(id);if(!li)return;ancestors(id).forEach(a=>{const el=nodeEls.get(a)?.querySelector(':scope > details');if(el)el.open=true});li.querySelector(':scope > details').open=true;li.scrollIntoView({behavior:'smooth',block:'center'});selectNode(id)}
+function selectNode(id){selectedId=id;document.querySelectorAll('.node>details.selected').forEach(e=>e.classList.remove('selected'));const li=nodeEls.get(id);if(li)li.querySelector(':scope > details')?.classList.add('selected');const n=map.nodes[id];if(!n)return;$('#inspectTitle').textContent=n.label||id;const rels=(map.relations||[]).filter(r=>r.from===id||r.to===id);const refButtons=(arr,label)=>arr?.length?`<div class="rels">${arr.map(r=>`<button class="rel" data-ref="${esc(r)}" type="button">${esc(map.nodes[r]?.label||r)}</button>`).join('')}</div>`:'—';$('#inspectBody').innerHTML=`<div><h3>Responsabilité</h3><p>${esc(n.summary||'Pas encore documentée.')}</p><div class="kv"><b>ID</b><span>${esc(id)}</span><b>Type</b><span>${esc(n.kind||'—')}</span><b>Statut</b><span>${esc(n.status||'—')}</span><b>Étend</b><span>${n.extends?esc(map.nodes[n.extends]?.label||n.extends):'—'}</span><b>Dépend de</b><span>${refButtons(n.depends_on,'depends')}</span></div></div><div><h3>Relations</h3><div class="rels">${rels.length?rels.map(r=>`<button class="rel" data-ref="${esc(r.from===id?r.to:r.from)}" type="button">${esc(r.type)} · ${esc(map.nodes[r.from===id?r.to:r.from]?.label||'')}</button>`).join(''):'Aucune relation transverse déclarée.'}</div>${(n.source_paths||[]).length?`<h3 style="margin-top:12px">Fichiers existants</h3><div class="paths">${n.source_paths.map(p=>`<span class="path">${esc(p)}</span>`).join('')}</div>`:''}</div>`;$('#inspectBody').querySelectorAll('[data-ref]').forEach(b=>b.addEventListener('click',()=>jumpTo(b.dataset.ref)))}
+function applyFilters(){const q=$('#search').value.trim().toLowerCase();const status=$('#statusFilter').value;document.querySelectorAll('.node>details').forEach(d=>d.classList.remove('search-hit'));nodeEls.forEach((li,id)=>{const n=map.nodes[id];const hay=[id,n.label,n.kind,n.summary,...(n.source_paths||[])].join(' ').toLowerCase();const qok=!q||hay.includes(q);const sok=status==='all'||n.status===status;li.classList.toggle('match-dim',!(qok&&sok));if(q&&qok){li.querySelector(':scope > details')?.classList.add('search-hit');ancestors(id).forEach(a=>{nodeEls.get(a)?.classList.remove('match-dim');const d=nodeEls.get(a)?.querySelector(':scope > details');if(d)d.open=true})}})}
+$('#expandAll').addEventListener('click',()=>document.querySelectorAll('.node>details').forEach(d=>d.open=true));$('#collapseAll').addEventListener('click',()=>document.querySelectorAll('.node>details').forEach(d=>d.open=false));$('#depthSelect').addEventListener('change',e=>applyDepth(Number(e.target.value)));$('#search').addEventListener('input',applyFilters);$('#statusFilter').addEventListener('change',applyFilters);$('#themeToggle').addEventListener('click',()=>{document.body.classList.toggle('dark');localStorage.setItem('nlabArchitectureTheme',document.body.classList.contains('dark')?'dark':'light')});if(localStorage.getItem('nlabArchitectureTheme')==='dark')document.body.classList.add('dark');
+fetch(DATA_URL,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error(`${r.status} ${r.statusText}`);return r.json()}).then(data=>{map=data;render()}).catch(err=>{$('#frameworkTree').innerHTML=`<li class="empty">Impossible de charger <code>${esc(DATA_URL)}</code>.<br>${esc(err.message)}<br><br>Servir ce dossier via HTTP/GitHub Pages avec le JSON à côté de l'HTML.</li>`;$('#businessTree').innerHTML='<li class="empty">JSON requis.</li>'});
+</script>
+</body>
+</html>
