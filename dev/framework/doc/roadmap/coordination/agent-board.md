@@ -33,7 +33,6 @@
 | 🟩 B | 🔒 `reserved` | `8B-QR-MEDIA-ROBUSTNESS` | `agent-b/qr-media-robustness` | QRWiz / MediaWiz robustesse |
 | 🟧 C | 🛠️ `in_progress` | `8B-ANALYTICS-CONSENT-PROVIDER` | `agent-c/analytics-consent-provider-contract` | AnalyticsWiz / consentement / provider GA4 |
 | 🟧 C | 👀 `review` | `9-PREFLIGHT-MACHINE-CHECKLIST` | `agent-c/lot9-preflight-machine-checklist` | pré-vol machine + checklist Lot 9 |
-| 🟩 B | 🛠️ `in_progress` | `COORD-ROADMAP-AGENT-DASHBOARD` | `New` | procédure et tableau de pilotage multi-agent |
 
 ## Règle de lecture
 
