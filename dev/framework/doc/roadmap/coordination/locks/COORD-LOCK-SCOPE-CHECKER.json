@@ -1,0 +1,14 @@
+{
+  "task_id": "COORD-LOCK-SCOPE-CHECKER",
+  "agent": "C",
+  "status": "in_progress",
+  "base": "f74f4508b59afc0a7933d66781121c7e5a62dc75",
+  "branch": "agent-c/lock-scope-checker",
+  "file_scope": [
+    "dev/framework/tools/coordination/check-lock-overlaps.mjs",
+    "dev/framework/tests/coordination-lock-overlaps.test.mjs",
+    "dev/framework/doc/roadmap/coordination/lock-scope-checker.md"
+  ],
+  "reserved_at": "2026-08-12T01:59:00+02:00",
+  "notes": "Créer un contrôleur de collisions file_scope après l'incident DataSource : lecture des locks JSON, statuts occupés reserved/in_progress/blocked/review, détection exact/glob conservatrice, mode audit global et mode candidat. Aucun fichier roadmap/agent-board/README sous mutex."
+}
