@@ -1,7 +1,7 @@
 {
   "task_id": "8B-NAVIGATION-CONTRACT",
   "agent": "C",
-  "status": "in_progress",
+  "status": "review",
   "base": "7e1ef884f14cf9a2b25477a6d6d52308752a06db",
   "branch": "agent-c/navigation-contract",
   "file_scope": [
@@ -10,5 +10,11 @@
     "dev/framework/doc/navigation/navigation-wiz.md"
   ],
   "reserved_at": "2026-08-12T00:54:00+02:00",
-  "notes": "Robustesse NavigationWiz indépendante de la démo : fonctionnement sans DOM, document injecté, IDs générés sans collision, observer remplaçable/nettoyé, restore hash sûr et tests de hiérarchie. Aucun fichier A/B ni roadmap dans la branche."
+  "final_sha": "dd4f13d242269785b2d5216532d26188d3d5dd72",
+  "verification": {
+    "diff": "3 commits / 3 files, all inside reserved file_scope",
+    "tests": "local Node contract test with fake DOM and observer",
+    "result": "NavigationWiz tests: OK"
+  },
+  "notes": "NavigationWiz fonctionne sans DOM implicite, utilise un document/observer injectables, génère des IDs sans collision, remplace proprement l'observer et protège restore() contre les hashes mal encodés. Aucun fichier A/B, aucune démo ni roadmap dans la branche."
 }
