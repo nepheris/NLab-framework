@@ -1,7 +1,7 @@
 {
   "task_id": "COORD-ROADMAP-AGENT-DASHBOARD",
   "agent": "C",
-  "status": "in_progress",
+  "status": "released",
   "base": "82857047c6573cb7002d6be62af08033392d940a",
   "branch": "New",
   "file_scope": [
@@ -10,5 +10,8 @@
     "dev/framework/doc/roadmap/coordination/agent-board.md"
   ],
   "reserved_at": "2026-08-12T01:00:00+02:00",
-  "notes": "Agent C rafraîchit le delta des lots CodeBlock, PresetManager et NavigationWiz intégrés, plus les clôtures A/B déjà confirmées par leurs locks live. Aucun arbitrage métier n'est modifié."
+  "released_at": "2026-08-12T01:04:00+02:00",
+  "roadmap_sha": "d177aa54a22d317887d22cdda190e733744b9d57",
+  "agent_board_sha": "08e8a24e180f9cab6186023bf2606529aed247cd",
+  "notes": "Roadmap et tableau multi-agent synchronisés avec les clôtures B Data/QR-Media/Observability/SEO-Share, le nouveau chantier B Search/Filter et les livraisons C CodeBlock/PresetManager/NavigationWiz. Mutex libéré ; arbitrages A/HUMAN inchangés."
 }
