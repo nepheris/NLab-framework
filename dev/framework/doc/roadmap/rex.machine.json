@@ -20,8 +20,8 @@
   "state": {
     "current_block": "Consolidation / industrialisation",
     "current_phase": "Lot 8B",
-    "current_goal": "Transformer les prototypes validés du Catalogue / Playground V17 en briques génériques du framework.",
-    "resume_from": "Industrialiser Theme Workshop avec une vraie portée instance/type/global, puis extraire JSON Studio en composant autonome.",
+    "current_goal": "Valider la portée réelle du Theme Workshop en V18 puis poursuivre l'extraction des prototypes vers des composants framework.",
+    "resume_from": "Tester HUMAN les cas instance/type/global de V18, corriger si nécessaire, raccorder les contrôles Theme Workshop existants à l'API scoped, puis extraire JSON Studio en composant autonome.",
     "blocked_by_human": false,
     "open_human_gate": "H001"
   },
@@ -29,30 +29,35 @@
     "La roadmap canonique du Framework vit dans dev/framework/doc/roadmap/roadmap.md.",
     "Les ROADMAP_Vxx de demo sont des roadmaps de cycle et ne remplacent pas la roadmap projet.",
     "La démo reste un laboratoire : une fonction validée doit être extraite en brique générique.",
-    "Chaque commit modifiant la page de démonstration incrémente sa version visible.",
+    "Chaque commit modifiant effectivement la page de démonstration incrémente sa version visible.",
     "Le template roadmap GitHub canonique de NLab est le standard courant de présentation et de pilotage.",
-    "Les améliorations de template détectées sur un projet sont proposées synthétiquement avant propagation aux autres roadmaps."
+    "Les améliorations de template détectées sur un projet sont proposées synthétiquement avant intégration au canonique ou propagation.",
+    "Theme Workshop utilise désormais une cascade scoped global -> type -> instance.",
+    "Les profils Theme Workshop peuvent mémoriser scope + target + patch et les resets peuvent viser une seule propriété."
   ],
   "effective_patterns": [
     "Pilotage immédiatement visible, détail repliable.",
     "Phase active ouverte, phases terminées repliées.",
     "Séparer roadmap humaine, REX machine et contrôle HUMAN.",
     "Trier toute nouvelle idée en BEFORE_CLOSE, LATER ou NOTE avant d'élargir le scope.",
-    "Process : idée -> prototype démo -> validation UX -> extraction framework -> démo générique -> test métier."
+    "Process : idée -> prototype démo -> validation UX -> extraction framework -> démo générique -> test métier.",
+    "Industrialiser d'abord la capacité dans le composant puis la démontrer dans un review-pass versionné."
   ],
   "failed_or_costly_patterns": [
     "Laisser une roadmap de cycle de démonstration prendre la place de la roadmap projet canonique.",
-    "Accumuler des fonctions dans review-pass sans plan explicite d'extraction vers le framework."
+    "Accumuler des fonctions dans review-pass sans plan explicite d'extraction vers le framework.",
+    "Afficher une portée dans l'UX sans que le composant sous-jacent sache réellement la représenter."
   ],
   "do_not_repeat": [
     "Ne pas réinventer les intitulés historiques des lots 10 à 12 sans source fiable.",
-    "Ne pas modifier automatiquement toutes les roadmaps lorsqu'une amélioration de template est détectée sans validation utilisateur."
+    "Ne pas modifier automatiquement toutes les roadmaps lorsqu'une amélioration de template est détectée sans validation utilisateur.",
+    "Ne pas considérer un contrôle de démo comme industrialisé tant que la capacité n'existe pas dans le composant framework."
   ],
   "human_interventions": [
     {
       "id": "H001",
       "status": "ACTIVE",
-      "purpose": "Validation UX du cycle V17 et arbitrage des comportements à industrialiser/corriger/différer."
+      "purpose": "Validation des portées Theme Workshop V18 : instance, type, global, cascade, reset par propriété et persistance."
     }
   ],
   "uncertainties": [
@@ -61,7 +66,8 @@
   ],
   "backlog": {
     "before_close": [
-      "Industrialiser Theme Workshop : portée instance/type/global.",
+      "Valider la portée Theme Workshop V18 sur les trois niveaux.",
+      "Raccorder les contrôles Theme Workshop existants à l'API scoped.",
       "Extraire JSON Studio en composant framework.",
       "Convergence minimale TableWiz/DataWiz autour de DataSource/ResultSet/renderers.",
       "Nettoyer les comportements encore spécifiques à la démo.",
@@ -78,12 +84,12 @@
   },
   "candidate_cardinal_rules": [],
   "future_acceleration_hints": [
-    "Lire la roadmap humaine et ce REX avant tout détail d'implémentation.",
+    "Lire roadmap + REX avant implémentation.",
     "Reprendre à l'action exacte sauf si un jalon HUMAN bloque réellement la décision.",
     "Conserver les réponses ChatGPT courtes et lier les documents GitHub canoniques.",
-    "Ne pas élargir automatiquement le livrable courant lors d'une nouvelle idée ; la classer BEFORE_CLOSE, LATER ou NOTE.",
-    "Maintenir les phases terminées repliées et la phase active ouverte.",
-    "Mettre à jour roadmap + REX à chaque jalon structurel ou nouveau cycle significatif."
+    "Ne pas élargir automatiquement le livrable courant lors d'une nouvelle idée ; classer BEFORE_CLOSE, LATER ou NOTE.",
+    "Mettre à jour roadmap + REX à chaque jalon structurel ou nouveau cycle significatif.",
+    "Re-vérifier le HEAD avant chaque écriture structurante pour limiter les conflits avec d'autres sessions."
   ],
   "final_review": {
     "completed": false,
