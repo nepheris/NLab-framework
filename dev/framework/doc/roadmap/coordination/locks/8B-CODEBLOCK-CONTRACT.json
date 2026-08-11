@@ -1,7 +1,7 @@
 {
   "task_id": "8B-CODEBLOCK-CONTRACT",
   "agent": "C",
-  "status": "in_progress",
+  "status": "review",
   "base": "4287257267671f5310ec47d6cb02dddbeab4bf87",
   "branch": "agent-c/codeblock-contract",
   "file_scope": [
@@ -10,5 +10,11 @@
     "dev/framework/doc/components/code-block.md"
   ],
   "reserved_at": "2026-08-12T00:44:00+02:00",
-  "notes": "Renforcer CodeBlock sans toucher à la démo ni aux zones A/B : normalisation/presets de langage, formatage JSON sûr, copie et téléchargement défensifs hors navigateur, MIME/filename, export texte et tests de rendu/échappement."
+  "final_sha": "794f61bffdf41a3fca918577a790daeb6463b9d6",
+  "verification": {
+    "diff": "5 commits / 3 files, all inside reserved file_scope",
+    "tests": "local Node contract test + render syntax check",
+    "result": "code block tests: ok"
+  },
+  "notes": "CodeBlock normalise les langages, expose des presets extension/MIME, formate JSON défensivement, sécurise le tokeniseur, gère copie/téléchargement hors navigateur et conserve l'API existante. Aucun fichier A/B, aucune démo ni roadmap modifiés dans la branche."
 }
