@@ -3,6 +3,7 @@ import { BrowserStorage } from '../core/storage.js';
 import { ThemeEngine, DEFAULT_THEME } from '../themes/theme-engine.js';
 import { VisitorPreferences } from '../themes/visitor-preferences.js';
 import { ThemeWorkshop } from '../components/theme-workshop.js';
+import { CodeBlock } from '../components/code-block.js';
 import { RendererWiz } from '../wiz/renderer-wiz.js';
 import { SearchWiz } from '../wiz/search-wiz.js';
 import { FilterWiz } from '../wiz/filter-wiz.js';
@@ -46,6 +47,80 @@ const $ = (selector)=>document.querySelector(selector);
 const status = $('#status');
 const searchInput=$('#search'), category=$('#category'), rendererSelect=$('#renderer');
 
+const sectionRegistry={
+  overview:{ id:'DMO-001',technicalId:'demo.overview',title:'Vue générale',test:'Vérifier le chargement global du catalogue, le statut et la cohérence du thème.' },
+  'theme-workshop':{ id:'DMO-010',technicalId:'demo.theme.workshop',title:'Theme Workshop',test:'Tester les couleurs, la densité, l’import/export et le redimensionnement des composants.' },
+  responsive:{ id:'DMO-020',technicalId:'demo.responsive.simulator',title:'Responsive simulé',test:'Changer de largeur et vérifier que le renderer recommandé et la mise en page s’adaptent.' },
+  'data-explorer':{ id:'DMO-030',technicalId:'demo.data.explorer',title:'Search / Filter / Renderer',test:'Rechercher, filtrer et changer de renderer sans modifier la source de données.' },
+  'table-wiz':{ id:'DMO-040',technicalId:'demo.data.table-wiz',title:'TableWiz',test:'Tester recherche, rendu tabulaire et export CSV.' },
+  'json-studio':{ id:'DMO-050',technicalId:'demo.data.json-studio',title:'JSON Studio',test:'Comparer Raw, Tree, Form, Table et Diff. Les améliorations Tree/Form sont encore au backlog.' },
+  'data-wiz':{ id:'DMO-060',technicalId:'demo.data.data-wiz',title:'DataWiz',test:'Vérifier les statistiques descriptives et regroupements sur le dataset de démonstration.' },
+  'floating-panel':{ id:'DMO-070',technicalId:'demo.ui.inspector-panel',title:'FloatingPanel / InspectorPanel',test:'Déplacer, redimensionner, épingler et fermer le panneau.' },
+  'qr-studio':{ id:'DMO-QR-001',technicalId:'demo.output.qr-studio',title:'QR Studio',test:'Tester presets, transparence, couleurs, correction d’erreur, logo et régénération dynamique.' },
+  output:{ id:'DMO-080',technicalId:'demo.output.document',title:'Media / Share / Document',test:'Prévisualiser le document HTML généré depuis les données.' },
+  'code-block':{ id:'DMO-CODE-001',technicalId:'demo.ui.code-block',title:'CodeBlock',test:'Basculer thème et coloration, copier le JSON et télécharger le fichier.' },
+  config:{ id:'DMO-090',technicalId:'demo.runtime.configuration',title:'Configuration active',test:'Vérifier que les paramètres actifs reflètent les actions réalisées dans le catalogue.' }
+};
+
+function installSectionInspectors(){
+  for(const [sectionId,meta] of Object.entries(sectionRegistry)){
+    const section=document.getElementById(sectionId);
+    if(!section) continue;
+    section.dataset.nlabId=meta.id;
+    section.dataset.nlabTechnicalId=meta.technicalId;
+    if(sectionId==='qr-studio') continue;
+    const heading=section.querySelector('h1,h2');
+    if(!heading || heading.parentElement?.classList.contains('demo-section-title')) continue;
+    const titleRow=document.createElement('div');
+    titleRow.className='demo-section-title demo-inspector-meta';
+    heading.before(titleRow);
+    titleRow.append(heading);
+    const metaBlock=document.createElement('div');
+    metaBlock.className='demo-section-id';
+    metaBlock.innerHTML=`<strong>${meta.id}</strong><code>${meta.technicalId}</code>`;
+    const info=document.createElement('button');
+    info.type='button';
+    info.className='demo-info-button';
+    info.dataset.helpId=`section.${sectionId}`;
+    info.title='Informations et tests';
+    info.setAttribute('aria-label',`Informations de test ${meta.id}`);
+    info.textContent='ⓘ';
+    titleRow.append(metaBlock,info);
+  }
+}
+installSectionInspectors();
+
+const helpRegistry={
+  'demo.help':{ title:'Aide contextuelle',short:'Ouvre une aide dans InspectorPanel.',long:'HelpWiz affiche une aide courte, une consigne de test et des détails techniques en expérience Webmaster.',technical:{ module:'help-wiz',mode:'demo' } },
+  'demo.qr':{ title:'DMO-QR-001 — QR Studio',short:'Tester la génération QR dynamique.',long:'Tous les QR de cette section sont générés en direct dans le navigateur. Testez les presets puis modifiez taille, marge, correction, couleurs, transparence et logo dans le mode personnalisé.',technical:{ id:'DMO-QR-001',technicalId:'demo.output.qr-studio',component:'QRWiz',encoder:'qrcode@1.5.4 via ESM',files:['wiz/qr-wiz.js','demo/demo.js','demo/index.html','demo/demo.css'] } }
+};
+for(const [sectionId,meta] of Object.entries(sectionRegistry)) helpRegistry[`section.${sectionId}`]={ title:`${meta.id} — ${meta.title}`,short:meta.test,long:`À tester : ${meta.test}`,technical:{id:meta.id,technicalId:meta.technicalId,section:sectionId,source:'demo/index.html',controller:'demo/demo.js'} };
+
+const panel=$('#panel');
+const panelController=mountFloatingPanel(panel,{ state:new FloatingPanelState({x:40,y:100,width:390,height:300}),storage,storageKey:'floating-panel' });
+$('#open-panel').addEventListener('click',()=>{ panel.hidden=false; panelController.render(); });
+$('#panel-close').addEventListener('click',()=>panel.hidden=true);
+const pinButton=$('#panel-pin');
+function renderPin(){ pinButton.setAttribute('aria-pressed',String(panelController.state.pinned)); pinButton.classList.toggle('is-active',panelController.state.pinned); pinButton.title=panelController.state.pinned?'Désépingler le panneau':'Épingler le panneau à cette position'; }
+pinButton.addEventListener('click',(event)=>{ event.stopPropagation(); panelController.togglePin(); renderPin(); });
+renderPin();
+
+const help=new HelpWiz({ registry:helpRegistry, panelFactory:(entry)=>{ panel.hidden=false; $('#help-content').innerHTML=`<h3>${entry.title}</h3><p>${entry.long}</p><pre>${JSON.stringify(entry.technical,null,2)}</pre>`; panelController.render(); } });
+help.attach(document,{experience:'webmaster'});
+
+let inspectorVisible=true;
+$('#toggle-inspector').addEventListener('click',()=>{
+  inspectorVisible=!inspectorVisible;
+  document.body.classList.toggle('demo-hide-inspector',!inspectorVisible);
+  const button=$('#toggle-inspector');
+  button.textContent=inspectorVisible?'ⓘ Infos ON':'ⓘ Infos OFF';
+  button.setAttribute('aria-pressed',String(inspectorVisible));
+});
+
+const nav=new NavigationWiz({ root:document,contentSelector:'#demo-content' }); nav.render($('#demo-nav')); nav.observe($('#demo-nav'));
+
+const codeBlock=new CodeBlock({value:'{}',language:'json',filename:'nlab-demo-config.json',theme:'light',highlighted:true}).mount($('#codeblock-demo'));
+
 function filteredData(){
   let rows=data;
   if(searchInput.value) rows=searchWiz.search(rows,searchInput.value,{ fields:['name','category','tags','notes'] }).items;
@@ -68,15 +143,6 @@ $('#json-diff').addEventListener('click',()=>$('#json-diff-output').textContent=
 
 $('#stats').textContent=JSON.stringify(dataWiz.describe(data,['minutes','rating','category']),null,2);
 $('#groups').innerHTML=dataWiz.groupBy(data,'category').map((group)=>`<span class="demo-badge">${group.value}: ${group.count}</span>`).join('');
-
-const nav=new NavigationWiz({ root:document,contentSelector:'#demo-content' }); nav.render($('#demo-nav')); nav.observe($('#demo-nav'));
-const panel=$('#panel');
-const panelController=mountFloatingPanel(panel,{ state:new FloatingPanelState({x:40,y:100,width:390,height:300}),storage,storageKey:'floating-panel' });
-$('#open-panel').addEventListener('click',()=>{ panel.hidden=false; panelController.render(); }); $('#panel-close').addEventListener('click',()=>panel.hidden=true);
-const help=new HelpWiz({ registry:{
-  'demo.help':{ title:'Aide contextuelle',short:'Ouvre une aide dans FloatingPanel.',long:'HelpWiz peut afficher une aide courte, longue et des détails techniques en expérience Webmaster.',technical:{ module:'help-wiz',mode:'demo' } },
-  'demo.qr':{ title:'DMO-QR-001 — QR Studio',short:'Tester la génération QR dynamique.',long:'Tous les QR de cette section sont générés en direct dans le navigateur. Testez les presets Standard, Transparent, Couleurs, Avec logo et Monochrome thème, puis modifiez taille, marge, correction, couleurs, transparence et logo dans le mode personnalisé.',technical:{ id:'DMO-QR-001',technicalId:'demo.output.qr-studio',component:'QRWiz',encoder:'qrcode@1.5.4 via ESM',files:['wiz/qr-wiz.js','demo/demo.js','demo/index.html','demo/demo.css'] } }
-}, panelFactory:(entry)=>{ panel.hidden=false; $('#help-content').innerHTML=`<h3>${entry.title}</h3><p>${entry.long}</p><pre>${JSON.stringify(entry.technical,null,2)}</pre>`; panelController.render(); } }); help.attach(document,{experience:'webmaster'});
 
 workshop.mountColorPicker($('#theme-pickers'),['accent','bg','fg']);
 $('#unlock').addEventListener('click',()=>{ workshop.toggleUnlocked(); $('#unlock').textContent=workshop.unlocked?'Verrouiller édition':'Déverrouiller'; renderConfig(); });
@@ -114,17 +180,31 @@ async function renderQRStudio(){
     renderQR('#qr-custom',customQRConfig())
   ]);
   $('#qr-config').textContent=JSON.stringify({...customQRConfig(),logo:qrControls.logo.checked?'demo-logo.svg':null},null,2);
+  renderConfig();
 }
-function applyQRControlPreset(name){ const preset=qrPresets[name]; qrControls.dark.value=preset.dark || currentAccent(); qrControls.light.value=preset.light; qrControls.transparent.checked=preset.transparent; qrControls.logo.checked=preset.logo; qrControls.ecc.value=preset.ecc; renderQRStudio(); }
+function applyQRControlPreset(name){ const preset=qrPresets[name]; qrControls.dark.value=preset.dark || currentAccent(); qrControls.light.value=preset.light; qrControls.transparent.checked=preset.transparent; qrControls.logo.checked=preset.logo; qrControls.ecc.value=preset.ecc; return renderQRStudio(); }
 for(const button of document.querySelectorAll('[data-qr-preset]')) button.addEventListener('click',()=>applyQRControlPreset(button.dataset.qrPreset));
-for(const element of Object.values(qrControls)) element.addEventListener(element.type==='text'?'input':'change',renderQRStudio);
-$('#qr-margin').addEventListener('input',renderQRStudio);
-$('#qr-refresh').addEventListener('click',renderQRStudio);
+for(const element of Object.values(qrControls)) element.addEventListener(element.type==='text'?'input':'change',()=>renderQRStudio());
+$('#qr-margin').addEventListener('input',()=>renderQRStudio());
+$('#qr-refresh').addEventListener('click',async(event)=>{ event.preventDefault(); const button=event.currentTarget; button.disabled=true; button.textContent='Régénération…'; await renderQRStudio(); button.textContent='Régénéré ✓'; setTimeout(()=>{button.disabled=false;button.textContent='Régénérer';},900); });
 
 $('#document-preview').addEventListener('click',()=>$('#document-output').textContent=documentWiz.renderHTML(data[0],{ fields:['name','category','minutes','rating','tags'],labels:{name:'Nom',category:'Catégorie',minutes:'Durée',rating:'Note',tags:'Tags'} }));
 
-function renderConfig(){ $('#config-output').textContent=JSON.stringify({ breakpoint:Number($('#breakpoint').value), renderer:rendererSelect.value, theme:engine.resolve({user:workshop.sessionPatch}), workshop:{ unlocked:workshop.unlocked, locks:[...workshop.componentLocks], patch:workshop.sessionPatch }, visitor:visitor.values, search:searchInput.value, category:category.value, qr:customQRConfig() },null,2); }
+function configSnapshot(){
+  return {
+    breakpoint:Number($('#breakpoint').value),
+    renderer:rendererSelect.value,
+    theme:engine.resolve({user:workshop.sessionPatch}),
+    workshop:{ unlocked:workshop.unlocked, locks:[...workshop.componentLocks], patch:workshop.sessionPatch },
+    visitor:visitor.values,
+    search:searchInput.value,
+    category:category.value,
+    qr:{...customQRConfig(),logo:qrControls.logo.checked?'demo-logo.svg':null},
+    inspector:{visible:inspectorVisible,panel:panelController.state.toJSON()}
+  };
+}
+function renderConfig(){ const json=JSON.stringify(configSnapshot(),null,2); $('#config-output').textContent=json; codeBlock.setValue(json); }
 
 studio.render($('#json-editor'));
-renderTable(); renderResults(); renderResponsive(); await renderQRStudio(); renderConfig();
+renderTable(); renderResponsive(); await renderQRStudio(); renderResults(); renderConfig();
 status.textContent='Catalogue initialisé — utilisez les contrôles pour tester le framework.';
