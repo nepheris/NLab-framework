@@ -1,7 +1,7 @@
 {
   "task_id": "COORD-ROADMAP-AGENT-DASHBOARD",
   "agent": "B",
-  "status": "in_progress",
+  "status": "released",
   "base": "fa941c3ae920946b5ee16f116ba456684f9d06c2",
   "branch": "New",
   "file_scope": [
@@ -10,5 +10,7 @@
     "dev/framework/doc/roadmap/coordination/agent-board.md"
   ],
   "reserved_at": "2026-08-12T00:27:00+02:00",
-  "notes": "Mettre en place le tableau de pilotage multi-agent visible depuis la roadmap : couleurs A/B/C, statuts de verrous, règles de rafraîchissement et snapshot des tâches actives. Lock de contrôle documentaire uniquement ; aucun runtime ni fichier métier."
+  "released_at": "2026-08-12T00:27:00+02:00",
+  "final_sha": "cc6681b222385570d89998f3e0fd92a165600661",
+  "notes": "Tableau multi-agent A/B/C, procédure de couleurs, mutex documentaire et snapshot des tâches actives ajoutés à la roadmap. Mutex libéré pour le prochain rafraîchissement."
 }
