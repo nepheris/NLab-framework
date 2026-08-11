@@ -1,7 +1,7 @@
 {
   "task_id": "8B-DATA-PROVIDER-ROBUSTNESS",
   "agent": "C",
-  "status": "in_progress",
+  "status": "review",
   "base": "a61a1a0d14e16c55847381eaec07e91f9dfa6e47",
   "branch": "agent-c/data-provider-robustness",
   "file_scope": [
@@ -10,5 +10,11 @@
     "dev/framework/doc/data-provider/data-provider.md"
   ],
   "reserved_at": "2026-08-12T01:36:00+02:00",
-  "notes": "Durcir le contrat abstrait DataProvider sans modifier JsonDataProvider : options validées/clonées, supports(capability), getRecord avec collection/idField validés et résultat iterable contrôlé, erreurs read-only structurées, init/close chainables et tests dédiés."
+  "final_sha": "cbcd9170e024330ebf4653e16b66eb3e424e0ca4",
+  "verification": {
+    "diff": "3 commits / 3 files, all inside reserved file_scope",
+    "tests": "local Node base + concrete JsonDataProvider compatibility test",
+    "result": "DataProvider tests: OK"
+  },
+  "notes": "DataProvider valide/clône ses options, expose supports(), fiabilise getRecord avec collection/idField/result iterable validés, structure les erreurs read-only/abstractes et reste compatible avec JsonDataProvider. Aucun fichier provider concret, A/B, démo ou roadmap dans la branche."
 }
