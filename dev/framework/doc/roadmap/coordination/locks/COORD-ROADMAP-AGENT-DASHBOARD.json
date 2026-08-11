@@ -1,7 +1,7 @@
 {
   "task_id": "COORD-ROADMAP-AGENT-DASHBOARD",
   "agent": "C",
-  "status": "in_progress",
+  "status": "released",
   "base": "d0b1d351add2b82eef671e256daf7f74d5008dd5",
   "branch": "New",
   "file_scope": [
@@ -10,5 +10,8 @@
     "dev/framework/doc/roadmap/coordination/agent-board.md"
   ],
   "reserved_at": "2026-08-12T00:35:00+02:00",
-  "notes": "Agent C rafraîchit le snapshot documentaire après intégration des PR #2 (Analytics/Consent/Provider) et #3 (Lot 9 preflight). Delta limité aux statuts C ; aucun arbitrage A/B modifié."
+  "released_at": "2026-08-12T00:38:00+02:00",
+  "final_sha": "b73e030ea72a448b0ef028d92fb91b5e158d4d0e",
+  "agent_board_sha": "25de654f44e9a35c6a80f07fbb88cc3836c5f45a",
+  "notes": "Agent C a synchronisé uniquement son delta : Analytics/Consent/Provider et pré-vol Lot 9 sont désormais done et intégrés dans New via PR #2/#3. Roadmap et agent-board rafraîchis ; mutex libéré sans modifier les arbitrages A/B."
 }
