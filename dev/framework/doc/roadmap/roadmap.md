@@ -12,9 +12,9 @@
 
 > 👇👇👇 **POINT DE TRAVAIL ACTIF**  
 > 🎯 **Phase active : [Lot 8B — Consolidation UX / industrialisation](#phase-8b)**  
-> 🟣👤 **Jalon HUMAN actif : [H001 — validation UX du cycle V18](#human-h001)**
+> 🟣👤 **Jalon HUMAN actif : [H001 — validation UX du cycle V19](#human-h001)**
 
-> ℹ️ Une phase antérieure peut rester sous 100 % si son critère bloquant est satisfait. Les compléments non bloquants restent suivis sans empêcher la progression.
+> ℹ️ Le raccord technique du Theme Workshop est terminé en V19. Le jalon reste ouvert tant que la validation visuelle HUMAN n’a pas confirmé le comportement réel des portées et des contrôles raccordés.
 
 <details>
 <summary><strong>🧭 1.2 Sommaire — cliquer pour déplier</strong></summary>
@@ -42,7 +42,8 @@
 - 🗂️ **Dépôt :** [nepheris/nLab-Web-Framework](https://github.com/nepheris/nLab-Web-Framework) <a href="https://github.com/nepheris/nLab-Web-Framework" target="_blank">↗</a>
 - 🤖 **Brief machine / REX :** [`rex.machine.json`](./rex.machine.json) <a href="./rex.machine.json" target="_blank">↗</a>
 - 🟣👤 **Fiche HUMAN active :** [`human-check.md`](./human-check.md) <a href="./human-check.md" target="_blank">↗</a>
-- 🔎 **Cycle de démonstration courant :** [`../../demo/ROADMAP_V18.md`](../../demo/ROADMAP_V18.md) <a href="../../demo/ROADMAP_V18.md" target="_blank">↗</a>
+- 🔎 **Cycle de démonstration courant :** [`../../demo/ROADMAP_V19.md`](../../demo/ROADMAP_V19.md) <a href="../../demo/ROADMAP_V19.md" target="_blank">↗</a>
+- 🔎 **Cycle précédent :** [`../../demo/ROADMAP_V18.md`](../../demo/ROADMAP_V18.md) <a href="../../demo/ROADMAP_V18.md" target="_blank">↗</a>
 - 💡 **Boîte à idées :** backlog de cette roadmap jusqu’à création d’un fichier dédié.
 
 <a name="legende"></a>
@@ -78,24 +79,22 @@
 | Domaine | Focus | État | Avancement | Cible |
 |---|---|---|---:|---|
 | Architecture Framework | ⬜ | 🟡 | ~90 % | socle propre, factorisé et stable |
-| Catalogue / Playground | ⬜ | 🟡 | ~80 % | banc d’essai complet |
-| UX / concepts | ⬜ | 🟡 | ~70 % | comportements validés humainement |
-| **Composants industrialisés** | **🟦 ACTIF** | 🟡 | ~55 % | prototypes extraits en composants génériques |
+| Catalogue / Playground | ⬜ | 🟡 | ~85 % | banc d’essai complet |
+| UX / concepts | 🟦 | 🟡 | ~75 % | comportements validés humainement |
+| Composants industrialisés | ⬜ | 🟡 | ~60 % | prototypes extraits en composants génériques |
 | JSON / data métier | ⬜ | 🟡 | ~50 % | édition + relations inter-JSON robustes |
-| Tests / robustesse | ⬜ | 🟡 | ~30 % | non-régression et cas négatifs |
+| Tests / robustesse | ⬜ | 🟡 | ~35 % | non-régression et cas négatifs |
 | Intégration métier | ⬜ | 🟡 | ~20 % | crash-test Recettes du Cœur |
 
 ```text
 ⬜ ARCHITECTURE FRAMEWORK       ████████████████████  ~90 %
-⬜ CATALOGUE / PLAYGROUND      ████████████████░░░░  ~80 %
-⬜ UX / CONCEPTS               ██████████████░░░░░░  ~70 %
-🟦 COMPOSANTS INDUSTRIALISÉS   ███████████░░░░░░░░░  ~55 %   ← ACTIF
+⬜ CATALOGUE / PLAYGROUND      █████████████████░░░  ~85 %
+🟦 UX / CONCEPTS               ███████████████░░░░░  ~75 %   ← VALIDATION ACTIVE
+⬜ COMPOSANTS INDUSTRIALISÉS   ████████████░░░░░░░░  ~60 %
 ⬜ JSON / DATA MÉTIER          ██████████░░░░░░░░░░  ~50 %
-⬜ TESTS / ROBUSTESSE          ██████░░░░░░░░░░░░░░  ~30 %
+⬜ TESTS / ROBUSTESSE          ███████░░░░░░░░░░░░░  ~35 %
 ⬜ INTÉGRATION MÉTIER          ████░░░░░░░░░░░░░░░░  ~20 %
 ```
-
-> Le repère 🟦 indique **où l’effort courant est concentré**. Les autres domaines restent visibles en gris/neutre pour conserver la vision globale.
 
 > Ces valeurs représentent une maturité fonctionnelle et architecturale, pas un pourcentage de lignes de code terminées.
 
@@ -113,13 +112,14 @@
 ```text
 Socle Framework largement construit
 ↓
-Catalogue / Playground V18 testant la portée native du Theme Workshop
+Catalogue / Playground V18 : preuve de la portée native Theme Workshop
 ↓
-Theme Workshop industrialisé : global → type → instance
+V19 : raccord technique des contrôles historiques compatibles
 ↓
-POINT ACTIF : valider cette industrialisation et raccorder les contrôles historiques
+POINT ACTIF : validation HUMAN V19
 ↓
-PROCHAINE ÉTAPE : JSON Studio → composant framework autonome
+SI VALIDÉ : JSON Studio → composant framework autonome
+SI BLOQUANT : correction ciblée V20
 ```
 
 **Process cible :**
@@ -148,7 +148,7 @@ La démo reste un laboratoire. Une fonction validée ne doit pas rester durablem
 
 ### 🟣👤 1.7 Jalons HUMAN
 
-- 🟣👤 **H001 — validation UX du cycle V18 : actif.** → [voir détail](#human-h001)
+- 🟣👤 **H001 — validation UX du cycle V19 : actif.** → [voir détail](#human-h001)
 - ⚪ **H002 — validation de sortie du Lot 8B : à planifier après industrialisation prioritaire.**
 - ⚪ **H003 — validation avant crash-test Recettes du Cœur : futur.**
 
@@ -199,14 +199,14 @@ Le détail exact de l’ancienne numérotation interne ne doit pas être réinve
 
 | État | Avancement | Action |
 |---|---:|---|
-| 🟢 | 100 % | page V18 versionnée et clairement identifiable |
+| 🟢 | 100 % | page V19 versionnée et clairement identifiable |
 | 🟢 | 100 % | header / sommaire / Info-Test / responsive consolidés dans la démo |
 | 🟢 | 100 % | jeux de données de test enrichis |
 | 🟢 | 100 % | relations inter-JSON de démonstration prouvées |
 | 🟢 | 100 % | Theme Workshop : cascade native `global → type → instance`, profils et resets |
-| 🟡 | ~75 % | validation UX des thèmes, profils, Set Filter, TableWiz, JSON Studio, QR Studio |
-| 🟡 | ~55 % | extraction des prototypes vers des composants framework |
-| 🟡 | en cours | raccorder les contrôles historiques Theme Workshop à la nouvelle API scoped |
+| 🟢 | 100 % technique | raccord des contrôles historiques compatibles à l’API scoped en V19 |
+| 🟡 | HUMAN actif | validation visuelle des portées, profils, resets et contrôles historiques V19 |
+| 🟡 | ~60 % | extraction des prototypes vers des composants framework |
 | ⚪ | 0 % | **intégrer le logo nLab Web Framework déjà validé : retrouver les fichiers source validés, créer `doc/roadmap/icons/`, y déposer le pack officiel (variantes, icône, manifest/README) et le référencer dans la documentation** |
 | ⚪ | 0 % | **industrialiser JSON Studio en composant autonome** |
 | ⚪ | 0 % | convergence TableWiz / DataWiz / ResultSet |
@@ -214,16 +214,19 @@ Le détail exact de l’ancienne numérotation interne ne doit pas être réinve
 
 <a name="human-h001"></a>
 <details open>
-<summary><strong>🟣👤 H001 — Validation UX du cycle V18 — ACTIF</strong></summary>
+<summary><strong>🟣👤 H001 — Validation UX du cycle V19 — ACTIF</strong></summary>
+
+**État technique :** le raccord est intégré. La décision restante est humaine.
 
 **Pourquoi l’humain intervient :**
 1. vérifier que `Cet élément / Même type / Global` produit des effets distincts et compréhensibles ;
 2. valider les profils et resets sur la nouvelle API native ;
-3. arbitrer les corrections avant de passer au JSON Studio.
+3. vérifier que couleurs, background, bordures, typographie et densité ne produisent plus d’écriture globale parasite en portée Type/Instance ;
+4. arbitrer une éventuelle correction V20 avant de passer au JSON Studio.
 
 **Contrôle :** 🟣👤 [`human-check.md`](./human-check.md) <a href="./human-check.md" target="_blank">↗</a>
 
-**Après validation :** raccorder les contrôles historiques puis extraire JSON Studio hors de la démo.
+**Après validation :** clôturer H001 et lancer l’industrialisation de JSON Studio.
 
 🟣👤 [Retour aux jalons HUMAN](#jalons-human) · 🔷 [↑ Sommaire](#haut)
 </details>
@@ -274,19 +277,21 @@ Ces lots existaient dans l’ancienne roadmap. Leurs intitulés exacts ne sont p
 # 6. Séquence d’industrialisation
 
 <details open>
-<summary><strong>📈 Priorités techniques après V18</strong></summary>
+<summary><strong>📈 Priorités techniques après V19</strong></summary>
 
-1. **Theme Workshop** — terminer le raccord des contrôles historiques à la portée native.
-2. **JSON Studio** — composant framework, validation, undo/redo, historique, diff, relations multiples, mapping d’affichage.
-3. **TableWiz / DataWiz** — DataSource, ResultSet et renderers partagés.
-4. **Search / Set Filter** — pondération des tokens, stopwords configurables, locale, suggestions multi-colonnes.
-5. **Media Renderer** — fond, transparence, ratio, object-fit, bordures, coins indépendants, masque/détourage.
-6. **QRWiz** — contenus typés, presets, logos, validation de lisibilité.
-7. **NotificationCenter** — `info / success / warning / error / dev` pilotés par le thème.
-8. **CodeBlock** — presets par langage, JSON hiérarchique pliable, distinction bloc de code / éditeur enrichi.
-9. **Identité visuelle** — intégrer dans le dépôt le pack du logo nLab Web Framework déjà validé et raccorder les références documentaires.
-10. **Consolidation / tests / documentation**.
-11. **Lot 9 — crash-test Recettes du Cœur**.
+0. **H001 — validation V19** : confirmer visuellement le raccord scoped ; correction V20 uniquement si anomalie bloquante.
+1. **JSON Studio** — composant framework, validation, undo/redo, historique, diff, relations multiples, mapping d’affichage.
+2. **TableWiz / DataWiz** — DataSource, ResultSet et renderers partagés.
+3. **Search / Set Filter** — pondération des tokens, stopwords configurables, locale, suggestions multi-colonnes.
+4. **Media Renderer** — fond, transparence, ratio, object-fit, bordures, coins indépendants, masque/détourage.
+5. **QRWiz** — contenus typés, presets, logos, validation de lisibilité.
+6. **NotificationCenter** — `info / success / warning / error / dev` pilotés par le thème.
+7. **CodeBlock** — presets par langage, JSON hiérarchique pliable, distinction bloc de code / éditeur enrichi.
+8. **Identité visuelle** — intégrer dans le dépôt le pack du logo nLab Web Framework déjà validé et raccorder les références documentaires.
+9. **Consolidation / tests / documentation**.
+10. **Lot 9 — crash-test Recettes du Cœur**.
+
+> Cette liste est l’ordre technique actuel, pas un verrou. L’arbitrage de priorité peut déplacer une tâche indépendante (par exemple l’identité visuelle) sans perdre son suivi.
 
 🔷 [↑ Sommaire](#haut)
 </details>
@@ -347,7 +352,7 @@ Ces lots existaient dans l’ancienne roadmap. Leurs intitulés exacts ne sont p
 <details open>
 <summary><strong>BEFORE_CLOSE — Lot 8B</strong></summary>
 
-- raccord complet des contrôles Theme Workshop à la nouvelle API scoped ;
+- 🟣👤 validation HUMAN V19 de la portée native et des contrôles raccordés ;
 - **intégration du pack officiel du logo nLab Web Framework déjà validé dans `dev/framework/doc/roadmap/icons/`, avec manifest/README et références documentaires** ;
 - extraction JSON Studio ;
 - convergence minimale TableWiz / DataWiz ;
