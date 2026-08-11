@@ -1,7 +1,7 @@
 {
   "task_id": "8B-PRESET-MANAGER-IMPORT",
   "agent": "C",
-  "status": "review",
+  "status": "done",
   "base": "e5169b32ecd6e0b5c615960026be41cd235632b2",
   "branch": "agent-c/preset-manager-import",
   "file_scope": [
@@ -11,10 +11,12 @@
   ],
   "reserved_at": "2026-08-12T00:50:00+02:00",
   "final_sha": "64fe7944290749a260a4a8e01357e3b2d54cd2b7",
+  "merged_sha": "ff9ab4ed974ea4a8a83bdf84f545e9b7313434d6",
+  "pull_request": 6,
   "verification": {
     "diff": "3 commits / 3 files, all inside reserved file_scope",
     "tests": "local Node contract test",
     "result": "PresetManager tests: OK"
   },
-  "notes": "Import de collection désormais atomique : validation type/version/namespace/shape/doublons/activeId avant commit, replace sans état partiel, canoniques préservés. Aucun fichier A/B, aucune démo ni roadmap dans la branche."
+  "notes": "Import de collection atomique : validation type/version/namespace/shape/doublons/activeId avant commit, replace sans état partiel, canoniques préservés. Intégré dans New via PR #6 ; aucun fichier A/B ni démo touché."
 }
