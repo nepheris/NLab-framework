@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-HELPWIZ-CONTRACT",
+  "agent": "C",
+  "status": "in_progress",
+  "base": "a1ab7234bc59e7941704ee4c053c0b5161546334",
+  "branch": "agent-c/helpwiz-contract",
+  "file_scope": [
+    "dev/framework/help/help-wiz.js",
+    "dev/framework/tests/help-wiz.test.mjs",
+    "dev/framework/doc/help/help-wiz.md"
+  ],
+  "reserved_at": "2026-08-12T01:05:00+02:00",
+  "notes": "Durcir HelpWiz sans toucher à Header/Navigation visuelle/Search-Filter/URL Resolver : registre cloné, attach sans DOM implicite, CustomEvent injectable/fallback, attachements idempotents, detach/destroy et contexte visitor/webmaster testé."
+}
