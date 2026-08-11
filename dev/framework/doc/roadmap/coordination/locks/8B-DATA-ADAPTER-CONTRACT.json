@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-DATA-ADAPTER-CONTRACT",
+  "agent": "C",
+  "status": "in_progress",
+  "base": "e75dd6579f387e43783e234b0f80f4350d5d3090",
+  "branch": "agent-c/data-adapter-contract",
+  "file_scope": [
+    "dev/framework/core/data-adapter.js",
+    "dev/framework/tests/data-adapter-contract.test.mjs",
+    "dev/framework/doc/data-adapter/data-adapter.md"
+  ],
+  "reserved_at": "2026-08-12T01:49:00+02:00",
+  "notes": "Formaliser DataAdapter abstrait : options objet cloné/validé, canHandle false par défaut, normalize NOT_IMPLEMENTED avec details opération/contexte, sans ajouter de logique métier ni toucher A/B."
+}
