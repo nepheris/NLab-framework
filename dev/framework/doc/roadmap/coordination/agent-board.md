@@ -32,7 +32,7 @@
 | 🟩 B | 🛠️ `in_progress` | `8B-DATA-SCHEMAS-VALIDATION` | `agent-b/data-schemas-validation` | schémas data et relations |
 | 🟩 B | 🔒 `reserved` | `8B-QR-MEDIA-ROBUSTNESS` | `agent-b/qr-media-robustness` | QRWiz / MediaWiz robustesse |
 
-> 🟧 **C n'a plus de lock métier actif dans ce snapshot.** Les deux derniers lots ont été intégrés dans `New` et restent historisés dans leurs locks `done`.
+> 🟧 **C n'a plus de lock métier actif dans ce snapshot.** Les trois derniers lots ont été intégrés dans `New` et restent historisés dans leurs locks `done`.
 
 ## Livraisons C récemment intégrées
 
@@ -40,6 +40,7 @@
 |---|---|---|---|---|
 | 🟧 C | ✅ `done` | `8B-ANALYTICS-CONSENT-PROVIDER` | PR #2 — `6571142bba33e8d684a7da37bf217761e4c3cba4` | contrat AnalyticsWiz / consentement / provider GA4 renforcé + tests dédiés |
 | 🟧 C | ✅ `done` | `9-PREFLIGHT-MACHINE-CHECKLIST` | PR #3 — `3a999b6044f4a360897c8a2f794f5ffe887f1dca` | checklist machine + fiche humaine du pré-vol Lot 9 intégrées |
+| 🟧 C | ✅ `done` | `8B-NOTIFICATION-CENTER-CONTRACT` | PR #4 — `8a8c1a8b01efd445e06aae5125c4f02395741a84` | NotificationCenter sans DOM, niveaux complets, cycle de vie, thème et tests dédiés |
 
 ## Règle de lecture
 
