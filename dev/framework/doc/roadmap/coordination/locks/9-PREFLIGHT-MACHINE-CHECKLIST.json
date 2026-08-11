@@ -1,7 +1,7 @@
 {
   "task_id": "9-PREFLIGHT-MACHINE-CHECKLIST",
   "agent": "C",
-  "status": "reserved",
+  "status": "in_progress",
   "base": "701bbec549c386718d450df032ad672f184840db",
   "branch": "agent-c/lot9-preflight-machine-checklist",
   "file_scope": [
