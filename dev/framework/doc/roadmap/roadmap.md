@@ -1,4 +1,4 @@
-# nLab Framework
+# nLab Web Framework
 
 ## 🗺️ Roadmap GitHub
 
@@ -39,7 +39,7 @@
 
 ### 📎 1.3 Fichiers associés
 
-- 🗂️ **Dépôt :** [nepheris/NLab-framework](https://github.com/nepheris/NLab-framework) <a href="https://github.com/nepheris/NLab-framework" target="_blank">↗</a>
+- 🗂️ **Dépôt :** [nepheris/nLab-Web-Framework](https://github.com/nepheris/nLab-Web-Framework) <a href="https://github.com/nepheris/nLab-Web-Framework" target="_blank">↗</a>
 - 🤖 **Brief machine / REX :** [`rex.machine.json`](./rex.machine.json) <a href="./rex.machine.json" target="_blank">↗</a>
 - 🟣👤 **Fiche HUMAN active :** [`human-check.md`](./human-check.md) <a href="./human-check.md" target="_blank">↗</a>
 - 🔎 **Cycle de démonstration courant :** [`../../demo/ROADMAP_V18.md`](../../demo/ROADMAP_V18.md) <a href="../../demo/ROADMAP_V18.md" target="_blank">↗</a>
@@ -207,6 +207,7 @@ Le détail exact de l’ancienne numérotation interne ne doit pas être réinve
 | 🟡 | ~75 % | validation UX des thèmes, profils, Set Filter, TableWiz, JSON Studio, QR Studio |
 | 🟡 | ~55 % | extraction des prototypes vers des composants framework |
 | 🟡 | en cours | raccorder les contrôles historiques Theme Workshop à la nouvelle API scoped |
+| ⚪ | 0 % | **intégrer le logo nLab Web Framework déjà validé : retrouver les fichiers source validés, créer `doc/roadmap/icons/`, y déposer le pack officiel (variantes, icône, manifest/README) et le référencer dans la documentation** |
 | ⚪ | 0 % | **industrialiser JSON Studio en composant autonome** |
 | ⚪ | 0 % | convergence TableWiz / DataWiz / ResultSet |
 | ⚪ | 0 % | clôture HUMAN du Lot 8B |
@@ -283,8 +284,9 @@ Ces lots existaient dans l’ancienne roadmap. Leurs intitulés exacts ne sont p
 6. **QRWiz** — contenus typés, presets, logos, validation de lisibilité.
 7. **NotificationCenter** — `info / success / warning / error / dev` pilotés par le thème.
 8. **CodeBlock** — presets par langage, JSON hiérarchique pliable, distinction bloc de code / éditeur enrichi.
-9. **Consolidation / tests / documentation**.
-10. **Lot 9 — crash-test Recettes du Cœur**.
+9. **Identité visuelle** — intégrer dans le dépôt le pack du logo nLab Web Framework déjà validé et raccorder les références documentaires.
+10. **Consolidation / tests / documentation**.
+11. **Lot 9 — crash-test Recettes du Cœur**.
 
 🔷 [↑ Sommaire](#haut)
 </details>
@@ -346,6 +348,7 @@ Ces lots existaient dans l’ancienne roadmap. Leurs intitulés exacts ne sont p
 <summary><strong>BEFORE_CLOSE — Lot 8B</strong></summary>
 
 - raccord complet des contrôles Theme Workshop à la nouvelle API scoped ;
+- **intégration du pack officiel du logo nLab Web Framework déjà validé dans `dev/framework/doc/roadmap/icons/`, avec manifest/README et références documentaires** ;
 - extraction JSON Studio ;
 - convergence minimale TableWiz / DataWiz ;
 - nettoyage des comportements encore spécifiques à la démo ;
@@ -362,7 +365,6 @@ Ces lots existaient dans l’ancienne roadmap. Leurs intitulés exacts ne sont p
 - `LATER` — vue graphique DataWiz / ResultSet ;
 - `LATER` — détourage / masque d’images avancé ;
 - `LATER` — éditeur riche distinct du CodeBlock ;
-- `NOTE` — logo **nLab Framework validé** ; l’intégrer comme asset officiel du projet et dans les futurs supports lorsque le pipeline d’assets est appliqué ;
 - `NOTE` — récupérer la nomenclature historique exacte des lots 10 à 12.
 
 </details>
