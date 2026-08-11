@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-CODEBLOCK-CONTRACT",
+  "agent": "C",
+  "status": "reserved",
+  "base": "4287257267671f5310ec47d6cb02dddbeab4bf87",
+  "branch": "agent-c/codeblock-contract",
+  "file_scope": [
+    "dev/framework/components/code-block.js",
+    "dev/framework/tests/code-block.test.mjs",
+    "dev/framework/doc/components/code-block.md"
+  ],
+  "reserved_at": "2026-08-12T00:44:00+02:00",
+  "notes": "Renforcer CodeBlock sans toucher à la démo ni aux zones A/B : normalisation/presets de langage, formatage JSON sûr, copie et téléchargement défensifs hors navigateur, MIME/filename, export texte et tests de rendu/échappement."
+}
