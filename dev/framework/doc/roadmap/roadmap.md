@@ -12,7 +12,8 @@
 
 > 👇👇👇 **POINT DE TRAVAIL ACTIF**  
 > 🎯 **Phase active : [Lot 8B — Consolidation UX / industrialisation](#phase-8b)**  
-> 🟣👤 **Jalon HUMAN actif : [H001 — validation UX du cycle V19](#human-h001)**
+> 🟣👤 **Jalon HUMAN actif : [H001 — validation UX du cycle V19](#human-h001)**  
+> 👥 **Exécution parallèle : 🟦 A + 🟩 B + 🟧 C — [voir le tableau multi-agent](#agents-actifs)**
 
 > ℹ️ Le raccord technique du Theme Workshop est terminé en V19. Le jalon reste ouvert tant que la validation visuelle HUMAN n’a pas confirmé le comportement réel des portées et des contrôles raccordés.
 
@@ -21,9 +22,10 @@
 
 - [📎 1.3 Fichiers associés](#fichiers-associes)
 - [📘 1.4 Légende](#legende)
-- [📊 1.5 Vue globale](#vue-globale)
-- [📍 1.6 État actuel](#etat-actuel)
-- [🟣👤 1.7 Jalons HUMAN](#jalons-human)
+- [👥 1.5 Tableau multi-agent](#agents-actifs)
+- [📊 1.6 Vue globale](#vue-globale)
+- [📍 1.7 État actuel](#etat-actuel)
+- [🟣👤 1.8 Jalons HUMAN](#jalons-human)
 - [2. Lots historiques 0 à 8](#lots-historiques)
 - [3. Lot 8B — phase active](#phase-8b)
 - [4. Lot 9 — crash-test métier](#lot-9)
@@ -40,6 +42,9 @@
 ### 📎 1.3 Fichiers associés
 
 - 🗂️ **Dépôt :** [nepheris/nLab-Web-Framework](https://github.com/nepheris/nLab-Web-Framework) <a href="https://github.com/nepheris/nLab-Web-Framework" target="_blank">↗</a>
+- 👥 **Tableau multi-agent détaillé :** [`coordination/agent-board.md`](./coordination/agent-board.md) <a href="./coordination/agent-board.md" target="_blank">↗</a>
+- 🔒 **Verrous A/B/C — source de vérité opérationnelle :** [`coordination/locks/`](./coordination/locks/) <a href="./coordination/locks/" target="_blank">↗</a>
+- ⚙️ **Procédure de coordination :** [`coordination/README.md`](./coordination/README.md) <a href="./coordination/README.md" target="_blank">↗</a>
 - 🤖 **Brief machine / REX :** [`rex.machine.json`](./rex.machine.json) <a href="./rex.machine.json" target="_blank">↗</a>
 - 🟣👤 **Fiche HUMAN active :** [`human-check.md`](./human-check.md) <a href="./human-check.md" target="_blank">↗</a>
 - 🔎 **Cycle de démonstration courant :** [`../../demo/ROADMAP_V19.md`](../../demo/ROADMAP_V19.md) <a href="../../demo/ROADMAP_V19.md" target="_blank">↗</a>
@@ -50,28 +55,86 @@
 
 ### 📘 1.4 Légende
 
-<details>
+<details open>
 <summary><strong>Cliquer pour déplier / replier</strong></summary>
+
+**Avancement fonctionnel**
 
 - ⚪ `0 %` — à faire
 - 🟡 `1–99 %` — en cours
 - 🟢 `100 %` — terminé / validé
 - ⏸️ `—` — différé volontairement
 - ⬜ — domaine non actif dans le schéma synthétique
-- 🟦 — domaine actuellement travaillé
-- 🟣👤 — intervention humaine
+- 🎯 — domaine / point actuellement actif
+
+**Propriétaires multi-agent**
+
+- 🟦 **A** — Agent A
+- 🟩 **B** — Agent B
+- 🟧 **C** — Agent C
+- 🟣👤 **HUMAN** — intervention humaine
+- ⚪ **Libre** — aucune réservation active après contrôle des locks/branches
+
+**État d’un verrou**
+
+- 🔒 `reserved` — réservé, pas encore commencé
+- 🛠️ `in_progress` — travail en cours
+- 👀 `review` — prêt à relire / consolider
+- ⛔ `blocked` — dépendance ou validation bloquante
+- ✅ `done` — terminé / intégré / livré
+- ♻️ `released` — libéré
+
+**Autres repères**
+
 - 🤖 — mémoire machine / REX
 - 💡 — idée / capitalisation
 - 🔎 — audit / contrôle
 - 🔷 — navigation interne
-- 🎯 — point actif
 - 📈 — avancement / détail de phase
+
+> Les **carrés colorés** identifient les agents ; les **cercles** `🟢/🟡/⚪` restent réservés à l’avancement fonctionnel.
 
 </details>
 
+<a name="agents-actifs"></a>
+
+### 👥 1.5 Tableau multi-agent
+
+<details open>
+<summary><strong>👥 Répartition active A/B/C — ouverte par défaut</strong></summary>
+
+> **Source de vérité :** `coordination/locks/*.json`. Ce tableau est un instantané humain lisible. En cas d’écart, le lock JSON le plus récent prime.
+
+| Agent | Statut | Tâche verrouillée | Branche | Périmètre synthétique |
+|---|---|---|---|---|
+| 🟦 A | 🛠️ `in_progress` | `8B-V20-SCOPE-LAYOUT` | `review-v20-from-v16` | Scope Lab / Layout Lab V20, démo |
+| 🟦 A | 🛠️ `in_progress` | `8B-SEMANTIC-ARCHITECTURE` | `agent-a/semantic-architecture` | nomenclature et responsabilités architecturales |
+| 🟦 A | 🔒 `reserved` | `8B-HEADER-LEGACY-EXTRACTION` | `agent-a/header-studio-from-v16` | Header Studio générique |
+| 🟦 A | 🔒 `reserved` | `8B-TABLEWIZ-LEGACY-EXTRACTION` | `agent-a/tablewiz-legacy-from-v16` | TableWiz legacy → API générique |
+| 🟩 B | 🛠️ `in_progress` | `8B-OBSERVABILITY-ROBUSTNESS` | `agent-b/observability-robustness` | RuntimeMonitor / robustesse |
+| 🟩 B | 🛠️ `in_progress` | `8B-SEO-SHARE-CONTRACTS` | `agent-b/seo-share-contracts` | SEO / Share / fallbacks navigateur |
+| 🟩 B | 🛠️ `in_progress` | `8B-DATA-SCHEMAS-VALIDATION` | `agent-b/data-schemas-validation` | schémas data et relations |
+| 🟩 B | 🔒 `reserved` | `8B-QR-MEDIA-ROBUSTNESS` | `agent-b/qr-media-robustness` | QRWiz / MediaWiz robustesse |
+| 🟧 C | 🛠️ `in_progress` | `8B-ANALYTICS-CONSENT-PROVIDER` | `agent-c/analytics-consent-provider-contract` | AnalyticsWiz / consentement / GA4 |
+| 🟧 C | 👀 `review` | `9-PREFLIGHT-MACHINE-CHECKLIST` | `agent-c/lot9-preflight-machine-checklist` | pré-vol machine + checklist Lot 9 |
+| 🟩 B | 🛠️ `in_progress` | `COORD-ROADMAP-AGENT-DASHBOARD` | `New` | tableau et procédure de pilotage |
+
+**Lecture rapide :**
+
+- 🟦 **A** travaille actuellement sur V20 et l’architecture sémantique ; Header et TableWiz sont réservés par A.
+- 🟩 **B** travaille sur robustesse/contrats/data ; QR/Media est réservé par B.
+- 🟧 **C** travaille sur Analytics/consentement ; le pré-vol machine du Lot 9 est déjà en `review`.
+- 🟣👤 **HUMAN** reste requis pour H001 et les arbitrages visuels associés.
+
+Le détail complet et les `file_scope` sont visibles dans [`coordination/agent-board.md`](./coordination/agent-board.md) et surtout dans [`coordination/locks/`](./coordination/locks/).
+
+</details>
+
+🔷 **[↑ Retour au sommaire](#haut)**
+
 <a name="vue-globale"></a>
 
-### 📊 1.5 Vue globale
+### 📊 1.6 Vue globale
 
 <details open>
 <summary><strong>📊 Avancement global — ouvert par défaut</strong></summary>
@@ -80,7 +143,7 @@
 |---|---|---|---:|---|
 | Architecture Framework | ⬜ | 🟡 | ~90 % | socle propre, factorisé et stable |
 | Catalogue / Playground | ⬜ | 🟡 | ~85 % | banc d’essai complet |
-| UX / concepts | 🟦 | 🟡 | ~75 % | comportements validés humainement |
+| UX / concepts | 🎯 | 🟡 | ~75 % | comportements validés humainement |
 | Composants industrialisés | ⬜ | 🟡 | ~60 % | prototypes extraits en composants génériques |
 | JSON / data métier | ⬜ | 🟡 | ~50 % | édition + relations inter-JSON robustes |
 | Tests / robustesse | ⬜ | 🟡 | ~35 % | non-régression et cas négatifs |
@@ -89,14 +152,14 @@
 ```text
 ⬜ ARCHITECTURE FRAMEWORK       ████████████████████  ~90 %
 ⬜ CATALOGUE / PLAYGROUND      █████████████████░░░  ~85 %
-🟦 UX / CONCEPTS               ███████████████░░░░░  ~75 %   ← VALIDATION ACTIVE
+🎯 UX / CONCEPTS               ███████████████░░░░░  ~75 %   ← VALIDATION ACTIVE
 ⬜ COMPOSANTS INDUSTRIALISÉS   ████████████░░░░░░░░  ~60 %
 ⬜ JSON / DATA MÉTIER          ██████████░░░░░░░░░░  ~50 %
 ⬜ TESTS / ROBUSTESSE          ███████░░░░░░░░░░░░░  ~35 %
 ⬜ INTÉGRATION MÉTIER          ████░░░░░░░░░░░░░░░░  ~20 %
 ```
 
-> Ces valeurs représentent une maturité fonctionnelle et architecturale, pas un pourcentage de lignes de code terminées.
+> Ces valeurs représentent une maturité fonctionnelle et architecturale, pas un pourcentage de lignes de code terminées. Elles sont distinctes du statut des locks A/B/C.
 
 </details>
 
@@ -104,7 +167,7 @@
 
 <a name="etat-actuel"></a>
 
-### 📍 1.6 État actuel
+### 📍 1.7 État actuel
 
 <details open>
 <summary><strong>📍 État actuel — ouvert par défaut</strong></summary>
@@ -116,10 +179,10 @@ Catalogue / Playground V18 : preuve de la portée native Theme Workshop
 ↓
 V19 : raccord technique des contrôles historiques compatibles
 ↓
-POINT ACTIF : validation HUMAN V19
+POINT ACTIF : validation HUMAN V19 + industrialisation parallèle A/B/C
 ↓
-SI VALIDÉ : JSON Studio → composant framework autonome
-SI BLOQUANT : correction ciblée V20
+SI VALIDÉ : poursuite des composants autonomes
+SI BLOQUANT : correction ciblée V20 déjà isolée par Agent A
 ```
 
 **Process cible :**
@@ -146,7 +209,7 @@ La démo reste un laboratoire. Une fonction validée ne doit pas rester durablem
 
 <a name="jalons-human"></a>
 
-### 🟣👤 1.7 Jalons HUMAN
+### 🟣👤 1.8 Jalons HUMAN
 
 - 🟣👤 **H001 — validation UX du cycle V19 : actif.** → [voir détail](#human-h001)
 - ⚪ **H002 — validation de sortie du Lot 8B : à planifier après industrialisation prioritaire.**
@@ -197,20 +260,26 @@ Le détail exact de l’ancienne numérotation interne ne doit pas être réinve
 
 **Objectif :** fermer le cycle de construction du Catalogue / Playground en transformant les prototypes validés en briques génériques propres.
 
-| État | Avancement | Action |
-|---|---:|---|
-| 🟢 | 100 % | page V19 versionnée et clairement identifiable |
-| 🟢 | 100 % | header / sommaire / Info-Test / responsive consolidés dans la démo |
-| 🟢 | 100 % | jeux de données de test enrichis |
-| 🟢 | 100 % | relations inter-JSON de démonstration prouvées |
-| 🟢 | 100 % | Theme Workshop : cascade native `global → type → instance`, profils et resets |
-| 🟢 | 100 % technique | raccord des contrôles historiques compatibles à l’API scoped en V19 |
-| 🟡 | HUMAN actif | validation visuelle des portées, profils, resets et contrôles historiques V19 |
-| 🟡 | ~60 % | extraction des prototypes vers des composants framework |
-| ⚪ | 0 % | **intégrer le logo nLab Web Framework déjà validé : retrouver les fichiers source validés, créer `doc/roadmap/icons/`, y déposer le pack officiel (variantes, icône, manifest/README) et le référencer dans la documentation** |
-| ⚪ | 0 % | **industrialiser JSON Studio en composant autonome** |
-| ⚪ | 0 % | convergence TableWiz / DataWiz / ResultSet |
-| ⚪ | 0 % | clôture HUMAN du Lot 8B |
+| État | Avancement | Pilotage | Action |
+|---|---:|---|---|
+| 🟢 | 100 % | — | page V19 versionnée et clairement identifiable |
+| 🟢 | 100 % | — | header / sommaire / Info-Test / responsive consolidés dans la démo |
+| 🟢 | 100 % | — | jeux de données de test enrichis |
+| 🟢 | 100 % | — | relations inter-JSON de démonstration prouvées |
+| 🟢 | 100 % | — | Theme Workshop : cascade native `global → type → instance`, profils et resets |
+| 🟢 | 100 % technique | — | raccord des contrôles historiques compatibles à l’API scoped en V19 |
+| 🟡 | HUMAN actif | 🟦 A + 🟣👤 | validation visuelle des portées, profils, resets et contrôles historiques V19/V20 |
+| 🟡 | ~60 % | 🟦 A / 🟩 B / 🟧 C | extraction et consolidation parallèles de briques framework |
+| ⚪ | 0 % | ⚪ Libre | **intégrer le logo nLab Web Framework déjà validé : retrouver les fichiers source validés, créer `doc/roadmap/icons/`, y déposer le pack officiel (variantes, icône, manifest/README) et le référencer dans la documentation** |
+| ⚪ | 0 % | ⚪ Libre | **industrialiser JSON Studio en composant autonome** |
+| ⚪ | 0 % | 🟦 A — TableWiz réservé | convergence TableWiz / DataWiz / ResultSet |
+| ⚪ | 0 % | 🟣👤 | clôture HUMAN du Lot 8B |
+
+**Chantiers parallèles actuellement verrouillés dans le Lot 8B :**
+
+- 🟦 A — V20 Scope/Layout 🛠️ ; architecture sémantique 🛠️ ; Header 🔒 ; TableWiz 🔒.
+- 🟩 B — Observability 🛠️ ; SEO/Share 🛠️ ; Data Schemas 🛠️ ; QR/Media 🔒.
+- 🟧 C — Analytics/Consent/Provider 🛠️.
 
 <a name="human-h001"></a>
 <details open>
@@ -240,8 +309,10 @@ Le détail exact de l’ancienne numérotation interne ne doit pas être réinve
 
 # 4. Lot 9 — Crash-test métier Recettes du Cœur
 
-<details>
-<summary><strong>📈 Lot 9 — Crash-test métier — ⚪ 0 %</strong></summary>
+<details open>
+<summary><strong>📈 Lot 9 — Crash-test métier — ⚪ exécution 0 % / pré-vol en review</strong></summary>
+
+> 🟧 C 👀 **`9-PREFLIGHT-MACHINE-CHECKLIST` est en `review`** : la checklist machine et la fiche de pré-vol sont prêtes pour consolidation. Le crash-test métier lui-même n’a pas encore démarré.
 
 Ordre prévu :
 
@@ -279,19 +350,19 @@ Ces lots existaient dans l’ancienne roadmap. Leurs intitulés exacts ne sont p
 <details open>
 <summary><strong>📈 Priorités techniques après V19</strong></summary>
 
-0. **H001 — validation V19** : confirmer visuellement le raccord scoped ; correction V20 uniquement si anomalie bloquante.
-1. **JSON Studio** — composant framework, validation, undo/redo, historique, diff, relations multiples, mapping d’affichage.
-2. **TableWiz / DataWiz** — DataSource, ResultSet et renderers partagés.
-3. **Search / Set Filter** — pondération des tokens, stopwords configurables, locale, suggestions multi-colonnes.
-4. **Media Renderer** — fond, transparence, ratio, object-fit, bordures, coins indépendants, masque/détourage.
-5. **QRWiz** — contenus typés, presets, logos, validation de lisibilité.
-6. **NotificationCenter** — `info / success / warning / error / dev` pilotés par le thème.
-7. **CodeBlock** — presets par langage, JSON hiérarchique pliable, distinction bloc de code / éditeur enrichi.
-8. **Identité visuelle** — intégrer dans le dépôt le pack du logo nLab Web Framework déjà validé et raccorder les références documentaires.
-9. **Consolidation / tests / documentation**.
-10. **Lot 9 — crash-test Recettes du Cœur**.
+0. 🟦 A + 🟣👤 **H001 — validation V19/V20** : confirmer visuellement le raccord scoped ; correction V20 uniquement si anomalie bloquante.
+1. ⚪ **JSON Studio** — composant framework, validation, undo/redo, historique, diff, relations multiples, mapping d’affichage.
+2. 🟦 A **TableWiz / DataWiz** — TableWiz legacy est réservé ; convergence DataSource, ResultSet et renderers partagés à consolider ensuite.
+3. ⚪ **Search / Set Filter** — pondération des tokens, stopwords configurables, locale, suggestions multi-colonnes.
+4. 🟩 B 🔒 **Media Renderer** — robustesse MediaWiz réservée dans `8B-QR-MEDIA-ROBUSTNESS`.
+5. 🟩 B 🔒 **QRWiz** — robustesse QRWiz réservée dans le même lot.
+6. ⚪ **NotificationCenter** — `info / success / warning / error / dev` pilotés par le thème.
+7. ⚪ **CodeBlock** — presets par langage, JSON hiérarchique pliable, distinction bloc de code / éditeur enrichi.
+8. ⚪ **Identité visuelle** — intégrer dans le dépôt le pack du logo nLab Web Framework déjà validé et raccorder les références documentaires.
+9. 🟩 B / 🟧 C **Consolidation / tests / documentation** — plusieurs sous-lots indépendants sont actuellement verrouillés.
+10. 🟧 C 👀 **Lot 9 — pré-vol en review**, puis crash-test Recettes du Cœur après critères de sortie.
 
-> Cette liste est l’ordre technique actuel, pas un verrou. L’arbitrage de priorité peut déplacer une tâche indépendante (par exemple l’identité visuelle) sans perdre son suivi.
+> Cette liste donne l’ordre technique. **Les locks A/B/C priment sur l’ordre** : aucune tâche ne peut être reprise si son périmètre ou ses fichiers sont déjà réservés.
 
 🔷 [↑ Sommaire](#haut)
 </details>
@@ -303,27 +374,43 @@ Ces lots existaient dans l’ancienne roadmap. Leurs intitulés exacts ne sont p
 # 9. Méthode autonome
 
 <details open>
-<summary><strong>⚙️ Mode d’exécution — ouvert par défaut</strong></summary>
+<summary><strong>⚙️ Mode d’exécution multi-agent — ouvert par défaut</strong></summary>
 
 ```text
-1. lire roadmap + REX + décisions canoniques
+0. lire coordination/locks/ pour A + B + C
+1. vérifier les file_scope + branches agent-a/* agent-b/* agent-c/*
 2. vérifier le HEAD GitHub
-3. analyser les cas réels
-4. choisir le minimum nécessaire
-5. POC si utile
-6. tests positifs + négatifs
-7. confrontation au corpus réel
-8. simplifier / factoriser
-9. documenter
-10. implémenter
-11. re-tester
-12. audit vérité / sécurité / factorisation
-13. mettre à jour REX à chaque jalon structurel
-14. re-vérifier HEAD
-15. commit sans force
-16. actualiser roadmap
-17. continuer si le critère de sortie est satisfait
+3. lire roadmap + REX + décisions canoniques
+4. choisir une tâche réellement libre et indépendante
+5. créer / reprendre son lock avant toute modification
+6. travailler sur une branche dédiée si le chantier est substantiel
+7. analyser les cas réels
+8. choisir le minimum nécessaire
+9. POC si utile
+10. tests positifs + négatifs
+11. confrontation au corpus réel
+12. simplifier / factoriser
+13. documenter
+14. implémenter
+15. re-tester
+16. audit vérité / sécurité / factorisation
+17. mettre à jour REX à chaque jalon structurel
+18. re-vérifier locks A/B/C + HEAD
+19. comparer la branche avec sa base et contrôler le file_scope
+20. commit sans force
+21. mettre le lock en review/done/released selon le cas
+22. rafraîchir le tableau multi-agent dès que le mutex documentaire est disponible
+23. continuer si le critère de sortie est satisfait
 ```
+
+### Règle spéciale roadmap / tableau
+
+`coordination/locks/COORD-ROADMAP-AGENT-DASHBOARD.json` est le **mutex documentaire persistant**.
+
+- un seul agent à la fois édite `roadmap.md`, `coordination/agent-board.md` ou `coordination/README.md` ;
+- si le mutex est `in_progress` chez A, B ou C, les autres agents continuent leur code mais ne touchent pas aux fichiers de pilotage ;
+- lorsqu’il est `released` ou `done`, l’agent qui veut rafraîchir le tableau met à jour ce même lock à son nom avant édition ;
+- les locks métier restent toujours la source de vérité.
 
 **Chat / rapport :** réponse courte avec principaux changements, statut, prochain point et liens directs. Les détails restent dans GitHub.
 
