@@ -6,7 +6,7 @@ export class FloatingPanelState {
   }
 
   move(x, y, viewport = { width: Infinity, height: Infinity }) {
-    if (this.locked || this.docked) return this;
+    if (this.locked || this.pinned || this.docked) return this;
     this.x = clamp(x, 0, Math.max(0, viewport.width - this.width));
     this.y = clamp(y, 0, Math.max(0, viewport.height - this.height));
     return this;
@@ -42,8 +42,11 @@ export function mountFloatingPanel(element, { state = new FloatingPanelState(), 
   const render = () => {
     element.style.left = `${state.x}px`; element.style.top = `${state.y}px`;
     element.style.width = `${state.width}px`; element.style.height = state.minimized ? 'auto' : `${state.height}px`;
-    element.dataset.locked = String(state.locked); element.dataset.minimized = String(state.minimized);
+    element.dataset.locked = String(state.locked);
+    element.dataset.pinned = String(state.pinned);
+    element.dataset.minimized = String(state.minimized);
     element.dataset.docked = state.docked ?? '';
+    if (bar) bar.style.cursor = state.locked || state.pinned || state.docked ? 'default' : 'move';
     if (state.docked) {
       const map = {
         left: { left:'0px', top:'0px', width:'min(420px, 100vw)', height:'100vh' },
@@ -62,7 +65,7 @@ export function mountFloatingPanel(element, { state = new FloatingPanelState(), 
     render();
   };
   const pointerUp = () => { if (drag) save(); drag = null; };
-  const startMove = (event) => { if (state.locked || state.docked) return; drag = { type:'move', startX:event.clientX, startY:event.clientY, x:state.x, y:state.y }; };
+  const startMove = (event) => { if (state.locked || state.pinned || state.docked || event.target.closest('button,a,input,select,textarea')) return; drag = { type:'move', startX:event.clientX, startY:event.clientY, x:state.x, y:state.y }; };
   const startResize = (event) => { if (state.locked || state.docked) return; event.stopPropagation(); drag = { type:'resize', startX:event.clientX, startY:event.clientY, width:state.width, height:state.height }; };
 
   bar?.addEventListener('pointerdown', startMove);
@@ -75,6 +78,8 @@ export function mountFloatingPanel(element, { state = new FloatingPanelState(), 
     state,
     render,
     lock(value = true) { state.locked = value; render(); save(); },
+    pin(value = true) { state.pinned = value; render(); save(); },
+    togglePin() { state.togglePin(); render(); save(); return state.pinned; },
     minimize(value = true) { state.minimized = value; render(); save(); },
     dock(target) { state.dock(target); render(); save(); },
     undock() { state.undock(); render(); save(); },
