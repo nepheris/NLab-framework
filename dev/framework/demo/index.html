@@ -15,6 +15,7 @@
       <strong>Catalogue / Playground</strong>
       <div class="demo-controls">
         <label>Breakpoint <select id="breakpoint"><option value="360">360 px</option><option value="480">480 px</option><option value="768">768 px</option><option value="1024" selected>1024 px</option><option value="1280">1280 px</option></select></label>
+        <button id="toggle-inspector" type="button" aria-pressed="true" title="Afficher/masquer les IDs et boutons Info/Test">ⓘ Infos ON</button>
         <button id="unlock">Déverrouiller</button>
         <button id="lock-all">Verrouiller tout</button>
         <button id="export-theme">Exporter thème</button>
@@ -76,7 +77,7 @@
 
       <section id="data-wiz" class="nlab-section demo-section"><div class="nlab-container nlab-stack"><h2>DataWiz</h2><div class="demo-grid2"><pre id="stats" class="demo-code"></pre><div id="groups" class="demo-panel"></div></div></div></section>
 
-      <section id="floating-panel" class="nlab-section demo-section"><div class="nlab-container"><h2>FloatingPanel / Help</h2><button id="open-panel">Afficher panneau flottant</button><button data-help-id="demo.help">?</button></div></section>
+      <section id="floating-panel" class="nlab-section demo-section"><div class="nlab-container"><h2>FloatingPanel / InspectorPanel</h2><button id="open-panel">Afficher panneau flottant</button><button data-help-id="demo.help">?</button></div></section>
 
       <section id="qr-studio" class="nlab-section demo-section" data-nlab-id="DMO-QR-001" data-nlab-component="QRWiz">
         <div class="nlab-container nlab-stack">
@@ -84,18 +85,18 @@
             <div><h2>QR Studio</h2><p class="demo-status">ID test : <strong>DMO-QR-001</strong> · <code>demo.output.qr-studio</code></p></div>
             <button class="demo-info-button" data-help-id="demo.qr" type="button" title="Que faut-il tester ?" aria-label="Informations et tests du QR Studio">ⓘ</button>
           </div>
-          <div class="demo-test-note"><strong>À tester :</strong> modifier les contrôles, comparer les cinq variantes, vérifier le fond transparent, les couleurs, la correction d’erreur et le logo central. Tous les QR sont générés en direct dans le navigateur.</div>
+          <div class="demo-test-note"><strong>À tester :</strong> modifier les contrôles, comparer les variantes, vérifier le fond transparent, les couleurs, la correction d’erreur et le logo central. Tous les QR sont générés en direct dans le navigateur.</div>
           <div class="demo-panel nlab-stack">
             <div class="demo-controls qr-controls">
               <label>Contenu / URL <input id="qr-url" type="text" size="36"></label>
               <label>Taille <select id="qr-width"><option value="160">160 px</option><option value="220" selected>220 px</option><option value="300">300 px</option></select></label>
               <label>Marge <input id="qr-margin" type="range" min="0" max="8" value="2"><output id="qr-margin-value">2</output></label>
-              <label>Correction <select id="qr-ecc"><option>L</option><option selected>M</option><option>Q</option><option>H</option></select></label>
-              <label>Avant-plan <input id="qr-dark" type="color" value="#111827"></label>
-              <label>Arrière-plan <input id="qr-light" type="color" value="#ffffff"></label>
-              <label><input id="qr-transparent" type="checkbox"> Fond transparent</label>
+              <label>Correction d’erreur <select id="qr-ecc" title="Capacité de récupération si le QR est partiellement masqué"><option value="L">L — légère (~7 %)</option><option value="M" selected>M — moyenne (~15 %)</option><option value="Q">Q — élevée (~25 %)</option><option value="H">H — maximale (~30 %)</option></select></label>
+              <label>Couleur QR code <input id="qr-dark" type="color" value="#111827"></label>
+              <label>Couleur arrière-plan <input id="qr-light" type="color" value="#ffffff"></label>
+              <label><input id="qr-transparent" type="checkbox"> Arrière-plan transparent</label>
               <label><input id="qr-logo-enabled" type="checkbox"> Logo central</label>
-              <button id="qr-refresh" type="button">Regénérer</button>
+              <button id="qr-refresh" type="button">Régénérer</button>
             </div>
             <div class="demo-controls">
               <span>Presets :</span>
@@ -109,7 +110,7 @@
           <div class="qr-grid">
             <article class="demo-panel qr-card"><h3>Standard</h3><p>Fond blanc, modules sombres.</p><div id="qr-standard" class="qr-preview"></div></article>
             <article class="demo-panel qr-card qr-checker"><h3>Transparent</h3><p>Fond réellement transparent.</p><div id="qr-transparent-preview" class="qr-preview"></div></article>
-            <article class="demo-panel qr-card"><h3>Fond coloré</h3><p>Avant-plan et arrière-plan personnalisés.</p><div id="qr-colored" class="qr-preview"></div></article>
+            <article class="demo-panel qr-card"><h3>Fond coloré</h3><p>QR code et arrière-plan personnalisés.</p><div id="qr-colored" class="qr-preview"></div></article>
             <article class="demo-panel qr-card"><h3>Avec logo</h3><p>Correction H et logo SVG central.</p><div id="qr-logo" class="qr-preview"></div></article>
             <article class="demo-panel qr-card qr-checker"><h3>Monochrome thème</h3><p>Couleur d’accent + fond transparent.</p><div id="qr-mono" class="qr-preview"></div></article>
             <article class="demo-panel qr-card qr-card-custom"><h3>Personnalisé</h3><p>Résultat des contrôles ci-dessus.</p><div id="qr-custom" class="qr-preview"></div><pre id="qr-config" class="demo-code"></pre></article>
@@ -119,15 +120,29 @@
 
       <section id="output" class="nlab-section demo-section"><div class="nlab-container nlab-stack"><h2>Media / Share / Document</h2><div class="demo-panel"><h3>Document</h3><button id="document-preview">Prévisualiser HTML</button><pre id="document-output" class="demo-code"></pre></div></div></section>
 
+      <section id="code-block" class="nlab-section demo-section">
+        <div class="nlab-container nlab-stack">
+          <h2>CodeBlock — export machine</h2>
+          <div class="demo-test-note"><strong>À tester :</strong> basculer clair/sombre, brut/colorisé, copier le JSON puis le télécharger. Ce composant sera utilisé pour renvoyer des configurations exactes dans la discussion.</div>
+          <div id="codeblock-demo"></div>
+        </div>
+      </section>
+
       <section id="config" class="nlab-section demo-section"><div class="nlab-container nlab-stack"><h2>Configuration active</h2><pre id="config-output" class="demo-code"></pre></div></section>
     </main>
   </div>
 </div>
 
 <div id="panel" class="nlab-floating-panel" hidden style="left:24px;top:90px;width:390px;height:300px">
-  <div class="nlab-floating-panel__bar" data-panel-bar><strong>FloatingPanel</strong><button id="panel-close" type="button">×</button></div>
-  <div class="nlab-floating-panel__body"><p>Panneau déplaçable et redimensionnable. Il sert aussi de cible à HelpWiz.</p><div id="help-content"></div></div>
-  <div class="nlab-floating-panel__resize" data-panel-resize></div>
+  <div class="nlab-floating-panel__bar" data-panel-bar>
+    <strong>InspectorPanel</strong>
+    <div class="demo-panel-actions">
+      <button id="panel-pin" type="button" title="Épingler/désépingler le panneau" aria-pressed="false">📌</button>
+      <button id="panel-close" type="button" title="Fermer le panneau" aria-label="Fermer">×</button>
+    </div>
+  </div>
+  <div class="nlab-floating-panel__body"><p>Panneau déplaçable, redimensionnable et épinglable. Il sert de cible à HelpWiz et aux diagnostics.</p><div id="help-content"></div></div>
+  <div class="nlab-floating-panel__resize" data-panel-resize title="Redimensionner"></div>
 </div>
 
 <script type="module" src="demo.js"></script>
