@@ -78,7 +78,46 @@
 
       <section id="floating-panel" class="nlab-section demo-section"><div class="nlab-container"><h2>FloatingPanel / Help</h2><button id="open-panel">Afficher panneau flottant</button><button data-help-id="demo.help">?</button></div></section>
 
-      <section id="output" class="nlab-section demo-section"><div class="nlab-container nlab-stack"><h2>Media / QR / Share / Document</h2><div class="demo-grid2"><div class="demo-panel"><h3>QR réel via adapter de démo</h3><div id="qr"></div></div><div class="demo-panel"><h3>Document</h3><button id="document-preview">Prévisualiser HTML</button><pre id="document-output" class="demo-code"></pre></div></div></div></section>
+      <section id="qr-studio" class="nlab-section demo-section" data-nlab-id="DMO-QR-001" data-nlab-component="QRWiz">
+        <div class="nlab-container nlab-stack">
+          <div class="demo-section-title">
+            <div><h2>QR Studio</h2><p class="demo-status">ID test : <strong>DMO-QR-001</strong> · <code>demo.output.qr-studio</code></p></div>
+            <button class="demo-info-button" data-help-id="demo.qr" type="button" title="Que faut-il tester ?" aria-label="Informations et tests du QR Studio">ⓘ</button>
+          </div>
+          <div class="demo-test-note"><strong>À tester :</strong> modifier les contrôles, comparer les cinq variantes, vérifier le fond transparent, les couleurs, la correction d’erreur et le logo central. Tous les QR sont générés en direct dans le navigateur.</div>
+          <div class="demo-panel nlab-stack">
+            <div class="demo-controls qr-controls">
+              <label>Contenu / URL <input id="qr-url" type="text" size="36"></label>
+              <label>Taille <select id="qr-width"><option value="160">160 px</option><option value="220" selected>220 px</option><option value="300">300 px</option></select></label>
+              <label>Marge <input id="qr-margin" type="range" min="0" max="8" value="2"><output id="qr-margin-value">2</output></label>
+              <label>Correction <select id="qr-ecc"><option>L</option><option selected>M</option><option>Q</option><option>H</option></select></label>
+              <label>Avant-plan <input id="qr-dark" type="color" value="#111827"></label>
+              <label>Arrière-plan <input id="qr-light" type="color" value="#ffffff"></label>
+              <label><input id="qr-transparent" type="checkbox"> Fond transparent</label>
+              <label><input id="qr-logo-enabled" type="checkbox"> Logo central</label>
+              <button id="qr-refresh" type="button">Regénérer</button>
+            </div>
+            <div class="demo-controls">
+              <span>Presets :</span>
+              <button type="button" data-qr-preset="standard">Standard</button>
+              <button type="button" data-qr-preset="transparent">Transparent</button>
+              <button type="button" data-qr-preset="colored">Couleurs</button>
+              <button type="button" data-qr-preset="logo">Avec logo</button>
+              <button type="button" data-qr-preset="mono">Monochrome thème</button>
+            </div>
+          </div>
+          <div class="qr-grid">
+            <article class="demo-panel qr-card"><h3>Standard</h3><p>Fond blanc, modules sombres.</p><div id="qr-standard" class="qr-preview"></div></article>
+            <article class="demo-panel qr-card qr-checker"><h3>Transparent</h3><p>Fond réellement transparent.</p><div id="qr-transparent-preview" class="qr-preview"></div></article>
+            <article class="demo-panel qr-card"><h3>Fond coloré</h3><p>Avant-plan et arrière-plan personnalisés.</p><div id="qr-colored" class="qr-preview"></div></article>
+            <article class="demo-panel qr-card"><h3>Avec logo</h3><p>Correction H et logo SVG central.</p><div id="qr-logo" class="qr-preview"></div></article>
+            <article class="demo-panel qr-card qr-checker"><h3>Monochrome thème</h3><p>Couleur d’accent + fond transparent.</p><div id="qr-mono" class="qr-preview"></div></article>
+            <article class="demo-panel qr-card qr-card-custom"><h3>Personnalisé</h3><p>Résultat des contrôles ci-dessus.</p><div id="qr-custom" class="qr-preview"></div><pre id="qr-config" class="demo-code"></pre></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="output" class="nlab-section demo-section"><div class="nlab-container nlab-stack"><h2>Media / Share / Document</h2><div class="demo-panel"><h3>Document</h3><button id="document-preview">Prévisualiser HTML</button><pre id="document-output" class="demo-code"></pre></div></div></section>
 
       <section id="config" class="nlab-section demo-section"><div class="nlab-container nlab-stack"><h2>Configuration active</h2><pre id="config-output" class="demo-code"></pre></div></section>
     </main>
