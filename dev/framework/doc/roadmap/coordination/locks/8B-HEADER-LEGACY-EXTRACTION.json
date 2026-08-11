@@ -1,0 +1,18 @@
+{
+  "task_id": "8B-HEADER-LEGACY-EXTRACTION",
+  "agent": "A",
+  "status": "reserved",
+  "base": "de21ec85170112efb23c4d5c987502b9e49dd966",
+  "branch": "agent-a/header-studio-from-v16",
+  "file_scope": [
+    "dev/framework/components/header-studio.js",
+    "dev/framework/tests/header-studio*.mjs",
+    "dev/framework/doc/legacy/header-studio*.md"
+  ],
+  "reserved_at": "2026-08-11T23:58:00+02:00",
+  "sources": [
+    "MVola V15/V16 Header Studio",
+    "MadaNotes navigation/UI"
+  ],
+  "notes": "Extraire les comportements génériques sans recopier la logique métier MVola : ordre drag/drop, visibilité, libellé icône/court/long, position, groupes/menu, responsive et profils."
+}
