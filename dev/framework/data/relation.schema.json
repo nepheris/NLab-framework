@@ -7,7 +7,11 @@
   "properties": {
     "field": { "type": "string", "minLength": 1 },
     "target": { "type": "string", "minLength": 1 },
-    "targetField": { "type": "string", "default": "id" },
+    "targetField": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Champ cible explicite. S'il est omis, le runtime utilise l'idField de la collection cible, puis 'id' en dernier recours."
+    },
     "cardinality": { "enum": ["one", "many"], "default": "one" },
     "required": { "type": "boolean", "default": false },
     "onMissing": { "enum": ["error", "warn", "keep", "null"], "default": "warn" }
