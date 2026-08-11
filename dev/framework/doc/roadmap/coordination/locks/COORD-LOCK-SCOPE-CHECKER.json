@@ -1,7 +1,7 @@
 {
   "task_id": "COORD-LOCK-SCOPE-CHECKER",
   "agent": "C",
-  "status": "in_progress",
+  "status": "review",
   "base": "f74f4508b59afc0a7933d66781121c7e5a62dc75",
   "branch": "agent-c/lock-scope-checker",
   "file_scope": [
@@ -10,5 +10,11 @@
     "dev/framework/doc/roadmap/coordination/lock-scope-checker.md"
   ],
   "reserved_at": "2026-08-12T01:59:00+02:00",
-  "notes": "Créer un contrôleur de collisions file_scope après l'incident DataSource : lecture des locks JSON, statuts occupés reserved/in_progress/blocked/review, détection exact/glob conservatrice, mode audit global et mode candidat. Aucun fichier roadmap/agent-board/README sous mutex."
+  "final_sha": "2a0abeea51c05c2b668656eda59ec4174c5177c4",
+  "verification": {
+    "diff": "3 commits / 3 new files, all inside reserved file_scope",
+    "tests": "Node syntax + synthetic exact/glob/candidate/global collision tests",
+    "result": "Coordination lock overlap tests: OK"
+  },
+  "notes": "Le checker détecte les collisions file_scope entre task_id différents, traite reserved/in_progress/blocked/review comme occupés et supporte exact/*/**/? de manière conservatrice."
 }
