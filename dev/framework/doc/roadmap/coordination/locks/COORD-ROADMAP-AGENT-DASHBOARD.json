@@ -1,17 +1,14 @@
 {
   "task_id": "COORD-ROADMAP-AGENT-DASHBOARD",
-  "agent": "C",
-  "status": "released",
-  "base": "f925e60f8f2d63ffa62132c14a32a3809477ef14",
+  "agent": "B",
+  "status": "in_progress",
+  "base": "bd0e0dfb0e30eddc45f8c43c9562721c7ad4602d",
   "branch": "New",
   "file_scope": [
     "dev/framework/doc/roadmap/roadmap.md",
     "dev/framework/doc/roadmap/coordination/README.md",
     "dev/framework/doc/roadmap/coordination/agent-board.md"
   ],
-  "reserved_at": "2026-08-12T01:12:00+02:00",
-  "released_at": "2026-08-12T01:16:00+02:00",
-  "roadmap_sha": "b44a81188624f65fe2da92c795697eea6318e016",
-  "agent_board_sha": "20cc0718bab60fce9736fe077249a0b433547670",
-  "notes": "Roadmap et tableau synchronisés jusqu'aux PR B #12/#13 et C #14/#15. Aucun arbitrage A/HUMAN modifié ; mutex libéré."
+  "reserved_at": "2026-08-12T01:20:00+02:00",
+  "notes": "Rafraîchir la roadmap et le tableau après intégrations A/B/C ; conserver la pastille de l'agent sur les tâches terminées afin d'historiser qui a réalisé quoi. Aucun runtime modifié par ce mutex."
 }
