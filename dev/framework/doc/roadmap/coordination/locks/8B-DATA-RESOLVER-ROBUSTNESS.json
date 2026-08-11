@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-DATA-RESOLVER-ROBUSTNESS",
+  "agent": "B",
+  "status": "in_progress",
+  "base": "c7686188f547c7a5fa6b9999baffaa41521fc3f3",
+  "branch": "agent-b/data-resolver-robustness",
+  "file_scope": [
+    "dev/framework/core/data-resolver.js",
+    "dev/framework/tests/data-resolver-robustness.test.mjs",
+    "dev/framework/doc/data-resolver/*.md"
+  ],
+  "reserved_at": "2026-08-12T01:22:00+02:00",
+  "notes": "Durcir DataResolver sans toucher aux chantiers A/C : lookup own-property des collections, provider/collection shape, cardinalités/policies invalides, cache DataIndex, clear ciblé et tests dédiés. Aucun TableWiz, FrameworkRegistry, EventBus, StateStore, démo ou roadmap dans la branche métier."
+}
