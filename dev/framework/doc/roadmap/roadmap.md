@@ -1,6 +1,8 @@
-# 🗺️ Roadmap GitHub — nLab Framework
+# nLab Framework
 
-> Objectif : industrialiser le framework nLab jusqu’à un socle générique, testable et réutilisable, puis le confronter à un vrai cas métier. Principe : **pilotage immédiatement visible, détail à la demande**.
+## 🗺️ Roadmap GitHub
+
+> Objectif : industrialiser le framework nLab jusqu’à un socle générique, testable et réutilisable, puis le confronter à un vrai cas métier. Principe de lecture : **pilotage immédiatement visible, détail à la demande**.
 
 <a name="haut"></a>
 
@@ -10,7 +12,7 @@
 
 > 👇👇👇 **POINT DE TRAVAIL ACTIF**  
 > 🎯 **Phase active : [Lot 8B — Consolidation UX / industrialisation](#phase-8b)**  
-> 🟣👤 **Jalon HUMAN actif : [H001 — validation Theme Workshop V18](#human-h001)**
+> 🟣👤 **Jalon HUMAN actif : [H001 — validation UX du cycle V18](#human-h001)**
 
 > ℹ️ Une phase antérieure peut rester sous 100 % si son critère bloquant est satisfait. Les compléments non bloquants restent suivis sans empêcher la progression.
 
@@ -28,7 +30,7 @@
 - [5. Lots 10 à 12](#lots-futurs)
 - [6. Séquence d’industrialisation](#industrialisation)
 - [9. Méthode autonome](#methode-autonome)
-- [10. 💡 Backlog](#backlog)
+- [10. 💡 Backlog non bloquant](#backlog)
 - [11. Capitalisation / clôture](#capitalisation)
 
 </details>
@@ -38,10 +40,10 @@
 ### 📎 1.3 Fichiers associés
 
 - 🗂️ **Dépôt :** [nepheris/NLab-framework](https://github.com/nepheris/NLab-framework) <a href="https://github.com/nepheris/NLab-framework" target="_blank">↗</a>
-- 🤖 **REX machine :** [`rex.machine.json`](./rex.machine.json) <a href="./rex.machine.json" target="_blank">↗</a>
-- 🟣👤 **HUMAN actif :** [`human-check.md`](./human-check.md) <a href="./human-check.md" target="_blank">↗</a>
-- 🔎 **Cycle courant :** [`../../demo/ROADMAP_V18.md`](../../demo/ROADMAP_V18.md) <a href="../../demo/ROADMAP_V18.md" target="_blank">↗</a>
-- 🔎 **Cycle précédent :** [`../../demo/ROADMAP_V17.md`](../../demo/ROADMAP_V17.md)
+- 🤖 **Brief machine / REX :** [`rex.machine.json`](./rex.machine.json) <a href="./rex.machine.json" target="_blank">↗</a>
+- 🟣👤 **Fiche HUMAN active :** [`human-check.md`](./human-check.md) <a href="./human-check.md" target="_blank">↗</a>
+- 🔎 **Cycle de démonstration courant :** [`../../demo/ROADMAP_V18.md`](../../demo/ROADMAP_V18.md) <a href="../../demo/ROADMAP_V18.md" target="_blank">↗</a>
+- 💡 **Boîte à idées :** backlog de cette roadmap jusqu’à création d’un fichier dédié.
 
 <a name="legende"></a>
 
@@ -54,11 +56,15 @@
 - 🟡 `1–99 %` — en cours
 - 🟢 `100 %` — terminé / validé
 - ⏸️ `—` — différé volontairement
+- ⬜ — domaine non actif dans le schéma synthétique
+- 🟦 — domaine actuellement travaillé
 - 🟣👤 — intervention humaine
 - 🤖 — mémoire machine / REX
 - 💡 — idée / capitalisation
 - 🔎 — audit / contrôle
+- 🔷 — navigation interne
 - 🎯 — point actif
+- 📈 — avancement / détail de phase
 
 </details>
 
@@ -69,29 +75,33 @@
 <details open>
 <summary><strong>📊 Avancement global — ouvert par défaut</strong></summary>
 
-| Domaine | État | Avancement | Cible |
-|---|---|---:|---|
-| Architecture Framework | 🟡 | ~92 % | socle propre, factorisé et stable |
-| Catalogue / Playground | 🟡 | ~82 % | banc d’essai complet |
-| UX / concepts | 🟡 | ~72 % | comportements validés humainement |
-| Composants industrialisés | 🟡 | ~55 % | prototypes extraits en composants génériques |
-| JSON / data métier | 🟡 | ~50 % | édition + relations inter-JSON robustes |
-| Tests / robustesse | 🟡 | ~32 % | non-régression et cas négatifs |
-| Intégration métier | 🟡 | ~20 % | crash-test Recettes du Cœur |
+| Domaine | Focus | État | Avancement | Cible |
+|---|---|---|---:|---|
+| Architecture Framework | ⬜ | 🟡 | ~90 % | socle propre, factorisé et stable |
+| Catalogue / Playground | ⬜ | 🟡 | ~80 % | banc d’essai complet |
+| UX / concepts | ⬜ | 🟡 | ~70 % | comportements validés humainement |
+| **Composants industrialisés** | **🟦 ACTIF** | 🟡 | ~55 % | prototypes extraits en composants génériques |
+| JSON / data métier | ⬜ | 🟡 | ~50 % | édition + relations inter-JSON robustes |
+| Tests / robustesse | ⬜ | 🟡 | ~30 % | non-régression et cas négatifs |
+| Intégration métier | ⬜ | 🟡 | ~20 % | crash-test Recettes du Cœur |
 
 ```text
-ARCHITECTURE FRAMEWORK       ████████████████████  ~92 %
-CATALOGUE / PLAYGROUND      ████████████████░░░░  ~82 %
-UX / CONCEPTS               ██████████████░░░░░░  ~72 %
-COMPOSANTS INDUSTRIALISÉS   ███████████░░░░░░░░░  ~55 %
-JSON / DATA MÉTIER          ██████████░░░░░░░░░░  ~50 %
-TESTS / ROBUSTESSE          ██████░░░░░░░░░░░░░░  ~32 %
-INTÉGRATION MÉTIER          ████░░░░░░░░░░░░░░░░  ~20 %
+⬜ ARCHITECTURE FRAMEWORK       ████████████████████  ~90 %
+⬜ CATALOGUE / PLAYGROUND      ████████████████░░░░  ~80 %
+⬜ UX / CONCEPTS               ██████████████░░░░░░  ~70 %
+🟦 COMPOSANTS INDUSTRIALISÉS   ███████████░░░░░░░░░  ~55 %   ← ACTIF
+⬜ JSON / DATA MÉTIER          ██████████░░░░░░░░░░  ~50 %
+⬜ TESTS / ROBUSTESSE          ██████░░░░░░░░░░░░░░  ~30 %
+⬜ INTÉGRATION MÉTIER          ████░░░░░░░░░░░░░░░░  ~20 %
 ```
 
-> Estimation de maturité fonctionnelle et architecturale, pas pourcentage de lignes de code.
+> Le repère 🟦 indique **où l’effort courant est concentré**. Les autres domaines restent visibles en gris/neutre pour conserver la vision globale.
+
+> Ces valeurs représentent une maturité fonctionnelle et architecturale, pas un pourcentage de lignes de code terminées.
 
 </details>
+
+🔷 **[↑ Retour au sommaire](#haut)**
 
 <a name="etat-actuel"></a>
 
@@ -101,33 +111,48 @@ INTÉGRATION MÉTIER          ████░░░░░░░░░░░░�
 <summary><strong>📍 État actuel — ouvert par défaut</strong></summary>
 
 ```text
-Catalogue / Playground passé en V18
+Socle Framework largement construit
 ↓
-Theme Workshop : portée global / type / instance désormais implémentée dans le composant framework
+Catalogue / Playground V18 testant la portée native du Theme Workshop
 ↓
-Profils scoped + reset par propriété disponibles et testables dans la démo
+Theme Workshop industrialisé : global → type → instance
 ↓
-POINT ACTIF : validation HUMAN de la portée V18
+POINT ACTIF : valider cette industrialisation et raccorder les contrôles historiques
 ↓
-PROCHAINE ÉTAPE : brancher progressivement les contrôles Theme Workshop sur cette API
-puis extraire JSON Studio en composant framework autonome
+PROCHAINE ÉTAPE : JSON Studio → composant framework autonome
 ```
 
-**Process canonique :**
+**Process cible :**
 
 ```text
-Idée → prototype démo → validation UX → extraction framework → démo générique → test métier
+Idée
+  ↓
+Prototype dans la démo
+  ↓
+Validation UX
+  ↓
+Extraction dans le framework
+  ↓
+Démo consommant la brique générique
+  ↓
+Test métier / crash-test
 ```
 
+La démo reste un laboratoire. Une fonction validée ne doit pas rester durablement spécifique à la démo.
+
 </details>
+
+🔷 **[↑ Retour au sommaire](#haut)**
 
 <a name="jalons-human"></a>
 
 ### 🟣👤 1.7 Jalons HUMAN
 
-- 🟣👤 **H001 — validation Theme Workshop V18 : actif.** → [voir détail](#human-h001)
-- ⚪ **H002 — validation de sortie du Lot 8B :** après industrialisation prioritaire.
-- ⚪ **H003 — validation avant crash-test Recettes du Cœur :** futur.
+- 🟣👤 **H001 — validation UX du cycle V18 : actif.** → [voir détail](#human-h001)
+- ⚪ **H002 — validation de sortie du Lot 8B : à planifier après industrialisation prioritaire.**
+- ⚪ **H003 — validation avant crash-test Recettes du Cœur : futur.**
+
+🔷 **[↑ Retour au sommaire](#haut)**
 
 ---
 
@@ -138,13 +163,27 @@ Idée → prototype démo → validation UX → extraction framework → démo g
 <details>
 <summary><strong>📈 Lots 0 à 2 — socle initial — 🟢 100 %</strong></summary>
 
-Socle initial considéré terminé dans la roadmap historique.
+Les trois premiers lots constituent le socle initial du framework et étaient déjà considérés terminés dans la roadmap précédente.
+
+🔷 [↑ Sommaire](#haut)
 </details>
 
 <details>
 <summary><strong>📈 Lots 3 à 8 — construction Framework V2 — 🟡 largement réalisée</strong></summary>
 
-Blocs couverts : UI/composants, thèmes, data structurée, renderers, sorties, diagnostic et Catalogue/Playground. La numérotation historique exacte ne doit pas être réinventée sans source fiable.
+Blocs historiquement couverts :
+
+- UI et composants génériques ;
+- Theme Workshop / système de thèmes ;
+- architecture data-driven et données structurées ;
+- renderers et vues ;
+- sorties / exports ;
+- observabilité et diagnostic ;
+- Catalogue / Playground.
+
+Le détail exact de l’ancienne numérotation interne ne doit pas être réinventé : lorsqu’un artefact historique fiable est retrouvé, il prime.
+
+🔷 [↑ Sommaire](#haut)
 </details>
 
 ---
@@ -156,36 +195,39 @@ Blocs couverts : UI/composants, thèmes, data structurée, renderers, sorties, d
 <details open>
 <summary><strong>🎯📈 Lot 8B — Consolidation UX / industrialisation — 🟡 ACTIVE</strong></summary>
 
+**Objectif :** fermer le cycle de construction du Catalogue / Playground en transformant les prototypes validés en briques génériques propres.
+
 | État | Avancement | Action |
 |---|---:|---|
-| 🟢 | 100 % | V17 : banc d’essai UX/data enrichi |
-| 🟢 | 100 % | V18 : API de portée `global / type / instance` extraite dans `ThemeWorkshop` |
-| 🟢 | 100 % | profils scoped + reset complet / propriété implémentés |
-| 🟡 | ~80 % | validation UX des thèmes / profils / portée |
-| 🟡 | ~50 % | extraction globale des prototypes vers le framework |
-| ⚪ | 0 % | **valider la portée V18 sur cas instance / type / global** |
-| ⚪ | 0 % | brancher les contrôles existants sur l’API scoped |
-| ⚪ | 0 % | industrialiser JSON Studio en composant autonome |
+| 🟢 | 100 % | page V18 versionnée et clairement identifiable |
+| 🟢 | 100 % | header / sommaire / Info-Test / responsive consolidés dans la démo |
+| 🟢 | 100 % | jeux de données de test enrichis |
+| 🟢 | 100 % | relations inter-JSON de démonstration prouvées |
+| 🟢 | 100 % | Theme Workshop : cascade native `global → type → instance`, profils et resets |
+| 🟡 | ~75 % | validation UX des thèmes, profils, Set Filter, TableWiz, JSON Studio, QR Studio |
+| 🟡 | ~55 % | extraction des prototypes vers des composants framework |
+| 🟡 | en cours | raccorder les contrôles historiques Theme Workshop à la nouvelle API scoped |
+| ⚪ | 0 % | **industrialiser JSON Studio en composant autonome** |
 | ⚪ | 0 % | convergence TableWiz / DataWiz / ResultSet |
 | ⚪ | 0 % | clôture HUMAN du Lot 8B |
 
 <a name="human-h001"></a>
 <details open>
-<summary><strong>🟣👤 H001 — Validation Theme Workshop V18 — ACTIF</strong></summary>
+<summary><strong>🟣👤 H001 — Validation UX du cycle V18 — ACTIF</strong></summary>
 
-**À contrôler :**
-1. `Cet élément` ne modifie qu’une instance ;
-2. `Même type` modifie les panneaux typés identiques ;
-3. `Global` touche tous les éléments éditables ;
-4. `Défaut` revient à la couche précédente ;
-5. `↺ Coins` supprime seulement `borderRadius` ;
-6. la session scoped persiste après rechargement.
+**Pourquoi l’humain intervient :**
+1. vérifier que `Cet élément / Même type / Global` produit des effets distincts et compréhensibles ;
+2. valider les profils et resets sur la nouvelle API native ;
+3. arbitrer les corrections avant de passer au JSON Studio.
 
-**Contrôle détaillé :** [`human-check.md`](./human-check.md)
+**Contrôle :** 🟣👤 [`human-check.md`](./human-check.md) <a href="./human-check.md" target="_blank">↗</a>
 
-**Après validation :** raccordement des contrôles Theme Workshop puis JSON Studio.
+**Après validation :** raccorder les contrôles historiques puis extraire JSON Studio hors de la démo.
+
+🟣👤 [Retour aux jalons HUMAN](#jalons-human) · 🔷 [↑ Sommaire](#haut)
 </details>
 
+🔷 [↑ Sommaire](#haut)
 </details>
 
 ---
@@ -195,15 +237,19 @@ Blocs couverts : UI/composants, thèmes, data structurée, renderers, sorties, d
 # 4. Lot 9 — Crash-test métier Recettes du Cœur
 
 <details>
-<summary><strong>📈 Lot 9 — ⚪ 0 %</strong></summary>
+<summary><strong>📈 Lot 9 — Crash-test métier — ⚪ 0 %</strong></summary>
+
+Ordre prévu :
 
 1. atelier privé `Sites/Recettes-du-Coeur/atelier/` ;
-2. utilisation des briques génériques ;
+2. consommation des briques génériques du framework sur les vraies données métier ;
 3. génération du `web/` ;
 4. validation ;
 5. publication Preview.
 
-Le cas métier éprouve le framework sans dupliquer la logique métier dans celui-ci.
+**Règle :** le cas métier éprouve le framework ; il ne doit pas provoquer une duplication de logique spécifique dans le framework.
+
+🔷 [↑ Sommaire](#haut)
 </details>
 
 ---
@@ -215,7 +261,9 @@ Le cas métier éprouve le framework sans dupliquer la logique métier dans celu
 <details>
 <summary><strong>📈 Lots 10 à 12 — ⏸️ intitulés historiques à récupérer</strong></summary>
 
-Intitulés volontairement non réinventés tant qu’aucune source historique fiable n’est retrouvée.
+Ces lots existaient dans l’ancienne roadmap. Leurs intitulés exacts ne sont pas suffisamment établis dans les éléments récupérés ; ils restent volontairement non renommés jusqu’à récupération d’une source fiable.
+
+🔷 [↑ Sommaire](#haut)
 </details>
 
 ---
@@ -225,19 +273,20 @@ Intitulés volontairement non réinventés tant qu’aucune source historique fi
 # 6. Séquence d’industrialisation
 
 <details open>
-<summary><strong>📈 Priorités après V18</strong></summary>
+<summary><strong>📈 Priorités techniques après V18</strong></summary>
 
-1. **Theme Workshop** — valider V18 puis raccorder les contrôles existants à l’API scoped.
-2. **JSON Studio** — composant framework, validation, undo/redo, historique, diff, relations multiples.
+1. **Theme Workshop** — terminer le raccord des contrôles historiques à la portée native.
+2. **JSON Studio** — composant framework, validation, undo/redo, historique, diff, relations multiples, mapping d’affichage.
 3. **TableWiz / DataWiz** — DataSource, ResultSet et renderers partagés.
-4. **Search / Set Filter** — pondération, stopwords, locale, suggestions multi-colonnes.
-5. **Media Renderer** — fond, ratio, object-fit, bordures, coins, masque/détourage.
+4. **Search / Set Filter** — pondération des tokens, stopwords configurables, locale, suggestions multi-colonnes.
+5. **Media Renderer** — fond, transparence, ratio, object-fit, bordures, coins indépendants, masque/détourage.
 6. **QRWiz** — contenus typés, presets, logos, validation de lisibilité.
-7. **NotificationCenter** — thèmes `info / success / warning / error / dev`.
-8. **CodeBlock** — presets par langage et JSON hiérarchique.
+7. **NotificationCenter** — `info / success / warning / error / dev` pilotés par le thème.
+8. **CodeBlock** — presets par langage, JSON hiérarchique pliable, distinction bloc de code / éditeur enrichi.
 9. **Consolidation / tests / documentation**.
 10. **Lot 9 — crash-test Recettes du Cœur**.
 
+🔷 [↑ Sommaire](#haut)
 </details>
 
 ---
@@ -247,46 +296,56 @@ Intitulés volontairement non réinventés tant qu’aucune source historique fi
 # 9. Méthode autonome
 
 <details open>
-<summary><strong>⚙️ Mode d’exécution</strong></summary>
+<summary><strong>⚙️ Mode d’exécution — ouvert par défaut</strong></summary>
 
 ```text
 1. lire roadmap + REX + décisions canoniques
-2. vérifier HEAD GitHub
-3. analyser cas réel
-4. minimum nécessaire / POC si utile
-5. tests positifs + négatifs
-6. simplifier / factoriser
-7. implémenter
-8. re-tester
-9. audit vérité / sécurité / factorisation
-10. mettre à jour REX au jalon structurel
-11. re-vérifier HEAD
-12. commit sans force
-13. actualiser roadmap
-14. continuer si critère de sortie satisfait
+2. vérifier le HEAD GitHub
+3. analyser les cas réels
+4. choisir le minimum nécessaire
+5. POC si utile
+6. tests positifs + négatifs
+7. confrontation au corpus réel
+8. simplifier / factoriser
+9. documenter
+10. implémenter
+11. re-tester
+12. audit vérité / sécurité / factorisation
+13. mettre à jour REX à chaque jalon structurel
+14. re-vérifier HEAD
+15. commit sans force
+16. actualiser roadmap
+17. continuer si le critère de sortie est satisfait
 ```
 
-**Version démo :** chaque commit qui modifie effectivement la page incrémente sa version visible.
+**Chat / rapport :** réponse courte avec principaux changements, statut, prochain point et liens directs. Les détails restent dans GitHub.
+
+**Déclencher 🟣👤 HUMAN uniquement si le jugement humain peut réellement modifier la décision.**
+
+**Version de démo :** chaque commit qui modifie la page de démonstration incrémente sa version visible dans le titre navigateur, le titre principal et un marquage visuel lisible.
 
 </details>
+
+🔷 **[↑ Retour au sommaire](#haut)**
 
 ---
 
 <a name="backlog"></a>
 
-# 10. 💡 Backlog
+# 10. 💡 Backlog / boîte à idées non bloquante
 
-| Classe | Usage | Bloque ? |
+> Une nouvelle idée ne modifie pas automatiquement le périmètre du livrable courant.
+
+| Classe | Usage | Bloque la clôture ? |
 |---|---|---|
 | `BEFORE_CLOSE` | nécessaire avant fermeture du lot actif | oui |
 | `LATER` | évolution moyen / long terme | non |
-| `NOTE` | remarque / enseignement | non |
+| `NOTE` | remarque, piste ou enseignement | non |
 
 <details open>
 <summary><strong>BEFORE_CLOSE — Lot 8B</strong></summary>
 
-- valider la portée Theme Workshop V18 ;
-- raccorder les contrôles historiques au scope réel ;
+- raccord complet des contrôles Theme Workshop à la nouvelle API scoped ;
 - extraction JSON Studio ;
 - convergence minimale TableWiz / DataWiz ;
 - nettoyage des comportements encore spécifiques à la démo ;
@@ -295,14 +354,20 @@ Intitulés volontairement non réinventés tant qu’aucune source historique fi
 </details>
 
 <details>
-<summary><strong>LATER / NOTE</strong></summary>
+<summary><strong>LATER / NOTE — idées différées</strong></summary>
 
+- `LATER` — **support HTML “base de connaissances visuelle”** : transformer les synthèses graphiques/explicatives pertinentes en page HTML autonome, lisible et navigable, utilisable comme support de compréhension d’un projet ou d’un système ;
+- `LATER` — **support visuel joint aux notes Markdown** : intégrer l’image directement dans le `.md` lorsque GitHub sait l’afficher ; sinon stocker l’asset à côté et le référencer explicitement ;
+- `LATER` — **test des ancres / IDs de section** : vérifier qu’un lien GitHub vers `roadmap.md#section-id` ouvre directement la bonne section/sous-section et étudier si un `<details>` ciblé peut être ouvert automatiquement ou nécessite une convention alternative ;
 - `LATER` — vue graphique DataWiz / ResultSet ;
-- `LATER` — détourage / masque avancé ;
+- `LATER` — détourage / masque d’images avancé ;
 - `LATER` — éditeur riche distinct du CodeBlock ;
-- `NOTE` — récupérer les intitulés historiques exacts des lots 10 à 12.
+- `NOTE` — logo **nLab Framework validé** ; l’intégrer comme asset officiel du projet et dans les futurs supports lorsque le pipeline d’assets est appliqué ;
+- `NOTE` — récupérer la nomenclature historique exacte des lots 10 à 12.
 
 </details>
+
+🔷 **[↑ Retour au sommaire](#haut)**
 
 ---
 
@@ -312,8 +377,9 @@ Intitulés volontairement non réinventés tant qu’aucune source historique fi
 
 - finaliser le REX machine ;
 - distinguer réussites, difficultés et anti-patterns ;
-- vérifier `BEFORE_CLOSE` ;
-- transférer les `LATER` / `NOTE` utiles ;
-- proposer les améliorations de template détectées sans propagation automatique ;
-- demander validation avant intégration au template canonique et avant propagation aux autres roadmaps ;
-- archiver roadmap finale + REX.
+- vérifier le backlog `BEFORE_CLOSE` ;
+- transférer les `LATER` / `NOTE` utiles dans la boîte à idées ;
+- proposer les améliorations de template détectées sans les propager automatiquement ;
+- demander une validation synthétique avant application aux autres roadmaps ;
+- archiver roadmap finale + REX ;
+- améliorer le template à partir de l’expérience réelle.
