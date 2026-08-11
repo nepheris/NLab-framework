@@ -1,7 +1,7 @@
 {
   "task_id": "8B-NOTIFICATION-CENTER-CONTRACT",
   "agent": "C",
-  "status": "reserved",
+  "status": "in_progress",
   "base": "892f95c3038f5afa1e5e62482eced87e45f8db4b",
   "branch": "agent-c/notification-center-contract",
   "file_scope": [
