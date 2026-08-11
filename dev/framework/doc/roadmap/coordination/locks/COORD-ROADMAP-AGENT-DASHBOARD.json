@@ -1,7 +1,7 @@
 {
   "task_id": "COORD-ROADMAP-AGENT-DASHBOARD",
   "agent": "C",
-  "status": "in_progress",
+  "status": "released",
   "base": "f925e60f8f2d63ffa62132c14a32a3809477ef14",
   "branch": "New",
   "file_scope": [
@@ -10,5 +10,8 @@
     "dev/framework/doc/roadmap/coordination/agent-board.md"
   ],
   "reserved_at": "2026-08-12T01:12:00+02:00",
-  "notes": "Rafraîchissement delta C : HelpWiz PR #14 et BrowserStorage PR #15, avec nouveaux locks B déjà visibles si nécessaire."
+  "released_at": "2026-08-12T01:16:00+02:00",
+  "roadmap_sha": "b44a81188624f65fe2da92c795697eea6318e016",
+  "agent_board_sha": "20cc0718bab60fce9736fe077249a0b433547670",
+  "notes": "Roadmap et tableau synchronisés jusqu'aux PR B #12/#13 et C #14/#15. Aucun arbitrage A/HUMAN modifié ; mutex libéré."
 }
