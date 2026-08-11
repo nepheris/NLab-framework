@@ -1,0 +1,5 @@
+[
+  {"id":"ING001","ciqual_id":"CIQUAL13000","name":"Pomme","latin_name":"Malus domestica","category":"Fruit","image":"assets/apple.svg","energy_kcal":52},
+  {"id":"ING002","ciqual_id":"CIQUAL20000","name":"Carotte","latin_name":"Daucus carota","category":"Légume","image":"assets/carrot.svg","energy_kcal":40},
+  {"id":"ING003","ciqual_id":"CIQUAL93100","name":"Lentille cuite","latin_name":"Lens culinaris","category":"Légumineuse","image":"assets/leaf.svg","energy_kcal":116}
+]
