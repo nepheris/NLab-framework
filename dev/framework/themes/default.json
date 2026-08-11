@@ -1,0 +1,19 @@
+{
+  "id": "default",
+  "label": "Framework Default",
+  "scheme": "light",
+  "density": "normal",
+  "tokens": {
+    "bg": "#ffffff",
+    "fg": "#171717",
+    "muted": "#666666",
+    "border": "#d8d8d8",
+    "accent": "#2468d8",
+    "radius": "12px",
+    "shadow": "0 8px 24px rgba(0,0,0,.12)",
+    "header_height": "64px",
+    "hero_min_height": "280px"
+  },
+  "components": {},
+  "sections": {}
+}
