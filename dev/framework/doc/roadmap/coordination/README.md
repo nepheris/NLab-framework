@@ -45,14 +45,21 @@ La roadmap et `agent-board.md` doivent conserver cette attribution afin de savoi
 3. Vérifier aussi les branches `agent-a/*`, `agent-b/*`, `agent-c/*` et le HEAD de `New` lorsqu'une réservation vient d'être créée ou semble absente du tableau.
 4. Réserver l'action avec un fichier `locks/<TASK-ID>.json` avant le premier changement.
 5. Un verrou contient au minimum : `task_id`, `agent`, `status`, `branch`, `file_scope`, `reserved_at`, `base`.
-6. Utiliser une branche dédiée pour tout chantier substantiel (`agent-a/...`, `agent-b/...`, `agent-c/...` ou branche de review explicitement réservée).
-7. Ne modifier **aucun fichier** présent dans le `file_scope` d'un autre verrou `reserved`, `in_progress` ou `review` tant que ce verrou n'est pas explicitement libéré ou réattribué.
-8. Un commit doit rester **mono-action** : uniquement les fichiers nécessaires à la tâche réservée ; pas de reformatage ou de correction opportuniste hors périmètre.
-9. Avant intégration, comparer la branche à sa base et vérifier que les fichiers modifiés restent dans le périmètre annoncé.
-10. Une tâche terminée n'est pas supprimée : son verrou passe à `done` avec le SHA final. On conserve ainsi l'historique d'attribution.
-11. Si une tâche change d'agent, le verrou existant est mis à jour explicitement ; aucun second verrou concurrent n'est créé.
-12. Après création ou changement d'état d'un lock, le tableau multi-agent doit être rafraîchi dès que le mutex documentaire est disponible.
-13. Après intégration d'une tâche, conserver la **pastille de l'agent + `✅`** dans la roadmap et le tableau historique.
+6. **Après création du lock et avant création de la branche**, relire le dossier de locks complet : deux tâches de noms différents peuvent viser le même fichier.
+7. Utiliser une branche dédiée pour tout chantier substantiel (`agent-a/...`, `agent-b/...`, `agent-c/...` ou branche de review explicitement réservée).
+8. Ne modifier **aucun fichier** présent dans le `file_scope` d'un autre verrou `reserved`, `in_progress` ou `review` tant que ce verrou n'est pas explicitement libéré ou réattribué.
+9. Si deux locks actifs se chevauchent malgré les contrôles, **le lock actif le plus ancien sur le `file_scope` a priorité**. Le second agent arrête le chantier, ne fusionne rien et passe son lock à `released` ou `blocked` avec une note de collision.
+10. Un commit doit rester **mono-action** : uniquement les fichiers nécessaires à la tâche réservée ; pas de reformatage ou de correction opportuniste hors périmètre.
+11. Avant intégration, comparer la branche à sa base, relire **tous les locks actifs une nouvelle fois** et vérifier que les fichiers modifiés restent dans le périmètre annoncé.
+12. Si `New` a modifié un fichier du `file_scope` depuis la réservation, identifier le propriétaire avant PR ; ne jamais fusionner par-dessus sans réconciliation explicite.
+13. Une tâche terminée n'est pas supprimée : son verrou passe à `done` avec le SHA final. On conserve ainsi l'historique d'attribution.
+14. Si une tâche change d'agent, le verrou existant est mis à jour explicitement ; aucun second verrou concurrent n'est créé.
+15. Après création ou changement d'état d'un lock, le tableau multi-agent doit être rafraîchi dès que le mutex documentaire est disponible.
+16. Après intégration d'une tâche, conserver la **pastille de l'agent + `✅`** dans la roadmap et le tableau historique.
+
+### Incident de référence — DataSource
+
+Le 12/08/2026, deux locks de noms différents ont couvert `core/data-source.js` en parallèle. Le chantier B antérieur a détecté la modification de `New` avant PR et n'a pas été fusionné ; la PR #24 de C a été conservée et créditée à C. Cet incident confirme que le contrôle doit porter sur les **`file_scope`**, pas seulement sur les IDs de tâches.
 
 ## Statuts
 
