@@ -32,6 +32,18 @@
 - 🔴 **Bloqué** — dépendance réelle empêchant de continuer.
 - 🟣 **Décision humaine** — validation/arbitrage explicitement réservé à l'utilisateur.
 
+## Checkpoints RETEX / amélioration continue
+
+Le fichier machine [`RETEX-AUTONOMIE.md`](./RETEX-AUTONOMIE.md) capitalise les enseignements réutilisables.
+
+- [x] **RETEX 01 — après construction autonome des Lots 0 à 8 et premier incident Preview** : capitaliser Git, publication, validation réelle et erreurs à ne pas répéter.
+- [ ] **RETEX 02 — avant passage Atelier → Web** : vérifier les enseignements de modélisation métier et de génération.
+- [ ] **RETEX 03 — après premier site Recettes du Cœur fonctionnel** : capitaliser UX, responsive, Theme Workshop et data-driven.
+- [ ] **RETEX 04 — après publication Preview du crash-test** : capitaliser publication, cache, assets, liens et contrôle utilisateur réel.
+- [ ] **RETEX 05 — avant stabilisation V2** : synthèse finale, règles à conserver et dette à reporter.
+
+Règle : un checkpoint RETEX doit transformer les incidents et réussites en **règles opérationnelles réutilisables**, pas seulement en historique narratif.
+
 ---
 
 # LOT 0 — Gouvernance — 100 % ✅
@@ -181,6 +193,7 @@ Priorité conservée : recherche + cartes/listes/pellicules/tableaux avant les g
 - [x] itération B : Theme Workshop composé avec les primitives ;
 - [x] itération C : renderers séparés de Search/Filter ;
 - [x] itération D : composition dans une page unique de démonstration.
+- [x] RETEX 01 après premier essai de publication Preview.
 
 🟠 Validation visuelle finale regroupée au Lot 12.
 
@@ -233,6 +246,8 @@ Sites/Recettes-du-Coeur/web/
 - [ ] Preview reçoit le **contenu** de `web/` à sa racine ;
 - [ ] production suit le même contrat.
 
+- [ ] **RETEX 02 avant passage Atelier → Web**.
+
 ---
 
 # LOT 10 — Webmaster : web Recettes du Cœur — 0 % ⬜
@@ -267,6 +282,8 @@ Sites/Recettes-du-Coeur/web/
 - [ ] large ;
 - [ ] renderer par défaut adapté au breakpoint.
 
+- [ ] **RETEX 03 après premier site Recettes du Cœur fonctionnel**.
+
 🟣 Décision différée : thème public et variantes finales.
 
 ---
@@ -287,7 +304,11 @@ Cible : `nepheris/NLab-Webmaster-Preview-`.
 - [ ] QR/share/document ;
 - [ ] responsive ;
 - [ ] console JS ;
-- [ ] Pages deployment.
+- [ ] Pages build artifact contrôlé ;
+- [ ] deployment GitHub Pages contrôlé ;
+- [ ] contenu public réellement servi contrôlé séparément du statut workflow ;
+- [ ] `PREVIEW_BUILD.json` permet d'identifier la version servie ;
+- [ ] **RETEX 04 après publication Preview**.
 
 État attendu après déploiement : 🟠 **À tester**.
 
@@ -304,6 +325,7 @@ Cible : `nepheris/NLab-Webmaster-Preview-`.
 - [ ] audit framework/métier et public/privé ;
 - [ ] audit UX/accessibilité/performance/SEO/docs ;
 - [ ] corrections finales ;
+- [ ] **RETEX 05 avant stabilisation V2** ;
 - [ ] 🟣 décision : stabiliser V2 ou lancer un cycle suivant.
 
 ---
@@ -314,4 +336,4 @@ IdentityWiz, ExternalDataWiz Drive/OneDrive/GitHub privé, AccessGate serveur/ed
 
 # Règle d'exécution autonome
 
-Pour les Lots 9 à 11 : refetch → implémentation → contrôles → itération → roadmap → commit → poursuite automatique. Les vraies décisions humaines sont marquées 🟣 et regroupées au Lot 12 autant que possible.
+Pour les Lots 9 à 11 : refetch → implémentation → contrôles → itération → checkpoint RETEX lorsque prévu → roadmap → commit → poursuite automatique. Les vraies décisions humaines sont marquées 🟣 et regroupées au Lot 12 autant que possible.
