@@ -1,5 +1,0 @@
-{
-  "metadata":{"id":"CAT_PLATFORMS","json_type":"framework_catalog","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"1.0.0","introduced_in":"1.0.0","status":"stable","date_creation":"2026-08-08","date_mise_a_jour":"2026-08-09","visibility":["dev"],"supported_runtime_modes":["static","local","production"]},
-  "Data":{"platforms":[{"id":"PLATFORM_WEB","status":"stable"},{"id":"PLATFORM_LINUX","launcher":"sh","status":"development"},{"id":"PLATFORM_WINDOWS","launcher":"bat","status":"planned"},{"id":"PLATFORM_MACOS","launcher":"sh","status":"planned"},{"id":"PLATFORM_MOBILE","status":"planned"}],"rule":"L'intelligence locale reste en Python; les lanceurs OS ne sont que des adaptateurs."},
-  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"Catalogue migré vers Metadata V2."}
-}

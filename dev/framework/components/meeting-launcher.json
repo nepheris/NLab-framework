@@ -1,5 +1,0 @@
-{
-  "metadata":{"id":"NLAB_MEETING_LAUNCHER","json_type":"ui_component","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"1.4.0","introduced_in":"1.4.0","status":"stable","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","visibility":["public","dev"],"supported_runtime_modes":["static","local","production"]},
-  "Data":{"name":"meeting-launcher","purpose":"Présenter et lancer une visioconférence à partir du modèle video-meeting.","source_model":"modules/video-meeting.json","display_modes":["button","card","embedded","modal","external"],"default_provider":"MEETING_JITSI","provider_selection":"project_configuration","actions":["join","open_external","copy_link"],"embedded_behavior":{"responsive":true,"mobile_fallback":"external","lazy_load":true},"theme_binding":true,"accessibility":{"keyboard_navigation":true,"explicit_join_label":true,"iframe_title_required":true},"privacy":{"camera_microphone_permissions":"browser_user_controlled","no_secret_in_public_config":true}},
-  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"Composant migré vers Metadata V2; le fournisseur reste un adaptateur."}
-}

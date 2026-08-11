@@ -1,5 +1,0 @@
-{
-  "metadata":{"id":"CAT_CAPABILITIES","json_type":"framework_catalog","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"1.0.0","introduced_in":"1.0.0","status":"stable","date_creation":"2026-08-08","date_mise_a_jour":"2026-08-09","visibility":["dev"],"supported_runtime_modes":["static","local","production"]},
-  "Data":{"capabilities":["VIEW_PUBLIC","VIEW_DEV","VIEW_TECHNICAL_HELP","VIEW_IDS","VIEW_SOURCE","EDIT_DATA","WRITE_FILE","RUN_BUILD","RUN_AUDIT","RUN_MIGRATION","RUN_SERVER"]},
-  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"Catalogue migré vers Metadata V2; le contenu fonctionnel est inchangé."}
-}

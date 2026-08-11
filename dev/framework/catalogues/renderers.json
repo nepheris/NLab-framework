@@ -1,5 +1,0 @@
-{
-  "metadata":{"id":"CAT_RENDERERS","json_type":"framework_catalog","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"1.0.0","introduced_in":"1.0.0","status":"stable","date_creation":"2026-08-08","date_mise_a_jour":"2026-08-09","visibility":["dev"],"supported_runtime_modes":["static","local","production"]},
-  "Data":{"renderers":["RENDER_LIST","RENDER_GRID","RENDER_TABLE","RENDER_CARDS","RENDER_CHIPS","RENDER_TREE","RENDER_COMPACT","RENDER_TIMELINE","RENDER_CALENDAR","RENDER_CHART","RENDER_MAP","RENDER_NETWORK"]},
-  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"Catalogue migré vers Metadata V2."}
-}

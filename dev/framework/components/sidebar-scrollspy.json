@@ -1,5 +1,0 @@
-{
-  "metadata":{"id":"COMP_SIDEBAR_SCROLLSPY","json_type":"framework_component","scope":"framework","schema_id":"SCH_ARTIFACT","artifact_version":"1.2.0","introduced_in":"1.2.0","status":"experimental","date_creation":"2026-08-09","date_mise_a_jour":"2026-08-09","visibility":["public","dev"],"supported_runtime_modes":["static","local","production"]},
-  "Data":{"name":"nLab Sidebar Scrollspy","features":["collapsed_rail","expanded_sidebar","responsive_mobile_close","hierarchical_details","expand_all","collapse_all","active_section_scrollspy","anchor_navigation","nested_branch_visuals","custom_scrollbar"],"long_document_features":["heading_fold","direct_heading_anchor","open_ancestors_for_hash","default_heading_state","expand_all_headings","collapse_all_headings"],"rules":["navigation_tree_comes_from_page_or_project_structure","active_state_tracks_scroll_container","mobile_and_desktop_scroll_sources_may_differ","hash_target_must_reveal_collapsed_ancestors"]},
-  "dictionnaire_donnees":{"generated_from_schema":"SCH_ARTIFACT","note":"Composant migré vers Metadata V2."}
-}
