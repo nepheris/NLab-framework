@@ -1,0 +1,217 @@
+{
+  "metadata": {
+    "document_id": "NLAB-WEB-FRAMEWORK-LOT9-PREFLIGHT",
+    "title": "Lot 9 - Recettes du Coeur preflight machine checklist",
+    "version": "1.0.0",
+    "generated_at": "2026-08-12T00:18:00+02:00",
+    "source_branch": "New",
+    "source_base_sha": "701bbec549c386718d450df032ad672f184840db",
+    "source_document": "dev/framework/doc/roadmap/lot9-recettes-du-coeur-preflight.md",
+    "coordination_issue": 1,
+    "task_id": "9-PREFLIGHT-MACHINE-CHECKLIST",
+    "agent": "C"
+  },
+  "policy": {
+    "framework_must_remain_generic": true,
+    "business_logic_location": "Sites/Recettes-du-Coeur/",
+    "canonical_work_branch": "New",
+    "runtime_changes_allowed_by_this_task": false,
+    "demo_changes_allowed_by_this_task": false,
+    "roadmap_md_changes_allowed_by_this_task": false,
+    "status_is_snapshot": true,
+    "live_status_source": "dev/framework/doc/roadmap/coordination/locks/"
+  },
+  "status_enum": [
+    "pass",
+    "ready",
+    "in_progress",
+    "pending",
+    "blocked_human",
+    "blocked_external"
+  ],
+  "gates": [
+    {
+      "gate_id": "P9-001",
+      "name": "Framework / metier separation contract",
+      "required_for_real_integration": true,
+      "status": "pass",
+      "evidence": [
+        "dev/framework/doc/roadmap/lot9-recettes-du-coeur-preflight.md"
+      ],
+      "acceptance": [
+        "No Recettes-du-Coeur-specific rule is embedded in generic framework runtime.",
+        "Business data, config, assets, compositions and generated web remain outside the generic framework."
+      ]
+    },
+    {
+      "gate_id": "P9-002",
+      "name": "Structured data schemas validated",
+      "required_for_real_integration": true,
+      "status": "in_progress",
+      "coordination_task": "8B-DATA-SCHEMAS-VALIDATION",
+      "owner_snapshot": "B",
+      "acceptance": [
+        "collection.schema.json positive and negative fixtures pass.",
+        "data-registry.schema.json positive and negative fixtures pass.",
+        "relation.schema.json positive and negative fixtures pass.",
+        "Identifier and relation compatibility is documented."
+      ]
+    },
+    {
+      "gate_id": "P9-003",
+      "name": "Search / Filter / Table data path robust enough for vertical slice",
+      "required_for_real_integration": true,
+      "status": "in_progress",
+      "coordination_tasks": [
+        "8B-TABLEWIZ-LEGACY-EXTRACTION"
+      ],
+      "coordination_context": "Issue #1 also reserves SearchWiz / FilterWiz test work to agent B.",
+      "acceptance": [
+        "Recipe search works on representative fields.",
+        "Combined filters support the required AND/OR cases.",
+        "Result sets can be rendered as table/list/gallery without business-specific code."
+      ]
+    },
+    {
+      "gate_id": "P9-004",
+      "name": "Media and QR robustness",
+      "required_for_real_integration": true,
+      "status": "in_progress",
+      "coordination_task": "8B-QR-MEDIA-ROBUSTNESS",
+      "owner_snapshot": "B",
+      "acceptance": [
+        "Missing-image fallback is deterministic.",
+        "Image ratio/object-fit options tolerate invalid or absent values.",
+        "Recipe and tip URLs can be converted to reproducible QR payloads.",
+        "QR behavior remains safe when an encoder is unavailable."
+      ]
+    },
+    {
+      "gate_id": "P9-005",
+      "name": "SEO and Share contracts",
+      "required_for_real_integration": true,
+      "status": "in_progress",
+      "coordination_task": "8B-SEO-SHARE-CONTRACTS",
+      "owner_snapshot": "B",
+      "acceptance": [
+        "Canonical URL and metadata contracts are deterministic.",
+        "JSON-LD generation has defined fallbacks.",
+        "Share payload and URL fallback behavior works outside browser APIs."
+      ]
+    },
+    {
+      "gate_id": "P9-006",
+      "name": "Runtime observability",
+      "required_for_real_integration": true,
+      "status": "in_progress",
+      "coordination_task": "8B-OBSERVABILITY-ROBUSTNESS",
+      "owner_snapshot": "B",
+      "acceptance": [
+        "Framework/runtime errors are retained with bounded history.",
+        "Events and counters can be inspected during the crash-test.",
+        "A clear/reset path exists for repeated test runs."
+      ]
+    },
+    {
+      "gate_id": "P9-007",
+      "name": "Validated UX reference for promoted runtime",
+      "required_for_real_integration": true,
+      "status": "blocked_human",
+      "coordination_task": "8B-V20-SCOPE-LAYOUT",
+      "owner_snapshot": "A",
+      "evidence": [
+        "dev/framework/doc/roadmap/human-check.md"
+      ],
+      "acceptance": [
+        "The human validation milestone is explicitly closed for the chosen reference.",
+        "Any blocking V20 correction is resolved before promotion."
+      ]
+    },
+    {
+      "gate_id": "P9-008",
+      "name": "Recettes du Coeur source data accessible and inventoried",
+      "required_for_real_integration": true,
+      "status": "blocked_external",
+      "acceptance": [
+        "Recipe and ingredient datasets are accessible.",
+        "Categories, tags, allergens, seasonality, equipment and tips are inventoried.",
+        "Media paths and public-site configuration are inventoried.",
+        "Each JSON source has version/data-dictionary information or an explicit migration note."
+      ]
+    },
+    {
+      "gate_id": "P9-009",
+      "name": "Vertical slice contract defined",
+      "required_for_real_integration": true,
+      "status": "ready",
+      "evidence": [
+        "dev/framework/doc/roadmap/lot9-recettes-du-coeur-preflight.md"
+      ],
+      "acceptance": [
+        "Load a real recipe subset and linked ingredients.",
+        "Render recipe index and recipe detail.",
+        "Provide search and a minimal filter set.",
+        "Handle image fallback and generate recipe QR.",
+        "Publish a preview before broadening the feature set."
+      ]
+    },
+    {
+      "gate_id": "P9-010",
+      "name": "Preview publication policy available",
+      "required_for_real_integration": true,
+      "status": "ready",
+      "evidence": [
+        "dev/framework/doc/roadmap/preview-policy.md"
+      ],
+      "acceptance": [
+        "Crash-test output is published to a preview target before production.",
+        "Published snapshots remain immutable and identifiable."
+      ]
+    },
+    {
+      "gate_id": "P9-011",
+      "name": "Multi-agent lock discipline active",
+      "required_for_real_integration": false,
+      "status": "pass",
+      "evidence": [
+        "dev/framework/doc/roadmap/coordination/README.md",
+        "dev/framework/doc/roadmap/coordination/locks/"
+      ],
+      "acceptance": [
+        "Every parallel task is reserved before modification.",
+        "No active file_scope overlap exists between agents.",
+        "roadmap.md is consolidated separately rather than edited concurrently."
+      ]
+    }
+  ],
+  "decision": {
+    "preparation_work_allowed_now": true,
+    "real_lot9_integration_ready": false,
+    "blocking_gates_snapshot": [
+      "P9-002",
+      "P9-003",
+      "P9-004",
+      "P9-005",
+      "P9-006",
+      "P9-007",
+      "P9-008"
+    ],
+    "safe_parallel_work": [
+      "Inventory business datasets and mappings when the business repository is accessible.",
+      "Prepare representative fixtures without changing generic runtime.",
+      "Prepare the atelier/config/assets/web folder contract.",
+      "Re-evaluate this checklist from live locks before starting the real vertical slice."
+    ]
+  },
+  "dictionnaire_donnees": {
+    "version": "1.0.0",
+    "date": "2026-08-12",
+    "description": "Machine-readable Lot 9 entry checklist. Gate statuses are a coordination snapshot; live ownership/status must be re-read from coordination/locks before action.",
+    "champs": {
+      "metadata": "Document identity, generation context and source references.",
+      "policy": "Non-negotiable boundaries for this preflight artifact.",
+      "gates": "Entry criteria for the Recettes du Coeur crash-test.",
+      "decision": "Snapshot go/no-go synthesis and safe work that can proceed in parallel."
+    }
+  }
+}
