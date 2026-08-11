@@ -1,16 +1,14 @@
 {
   "task_id": "COORD-ROADMAP-AGENT-DASHBOARD",
-  "agent": "B",
-  "status": "released",
-  "base": "9a36c700cd88142507d69c51444d438ff6eb1ae9",
+  "agent": "C",
+  "status": "in_progress",
+  "base": "d0b1d351add2b82eef671e256daf7f74d5008dd5",
   "branch": "New",
   "file_scope": [
     "dev/framework/doc/roadmap/roadmap.md",
     "dev/framework/doc/roadmap/coordination/README.md",
     "dev/framework/doc/roadmap/coordination/agent-board.md"
   ],
-  "reserved_at": "2026-08-12T00:27:00+02:00",
-  "released_at": "2026-08-12T00:27:00+02:00",
-  "final_sha": "25788fa42098c2ce48703519fd85522ca2ed20a2",
-  "notes": "Roadmap, tableau multi-agent et procédure A/B/C synchronisés ; couleurs et statuts visibles, issue centrale référencée, mutex documentaire libéré."
+  "reserved_at": "2026-08-12T00:35:00+02:00",
+  "notes": "Agent C rafraîchit le snapshot documentaire après intégration des PR #2 (Analytics/Consent/Provider) et #3 (Lot 9 preflight). Delta limité aux statuts C ; aucun arbitrage A/B modifié."
 }
