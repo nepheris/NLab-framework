@@ -1,7 +1,7 @@
 {
   "task_id": "8B-REGISTRY-ROBUSTNESS",
   "agent": "C",
-  "status": "in_progress",
+  "status": "review",
   "base": "a0435a089217c14eb5762ba48dea70891c55a6cc",
   "branch": "agent-c/registry-robustness",
   "file_scope": [
@@ -10,5 +10,11 @@
     "dev/framework/doc/registry/registry.md"
   ],
   "reserved_at": "2026-08-12T01:27:00+02:00",
-  "notes": "Durcir FrameworkRegistry sans chevauchement A/B : lectures sans création de namespace, validation namespace/id, null/undefined distingués du fallback, remove avec pruning, introspection namespaceNames/size et tests dédiés."
+  "final_sha": "64102831816b673bc2d203eb9f917940a957490e",
+  "verification": {
+    "diff": "3 commits / 3 files, all inside reserved file_scope",
+    "tests": "local Node contract test",
+    "result": "FrameworkRegistry tests: OK"
+  },
+  "notes": "FrameworkRegistry n'a plus d'effet de bord en lecture, distingue null/undefined du fallback, valide les clés, prune les buckets vides et expose namespaceNames/size/clear comptés. Aucun fichier A/B ni démo/roadmap dans la branche."
 }
