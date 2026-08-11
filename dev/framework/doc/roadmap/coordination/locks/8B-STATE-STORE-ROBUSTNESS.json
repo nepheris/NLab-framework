@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-STATE-STORE-ROBUSTNESS",
+  "agent": "C",
+  "status": "in_progress",
+  "base": "4b0c61c0bd5b7158c5cf8038de69fbb588220fdb",
+  "branch": "agent-c/state-store-robustness",
+  "file_scope": [
+    "dev/framework/core/state-store.js",
+    "dev/framework/tests/state-store-robustness.test.mjs",
+    "dev/framework/doc/state-store/state-store.md"
+  ],
+  "reserved_at": "2026-08-12T01:18:00+02:00",
+  "notes": "Durcir StateStore indépendamment des chantiers A/B : chemins validés et anti-prototype-pollution, set sur intermédiaires primitifs, reset sans double notification, hydratation profonde des defaults, storage/listeners résilients et tests dédiés."
+}
