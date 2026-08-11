@@ -1,7 +1,7 @@
 {
   "task_id": "8B-NOTIFICATION-CENTER-CONTRACT",
   "agent": "C",
-  "status": "review",
+  "status": "done",
   "base": "892f95c3038f5afa1e5e62482eced87e45f8db4b",
   "branch": "agent-c/notification-center-contract",
   "file_scope": [
@@ -11,10 +11,12 @@
   ],
   "reserved_at": "2026-08-12T00:39:00+02:00",
   "final_sha": "0448d5f714f5f816a3cee0523b3bae04d0417a51",
+  "merged_sha": "8a8c1a8b01efd445e06aae5125c4f02395741a84",
+  "pull_request": 4,
   "verification": {
     "diff": "3 commits / 3 files, all inside reserved file_scope",
     "tests": "notification-center.test.mjs executed from exact branch content",
     "result": "notification center tests: ok"
   },
-  "notes": "NotificationCenter est désormais compatible sans DOM, expose info/success/warning/error/dev avec alias danger, limite la pile, gère dismiss/clear/destroy et utilise des variables de thème dédiées avec fallbacks rétrocompatibles. Aucun fichier A/B, aucune démo ni roadmap modifiés dans la branche."
+  "notes": "NotificationCenter est désormais compatible sans DOM, expose info/success/warning/error/dev avec alias danger, limite la pile, gère dismiss/clear/destroy et utilise des variables de thème dédiées avec fallbacks rétrocompatibles. Intégré dans New via PR #4 ; aucun fichier A/B ni démo touché."
 }
