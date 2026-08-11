@@ -1,5 +1,7 @@
 # Framework V2 — cycle de revue V17
 
+> **Roadmap de cycle de démonstration.** La roadmap projet canonique du nLab Framework est maintenant restaurée dans [`../ROADMAP.md`](../ROADMAP.md). Ce document V17 conserve uniquement le détail de la passe de démonstration et ne remplace plus la feuille de route globale.
+
 ## Objectif
 
 Transformer la page de démonstration en vrai banc d'essai du framework : chaque contrôle visible doit être testable, les comportements génériques doivent rester factorisés et le JSON Studio doit devenir un éditeur métier exploitable, pas une simple visualisation.
