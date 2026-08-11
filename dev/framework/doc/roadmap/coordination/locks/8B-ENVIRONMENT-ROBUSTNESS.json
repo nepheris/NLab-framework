@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-ENVIRONMENT-ROBUSTNESS",
+  "agent": "B",
+  "status": "reserved",
+  "base": "70957882b87d76b3c7ddd3a7d13b5a817b58886a",
+  "branch": "agent-b/environment-robustness",
+  "file_scope": [
+    "dev/framework/core/environment.js",
+    "dev/framework/tests/environment-robustness.test.mjs",
+    "dev/framework/doc/environment/*.md"
+  ],
+  "reserved_at": "2026-08-12T01:51:00+02:00",
+  "notes": "Durcir Environment : modes/experiences normalisés, URLs/bases cohérentes, snapshots stables et erreurs structurées. Aucun TableWiz, DataSource, DataAdapter, DataProvider, démo ou roadmap dans la branche métier."
+}
