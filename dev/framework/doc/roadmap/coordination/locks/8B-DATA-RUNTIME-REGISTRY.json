@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-DATA-RUNTIME-REGISTRY",
+  "agent": "C",
+  "status": "in_progress",
+  "base": "f8d42138f4aa73f3ea90bf1fcb7bec3a2923d9d8",
+  "branch": "agent-c/data-runtime-registry",
+  "file_scope": [
+    "dev/framework/core/data-runtime-registry.js",
+    "dev/framework/tests/data-runtime-registry.test.mjs",
+    "dev/framework/doc/data-runtime-registry/data-runtime-registry.md"
+  ],
+  "reserved_at": "2026-08-12T01:41:00+02:00",
+  "notes": "Durcir DataRuntimeRegistry : types normalisés, remplacement explicite, has/unregister/clear/size, options de factory copiées et tests providers/adapters. Aucun fichier A/B, DataProvider concret, démo ou roadmap dans la branche."
+}
