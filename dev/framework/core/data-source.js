@@ -1,12 +1,23 @@
+function requiredString(value, label) {
+  if (typeof value !== 'string') throw new TypeError(`${label} must be a string`);
+  const normalized = value.trim();
+  if (!normalized) throw new Error(`${label} is required`);
+  return normalized;
+}
+
+function objectOptions(value, label) {
+  if (value == null) return {};
+  if (typeof value !== 'object' || Array.isArray(value)) throw new TypeError(`${label} must be an object`);
+  return { ...value };
+}
+
 export class DataSource {
   constructor({ id, type, location = null, options = {}, metadata = {} } = {}) {
-    if (!id) throw new Error('DataSource id is required');
-    if (!type) throw new Error('DataSource type is required');
-    this.id = id;
-    this.type = type;
+    this.id = requiredString(id, 'DataSource id');
+    this.type = requiredString(type, 'DataSource type');
     this.location = location;
-    this.options = { ...options };
-    this.metadata = { ...metadata };
+    this.options = objectOptions(options, 'DataSource options');
+    this.metadata = objectOptions(metadata, 'DataSource metadata');
   }
 
   toJSON() {
