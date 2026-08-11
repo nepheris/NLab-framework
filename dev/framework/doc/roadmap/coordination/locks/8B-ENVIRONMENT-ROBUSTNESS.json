@@ -1,7 +1,7 @@
 {
   "task_id": "8B-ENVIRONMENT-ROBUSTNESS",
   "agent": "B",
-  "status": "reserved",
+  "status": "in_progress",
   "base": "70957882b87d76b3c7ddd3a7d13b5a817b58886a",
   "branch": "agent-b/environment-robustness",
   "file_scope": [
@@ -10,5 +10,5 @@
     "dev/framework/doc/environment/*.md"
   ],
   "reserved_at": "2026-08-12T01:51:00+02:00",
-  "notes": "Durcir Environment : modes/experiences normalisés, URLs/bases cohérentes, snapshots stables et erreurs structurées. Aucun TableWiz, DataSource, DataAdapter, DataProvider, démo ou roadmap dans la branche métier."
+  "notes": "Contrôle post-réservation effectué sur l'ensemble des locks : aucun chevauchement environment.js. Durcir modes/experiences, bases URL et snapshot sans toucher aux fichiers A/C."
 }
