@@ -44,6 +44,7 @@
 | 🟩 B | ✅ `done` | `8B-SEARCH-FILTER-ROBUSTNESS` | PR #12 — `7572591e4f4987c2478d5891f7e5fc3453db785c` | SearchWiz Unicode/stopwords/fields et FilterWiz fail-closed consolidés |
 | 🟩 B | ✅ `done` | `8B-URL-RESOLVER-ROBUSTNESS` | PR #13 — `cf606f256329567200bc8d054d7ef073a1e393cc` | URL Resolver résilient, bases relatives et contexte hors navigateur couverts |
 | 🟩 B | ✅ `done` | `8B-DATA-INDEX-ROBUSTNESS` | PR #19 — `00d1a5738a8eb5dcf56049ec02ff3af2e08db4f3` | DataIndex atomique, entrées validées, doublons structurés, `has/size` |
+| 🟩 B | ✅ `done` | `8B-DATA-RESOLVER-ROBUSTNESS` | PR #22 — `6f4f3a999b235983b16494fd22930b3352899440` | DataResolver : collections own-property, provider/data/relations validés, cache ciblé |
 
 ## Livraisons C intégrées
 
@@ -60,6 +61,9 @@
 | 🟧 C | ✅ `done` | `8B-STATE-STORE-ROBUSTNESS` | PR #16 — `d4ba568af90ccf91ab413159dde2ed499b86f124` | StateStore protégé contre chemins invalides/prototype pollution et hydratation/reset fiabilisés |
 | 🟧 C | ✅ `done` | `8B-EVENT-BUS-ROBUSTNESS` | PR #17 — `2d7d4e7a195143747e92348c3c99b72334b07466` | EventBus déterministe, listeners isolés, wildcard/once/off/introspection consolidés |
 | 🟧 C | ✅ `done` | `8B-REGISTRY-ROBUSTNESS` | PR #18 — `892d96e1aa1aa074acf0c1965ee0bc42a43031e6` | FrameworkRegistry : lectures sûres, validation, pruning et introspection |
+| 🟧 C | ✅ `done` | `8B-RESULTSET-ROBUSTNESS` | PR #20 — `f23baf9e723aae7055fb4167ed0e0b723a28087d` | ResultSet : contexte isolé, total logique conservé et helpers d'itération/introspection |
+| 🟧 C | ✅ `done` | `8B-DATA-PROVIDER-ROBUSTNESS` | PR #21 — `539f418b38e5f5b82743d16df362e5653b558d81` | DataProvider : options clonées, capabilities, getRecord et erreurs structurées |
+| 🟧 C | ✅ `done` | `8B-DATA-RUNTIME-REGISTRY` | PR #23 — `80293795b9c1039be640288259930b744c0d1adc` | DataRuntimeRegistry : types normalisés, remplacements explicites, providers/adapters séparés |
 
 ## Règle de lecture et d'historique
 
