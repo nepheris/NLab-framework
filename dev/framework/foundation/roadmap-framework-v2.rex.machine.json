@@ -1,0 +1,129 @@
+{
+  "schema": "nlab.chatgpt-rex",
+  "schema_version": "1.0",
+  "roadmap": {
+    "id": "FRAMEWORK-V2",
+    "project": "Framework nLab V2 + crash-test Recettes du Cœur",
+    "status": "ACTIVE",
+    "roadmap_path": "./ROADMAP.md",
+    "human_check_path": "./roadmap-framework-v2.human-check.md"
+  },
+  "purpose": "Mémoire opérationnelle cumulative pour reprendre la roadmap Framework V2 avec un minimum de reconstruction conversationnelle.",
+  "update_policy": {
+    "on_structural_milestone": true,
+    "on_significant_failure": true,
+    "on_human_decision_change": true,
+    "on_method_change": true,
+    "on_roadmap_close": true,
+    "avoid_update_for_trivial_commit": true
+  },
+  "state": {
+    "current_block": "Catalogue et consolidation UX",
+    "current_phase": "8B",
+    "current_goal": "Stabiliser les primitives UX transverses avant le crash-test métier.",
+    "resume_from": "Valider le Preset Manager générique puis l'intégrer dans QR Studio, Theme Workshop/Densité, Responsive/Cartes et TableWiz.",
+    "blocked_by_human": false,
+    "open_human_gate": "H001"
+  },
+  "decisions": [
+    "Le framework générique reste séparé des données et de l'identité métier Recettes du Cœur.",
+    "Le mode Webmaster est un état UX et jamais un mécanisme d'autorisation.",
+    "Les réglages visuels doivent pouvoir être exportés en JSON et reproduits sans explication verbale détaillée.",
+    "La roadmap active, le backlog UX, la boîte à idées et le RETEX ont des rôles distincts.",
+    "Une idée nouvelle est triée NOW/BEFORE_CLOSE/LATER/NOTE au lieu d'élargir automatiquement le livrable.",
+    "La Preview publique doit être identifiée par un numéro de version visible et des métadonnées machine.",
+    "Build artifact, deployment GitHub Pages et contenu réellement servi sont trois contrôles distincts."
+  ],
+  "effective_patterns": [
+    "Refetch du HEAD avant chaque écriture GitHub.",
+    "Développer d'abord les primitives transverses à fort rendement avant duplication.",
+    "Associer IDs humains + IDs techniques + Info/Test aux zones de démonstration.",
+    "Utiliser CodeBlock pour transmettre des configurations machine copiables/téléchargeables.",
+    "Publier des démos isolées quand une primitive doit être prouvée sans casser le catalogue principal.",
+    "Conserver les détails longs dans GitHub et les rapports ChatGPT synthétiques."
+  ],
+  "failed_or_costly_patterns": [
+    "Considérer un workflow Pages réussi comme preuve suffisante du rendu public.",
+    "Utiliser jsDelivr comme substitut d'une vraie publication HTML Preview.",
+    "Ajouter des contrôles visuels sans les brancher fonctionnellement avant publication.",
+    "Laisser des idées importantes uniquement dans la conversation."
+  ],
+  "do_not_repeat": [
+    "Ne pas annoncer une Preview comme validée uniquement parce que le commit ou l'artefact existe.",
+    "Ne pas mélanger les données métier et les données/configurations opérationnelles du framework dans un même fichier frontière.",
+    "Ne pas coder des presets séparément dans chaque Wiz quand une primitive générique existe.",
+    "Ne pas écraser la branche New ni utiliser de force push."
+  ],
+  "human_interventions": [
+    {
+      "id": "H001",
+      "status": "ACTIVE_NON_BLOCKING",
+      "title": "Validation UX de la consolidation 8B",
+      "resume_after": "Intégrer le Preset Manager dans QR Studio puis poursuivre les intégrations indépendantes."
+    },
+    {
+      "id": "H002",
+      "status": "CONDITIONAL",
+      "title": "Mapping métier ambigu Recettes du Cœur"
+    },
+    {
+      "id": "H003",
+      "status": "PLANNED",
+      "title": "Choix thème/variantes Recettes du Cœur"
+    },
+    {
+      "id": "H004",
+      "status": "PLANNED",
+      "title": "Validation Preview public"
+    },
+    {
+      "id": "H005",
+      "status": "PLANNED",
+      "title": "Stabilisation Framework V2"
+    }
+  ],
+  "uncertainties": [
+    "Le niveau de détail final du TableWiz et du JSON Studio avant le premier crash-test dépendra des besoins réels du site métier.",
+    "Les variantes visuelles définitives doivent rester ouvertes jusqu'aux tests humains."
+  ],
+  "backlog": {
+    "before_close": [
+      "Généraliser Info/Test et IDs aux sous-sections/composants testables.",
+      "Intégrer Preset Manager aux principaux studios.",
+      "Stabiliser Theme Workshop V2, navigation Webmaster et primitives Link/Media nécessaires au crash-test.",
+      "Réaliser le crash-test Recettes du Cœur et la publication Preview finale."
+    ],
+    "later": [
+      "Éditeur riche texte.",
+      "Calendrier/agenda/timeline/ICS avancés.",
+      "Données spatiales et MapWiz.",
+      "Types spécialisés téléphone/SIRET/monnaie et analyses avancées.",
+      "Exports et traitements médias avancés."
+    ],
+    "notes": [
+      "DatePicker simple peut être promu dans V2 dès qu'un cas concret le requiert.",
+      "Le Preset Manager doit devenir la primitive commune de toutes les configurations nommables."
+    ]
+  },
+  "candidate_cardinal_rules": [
+    "Toute Preview de test doit afficher un numéro de version humain et exposer un identifiant machine de build.",
+    "Toute nouvelle fonctionnalité transverse doit être factorisée avant d'être dupliquée dans plusieurs Wiz.",
+    "Toute zone de test importante doit pouvoir être référencée par un ID humain court et un ID technique stable."
+  ],
+  "future_acceleration_hints": [
+    "Lire ROADMAP.md, ce REX, DECISIONS.md et ROADMAP-8B-DETAIL.md avant d'implémenter.",
+    "Reprendre à l'action exacte indiquée sauf si un jalon HUMAN réellement bloquant est ouvert.",
+    "Utiliser PresetManager/PresetManagerView plutôt que recoder stockage, import/export ou CRUD de presets.",
+    "Mettre à jour le REX seulement aux jalons structurels, incidents significatifs ou changements de méthode.",
+    "Maintenir les phases terminées repliées et la phase active ouverte dans la roadmap humaine."
+  ],
+  "final_review": {
+    "completed": false,
+    "what_worked": [],
+    "what_worked_less": [],
+    "anti_patterns": [],
+    "transferrable_lessons": [],
+    "governance_candidates": [],
+    "template_improvements": []
+  }
+}
