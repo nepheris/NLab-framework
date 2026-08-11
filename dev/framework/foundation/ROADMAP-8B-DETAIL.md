@@ -2,6 +2,8 @@
 
 Ce document est une extension opérationnelle de `ROADMAP.md`. Il consolide les retours de test du catalogue et sert de liste détaillée jusqu'à la stabilisation du Lot 8B.
 
+> 💡 Les évolutions intéressantes mais hors périmètre de cette roadmap sont conservées dans [`IDEAS.md`](./IDEAS.md). Une idée ne revient dans un lot actif que lorsqu'elle devient nécessaire au prochain objectif concret.
+
 ## Theme Workshop
 
 - [x] séparer clairement Couleurs / Background / Typographie / Densité ;
@@ -115,8 +117,8 @@ Ce document est une extension opérationnelle de `ROADMAP.md`. Il consolide les 
 - [ ] persistance locale optionnelle du contenu édité ;
 - [ ] HTML / CSS / CSV ;
 - [ ] détection automatique du langage quand fiable ;
-- [ ] mini éditeur riche texte (gras/italique/couleur/lien/image) — différé ;
-- [ ] exports texte riche vers HTML/PDF/image/Word — différé ;
+- [ ] mini éditeur riche texte (gras/italique/couleur/lien/image) — déplacé vers la boîte à idées ;
+- [ ] exports texte riche vers HTML/PDF/image/Word — déplacés vers la boîte à idées ;
 - [ ] packs de coloration configurables.
 
 ## InspectorPanel / FloatingPanel
@@ -154,6 +156,11 @@ Ce document est une extension opérationnelle de `ROADMAP.md`. Il consolide les 
 - [ ] import/export JSON ;
 - [ ] Preset Manager générique.
 
+## Dates — minimum utile pour V2
+
+- [ ] ajouter un **DatePicker simple** réutilisable pour les formulaires et filtres dès qu'un cas concret du crash-test le nécessite ;
+- [ ] conserver calendrier avancé, agenda, timeline et ICS dans la boîte à idées tant qu'ils ne sont pas requis par Recettes du Cœur.
+
 ## Documents / Media / DataWiz — à poursuivre après les primitives ci-dessus
 
 - [ ] SnapshotWiz : capturer un composant/graphique/section et exporter image / PDF / HTML ;
@@ -162,11 +169,17 @@ Ce document est une extension opérationnelle de `ROADMAP.md`. Il consolide les 
 - [ ] icônes de fichiers standard : générique, dossier, ZIP, image, SVG, JSON, JS, Python, Bash, texte, PDF, tableur ;
 - [ ] icônes réseaux sociaux et partage — lot ultérieur ;
 - [ ] formulaires génériques + formulaire de contact inspiré du projet Recettes du Cœur ;
-- [ ] vues supplémentaires : classeur/onglets, timeline/date, vertical/horizontal filmstrip — timeline différée après crash-test ;
+- [ ] vues supplémentaires : classeur/onglets, timeline/date, vertical/horizontal filmstrip — timeline déplacée vers la boîte à idées après crash-test ;
 - [ ] DocumentWiz : plusieurs previews (HTML, print/PDF, autres profils) ;
 - [ ] MediaWiz : image/PDF/SVG avec modes viewer/vignette/nouvel onglet/téléchargement ;
 - [ ] DataWiz : vues explicites KPI/distribution/groupement avec source/variable/mesure/résultat ;
 - [ ] DataWiz : presets de vues.
+
+## 💡 Boîte à idées / évolutions ultérieures
+
+La liste complète est maintenue dans [`IDEAS.md`](./IDEAS.md). Elle contient notamment : éditeur riche, dates/calendriers/agendas/ICS, frises chronologiques, données spatiales/cartes, types spécialisés (téléphone, SIRET, monnaies…), analyses statistiques, affichage conditionnel, cellules typées et exports avancés.
+
+Cette section **n'entre pas dans le pourcentage d'avancement du Lot 8B**.
 
 ## Critère de sortie
 
