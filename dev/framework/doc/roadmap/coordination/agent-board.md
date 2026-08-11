@@ -4,20 +4,22 @@
 
 ## Légende agents
 
-- 🟦 **A** — Agent A : UX, démo active, extraction legacy et architecture sémantique selon ses locks.
+- 🟦 **A** — Agent A : UX, démo active, extraction legacy et architecture selon ses locks.
 - 🟩 **B** — Agent B : robustesse, contrats, tests et lots autonomes selon ses locks.
 - 🟧 **C** — Agent C : lots parallèles indépendants selon ses locks.
 - 🟣👤 **HUMAN** — validation humaine requise ; ce n'est pas un agent logiciel.
 - ⚪ **Libre** — aucune réservation active connue.
 
+> **Convention de traçabilité : la couleur de l'agent reste affichée après `done`.** Une tâche `🟩 B ✅`, par exemple, signifie qu'elle a été réalisée par B même si son lock n'est plus actif.
+
 ## Légende statuts
 
-- 🔒 `reserved` — réservé, pas encore commencé.
-- 🛠️ `in_progress` — travail en cours.
-- 👀 `review` — prêt pour revue / consolidation.
-- ⛔ `blocked` — bloqué par dépendance ou validation.
-- ✅ `done` — terminé / intégré / livré.
-- ♻️ `released` — libéré et disponible pour réattribution.
+- `🔒 reserved` — réservé, pas encore commencé.
+- `🛠️ in_progress` — travail en cours.
+- `👀 review` — prêt pour revue / consolidation.
+- `⛔ blocked` — bloqué par dépendance ou validation.
+- `✅ done` — terminé / intégré / livré.
+- `♻️ released` — libéré et disponible pour réattribution.
 
 ## Tâches actuellement attribuées
 
@@ -25,12 +27,13 @@
 |---|---|---|---|---|
 | 🟦 A | 🛠️ `in_progress` | `8B-V20-SCOPE-LAYOUT` | `review-v20-from-v16` | Scope Lab / Layout Lab V20, démo |
 | 🟦 A | 👀 `review` | `8B-SEMANTIC-ARCHITECTURE` | `agent-a/semantic-architecture` | nomenclature et responsabilités architecturales |
+| 🟦 A | 👀 `review` | `8B-ARCHITECTURE-MAP` | `agent-a/architecture-map` | carte hiérarchique Framework + Data métier |
 | 🟦 A | 🔒 `reserved` | `8B-HEADER-LEGACY-EXTRACTION` | `agent-a/header-studio-from-v16` | Header Studio générique |
 | 🟦 A | 🔒 `reserved` | `8B-TABLEWIZ-LEGACY-EXTRACTION` | `agent-a/tablewiz-legacy-from-v16` | TableWiz legacy → API générique |
 
-> 🟩 **B** et 🟧 **C** n'ont pas de lock métier actif dans ce snapshot. Les tâches `done` restent historisées dans leurs locks.
+> 🟩 **B** et 🟧 **C** n'ont pas de lock métier actif dans ce snapshot après leurs dernières intégrations. De nouveaux locks peuvent apparaître à tout moment ; les JSON de `locks/` priment toujours.
 
-## Livraisons B récemment intégrées
+## Livraisons B intégrées
 
 | Agent | Statut | Tâche | Intégration | Résultat |
 |---|---|---|---|---|
@@ -40,8 +43,9 @@
 | 🟩 B | ✅ `done` | `8B-SEO-SHARE-CONTRACTS` | PR #10 — `5d95554858a5a4a60ed205e779dcd4aa4d77b61f` | SEO/Share déterministes et fallbacks navigateur durcis |
 | 🟩 B | ✅ `done` | `8B-SEARCH-FILTER-ROBUSTNESS` | PR #12 — `7572591e4f4987c2478d5891f7e5fc3453db785c` | SearchWiz Unicode/stopwords/fields et FilterWiz fail-closed consolidés |
 | 🟩 B | ✅ `done` | `8B-URL-RESOLVER-ROBUSTNESS` | PR #13 — `cf606f256329567200bc8d054d7ef073a1e393cc` | URL Resolver résilient, bases relatives et contexte hors navigateur couverts |
+| 🟩 B | ✅ `done` | `8B-DATA-INDEX-ROBUSTNESS` | PR #19 — `00d1a5738a8eb5dcf56049ec02ff3af2e08db4f3` | DataIndex atomique, entrées validées, doublons structurés, `has/size` |
 
-## Livraisons C récemment intégrées
+## Livraisons C intégrées
 
 | Agent | Statut | Tâche | Intégration | Résultat |
 |---|---|---|---|---|
@@ -53,14 +57,18 @@
 | 🟧 C | ✅ `done` | `8B-NAVIGATION-CONTRACT` | PR #11 — `9d02216a3395002da7ef300dc83aa1c70567cae5` | NavigationWiz sans DOM implicite, IDs sûrs, observer/hash robustes |
 | 🟧 C | ✅ `done` | `8B-HELPWIZ-CONTRACT` | PR #14 — `181ab313a73e00bd74749119e41a939f526856a9` | HelpWiz cloné/contextualisé, attach idempotent, detach/destroy et événements injectables |
 | 🟧 C | ✅ `done` | `8B-STORAGE-ROBUSTNESS` | PR #15 — `1b84292ee6d10c0de0b34cc4dc11150ccf499de8` | BrowserStorage résilient aux erreurs quota/security/sérialisation et clear best-effort |
+| 🟧 C | ✅ `done` | `8B-STATE-STORE-ROBUSTNESS` | PR #16 — `d4ba568af90ccf91ab413159dde2ed499b86f124` | StateStore protégé contre chemins invalides/prototype pollution et hydratation/reset fiabilisés |
+| 🟧 C | ✅ `done` | `8B-EVENT-BUS-ROBUSTNESS` | PR #17 — `2d7d4e7a195143747e92348c3c99b72334b07466` | EventBus déterministe, listeners isolés, wildcard/once/off/introspection consolidés |
+| 🟧 C | ✅ `done` | `8B-REGISTRY-ROBUSTNESS` | PR #18 — `892d96e1aa1aa074acf0c1965ee0bc42a43031e6` | FrameworkRegistry : lectures sûres, validation, pruning et introspection |
 
-## Règle de lecture
+## Règle de lecture et d'historique
 
-1. Une ligne colorée signifie qu'un agent possède un lock actif ou en review.
+1. Une ligne colorée active signifie qu'un agent possède un lock actif ou en review.
 2. La couleur identifie **le propriétaire**, le pictogramme de statut indique **l'état**.
-3. Avant de prendre une tâche, un agent doit contrôler tous les `file_scope` A/B/C, pas seulement le nom du lot.
-4. Une tâche `done` reste historisée dans son lock ; elle peut être retirée de la section active et déplacée vers une synthèse de clôture.
+3. Une ligne `✅ done` **conserve définitivement la couleur de l'agent qui l'a réalisée**.
+4. Avant de prendre une tâche, un agent doit contrôler tous les `file_scope` A/B/C, pas seulement le nom du lot.
 5. Une tâche sans lock actif est considérée libre uniquement après vérification des branches et du HEAD de `New`.
+6. Les tâches historiques antérieures au protocole de locks ne sont pas réattribuées rétroactivement sans preuve Git fiable.
 
 ## Mutex de mise à jour du tableau
 
