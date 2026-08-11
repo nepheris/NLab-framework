@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Framework V2 — Preset Manager</title>
+  <link rel="stylesheet" href="../ui/base.css">
+  <link rel="stylesheet" href="demo.css">
+  <style>
+    body{padding:2rem}.preset-demo{max-width:1100px;margin:auto}.preset-preview{min-height:220px;padding:2rem;border:1px solid var(--nlab-border);border-radius:var(--nlab-radius);background:var(--preset-bg,#eef4ff);color:var(--preset-fg,#171717);font-size:var(--preset-size,18px)}
+    .nlab-preset-manager{display:grid;gap:.6rem}.nlab-preset-manager__row{display:flex;gap:.45rem;flex-wrap:wrap;align-items:center}.nlab-preset-manager button,.nlab-preset-manager label{display:inline-flex;gap:.35rem;align-items:center}.nlab-preset-manager [data-preset-status][data-kind="success"]{color:var(--nlab-success,#15803d)}.nlab-preset-manager [data-preset-status][data-kind="error"]{color:var(--nlab-danger,#b91c1c)}
+  </style>
+</head>
+<body>
+<main class="preset-demo nlab-stack">
+  <header>
+    <h1>Preset Manager — DMO-PRESET-001</h1>
+    <p><strong>Objectif :</strong> prouver une seule mécanique réutilisable pour QR, thème, densité, responsive, cartes et tableaux.</p>
+    <div class="demo-test-note"><strong>À tester :</strong> sélectionner, créer, dupliquer, modifier, enregistrer, valider, renommer, supprimer, exporter puis réimporter les presets.</div>
+  </header>
+
+  <section class="demo-panel nlab-stack">
+    <h2>Réglages simulés</h2>
+    <div class="demo-controls">
+      <label>Background <input id="preset-bg" type="color" value="#eef4ff"></label>
+      <label>Texte <input id="preset-fg" type="color" value="#171717"></label>
+      <label>Taille <input id="preset-size" type="range" min="14" max="32" value="18"><output id="preset-size-value">18 px</output></label>
+    </div>
+    <div id="preset-manager"></div>
+  </section>
+
+  <section>
+    <h2>Preview</h2>
+    <div id="preset-preview" class="preset-preview">
+      <h3>Prévisualisation du preset actif</h3>
+      <p>Modifiez les contrôles, enregistrez le preset, puis exportez la collection JSON.</p>
+    </div>
+  </section>
+
+  <p><a href="./index.html">← Retour au catalogue principal</a></p>
+</main>
+<script type="module" src="preset-manager-demo.js"></script>
+</body>
+</html>
