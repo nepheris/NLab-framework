@@ -4,6 +4,51 @@
 
 Transformer la page de démonstration en vrai banc d'essai du framework : chaque contrôle visible doit être testable, les comportements génériques doivent rester factorisés et le JSON Studio doit devenir un éditeur métier exploitable, pas une simple visualisation.
 
+## Vue d'avancement globale
+
+> Les pourcentages ci-dessous représentent une estimation de **maturité fonctionnelle**, pas un taux de lignes de code terminées.
+
+```text
+ARCHITECTURE FRAMEWORK
+████████████████████  ~90 %
+
+CATALOGUE / PLAYGROUND
+████████████████░░░░  ~80 %
+
+UX / CONCEPTS
+██████████████░░░░░░  ~70 %
+
+COMPOSANTS INDUSTRIALISÉS
+██████████░░░░░░░░░░  ~50 %
+
+JSON / DATA MÉTIER
+██████████░░░░░░░░░░  ~50 %
+
+TESTS / ROBUSTESSE
+██████░░░░░░░░░░░░░░  ~30 %
+
+INTÉGRATION MÉTIER
+████░░░░░░░░░░░░░░░░  ~20 %
+```
+
+### Process cible
+
+```text
+Idée
+  ↓
+Prototype dans la démo
+  ↓
+Validation UX
+  ↓
+Extraction dans le framework
+  ↓
+Démo consommant la brique générique
+  ↓
+Test métier / crash-test
+```
+
+La page de démonstration reste un laboratoire de validation. Une fonctionnalité considérée comme validée doit ensuite être extraite dans une brique générique du framework afin d'éviter que la démo ne devienne une application monolithique parallèle.
+
 ## Implémenté dans V17
 
 - numéro de version V17 visible dans le titre HTML, le H1 et en très grand dans la page ;
