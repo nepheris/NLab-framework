@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-PRESENTATION-RESOLVER-CONTRACT",
+  "agent": "C",
+  "status": "in_progress",
+  "base": "New@branch-creation",
+  "branch": "agent-c/presentation-resolver-contract",
+  "file_scope": [
+    "dev/framework/data/presentation-resolver.js",
+    "dev/framework/tests/presentation-resolver.test.mjs",
+    "dev/framework/doc/presentation-resolver/presentation-resolver.md"
+  ],
+  "reserved_at": "2026-08-12T02:16:00+02:00",
+  "notes": "Formaliser PresentationResolver hors TableWiz/démo : configs defaults/byType validées et isolées, résolution pure, merge view, valeurs explicites null/false préservées, support type fallback et tests dédiés. La branche a été créée directement depuis le HEAD live de New."
+}
