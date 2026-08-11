@@ -1,3 +1,9 @@
+function normalizeOptions(options) {
+  if (options == null) return {};
+  if (typeof options !== 'object' || Array.isArray(options)) throw new TypeError('options must be an object');
+  return { ...options };
+}
+
 export class DataAdapterError extends Error {
   constructor(message, code = 'DATA_ADAPTER_ERROR', details = null) {
     super(message);
@@ -9,7 +15,7 @@ export class DataAdapterError extends Error {
 
 export class DataAdapter {
   constructor(options = {}) {
-    this.options = options;
+    this.options = normalizeOptions(options);
   }
 
   get type() {
@@ -20,7 +26,12 @@ export class DataAdapter {
     return false;
   }
 
-  async normalize(_input, _context = {}) {
-    throw new DataAdapterError('normalize() must be implemented', 'NOT_IMPLEMENTED');
+  async normalize(_input, context = {}) {
+    const normalizedContext = normalizeOptions(context);
+    throw new DataAdapterError('normalize() must be implemented', 'NOT_IMPLEMENTED', {
+      operation: 'normalize',
+      adapterType: this.type,
+      context: normalizedContext
+    });
   }
 }
