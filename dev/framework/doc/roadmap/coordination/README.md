@@ -12,27 +12,43 @@ Exemple :
 
 La création du fichier est volontairement utilisée comme verrou atomique : si le fichier existe déjà, un second agent ne doit pas prendre la tâche.
 
+Le suivi humain est complété par [`agent-board.md`](./agent-board.md), qui reprend les locks sous forme de tableau coloré A/B/C. **En cas d'écart, le lock JSON prime toujours.**
+
+## Couleurs des agents
+
+La couleur est dérivée du champ `agent` du lock ; il n'est pas nécessaire de dupliquer une valeur `color` dans chaque JSON.
+
+- 🟦 `A` — Agent A ;
+- 🟩 `B` — Agent B ;
+- 🟧 `C` — Agent C ;
+- 🟣👤 `HUMAN` — validation humaine ;
+- ⚪ `Libre` — aucune réservation active après contrôle des locks, branches et du HEAD.
+
+Les couleurs d'agent sont des **carrés** afin de ne pas les confondre avec les cercles de statut de la roadmap (`🟢` terminé, `🟡` en cours, etc.).
+
 ## Règles obligatoires
 
 1. Lire `coordination/locks/` avant de choisir une action.
-2. Vérifier aussi les `file_scope` des verrous actifs afin d'éviter deux tâches différentes touchant le même fichier.
-3. Réserver l'action avec un fichier `locks/<TASK-ID>.json` avant le premier changement.
-4. Un verrou contient au minimum : `task_id`, `agent`, `status`, `branch`, `file_scope`, `reserved_at`, `base`.
-5. Utiliser une branche dédiée pour tout chantier substantiel (`agent-a/...`, `agent-b/...` ou branche de review explicitement réservée).
-6. Ne modifier **aucun fichier** présent dans le `file_scope` d'un autre verrou `reserved` ou `in_progress`.
-7. Un commit doit rester **mono-action** : uniquement les fichiers nécessaires à la tâche réservée ; pas de reformatage ou de correction opportuniste hors périmètre.
-8. Avant intégration, comparer la branche à sa base et vérifier que les fichiers modifiés restent dans le périmètre annoncé.
-9. Une tâche terminée n'est pas supprimée : son verrou passe à `done` avec le SHA final. On conserve ainsi l'historique d'attribution.
-10. Si une tâche change d'agent, le verrou existant est mis à jour explicitement ; aucun second verrou concurrent n'est créé.
+2. Vérifier **tous les agents A/B/C** et les `file_scope` de leurs verrous actifs afin d'éviter deux tâches différentes touchant le même fichier.
+3. Vérifier aussi les branches `agent-a/*`, `agent-b/*`, `agent-c/*` et le HEAD de `New` lorsqu'une réservation vient d'être créée ou semble absente du tableau.
+4. Réserver l'action avec un fichier `locks/<TASK-ID>.json` avant le premier changement.
+5. Un verrou contient au minimum : `task_id`, `agent`, `status`, `branch`, `file_scope`, `reserved_at`, `base`.
+6. Utiliser une branche dédiée pour tout chantier substantiel (`agent-a/...`, `agent-b/...`, `agent-c/...` ou branche de review explicitement réservée).
+7. Ne modifier **aucun fichier** présent dans le `file_scope` d'un autre verrou `reserved`, `in_progress` ou `review` tant que ce verrou n'est pas explicitement libéré ou réattribué.
+8. Un commit doit rester **mono-action** : uniquement les fichiers nécessaires à la tâche réservée ; pas de reformatage ou de correction opportuniste hors périmètre.
+9. Avant intégration, comparer la branche à sa base et vérifier que les fichiers modifiés restent dans le périmètre annoncé.
+10. Une tâche terminée n'est pas supprimée : son verrou passe à `done` avec le SHA final. On conserve ainsi l'historique d'attribution.
+11. Si une tâche change d'agent, le verrou existant est mis à jour explicitement ; aucun second verrou concurrent n'est créé.
+12. Après création ou changement d'état d'un lock, le tableau multi-agent doit être rafraîchi dès que le mutex documentaire est disponible.
 
 ## Statuts
 
-- `reserved` : prise mais pas encore modifiée ;
-- `in_progress` : modifications en cours ;
-- `blocked` : dépendance externe ou validation humaine ;
-- `review` : prête à être relue/testée ;
-- `done` : terminée et intégrée ou livrée ;
-- `released` : abandonnée et disponible pour réattribution.
+- 🔒 `reserved` : prise mais pas encore modifiée ;
+- 🛠️ `in_progress` : modifications en cours ;
+- ⛔ `blocked` : dépendance externe ou validation humaine ;
+- 👀 `review` : prête à être relue/testée ;
+- ✅ `done` : terminée et intégrée ou livrée ;
+- ♻️ `released` : abandonnée ou terminée côté réservation et disponible pour réattribution.
 
 ## Discipline Git
 
@@ -43,14 +59,38 @@ Pour réduire encore les conflits :
 - une branche par chantier ;
 - commits petits et cohérents ;
 - pas de commit global de fichiers non modifiés par la tâche ;
-- pas d'édition simultanée de `roadmap.md` par plusieurs agents : les agents écrivent d'abord dans leur verrou/fiche de tâche, puis la roadmap canonique est consolidée séparément ;
+- pas d'édition simultanée de `roadmap.md`, `agent-board.md` ou de cette procédure par plusieurs agents ;
 - les previews et snapshots restent immuables après publication.
+
+## Mutex roadmap / tableau multi-agent
+
+Le verrou persistant suivant protège les fichiers de pilotage partagés :
+
+`locks/COORD-ROADMAP-AGENT-DASHBOARD.json`
+
+Son `file_scope` couvre :
+
+- `dev/framework/doc/roadmap/roadmap.md` ;
+- `dev/framework/doc/roadmap/coordination/README.md` ;
+- `dev/framework/doc/roadmap/coordination/agent-board.md`.
+
+Procédure :
+
+1. lire le mutex avant d'éditer un de ces fichiers ;
+2. s'il est `in_progress` chez un autre agent, ne pas éditer le pilotage ;
+3. s'il est `released` ou `done`, mettre à jour **ce même lock** à son nom, statut `in_progress`, avant édition ;
+4. rafraîchir la roadmap et `agent-board.md` depuis les locks réels ;
+5. passer ensuite le mutex à `released` avec le SHA de sortie.
+
+Les agents peuvent continuer leurs chantiers métier pendant qu'un autre agent possède le mutex documentaire : seuls les fichiers de pilotage sont sérialisés.
 
 ## Convention des agents
 
-- `A` : agent de la session principale actuelle ;
-- `B` : second agent parallèle ;
-- d'autres identifiants peuvent être ajoutés sans changer le protocole.
+- 🟦 `A` : agent A / session principale de construction UX et chantiers qu'il verrouille ;
+- 🟩 `B` : agent B / second agent parallèle et chantiers qu'il verrouille ;
+- 🟧 `C` : agent C / troisième agent parallèle et chantiers qu'il verrouille.
+
+La lettre n'implique pas un type de tâche permanent : **le lock est l'autorité**. Un agent peut prendre tout lot libre compatible avec les règles de collision.
 
 ## Exemple de verrou
 
