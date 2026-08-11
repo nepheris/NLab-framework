@@ -50,6 +50,7 @@
 - 🔎 **Cycle de démonstration courant :** [`../../demo/ROADMAP_V19.md`](../../demo/ROADMAP_V19.md) <a href="../../demo/ROADMAP_V19.md" target="_blank">↗</a>
 - 🔎 **Cycle précédent :** [`../../demo/ROADMAP_V18.md`](../../demo/ROADMAP_V18.md) <a href="../../demo/ROADMAP_V18.md" target="_blank">↗</a>
 - 🟧 **Contrat Analytics / consentement :** [`../analytics/contract.md`](../analytics/contract.md) <a href="../analytics/contract.md" target="_blank">↗</a>
+- 🟧 **Contrat NotificationCenter :** [`../components/notification-center.md`](../components/notification-center.md) <a href="../components/notification-center.md" target="_blank">↗</a>
 - 🟧 **Pré-vol Lot 9 — checklist humaine :** [`lot9-preflight-checklist.md`](./lot9-preflight-checklist.md) <a href="./lot9-preflight-checklist.md" target="_blank">↗</a>
 - 🟧 **Pré-vol Lot 9 — checklist machine :** [`lot9-preflight.machine.json`](./lot9-preflight.machine.json) <a href="./lot9-preflight.machine.json" target="_blank">↗</a>
 - 💡 **Boîte à idées :** backlog de cette roadmap jusqu’à création d’un fichier dédié.
@@ -125,12 +126,13 @@
 |---|---|---|---|---|
 | 🟧 C | ✅ `done` | `8B-ANALYTICS-CONSENT-PROVIDER` | PR #2 — `6571142bba33e8d684a7da37bf217761e4c3cba4` | AnalyticsWiz / consentement / GA4 renforcés + tests dédiés |
 | 🟧 C | ✅ `done` | `9-PREFLIGHT-MACHINE-CHECKLIST` | PR #3 — `3a999b6044f4a360897c8a2f794f5ffe887f1dca` | pré-vol machine + checklist humaine Lot 9 intégrés |
+| 🟧 C | ✅ `done` | `8B-NOTIFICATION-CENTER-CONTRACT` | PR #4 — `8a8c1a8b01efd445e06aae5125c4f02395741a84` | NotificationCenter sans DOM, niveaux complets, cycle de vie, thème + tests |
 
 **Lecture rapide :**
 
 - 🟦 **A** travaille actuellement sur V20 et l’architecture sémantique ; Header et TableWiz sont réservés par A.
 - 🟩 **B** travaille sur robustesse/contrats/data ; QR/Media est réservé par B.
-- 🟧 **C** a terminé et intégré ses lots Analytics/consentement et pré-vol Lot 9 ; aucun lock métier C n’est actif dans ce snapshot.
+- 🟧 **C** a terminé et intégré Analytics/consentement, le pré-vol Lot 9 et NotificationCenter ; aucun lock métier C n’est actif dans ce snapshot.
 - 🟣👤 **HUMAN** reste requis pour H001 et les arbitrages visuels associés.
 
 Le détail complet et les `file_scope` sont visibles dans [`coordination/agent-board.md`](./coordination/agent-board.md) et surtout dans [`coordination/locks/`](./coordination/locks/).
@@ -276,6 +278,7 @@ Le détail exact de l’ancienne numérotation interne ne doit pas être réinve
 | 🟢 | 100 % | — | Theme Workshop : cascade native `global → type → instance`, profils et resets |
 | 🟢 | 100 % technique | — | raccord des contrôles historiques compatibles à l’API scoped en V19 |
 | 🟢 | 100 % | 🟧 C ✅ | contrat AnalyticsWiz / consentement / provider GA4 renforcé, documenté, testé et intégré via PR #2 |
+| 🟢 | 100 % | 🟧 C ✅ | NotificationCenter : niveaux `info/success/warning/error/dev`, compatibilité sans DOM, cycle de vie et thème, intégré via PR #4 |
 | 🟡 | HUMAN actif | 🟦 A + 🟣👤 | validation visuelle des portées, profils, resets et contrôles historiques V19/V20 |
 | 🟡 | ~60 % | 🟦 A / 🟩 B / 🟧 C | extraction et consolidation parallèles de briques framework |
 | ⚪ | 0 % | ⚪ Libre | **intégrer le logo nLab Web Framework déjà validé : retrouver les fichiers source validés, créer `doc/roadmap/icons/`, y déposer le pack officiel (variantes, icône, manifest/README) et le référencer dans la documentation** |
@@ -287,7 +290,7 @@ Le détail exact de l’ancienne numérotation interne ne doit pas être réinve
 
 - 🟦 A — V20 Scope/Layout 🛠️ ; architecture sémantique 🛠️ ; Header 🔒 ; TableWiz 🔒.
 - 🟩 B — Observability 🛠️ ; SEO/Share 🛠️ ; Data Schemas 🛠️ ; QR/Media 🔒.
-- 🟧 C — aucun verrou métier actif dans ce snapshot ; Analytics/Consent/Provider est ✅ intégré.
+- 🟧 C — aucun verrou métier actif dans ce snapshot ; Analytics/Consent/Provider et NotificationCenter sont ✅ intégrés.
 
 <a name="human-h001"></a>
 <details open>
@@ -364,10 +367,10 @@ Ces lots existaient dans l’ancienne roadmap. Leurs intitulés exacts ne sont p
 3. ⚪ **Search / Set Filter** — pondération des tokens, stopwords configurables, locale, suggestions multi-colonnes.
 4. 🟩 B 🔒 **Media Renderer** — robustesse MediaWiz réservée dans `8B-QR-MEDIA-ROBUSTNESS`.
 5. 🟩 B 🔒 **QRWiz** — robustesse QRWiz réservée dans le même lot.
-6. ⚪ **NotificationCenter** — `info / success / warning / error / dev` pilotés par le thème.
+6. 🟧 C ✅ **NotificationCenter** — niveaux `info / success / warning / error / dev`, cycle de vie, compatibilité sans DOM et variables de thème intégrés via PR #4.
 7. ⚪ **CodeBlock** — presets par langage, JSON hiérarchique pliable, distinction bloc de code / éditeur enrichi.
 8. ⚪ **Identité visuelle** — intégrer dans le dépôt le pack du logo nLab Web Framework déjà validé et raccorder les références documentaires.
-9. 🟩 B / 🟧 C **Consolidation / tests / documentation** — plusieurs sous-lots indépendants restent disponibles ; le lot Analytics C est ✅ intégré.
+9. 🟩 B / 🟧 C **Consolidation / tests / documentation** — plusieurs sous-lots indépendants restent disponibles ; Analytics et NotificationCenter C sont ✅ intégrés.
 10. 🟧 C ✅ **Lot 9 — pré-vol intégré**, puis crash-test Recettes du Cœur après critères de sortie.
 
 > Cette liste donne l’ordre technique. **Les locks A/B/C priment sur l’ordre** : aucune tâche ne peut être reprise si son périmètre ou ses fichiers sont déjà réservés.
