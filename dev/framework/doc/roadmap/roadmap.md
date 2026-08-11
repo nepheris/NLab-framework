@@ -60,6 +60,7 @@
 - 🟧 **Contrat EventBus :** [`../event-bus/event-bus.md`](../event-bus/event-bus.md) <a href="../event-bus/event-bus.md" target="_blank">↗</a>
 - 🟧 **Contrat FrameworkRegistry :** [`../registry/registry.md`](../registry/registry.md) <a href="../registry/registry.md" target="_blank">↗</a>
 - 🟩 **Contrat DataIndex :** [`../data-index/data-index.md`](../data-index/data-index.md) <a href="../data-index/data-index.md" target="_blank">↗</a>
+- 🟩 **Contrat DataResolver :** [`../data-resolver/data-resolver.md`](../data-resolver/data-resolver.md) <a href="../data-resolver/data-resolver.md" target="_blank">↗</a>
 - 🟧 **Pré-vol Lot 9 — checklist humaine :** [`lot9-preflight-checklist.md`](./lot9-preflight-checklist.md) <a href="./lot9-preflight-checklist.md" target="_blank">↗</a>
 - 🟧 **Pré-vol Lot 9 — checklist machine :** [`lot9-preflight.machine.json`](./lot9-preflight.machine.json) <a href="./lot9-preflight.machine.json" target="_blank">↗</a>
 - 💡 **Boîte à idées :** backlog de cette roadmap jusqu’à création d’un fichier dédié.
@@ -129,14 +130,14 @@
 
 > 🟩 **B** et 🟧 **C** n’ont pas de lock métier actif dans ce snapshot après leurs dernières intégrations. De nouveaux locks peuvent apparaître pendant que les autres agents continuent ; les fichiers JSON restent la source de vérité.
 
-**Dernières intégrations B :** Data Schemas #7, QR/Media #8, Observability #9, SEO/Share #10, Search/Filter #12, URL Resolver #13, DataIndex #19.  
-**Dernières intégrations C :** Analytics #2, pré-vol Lot 9 #3, NotificationCenter #4, CodeBlock #5, PresetManager #6, NavigationWiz #11, HelpWiz #14, BrowserStorage #15, StateStore #16, EventBus #17, FrameworkRegistry #18.
+**Dernières intégrations B :** Data Schemas #7, QR/Media #8, Observability #9, SEO/Share #10, Search/Filter #12, URL Resolver #13, DataIndex #19, DataResolver #22.  
+**Dernières intégrations C :** Analytics #2, pré-vol Lot 9 #3, NotificationCenter #4, CodeBlock #5, PresetManager #6, NavigationWiz #11, HelpWiz #14, BrowserStorage #15, StateStore #16, EventBus #17, FrameworkRegistry #18, ResultSet #20, DataProvider #21, DataRuntimeRegistry #23.
 
 **Lecture rapide :**
 
 - 🟦 **A** conserve le chantier visuel/HUMAN, les extractions Header/TableWiz et deux livrables d’architecture en review.
-- 🟩 **B** a consolidé les contrats data, média, observabilité, SEO/Share, Search/Filter, URL Resolver et DataIndex.
-- 🟧 **C** a consolidé plusieurs briques autonomes UI/core et le pré-vol métier sans toucher aux fichiers A/B.
+- 🟩 **B** a consolidé les contrats data, média, observabilité, SEO/Share, Search/Filter, URL Resolver, DataIndex et DataResolver.
+- 🟧 **C** a consolidé plusieurs briques autonomes UI/core/data et le pré-vol métier sans toucher aux fichiers A/B.
 - 🟣👤 **HUMAN** reste requis pour H001 et les arbitrages visuels associés.
 
 **Historique détaillé :** [`coordination/agent-board.md`](./coordination/agent-board.md) conserve les tâches `done`, PR et SHA par agent.
@@ -157,18 +158,18 @@
 | Architecture Framework | ⬜ | 🟡 | ~90 % | socle propre, factorisé et stable |
 | Catalogue / Playground | ⬜ | 🟡 | ~85 % | banc d’essai complet |
 | UX / concepts | 🎯 | 🟡 | ~75 % | comportements validés humainement |
-| Composants industrialisés | ⬜ | 🟡 | ~75 % | prototypes extraits en composants génériques |
-| JSON / data métier | ⬜ | 🟡 | ~65 % | édition + relations inter-JSON robustes |
-| Tests / robustesse | ⬜ | 🟡 | ~70 % | non-régression et cas négatifs |
+| Composants industrialisés | ⬜ | 🟡 | ~78 % | prototypes extraits en composants génériques |
+| JSON / data métier | ⬜ | 🟡 | ~72 % | édition + relations inter-JSON robustes |
+| Tests / robustesse | ⬜ | 🟡 | ~75 % | non-régression et cas négatifs |
 | Intégration métier | ⬜ | 🟡 | ~20 % | crash-test Recettes du Cœur |
 
 ```text
 ⬜ ARCHITECTURE FRAMEWORK       ████████████████████  ~90 %
 ⬜ CATALOGUE / PLAYGROUND      █████████████████░░░  ~85 %
 🎯 UX / CONCEPTS               ███████████████░░░░░  ~75 %   ← VALIDATION ACTIVE
-⬜ COMPOSANTS INDUSTRIALISÉS   ███████████████░░░░░  ~75 %
-⬜ JSON / DATA MÉTIER          █████████████░░░░░░░  ~65 %
-⬜ TESTS / ROBUSTESSE          ██████████████░░░░░░  ~70 %
+⬜ COMPOSANTS INDUSTRIALISÉS   ████████████████░░░░  ~78 %
+⬜ JSON / DATA MÉTIER          ██████████████░░░░░░  ~72 %
+⬜ TESTS / ROBUSTESSE          ███████████████░░░░░  ~75 %
 ⬜ INTÉGRATION MÉTIER          ████░░░░░░░░░░░░░░░░  ~20 %
 ```
 
@@ -197,6 +198,8 @@ POINT ACTIF : validation HUMAN V19 + industrialisation parallèle A/B/C
 Robustesse data / recherche / média / URL / SEO / observabilité consolidée
 ↓
 Core consolidé : Storage / StateStore / EventBus / FrameworkRegistry / DataIndex
+↓
+Runtime data consolidé : ResultSet / DataProvider / DataResolver / DataRuntimeRegistry
 ↓
 Briques autonomes Analytics / Notification / Code / Presets / Navigation / Help consolidées
 ↓
@@ -296,6 +299,7 @@ Le détail exact de l’ancienne numérotation interne ne doit pas être réinve
 | 🟢 | 100 % | 🟩 B ✅ | SearchWiz / FilterWiz robustesse consolidée via PR #12 |
 | 🟢 | 100 % | 🟩 B ✅ | URL Resolver robustesse consolidée via PR #13 |
 | 🟢 | 100 % | 🟩 B ✅ | DataIndex : construction atomique, entrées/doublons validés, introspection `has/size` via PR #19 |
+| 🟢 | 100 % | 🟩 B ✅ | DataResolver : lookup own-property, providers/relations validés, cache ciblé via PR #22 |
 | 🟢 | 100 % | 🟧 C ✅ | AnalyticsWiz / consentement / provider GA4 intégré via PR #2 |
 | 🟢 | 100 % | 🟧 C ✅ | NotificationCenter complet et sans DOM intégré via PR #4 |
 | 🟢 | 100 % tâche | 🟧 C ✅ | CodeBlock : presets/alias, formatage JSON, export/copie sûrs et tokenisation corrigée via PR #5 |
@@ -306,10 +310,13 @@ Le détail exact de l’ancienne numérotation interne ne doit pas être réinve
 | 🟢 | 100 % | 🟧 C ✅ | StateStore : chemins sûrs, reset/hydratation et résistance prototype-pollution via PR #16 |
 | 🟢 | 100 % | 🟧 C ✅ | EventBus : listeners isolés, `once/off`, wildcard et introspection consolidés via PR #17 |
 | 🟢 | 100 % | 🟧 C ✅ | FrameworkRegistry : lectures sûres, validation, pruning et introspection via PR #18 |
+| 🟢 | 100 % | 🟧 C ✅ | ResultSet : contexte isolé, total logique et helpers d’itération/introspection via PR #20 |
+| 🟢 | 100 % | 🟧 C ✅ | DataProvider : options/capabilities/getRecord et erreurs structurées via PR #21 |
+| 🟢 | 100 % | 🟧 C ✅ | DataRuntimeRegistry : types normalisés, remplacements explicites, providers/adapters séparés via PR #23 |
 | 🟡 | HUMAN actif | 🟦 A + 🟣👤 | validation visuelle des portées, profils, resets et contrôles historiques V19/V20 |
 | 🟡 | review | 🟦 A 👀 | architecture sémantique — nomenclature et responsabilités |
 | 🟡 | review | 🟦 A 👀 | carte hiérarchique Framework + Data métier |
-| 🟡 | ~75 % | 🟦 A / 🟩 B / 🟧 C | extraction et consolidation parallèles de briques framework |
+| 🟡 | ~78 % | 🟦 A / 🟩 B / 🟧 C | extraction et consolidation parallèles de briques framework |
 | ⚪ | 0 % | ⚪ Libre | **intégrer le logo nLab Web Framework déjà validé : retrouver les fichiers source validés, créer `doc/roadmap/icons/`, y déposer le pack officiel (variantes, icône, manifest/README) et le référencer dans la documentation** |
 | ⚪ | 0 % | ⚪ Libre | **industrialiser JSON Studio en composant autonome** |
 | ⚪ | 0 % | 🟦 A — TableWiz réservé | convergence TableWiz / DataWiz / ResultSet |
@@ -318,8 +325,8 @@ Le détail exact de l’ancienne numérotation interne ne doit pas être réinve
 **Chantiers parallèles actuellement verrouillés dans le Lot 8B :**
 
 - 🟦 A — V20 Scope/Layout 🛠️ ; architecture sémantique 👀 ; carte d’architecture 👀 ; Header 🔒 ; TableWiz 🔒.
-- 🟩 B — aucun lock métier actif dans ce snapshot ; sept lots autonomes sont 🟩 B ✅ intégrés.
-- 🟧 C — aucun lock métier actif dans ce snapshot ; dix lots 8B autonomes sont 🟧 C ✅ intégrés, plus le pré-vol Lot 9.
+- 🟩 B — aucun lock métier actif dans ce snapshot ; huit lots autonomes sont 🟩 B ✅ intégrés.
+- 🟧 C — aucun lock métier actif dans ce snapshot ; treize lots 8B autonomes sont 🟧 C ✅ intégrés, plus le pré-vol Lot 9.
 
 > Le tableau garde les pastilles des agents sur les lignes `done` : cette trace sert à mesurer les domaines où chaque agent a été efficace et à préparer les prochains découpages parallèles.
 
@@ -402,7 +409,7 @@ Ces lots existaient dans l’ancienne roadmap. Leurs intitulés exacts ne sont p
 7. 🟧 C ✅ **CodeBlock — socle contractuel** : presets/alias, formatage JSON, export/copie défensifs et tokeniseur sûr intégrés via PR #5 ; le pliage JSON hiérarchique avancé reste une évolution distincte.
 8. 🟧 C ✅ **PresetManager** — import/export atomique et validation de collection intégrés via PR #6.
 9. 🟧 C ✅ **NavigationWiz / HelpWiz** — navigation et aide contextuelle génériques durcies via PR #11/#14.
-10. 🟩 B ✅ / 🟧 C ✅ **Core robuste** — URL Resolver #13, BrowserStorage #15, StateStore #16, EventBus #17, FrameworkRegistry #18 et DataIndex #19 consolidés.
+10. 🟩 B ✅ / 🟧 C ✅ **Core/runtime data robuste** — URL Resolver #13, BrowserStorage #15, StateStore #16, EventBus #17, FrameworkRegistry #18, DataIndex #19, ResultSet #20, DataProvider #21, DataResolver #22 et DataRuntimeRegistry #23 consolidés.
 11. ⚪ **Identité visuelle** — intégrer dans le dépôt le pack du logo nLab Web Framework déjà validé et raccorder les références documentaires.
 12. 🟩 B / 🟧 C **Consolidation / tests / documentation** — poursuivre sur les briques encore libres après contrôle des locks.
 13. 🟧 C ✅ **Lot 9 — pré-vol intégré**, puis crash-test Recettes du Cœur après critères de sortie.
