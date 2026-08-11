@@ -26,7 +26,8 @@ export const DEFAULT_THEME = Object.freeze({
   scheme:'light',density:'normal',
   tokens:{
     bg:'#ffffff',fg:'#171717',muted:'#666666',border:'#d8d8d8',accent:'#2468d8',
+    success:'#166534',info:'#1d4ed8',warning:'#b45309',danger:'#b91c1c',tooltip_bg:'#111827',tooltip_fg:'#ffffff',
     font_body:'Inter,system-ui,sans-serif',font_heading:'Inter,system-ui,sans-serif',font_accent:'Georgia,serif',font_weight_heading:'700',
-    density_scale:'1',radius:'12px',shadow:'0 8px 24px rgba(0,0,0,.12)',header_height:'64px',hero_min_height:'280px'
+    density_scale:'1',radius:'12px',border_width:'1px',shadow:'0 8px 24px rgba(0,0,0,.12)',header_height:'64px',hero_min_height:'280px'
   }
 });
