@@ -1,7 +1,7 @@
 {
   "task_id": "8B-ANALYTICS-CONSENT-PROVIDER",
   "agent": "C",
-  "status": "review",
+  "status": "done",
   "base": "57ffb1f29b69492f35295a36cb67c62dbb47a3ff",
   "branch": "agent-c/analytics-consent-provider-contract",
   "file_scope": [
@@ -12,10 +12,12 @@
   ],
   "reserved_at": "2026-08-12T00:27:00+02:00",
   "final_sha": "98331f6ec3cb40526ed35f490eee9952a69675af",
+  "merged_sha": "6571142bba33e8d684a7da37bf217761e4c3cba4",
+  "pull_request": 2,
   "verification": {
     "diff": "4 commits / 4 files, all inside reserved file_scope",
     "tests": "analytics-contracts.test.mjs passed locally from exact branch content",
     "result": "analytics contract tests: ok"
   },
-  "notes": "AnalyticsWiz propage désormais l'échec réel du provider, distingue les gates de tracking, neutralise les erreurs provider/consentement pour le parcours applicatif, conserve le consentement sans storage, et GA4 résout globalThis.gtag au moment de l'envoi. Aucun fichier A/B, aucune démo ni roadmap.md modifiés."
+  "notes": "AnalyticsWiz propage désormais l'échec réel du provider, distingue les gates de tracking, neutralise les erreurs provider/consentement pour le parcours applicatif, conserve le consentement sans storage, et GA4 résout globalThis.gtag au moment de l'envoi. Intégré dans New via PR #2. Aucun fichier A/B ni démo touché."
 }
