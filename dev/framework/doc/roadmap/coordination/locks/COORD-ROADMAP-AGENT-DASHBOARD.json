@@ -1,7 +1,7 @@
 {
   "task_id": "COORD-ROADMAP-AGENT-DASHBOARD",
   "agent": "B",
-  "status": "in_progress",
+  "status": "released",
   "base": "9a36c700cd88142507d69c51444d438ff6eb1ae9",
   "branch": "New",
   "file_scope": [
@@ -10,5 +10,7 @@
     "dev/framework/doc/roadmap/coordination/agent-board.md"
   ],
   "reserved_at": "2026-08-12T00:27:00+02:00",
-  "notes": "Rafraîchissement final du snapshot : retirer le chantier de création du dashboard de la liste des tâches actives après mise en place du mécanisme."
+  "released_at": "2026-08-12T00:27:00+02:00",
+  "final_sha": "2847746450d569af94c106622cd87faa3cf9bc0d",
+  "notes": "Roadmap, tableau multi-agent et procédure A/B/C synchronisés. Snapshot final nettoyé ; mutex documentaire libéré."
 }
