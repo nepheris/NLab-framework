@@ -1,0 +1,97 @@
+{
+  "schema": "nlab.chatgpt-rex",
+  "schema_version": "1.0",
+  "roadmap": {
+    "id": "FRMW-NLAB-ROADMAP",
+    "project": "nLab Framework",
+    "status": "ACTIVE",
+    "roadmap_path": "./roadmap.md",
+    "human_check_path": "./human-check.md"
+  },
+  "purpose": "Mémoire cumulative orientée machine pour reprendre le développement du nLab Framework avec un minimum de reconstruction conversationnelle.",
+  "update_policy": {
+    "on_structural_milestone": true,
+    "on_significant_failure": true,
+    "on_human_decision_change": true,
+    "on_method_change": true,
+    "on_roadmap_close": true,
+    "avoid_update_for_trivial_commit": true
+  },
+  "state": {
+    "current_block": "Consolidation / industrialisation",
+    "current_phase": "Lot 8B",
+    "current_goal": "Transformer les prototypes validés du Catalogue / Playground V17 en briques génériques du framework.",
+    "resume_from": "Industrialiser Theme Workshop avec une vraie portée instance/type/global, puis extraire JSON Studio en composant autonome.",
+    "blocked_by_human": false,
+    "open_human_gate": "H001"
+  },
+  "decisions": [
+    "La roadmap canonique du Framework vit dans dev/framework/doc/roadmap/roadmap.md.",
+    "Les ROADMAP_Vxx de demo sont des roadmaps de cycle et ne remplacent pas la roadmap projet.",
+    "La démo reste un laboratoire : une fonction validée doit être extraite en brique générique.",
+    "Chaque commit modifiant la page de démonstration incrémente sa version visible.",
+    "Le template roadmap GitHub canonique de NLab est le standard courant de présentation et de pilotage.",
+    "Les améliorations de template détectées sur un projet sont proposées synthétiquement avant propagation aux autres roadmaps."
+  ],
+  "effective_patterns": [
+    "Pilotage immédiatement visible, détail repliable.",
+    "Phase active ouverte, phases terminées repliées.",
+    "Séparer roadmap humaine, REX machine et contrôle HUMAN.",
+    "Trier toute nouvelle idée en BEFORE_CLOSE, LATER ou NOTE avant d'élargir le scope.",
+    "Process : idée -> prototype démo -> validation UX -> extraction framework -> démo générique -> test métier."
+  ],
+  "failed_or_costly_patterns": [
+    "Laisser une roadmap de cycle de démonstration prendre la place de la roadmap projet canonique.",
+    "Accumuler des fonctions dans review-pass sans plan explicite d'extraction vers le framework."
+  ],
+  "do_not_repeat": [
+    "Ne pas réinventer les intitulés historiques des lots 10 à 12 sans source fiable.",
+    "Ne pas modifier automatiquement toutes les roadmaps lorsqu'une amélioration de template est détectée sans validation utilisateur."
+  ],
+  "human_interventions": [
+    {
+      "id": "H001",
+      "status": "ACTIVE",
+      "purpose": "Validation UX du cycle V17 et arbitrage des comportements à industrialiser/corriger/différer."
+    }
+  ],
+  "uncertainties": [
+    "Nomenclature historique exacte des lots 10 à 12 à récupérer si une source fiable réapparaît.",
+    "Certains sous-lots historiques 3 à 8 restent décrits par grands blocs plutôt que par leur ancienne numérotation exacte."
+  ],
+  "backlog": {
+    "before_close": [
+      "Industrialiser Theme Workshop : portée instance/type/global.",
+      "Extraire JSON Studio en composant framework.",
+      "Convergence minimale TableWiz/DataWiz autour de DataSource/ResultSet/renderers.",
+      "Nettoyer les comportements encore spécifiques à la démo.",
+      "Validation HUMAN de sortie du Lot 8B."
+    ],
+    "later": [
+      "Vue graphique DataWiz / ResultSet.",
+      "Détourage / masque d'image avancé.",
+      "Éditeur riche distinct du CodeBlock."
+    ],
+    "notes": [
+      "Récupérer la nomenclature historique exacte des lots 10 à 12."
+    ]
+  },
+  "candidate_cardinal_rules": [],
+  "future_acceleration_hints": [
+    "Lire la roadmap humaine et ce REX avant tout détail d'implémentation.",
+    "Reprendre à l'action exacte sauf si un jalon HUMAN bloque réellement la décision.",
+    "Conserver les réponses ChatGPT courtes et lier les documents GitHub canoniques.",
+    "Ne pas élargir automatiquement le livrable courant lors d'une nouvelle idée ; la classer BEFORE_CLOSE, LATER ou NOTE.",
+    "Maintenir les phases terminées repliées et la phase active ouverte.",
+    "Mettre à jour roadmap + REX à chaque jalon structurel ou nouveau cycle significatif."
+  ],
+  "final_review": {
+    "completed": false,
+    "what_worked": [],
+    "what_worked_less": [],
+    "anti_patterns": [],
+    "transferrable_lessons": [],
+    "governance_candidates": [],
+    "template_improvements": []
+  }
+}
