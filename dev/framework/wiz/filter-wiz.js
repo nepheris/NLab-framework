@@ -2,7 +2,11 @@ import { ResultSet } from '../data/result-set.js';
 
 const get = (object, path) => String(path ?? '').split('.').filter(Boolean).reduce((acc, key) => acc?.[key], object);
 const list = (value) => Array.isArray(value) ? value : [];
-const finite = (value) => { const number=Number(value); return Number.isFinite(number) ? number : null; };
+const finite = (value) => {
+  if (value === null || value === undefined || value === '' || typeof value === 'boolean') return null;
+  const number=Number(value);
+  return Number.isFinite(number) ? number : null;
+};
 
 export class FilterWiz {
   apply(items, filters = [], { logic = 'and' } = {}) {
