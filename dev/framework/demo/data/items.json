@@ -1,0 +1,16 @@
+[
+  {
+    "id": "ITEM001",
+    "name": "Premier objet",
+    "category_id": "CAT001",
+    "value": 12.5,
+    "active": true
+  },
+  {
+    "id": "ITEM002",
+    "name": "Deuxième objet",
+    "category_id": "CAT002",
+    "value": 42,
+    "active": false
+  }
+]

@@ -1,0 +1,33 @@
+{
+  "version": "1.0.0",
+  "providers": {
+    "local": {
+      "type": "json-static",
+      "options": {}
+    }
+  },
+  "collections": {
+    "categories": {
+      "provider": "local",
+      "source": "categories.json",
+      "idField": "id",
+      "labelField": "label"
+    },
+    "items": {
+      "provider": "local",
+      "source": "items.json",
+      "idField": "id",
+      "labelField": "name",
+      "relations": [
+        {
+          "field": "category_id",
+          "target": "categories",
+          "targetField": "id",
+          "cardinality": "one",
+          "required": true,
+          "onMissing": "warn"
+        }
+      ]
+    }
+  }
+}

@@ -15,8 +15,8 @@
 - [x] DataRelation — contrat initial.
 - [ ] DataResolver.
 - [ ] DataValidator.
-- [ ] Provider JSON local/statique.
-- [ ] Datasets de démonstration.
+- [x] Provider JSON local/statique — première implémentation read-only.
+- [x] Datasets de démonstration — premier jeu multi-collections relié par IDs.
 - [ ] State / Events / Registry global.
 - [ ] FloatingPanel.
 - [ ] Toolbar.
@@ -25,6 +25,10 @@
 - [ ] Icon Registry.
 - [ ] Help.
 - [ ] Catalogue / playground.
+
+### Étape active suivante
+
+`DataResolver` : construire les index des collections et résoudre les relations déclarées sans modifier les valeurs canoniques stockées.
 
 ## Lot 2 — Données et exploration
 

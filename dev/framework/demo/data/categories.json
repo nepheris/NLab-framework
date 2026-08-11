@@ -1,0 +1,12 @@
+[
+  {
+    "id": "CAT001",
+    "label": "Alpha",
+    "description": "Catégorie de démonstration Alpha"
+  },
+  {
+    "id": "CAT002",
+    "label": "Beta",
+    "description": "Catégorie de démonstration Beta"
+  }
+]
