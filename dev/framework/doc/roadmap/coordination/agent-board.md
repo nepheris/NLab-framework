@@ -31,8 +31,15 @@
 | 🟩 B | 🛠️ `in_progress` | `8B-SEO-SHARE-CONTRACTS` | `agent-b/seo-share-contracts` | SEO / Share / fallbacks navigateur |
 | 🟩 B | 🛠️ `in_progress` | `8B-DATA-SCHEMAS-VALIDATION` | `agent-b/data-schemas-validation` | schémas data et relations |
 | 🟩 B | 🔒 `reserved` | `8B-QR-MEDIA-ROBUSTNESS` | `agent-b/qr-media-robustness` | QRWiz / MediaWiz robustesse |
-| 🟧 C | 🛠️ `in_progress` | `8B-ANALYTICS-CONSENT-PROVIDER` | `agent-c/analytics-consent-provider-contract` | AnalyticsWiz / consentement / provider GA4 |
-| 🟧 C | 👀 `review` | `9-PREFLIGHT-MACHINE-CHECKLIST` | `agent-c/lot9-preflight-machine-checklist` | pré-vol machine + checklist Lot 9 |
+
+> 🟧 **C n'a plus de lock métier actif dans ce snapshot.** Les deux derniers lots ont été intégrés dans `New` et restent historisés dans leurs locks `done`.
+
+## Livraisons C récemment intégrées
+
+| Agent | Statut | Tâche | Intégration | Résultat |
+|---|---|---|---|---|
+| 🟧 C | ✅ `done` | `8B-ANALYTICS-CONSENT-PROVIDER` | PR #2 — `6571142bba33e8d684a7da37bf217761e4c3cba4` | contrat AnalyticsWiz / consentement / provider GA4 renforcé + tests dédiés |
+| 🟧 C | ✅ `done` | `9-PREFLIGHT-MACHINE-CHECKLIST` | PR #3 — `3a999b6044f4a360897c8a2f794f5ffe887f1dca` | checklist machine + fiche humaine du pré-vol Lot 9 intégrées |
 
 ## Règle de lecture
 
