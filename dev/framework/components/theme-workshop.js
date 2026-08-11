@@ -22,138 +22,36 @@ function colorText(hex, mode='hex') {
 export class ThemeWorkshop {
   constructor({ root = document, engine, storage = null, storageKey = 'theme-workshop', selector = '[data-theme-editable]', iconRegistry = createCoreIconRegistry() } = {}) {
     if (!engine) throw new Error('ThemeWorkshop requires a ThemeEngine');
-    this.root = root;
-    this.engine = engine;
-    this.storage = storage;
-    this.storageKey = storageKey;
-    this.selector = selector;
-    this.iconRegistry = iconRegistry;
-    this.unlocked = false;
-    this.componentLocks = new Set();
-    this.sessionPatch = storage?.get(storageKey, {}) ?? {};
-    this.handles = new Map();
+    this.root = root; this.engine = engine; this.storage = storage; this.storageKey = storageKey; this.selector = selector; this.iconRegistry = iconRegistry;
+    this.unlocked = false; this.componentLocks = new Set(); this.sessionPatch = storage?.get(storageKey, {}) ?? {}; this.handles = new Map();
   }
-
-  setUnlocked(value = true) {
-    this.unlocked = Boolean(value);
-    this.root.documentElement?.toggleAttribute('data-theme-workshop', this.unlocked);
-    this.unlocked ? this.mountHandles() : this.unmountHandles();
-    return this;
+  setUnlocked(value = true) { this.unlocked=Boolean(value); this.root.documentElement?.toggleAttribute('data-theme-workshop',this.unlocked); this.unlocked?this.mountHandles():this.unmountHandles(); return this; }
+  toggleUnlocked(){return this.setUnlocked(!this.unlocked);}
+  lock(id,value=true){value?this.componentLocks.add(id):this.componentLocks.delete(id);this.#syncHandle(id);this.#persist();return this;}
+  lockAll(){for(const el of this.#elements())this.componentLocks.add(this.#id(el));this.mountHandles();this.#persist();return this;}
+  unlockAll(){this.componentLocks.clear();this.mountHandles();this.#persist();return this;}
+  isLocked(id){return this.componentLocks.has(id);}
+  setToken(name,value,{apply=true}={}){this.sessionPatch.tokens={...(this.sessionPatch.tokens??{}),[name]:value};if(apply)this.applySession();this.#persist();return this;}
+  setComponent(id,patch,{apply=true}={}){if(this.isLocked(id))return this;this.sessionPatch.components=this.sessionPatch.components??{};this.sessionPatch.components[id]=deepMerge(this.sessionPatch.components[id]??{},patch);if(apply)this.applySession();this.#persist();return this;}
+  applySession(){this.engine.apply(document.documentElement,this.engine.resolve({user:this.sessionPatch}));for(const el of this.#elements()){const id=this.#id(el),patch=this.sessionPatch.components?.[id];if(!patch)continue;for(const [key,value] of Object.entries(patch))if(['height','minHeight','maxHeight','width','minWidth','maxWidth','padding','margin','gap'].includes(key))el.style[key]=String(value);}return this;}
+  commitToSite(){this.engine.setSitePatch(this.sessionPatch);this.engine.save();this.sessionPatch={};this.#persist();return this;}
+  exportJSON(){return JSON.stringify({version:2,workshop:this.sessionPatch,locks:[...this.componentLocks],theme:JSON.parse(this.engine.exportJSON())},null,2);}
+  importJSON(input){const data=typeof input==='string'?JSON.parse(input):input;if(data.theme)this.engine.importJSON(data.theme);this.sessionPatch=data.workshop??{};this.componentLocks=new Set(data.locks??[]);this.applySession();this.#persist();this.mountHandles();return this;}
+  resetSession(){this.sessionPatch={};this.componentLocks.clear();this.#persist();this.applySession();this.mountHandles();return this;}
+  mountHandles(){this.unmountHandles();if(!this.unlocked)return this;for(const el of this.#elements()){const id=this.#id(el),controls=document.createElement('div');controls.className='nlab-theme-edit-controls';controls.dataset.for=id;controls.style.cssText='position:absolute;z-index:2000;right:6px;top:6px;display:flex;gap:4px;';const lock=document.createElement('button');lock.type='button';lock.className='nlab-theme-lock';lock.dataset.action='lock';lock.addEventListener('click',(event)=>{event.preventDefault();event.stopPropagation();this.lock(id,!this.isLocked(id));});controls.append(lock);const resize=document.createElement('button');resize.type='button';resize.className='nlab-theme-resize';resize.dataset.action='resize';resize.innerHTML=this.iconRegistry.render('resize',{title:`Redimensionner ${id}`});resize.title=`Redimensionner ${id}`;resize.style.cssText='position:absolute;right:0;bottom:0;transform:translate(35%,35%);cursor:ns-resize;';resize.addEventListener('pointerdown',(event)=>this.#startResize(event,el,id));const computed=getComputedStyle(el);if(computed.position==='static')el.style.position='relative';el.append(controls,resize);this.handles.set(id,{controls,lock,resize});this.#syncHandle(id);}return this;}
+  unmountHandles(){for(const entry of this.handles.values()){entry.controls?.remove();entry.resize?.remove();}this.handles.clear();return this;}
+  mountColorPicker(container,tokens=['accent','bg','fg']){
+    if(!container)return;container.replaceChildren();
+    const labels={accent:'Couleur d’accent',bg:'Background / Couleur de fond',fg:'Couleur du texte',muted:'Texte secondaire',border:'Bordures'};
+    const descriptions={accent:'Couleur utilisée pour les éléments mis en avant : liens actifs, citations, contrôles et états accentués.',bg:'Couleur de fond de base du thème.',fg:'Couleur principale du texte.',muted:'Couleur du texte secondaire.',border:'Couleur utilisée pour les bordures et séparateurs.'};
+    const modeIcons={hex:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 3 8 21M16 3l-2 18M4 9h16M3 15h16"/></svg>',rgb:'<svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="5" fill="currentColor" opacity=".85"/><circle cx="16" cy="9" r="5" fill="currentColor" opacity=".55"/><circle cx="12" cy="16" r="5" fill="currentColor" opacity=".35"/></svg>',hsl:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2" fill="currentColor"/><circle cx="15" cy="12" r="2" fill="currentColor"/><circle cx="11" cy="18" r="2" fill="currentColor"/></svg>'};
+    for(const token of tokens){const row=document.createElement('div');row.className='nlab-color-control';row.dataset.token=token;const title=document.createElement('strong');title.textContent=labels[token]??token;title.title=descriptions[token]??'';const input=document.createElement('input');input.type='color';input.setAttribute('aria-label',labels[token]??token);const current=this.sessionPatch.tokens?.[token]??this.engine.resolve().tokens?.[token]??'#000000';if(/^#[0-9a-f]{6}$/i.test(current))input.value=current;const mode=document.createElement('div');mode.className='nlab-color-modes';const output=document.createElement('code');output.className='nlab-color-value';let active='hex';const sync=()=>{output.textContent=colorText(input.value,active);for(const b of mode.querySelectorAll('button'))b.dataset.active=String(b.dataset.mode===active);};for(const key of ['hex','rgb','hsl']){const button=document.createElement('button');button.type='button';button.dataset.mode=key;button.innerHTML=`${modeIcons[key]}<span>${key.toUpperCase()}</span>`;button.title=`Afficher la couleur en ${key.toUpperCase()}`;button.addEventListener('click',()=>{active=key;sync();});mode.append(button);}input.addEventListener('input',()=>{this.setToken(token,input.value);sync();});row.append(title,input,mode,output);container.append(row);sync();}
   }
-
-  toggleUnlocked() { return this.setUnlocked(!this.unlocked); }
-  lock(id, value = true) { value ? this.componentLocks.add(id) : this.componentLocks.delete(id); this.#syncHandle(id); this.#persist(); return this; }
-  lockAll() { for (const el of this.#elements()) this.componentLocks.add(this.#id(el)); this.mountHandles(); this.#persist(); return this; }
-  unlockAll() { this.componentLocks.clear(); this.mountHandles(); this.#persist(); return this; }
-  isLocked(id) { return this.componentLocks.has(id); }
-
-  setToken(name, value, { apply = true } = {}) {
-    this.sessionPatch.tokens = { ...(this.sessionPatch.tokens ?? {}), [name]: value };
-    if (apply) this.applySession();
-    this.#persist();
-    return this;
-  }
-
-  setComponent(id, patch, { apply = true } = {}) {
-    if (this.isLocked(id)) return this;
-    this.sessionPatch.components = this.sessionPatch.components ?? {};
-    this.sessionPatch.components[id] = deepMerge(this.sessionPatch.components[id] ?? {}, patch);
-    if (apply) this.applySession();
-    this.#persist();
-    return this;
-  }
-
-  applySession() {
-    this.engine.apply(document.documentElement, this.engine.resolve({ user: this.sessionPatch }));
-    for (const el of this.#elements()) {
-      const id = this.#id(el); const patch = this.sessionPatch.components?.[id];
-      if (!patch) continue;
-      for (const [key, value] of Object.entries(patch)) {
-        if (['height','minHeight','maxHeight','width','minWidth','maxWidth','padding','margin','gap'].includes(key)) el.style[key] = String(value);
-      }
-    }
-    return this;
-  }
-
-  commitToSite() { this.engine.setSitePatch(this.sessionPatch); this.engine.save(); this.sessionPatch = {}; this.#persist(); return this; }
-  exportJSON() { return JSON.stringify({ version:2, workshop:this.sessionPatch, locks:[...this.componentLocks], theme:JSON.parse(this.engine.exportJSON()) }, null, 2); }
-  importJSON(input) {
-    const data = typeof input === 'string' ? JSON.parse(input) : input;
-    if (data.theme) this.engine.importJSON(data.theme);
-    this.sessionPatch = data.workshop ?? {};
-    this.componentLocks = new Set(data.locks ?? []);
-    this.applySession(); this.#persist(); this.mountHandles(); return this;
-  }
-  resetSession() { this.sessionPatch = {}; this.componentLocks.clear(); this.#persist(); this.applySession(); this.mountHandles(); return this; }
-
-  mountHandles() {
-    this.unmountHandles();
-    if (!this.unlocked) return this;
-    for (const el of this.#elements()) {
-      const id = this.#id(el);
-      const controls = document.createElement('div');
-      controls.className = 'nlab-theme-edit-controls'; controls.dataset.for = id;
-      controls.style.cssText = 'position:absolute;z-index:2000;right:6px;top:6px;display:flex;gap:4px;';
-      const lock = document.createElement('button');
-      lock.type='button'; lock.className='nlab-theme-lock'; lock.dataset.action='lock';
-      lock.addEventListener('click',(event)=>{ event.preventDefault(); event.stopPropagation(); this.lock(id,!this.isLocked(id)); });
-      controls.append(lock);
-
-      const resize = document.createElement('button');
-      resize.type='button'; resize.className='nlab-theme-resize'; resize.dataset.action='resize';
-      resize.innerHTML=this.iconRegistry.render('resize',{title:`Redimensionner ${id}`});
-      resize.title=`Redimensionner ${id}`;
-      resize.style.cssText='position:absolute;right:0;bottom:0;transform:translate(35%,35%);cursor:ns-resize;';
-      resize.addEventListener('pointerdown',(event)=>this.#startResize(event,el,id));
-
-      const computed=getComputedStyle(el); if(computed.position==='static') el.style.position='relative';
-      el.append(controls,resize); this.handles.set(id,{controls,lock,resize}); this.#syncHandle(id);
-    }
-    return this;
-  }
-
-  unmountHandles() { for (const entry of this.handles.values()) { entry.controls?.remove(); entry.resize?.remove(); } this.handles.clear(); return this; }
-
-  mountColorPicker(container, tokens = ['accent','bg','fg']) {
-    if (!container) return;
-    container.replaceChildren();
-    const labels={ accent:'Couleur d’accent', bg:'Background / Couleur de fond', fg:'Couleur du texte', muted:'Texte secondaire', border:'Bordures' };
-    for (const token of tokens) {
-      const row=document.createElement('div'); row.className='nlab-color-control'; row.dataset.token=token;
-      const title=document.createElement('strong'); title.textContent=labels[token] ?? token;
-      const input=document.createElement('input'); input.type='color'; input.setAttribute('aria-label',labels[token] ?? token);
-      const current=this.sessionPatch.tokens?.[token] ?? this.engine.resolve().tokens?.[token] ?? '#000000';
-      if(/^#[0-9a-f]{6}$/i.test(current)) input.value=current;
-      const mode=document.createElement('div'); mode.className='nlab-color-modes';
-      const output=document.createElement('code'); output.className='nlab-color-value';
-      let active='hex';
-      const sync=()=>{ output.textContent=colorText(input.value,active); for(const b of mode.querySelectorAll('button')) b.dataset.active=String(b.dataset.mode===active); };
-      for(const key of ['hex','rgb','hsl']) { const button=document.createElement('button'); button.type='button'; button.dataset.mode=key; button.textContent=key.toUpperCase(); button.title=`Afficher la couleur en ${key.toUpperCase()}`; button.addEventListener('click',()=>{active=key;sync();}); mode.append(button); }
-      input.addEventListener('input',()=>{ this.setToken(token,input.value); sync(); });
-      row.append(title,input,mode,output); container.append(row); sync();
-    }
-  }
-
-  #startResize(event, el, id) {
-    if (this.isLocked(id)) return;
-    event.preventDefault(); event.stopPropagation();
-    const startY=event.clientY; const startHeight=el.getBoundingClientRect().height;
-    const min=Math.max(40,Number(el.dataset.themeMinHeight)||40); const max=Number(el.dataset.themeMaxHeight)||Math.max(window.innerHeight*1.5,1200);
-    const move=(next)=>{ const height=Math.max(min,Math.min(max,startHeight+next.clientY-startY)); el.style.height=px(height); this.setComponent(id,{height:px(height)},{apply:false}); };
-    const up=()=>{ window.removeEventListener('pointermove',move); window.removeEventListener('pointerup',up); this.#persist(); };
-    window.addEventListener('pointermove',move); window.addEventListener('pointerup',up);
-  }
-  #elements() { return [...this.root.querySelectorAll(this.selector)]; }
-  #id(el) { return el.dataset.themeId || el.id || `component-${this.#elements().indexOf(el)}`; }
-  #syncHandle(id) {
-    const entry=this.handles.get(id); if(!entry) return;
-    const locked=this.isLocked(id);
-    entry.lock.innerHTML=this.iconRegistry.render(locked?'lock':'unlock',{title:locked?`Déverrouiller ${id}`:`Verrouiller ${id}`});
-    entry.lock.title=locked?`Déverrouiller ${id}`:`Verrouiller ${id}`;
-    entry.lock.dataset.locked=String(locked);
-    entry.resize.disabled=locked; entry.resize.dataset.active=String(!locked);
-  }
-  #persist() { this.storage?.set(this.storageKey, this.sessionPatch); }
+  #startResize(event,el,id){if(this.isLocked(id))return;event.preventDefault();event.stopPropagation();const startY=event.clientY,startHeight=el.getBoundingClientRect().height,min=Math.max(40,Number(el.dataset.themeMinHeight)||40),max=Number(el.dataset.themeMaxHeight)||Math.max(window.innerHeight*1.5,1200);const move=(next)=>{const height=Math.max(min,Math.min(max,startHeight+next.clientY-startY));el.style.height=px(height);this.setComponent(id,{height:px(height)},{apply:false});};const up=()=>{window.removeEventListener('pointermove',move);window.removeEventListener('pointerup',up);this.#persist();};window.addEventListener('pointermove',move);window.addEventListener('pointerup',up);}
+  #elements(){return [...this.root.querySelectorAll(this.selector)];}
+  #id(el){return el.dataset.themeId||el.id||`component-${this.#elements().indexOf(el)}`;}
+  #syncHandle(id){const entry=this.handles.get(id);if(!entry)return;const locked=this.isLocked(id);entry.lock.innerHTML=this.iconRegistry.render(locked?'lock':'unlock',{title:locked?`Déverrouiller ${id}`:`Verrouiller ${id}`});entry.lock.title=locked?`Déverrouiller ${id}`:`Verrouiller ${id}`;entry.lock.dataset.locked=String(locked);entry.resize.disabled=locked;entry.resize.dataset.active=String(!locked);}
+  #persist(){this.storage?.set(this.storageKey,this.sessionPatch);}
 }
 
 export { rgbToHex, hexToRgb, rgbToHsl };
