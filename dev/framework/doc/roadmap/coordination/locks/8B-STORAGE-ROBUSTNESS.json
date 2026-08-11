@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-STORAGE-ROBUSTNESS",
+  "agent": "C",
+  "status": "in_progress",
+  "base": "1cd71618c09b12c0aef840132921cc96b5c89c40",
+  "branch": "agent-c/storage-robustness",
+  "file_scope": [
+    "dev/framework/core/storage.js",
+    "dev/framework/tests/storage-robustness.test.mjs",
+    "dev/framework/doc/storage/storage.md"
+  ],
+  "reserved_at": "2026-08-12T01:09:00+02:00",
+  "notes": "Durcir BrowserStorage indépendamment du URL Resolver B : accès localStorage sûr, erreurs get/set/remove/clear neutralisées, JSON non sérialisable et quota/security couverts, sans modifier l'API nominale."
+}
