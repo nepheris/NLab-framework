@@ -11,6 +11,6 @@
   ],
   "reserved_at": "2026-08-12T00:27:00+02:00",
   "released_at": "2026-08-12T00:27:00+02:00",
-  "final_sha": "2847746450d569af94c106622cd87faa3cf9bc0d",
-  "notes": "Roadmap, tableau multi-agent et procédure A/B/C synchronisés. Snapshot final nettoyé ; mutex documentaire libéré."
+  "final_sha": "25788fa42098c2ce48703519fd85522ca2ed20a2",
+  "notes": "Roadmap, tableau multi-agent et procédure A/B/C synchronisés ; couleurs et statuts visibles, issue centrale référencée, mutex documentaire libéré."
 }
