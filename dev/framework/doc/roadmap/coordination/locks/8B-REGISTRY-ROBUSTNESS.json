@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-REGISTRY-ROBUSTNESS",
+  "agent": "C",
+  "status": "in_progress",
+  "base": "a0435a089217c14eb5762ba48dea70891c55a6cc",
+  "branch": "agent-c/registry-robustness",
+  "file_scope": [
+    "dev/framework/core/registry.js",
+    "dev/framework/tests/registry-robustness.test.mjs",
+    "dev/framework/doc/registry/registry.md"
+  ],
+  "reserved_at": "2026-08-12T01:27:00+02:00",
+  "notes": "Durcir FrameworkRegistry sans chevauchement A/B : lectures sans création de namespace, validation namespace/id, null/undefined distingués du fallback, remove avec pruning, introspection namespaceNames/size et tests dédiés."
+}
