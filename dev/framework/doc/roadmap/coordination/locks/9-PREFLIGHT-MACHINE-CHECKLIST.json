@@ -1,0 +1,13 @@
+{
+  "task_id": "9-PREFLIGHT-MACHINE-CHECKLIST",
+  "agent": "C",
+  "status": "reserved",
+  "base": "701bbec549c386718d450df032ad672f184840db",
+  "branch": "agent-c/lot9-preflight-machine-checklist",
+  "file_scope": [
+    "dev/framework/doc/roadmap/lot9-preflight.machine.json",
+    "dev/framework/doc/roadmap/lot9-preflight-checklist.md"
+  ],
+  "reserved_at": "2026-08-12T00:18:00+02:00",
+  "notes": "Transformer le pré-vol documentaire Lot 9 en checklist machine et fiche de lecture humaine. Aucun runtime, aucune démo, aucun fichier réservé par A/B, aucune modification de roadmap.md."
+}
