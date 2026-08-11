@@ -38,7 +38,10 @@ export class FilterWiz {
       const actual = get(item, field);
       if (op === 'eq') return actual === value;
       if (op === 'neq') return actual !== value;
-      if (op === 'contains') return Array.isArray(actual) ? actual.includes(value) : String(actual ?? '').toLowerCase().includes(String(value ?? '').toLowerCase());
+      if (op === 'contains') {
+        if (value === null || value === undefined || value === '') return false;
+        return Array.isArray(actual) ? actual.includes(value) : String(actual ?? '').toLowerCase().includes(String(value).toLowerCase());
+      }
       if (op === 'in') return values.includes(actual);
       if (op === 'overlap') return Array.isArray(actual) && actual.some((entry) => values.includes(entry));
       if (op === 'gt' || op === 'gte' || op === 'lt' || op === 'lte') {
@@ -54,6 +57,7 @@ export class FilterWiz {
         return actualNumber != null && minNumber != null && maxNumber != null && actualNumber >= minNumber && actualNumber <= maxNumber;
       }
       if (op === 'date-between') {
+        if (actual === null || actual === undefined || actual === '') return false;
         const date = new Date(actual).getTime();
         return Number.isFinite(date) && Number.isFinite(minDate) && Number.isFinite(maxDate) && date >= minDate && date <= maxDate;
       }
