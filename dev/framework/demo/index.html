@@ -1,150 +1,77 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Framework V2 — Catalogue / Playground</title>
-  <link rel="stylesheet" href="../ui/base.css">
-  <link rel="stylesheet" href="demo.css">
+  <link rel="stylesheet" href="../ui/base.css"><link rel="stylesheet" href="demo.css">
 </head>
 <body>
 <div class="demo-shell">
-  <aside class="demo-nav"><strong>Framework V2</strong><nav id="demo-nav"></nav></aside>
+  <aside class="demo-nav" id="side-nav" data-nlab-id="DMO-NAV-001" data-nlab-technical="demo.navigation.sidebar">
+    <div class="demo-nav-head"><strong>Framework V2</strong><button id="nav-toggle" class="icon-button" title="Plier / déplier la navigation">◀</button></div>
+    <div class="demo-nav-tools"><button id="nav-collapse-all" title="Tout plier">−</button><button id="nav-default" title="État par défaut H1/H2">↺</button><button id="nav-expand-all" title="Tout déplier">+</button><button data-help-id="demo.section.DMO-NAV-001" title="Informations">ⓘ</button></div>
+    <nav id="demo-nav"></nav>
+  </aside>
   <div class="demo-main">
     <header class="demo-header">
       <strong>Catalogue / Playground</strong>
-      <div class="demo-controls">
-        <label>Breakpoint <select id="breakpoint"><option value="360">360 px</option><option value="480">480 px</option><option value="768">768 px</option><option value="1024" selected>1024 px</option><option value="1280">1280 px</option></select></label>
-        <button id="toggle-inspector" type="button" aria-pressed="true" title="Afficher/masquer les IDs et boutons Info/Test">ⓘ Infos ON</button>
-        <button id="unlock">Déverrouiller</button>
-        <button id="lock-all">Verrouiller tout</button>
-        <button id="export-theme">Exporter thème</button>
-        <button id="reset-theme">Reset</button>
+      <div class="demo-controls demo-header-actions">
+        <label title="Breakpoint global du catalogue"><span data-icon="responsive"></span><select id="breakpoint"><option value="360">360 px</option><option value="480">480 px</option><option value="768">768 px</option><option value="1024" selected>1024 px</option><option value="1280">1280 px</option></select></label>
+        <button id="refresh-page" title="Actualiser la page"><span data-icon="refresh"></span><span>Actualiser</span></button>
+        <button id="unlock" title="Activer / désactiver l’édition"><span data-icon="edit"></span><span>Déverrouiller</span></button>
+        <button id="lock-all" title="Verrouiller tous les éléments éditables"><span data-icon="lock"></span><span>Verrouiller tout</span></button>
+        <button id="info-toggle" data-on="true" title="Afficher / masquer la couche Info/Test"><span data-icon="info"></span><span>Info ON</span></button>
+        <button id="export-theme" title="Exporter le thème"><span data-icon="export"></span><span>Exporter thème</span></button>
+        <button id="reset-theme" title="Réinitialiser le thème"><span data-icon="reset"></span><span>Reset</span></button>
       </div>
     </header>
 
     <main id="demo-content">
-      <section id="overview" class="nlab-section demo-section" data-theme-editable data-theme-id="overview">
-        <div class="nlab-container">
-          <h1>Framework V2 — page de démonstration</h1>
-          <p>Une seule page pour tester les composants, thèmes, données, rendus, panneaux et sorties du framework.</p>
-          <p class="demo-status" id="status">Initialisation…</p>
-        </div>
-      </section>
+      <section id="overview" class="nlab-section demo-section" data-theme-editable data-theme-id="overview"><div class="nlab-container"><h1>Framework V2 — page de démonstration</h1><p>Une seule page pour tester les composants, thèmes, données, rendus, panneaux et sorties du framework.</p><p class="demo-status" id="status">Initialisation…</p></div></section>
 
-      <section id="theme-workshop" class="nlab-section demo-section" data-theme-editable data-theme-id="theme-workshop">
+      <section id="theme-workshop" class="nlab-section demo-section" data-theme-editable data-theme-id="theme-workshop" data-theme-min-height="120">
         <div class="nlab-container nlab-stack">
           <h2>Theme Workshop</h2>
-          <div class="demo-panel">
-            <div id="theme-pickers" class="demo-theme-pickers"></div>
-            <label>Densité <select id="density"><option>normal</option><option>compact</option><option>comfortable</option></select></label>
-            <label>Import thème <textarea id="theme-json" rows="5" placeholder="JSON exporté"></textarea></label>
-            <button id="import-theme">Importer / appliquer</button>
-          </div>
           <div class="demo-grid2">
-            <header class="nlab-header demo-panel" data-theme-editable data-theme-id="demo-header"><strong>Header redimensionnable</strong></header>
-            <div class="nlab-hero demo-panel" data-theme-editable data-theme-id="demo-hero"><div><h3>Hero redimensionnable</h3><p>Utilise la poignée après déverrouillage.</p></div></div>
+            <div class="demo-panel nlab-stack"><h3>Couleurs & Background</h3><p class="demo-hint">Les libellés sont explicites : couleur d’accent, couleur du texte et background.</p><div id="theme-pickers" class="demo-theme-pickers"></div>
+              <div class="demo-subpanel"><strong>Fond global</strong><div class="demo-controls"><label>Mode <select id="background-mode"><option value="solid">Couleur unie</option><option value="gradient" selected>Dégradé</option></select></label><label>Couleur 1 <input id="bg-one" type="color" value="#eef4ff"></label><label>Couleur 2 <input id="bg-two" type="color" value="#f7f2ff"></label><label>Direction <select id="bg-direction"><option value="135deg">Diagonale</option><option value="90deg">Verticale</option><option value="0deg">Horizontale</option></select></label></div><div class="demo-controls"><button data-bg-preset="light">Clair</button><button data-bg-preset="dark">Sombre</button><button data-bg-preset="color">Couleur</button><button data-bg-preset="gradient">Dégradé</button></div></div>
+            </div>
+            <div class="demo-panel nlab-stack"><h3>Typographie</h3><div class="demo-controls"><label>Police principale <select id="font-body"><option value="Inter,system-ui,sans-serif">Inter / système</option><option value="Georgia,serif">Georgia</option><option value="ui-monospace,monospace">Monospace</option></select></label><label>Police titres <select id="font-heading"><option value="Inter,system-ui,sans-serif">Inter / système</option><option value="Georgia,serif">Georgia</option><option value="ui-monospace,monospace">Monospace</option></select></label><label>Police d’accent <select id="font-accent"><option value="Georgia,serif">Georgia</option><option value="Inter,system-ui,sans-serif">Inter / système</option><option value="ui-monospace,monospace">Monospace</option></select></label><label>Graisse titres <input id="font-weight" type="range" min="400" max="800" step="100" value="700"><output id="font-weight-value">700</output></label></div>
+              <div class="type-preview" id="type-preview"><h1>H1 — Titre principal</h1><h2>H2 — Titre de section</h2><h3>H3 — Sous-section</h3><h4>H4 — Niveau 4</h4><h5>H5 — Niveau 5</h5><p>Texte courant avec <strong>gras</strong>, <em>italique</em> et <span class="accent-text">texte d’accent</span>.</p><blockquote>Bloc citation — exemple de rendu du thème.</blockquote></div>
+            </div>
           </div>
+          <div class="demo-panel"><h3>Densité</h3><div class="demo-controls"><label>Preset <select id="density"><option value="compact">Compact</option><option value="normal" selected>Normal</option><option value="comfortable">Confortable</option></select></label><button id="density-minus">−</button><output id="density-value">100 %</output><button id="density-plus">+</button><button id="density-reset">Valeur par défaut</button></div></div>
+          <label>Import thème <textarea id="theme-json" rows="4" placeholder="JSON exporté"></textarea></label><button id="import-theme">Importer / appliquer</button>
+          <div class="demo-grid2"><header class="nlab-header demo-panel" data-theme-editable data-theme-id="demo-header" data-theme-min-height="56"><strong>Header redimensionnable</strong><p>Poignée de resize séparée du verrou.</p></header><div class="nlab-hero demo-panel" data-theme-editable data-theme-id="demo-hero" data-theme-min-height="100"><div><h3>Hero redimensionnable</h3><p>Le contrôle de verrouillage est distinct de la poignée.</p></div></div></div>
         </div>
       </section>
 
-      <section id="responsive" class="nlab-section demo-section">
-        <div class="nlab-container nlab-stack">
-          <h2>Responsive simulé</h2>
-          <div class="demo-stage-wrap"><div id="demo-stage" class="demo-stage"><div class="nlab-section"><div class="nlab-container"><h3>Zone simulée</h3><p id="responsive-info"></p><div id="responsive-results"></div></div></div></div></div>
-        </div>
-      </section>
+      <section id="responsive" class="nlab-section demo-section"><div class="nlab-container nlab-stack"><h2>Responsive simulé</h2><div class="demo-responsive-toolbar"><span data-icon="responsive"></span><strong>Breakpoint local</strong><select id="local-breakpoint"><option value="360">360 px</option><option value="480">480 px</option><option value="768">768 px</option><option value="1024" selected>1024 px</option><option value="1280">1280 px</option></select><button id="sync-breakpoint">Synchroniser avec global</button></div><div class="demo-stage-wrap"><div class="demo-stage-label" id="stage-label">Zone simulée — 1024 px</div><div id="demo-stage" class="demo-stage"><div class="nlab-section"><div class="nlab-container"><h3>Zone simulée</h3><p id="responsive-info"></p><div id="responsive-results"></div></div></div></div></div></div></section>
 
-      <section id="data-explorer" class="nlab-section demo-section" data-theme-editable data-theme-id="data-explorer">
-        <div class="nlab-container nlab-stack">
-          <h2>Search / Filter / Renderer</h2>
-          <div class="demo-panel demo-controls">
-            <label>Recherche <input id="search" type="search" placeholder="pommes, anti-gaspi…"></label>
-            <label>Catégorie <select id="category"><option value="">Toutes</option><option>Dessert</option><option>Plat</option><option>Entrée</option></select></label>
-            <label>Vue <select id="renderer"><option value="cards">Cartes</option><option value="compact-cards">Cartes compactes</option><option value="list">Liste</option><option value="filmstrip">Pellicule</option><option value="gallery">Galerie</option><option value="table">Table</option></select></label>
-          </div>
-          <div id="results"></div>
-        </div>
-      </section>
+      <section id="data-explorer" class="nlab-section demo-section" data-theme-editable data-theme-id="data-explorer"><div class="nlab-container nlab-stack"><h2>Search / Filter / Renderer</h2><div class="demo-panel demo-controls"><label><span data-icon="search"></span>Recherche <input id="search" type="search" placeholder="pommes, anti-gaspi…"></label><label>Mode <select id="search-mode"><option value="contains">Contient</option><option value="exact">Exact</option><option value="regex">Regex</option></select></label><label>Catégorie <select id="category"><option value="">Toutes</option><option>Dessert</option><option>Plat</option><option>Entrée</option></select></label><label>Vue <select id="renderer"><option value="cards">Cartes</option><option value="compact-cards">Cartes compactes</option><option value="list">Liste</option><option value="filmstrip">Pellicule</option><option value="gallery">Galerie</option><option value="table">Table</option></select></label><label title="Taille des cartes">Taille cartes <input id="card-size" type="range" min="180" max="360" value="260"></label><button id="toggle-images" data-on="true" title="Afficher / masquer les images"><span data-icon="image"></span><span>Images ON</span></button><button title="Paramètres avancés à compléter"><span data-icon="settings"></span><span>Paramètres</span></button></div><div id="results"></div></div></section>
 
-      <section id="table-wiz" class="nlab-section demo-section">
-        <div class="nlab-container nlab-stack"><h2>TableWiz</h2><div class="demo-panel demo-controls"><input id="table-search" type="search" placeholder="Recherche tableau"><button id="table-export">Exporter CSV</button></div><div id="table"></div><pre id="csv-preview" class="demo-code" hidden></pre></div>
-      </section>
+      <section id="table-wiz" class="nlab-section demo-section"><div class="nlab-container nlab-stack"><h2>TableWiz</h2><div class="demo-panel demo-controls"><input id="table-search" type="search" placeholder="Recherche tableau"><button id="table-advanced"><span data-icon="settings"></span><span>Mode avancé</span></button><button id="table-export">Exporter CSV</button></div><div id="table-advanced-panel" class="demo-test-note" hidden><strong>Prévu dans 8B :</strong> filtres par colonne typés, tri A→Z/Z→A, sticky par colonne, afficher/masquer, redimensionnement, réordre et mode édition.</div><div id="table"></div><pre id="csv-preview" class="demo-code" hidden></pre></div></section>
 
-      <section id="json-studio" class="nlab-section demo-section">
-        <div class="nlab-container nlab-stack"><h2>JSON Studio</h2><div class="demo-controls"><button data-json-view="raw">Raw</button><button data-json-view="tree">Tree</button><button data-json-view="form">Form</button><button data-json-view="table">Table</button><button id="json-diff">Diff</button></div><div id="json-editor" class="demo-panel demo-json"></div><pre id="json-diff-output" class="demo-code"></pre></div>
-      </section>
+      <section id="json-studio" class="nlab-section demo-section"><div class="nlab-container nlab-stack"><h2>JSON Studio</h2><div class="demo-test-note"><strong>À tester :</strong> Raw, Tree, Form, Table. Le Diff compare la référence initiale avec la version actuellement modifiée.</div><div class="demo-controls"><button data-json-view="raw">Raw</button><button data-json-view="tree">Tree</button><button data-json-view="form">Form</button><button data-json-view="table">Table</button><button id="json-diff">Diff référence ↔ modifié</button></div><div id="json-editor" class="demo-panel demo-json"></div><pre id="json-diff-output" class="demo-code"></pre></div></section>
 
       <section id="data-wiz" class="nlab-section demo-section"><div class="nlab-container nlab-stack"><h2>DataWiz</h2><div class="demo-grid2"><pre id="stats" class="demo-code"></pre><div id="groups" class="demo-panel"></div></div></div></section>
 
-      <section id="floating-panel" class="nlab-section demo-section"><div class="nlab-container"><h2>FloatingPanel / InspectorPanel</h2><button id="open-panel">Afficher panneau flottant</button><button data-help-id="demo.help">?</button></div></section>
+      <section id="floating-panel" class="nlab-section demo-section"><div class="nlab-container"><h2>InspectorPanel / FloatingPanel</h2><button id="open-panel">Afficher InspectorPanel</button><button data-help-id="demo.help">?</button></div></section>
 
-      <section id="qr-studio" class="nlab-section demo-section" data-nlab-id="DMO-QR-001" data-nlab-component="QRWiz">
-        <div class="nlab-container nlab-stack">
-          <div class="demo-section-title">
-            <div><h2>QR Studio</h2><p class="demo-status">ID test : <strong>DMO-QR-001</strong> · <code>demo.output.qr-studio</code></p></div>
-            <button class="demo-info-button" data-help-id="demo.qr" type="button" title="Que faut-il tester ?" aria-label="Informations et tests du QR Studio">ⓘ</button>
-          </div>
-          <div class="demo-test-note"><strong>À tester :</strong> modifier les contrôles, comparer les variantes, vérifier le fond transparent, les couleurs, la correction d’erreur et le logo central. Tous les QR sont générés en direct dans le navigateur.</div>
-          <div class="demo-panel nlab-stack">
-            <div class="demo-controls qr-controls">
-              <label>Contenu / URL <input id="qr-url" type="text" size="36"></label>
-              <label>Taille <select id="qr-width"><option value="160">160 px</option><option value="220" selected>220 px</option><option value="300">300 px</option></select></label>
-              <label>Marge <input id="qr-margin" type="range" min="0" max="8" value="2"><output id="qr-margin-value">2</output></label>
-              <label>Correction d’erreur <select id="qr-ecc" title="Capacité de récupération si le QR est partiellement masqué"><option value="L">L — légère (~7 %)</option><option value="M" selected>M — moyenne (~15 %)</option><option value="Q">Q — élevée (~25 %)</option><option value="H">H — maximale (~30 %)</option></select></label>
-              <label>Couleur QR code <input id="qr-dark" type="color" value="#111827"></label>
-              <label>Couleur arrière-plan <input id="qr-light" type="color" value="#ffffff"></label>
-              <label><input id="qr-transparent" type="checkbox"> Arrière-plan transparent</label>
-              <label><input id="qr-logo-enabled" type="checkbox"> Logo central</label>
-              <button id="qr-refresh" type="button">Régénérer</button>
-            </div>
-            <div class="demo-controls">
-              <span>Presets :</span>
-              <button type="button" data-qr-preset="standard">Standard</button>
-              <button type="button" data-qr-preset="transparent">Transparent</button>
-              <button type="button" data-qr-preset="colored">Couleurs</button>
-              <button type="button" data-qr-preset="logo">Avec logo</button>
-              <button type="button" data-qr-preset="mono">Monochrome thème</button>
-            </div>
-          </div>
-          <div class="qr-grid">
-            <article class="demo-panel qr-card"><h3>Standard</h3><p>Fond blanc, modules sombres.</p><div id="qr-standard" class="qr-preview"></div></article>
-            <article class="demo-panel qr-card qr-checker"><h3>Transparent</h3><p>Fond réellement transparent.</p><div id="qr-transparent-preview" class="qr-preview"></div></article>
-            <article class="demo-panel qr-card"><h3>Fond coloré</h3><p>QR code et arrière-plan personnalisés.</p><div id="qr-colored" class="qr-preview"></div></article>
-            <article class="demo-panel qr-card"><h3>Avec logo</h3><p>Correction H et logo SVG central.</p><div id="qr-logo" class="qr-preview"></div></article>
-            <article class="demo-panel qr-card qr-checker"><h3>Monochrome thème</h3><p>Couleur d’accent + fond transparent.</p><div id="qr-mono" class="qr-preview"></div></article>
-            <article class="demo-panel qr-card qr-card-custom"><h3>Personnalisé</h3><p>Résultat des contrôles ci-dessus.</p><div id="qr-custom" class="qr-preview"></div><pre id="qr-config" class="demo-code"></pre></article>
-          </div>
-        </div>
-      </section>
+      <section id="qr-studio" class="nlab-section demo-section" data-nlab-id="DMO-QR-001" data-nlab-component="QRWiz"><div class="nlab-container nlab-stack"><div class="demo-section-title"><div><h2>QR Studio</h2><p class="demo-status">ID test : <strong>DMO-QR-001</strong> · <code>demo.output.qr-studio</code></p></div><button class="demo-info-button" data-help-id="demo.qr" type="button" title="Que faut-il tester ?">ⓘ</button></div><div class="demo-test-note"><strong>À tester :</strong> presets, transparence réelle, couleurs, correction d’erreur, logo, régénération et sélection des previews visibles.</div><div class="demo-panel nlab-stack"><div class="demo-controls qr-controls"><label>Contenu / URL <input id="qr-url" type="text" size="32"></label><label>Taille <select id="qr-width"><option value="160">160 px</option><option value="220" selected>220 px</option><option value="300">300 px</option></select></label><label>Marge <input id="qr-margin" type="range" min="0" max="8" value="2"><output id="qr-margin-value">2</output></label><label>Correction d’erreur <select id="qr-ecc"><option value="L">L — faible</option><option value="M" selected>M — moyenne</option><option value="Q">Q — élevée</option><option value="H">H — maximale</option></select></label><label>Couleur QR code <input id="qr-dark" type="color" value="#111827"></label><label>Couleur arrière-plan <input id="qr-light" type="color" value="#ffffff"></label><label><input id="qr-transparent" type="checkbox"> Arrière-plan transparent</label><label><input id="qr-logo-enabled" type="checkbox"> Logo central</label><button id="qr-refresh" type="button"><span data-icon="refresh"></span><span>Régénérer</span></button></div><div class="demo-controls qr-visibility"><strong>Afficher :</strong><label><input type="checkbox" data-qr-visible="standard" checked>Standard</label><label><input type="checkbox" data-qr-visible="transparent" checked>Transparent</label><label><input type="checkbox" data-qr-visible="colored" checked>Coloré</label><label><input type="checkbox" data-qr-visible="logo" checked>Logo</label><label><input type="checkbox" data-qr-visible="mono" checked>Mono</label><label><input type="checkbox" data-qr-visible="custom" checked>Personnalisé</label><label>Preset actif <select id="qr-active-preset"><option value="custom">Personnalisé</option><option value="standard">Standard</option><option value="transparent">Transparent</option><option value="colored">Coloré</option><option value="logo">Avec logo</option><option value="mono">Monochrome</option></select></label></div></div><div class="qr-filmstrip" id="qr-filmstrip"><article class="demo-panel qr-card" data-qr-card="standard"><h3>Standard</h3><div id="qr-standard" class="qr-preview"></div></article><article class="demo-panel qr-card qr-checker" data-qr-card="transparent"><h3>Transparent</h3><div id="qr-transparent-preview" class="qr-preview"></div></article><article class="demo-panel qr-card" data-qr-card="colored"><h3>Fond coloré</h3><div id="qr-colored" class="qr-preview"></div></article><article class="demo-panel qr-card" data-qr-card="logo"><h3>Avec logo</h3><div id="qr-logo" class="qr-preview"></div></article><article class="demo-panel qr-card qr-checker" data-qr-card="mono"><h3>Monochrome thème</h3><div id="qr-mono" class="qr-preview"></div></article><article class="demo-panel qr-card" data-qr-card="custom"><h3>Personnalisé</h3><div id="qr-custom" class="qr-preview"></div></article></div><div id="qr-config-block"></div></div></section>
 
       <section id="output" class="nlab-section demo-section"><div class="nlab-container nlab-stack"><h2>Media / Share / Document</h2><div class="demo-panel"><h3>Document</h3><button id="document-preview">Prévisualiser HTML</button><pre id="document-output" class="demo-code"></pre></div></div></section>
 
-      <section id="code-block" class="nlab-section demo-section">
-        <div class="nlab-container nlab-stack">
-          <h2>CodeBlock — export machine</h2>
-          <div class="demo-test-note"><strong>À tester :</strong> basculer clair/sombre, brut/colorisé, copier le JSON puis le télécharger. Ce composant sera utilisé pour renvoyer des configurations exactes dans la discussion.</div>
-          <div id="codeblock-demo"></div>
-        </div>
-      </section>
+      <section id="code-block" class="nlab-section demo-section"><div class="nlab-container nlab-stack"><h2>CodeBlock</h2><div class="demo-test-note"><strong>À tester :</strong> clair/sombre, brut/colorisé, Copier tout avec confirmation visible et téléchargement.</div><div class="demo-code-tabs"><button data-code-sample="json">JSON</button><button data-code-sample="javascript">JavaScript</button><button data-code-sample="python">Python</button><button data-code-sample="bash">Bash</button><button data-code-sample="text">Texte</button></div><div id="code-block-demo"></div></div></section>
 
-      <section id="config" class="nlab-section demo-section"><div class="nlab-container nlab-stack"><h2>Configuration active</h2><pre id="config-output" class="demo-code"></pre></div></section>
+      <section id="config" class="nlab-section demo-section"><div class="nlab-container nlab-stack"><h2>Configuration active</h2><div id="config-code-block"></div></div></section>
     </main>
   </div>
 </div>
 
-<div id="panel" class="nlab-floating-panel" hidden style="left:24px;top:90px;width:390px;height:300px">
-  <div class="nlab-floating-panel__bar" data-panel-bar>
-    <strong>InspectorPanel</strong>
-    <div class="demo-panel-actions">
-      <button id="panel-pin" type="button" title="Épingler/désépingler le panneau" aria-pressed="false">📌</button>
-      <button id="panel-close" type="button" title="Fermer le panneau" aria-label="Fermer">×</button>
-    </div>
-  </div>
-  <div class="nlab-floating-panel__body"><p>Panneau déplaçable, redimensionnable et épinglable. Il sert de cible à HelpWiz et aux diagnostics.</p><div id="help-content"></div></div>
-  <div class="nlab-floating-panel__resize" data-panel-resize title="Redimensionner"></div>
+<div id="panel" class="nlab-floating-panel" hidden style="left:24px;top:90px;width:430px;height:340px">
+  <div class="nlab-floating-panel__bar" data-panel-bar><strong>InspectorPanel</strong><div class="panel-actions" data-panel-no-drag><button id="panel-lock" title="Verrouiller / déverrouiller"><span data-icon="unlock"></span></button><button id="panel-pin" title="Épingler / libérer"><span data-icon="pin"></span></button><button id="panel-collapse" title="Plier / déplier"><span data-icon="collapse"></span></button><button id="panel-close" class="danger" title="Fermer"><span data-icon="close"></span></button></div></div>
+  <div class="nlab-floating-panel__body"><p>Panneau de diagnostic déplaçable, verrouillable, épinglable et redimensionnable.</p><div id="help-content"></div></div><div class="nlab-floating-panel__resize" data-panel-resize></div>
 </div>
-
 <script type="module" src="demo.js"></script>
-</body>
-</html>
+</body></html>

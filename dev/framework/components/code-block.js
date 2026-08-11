@@ -13,62 +13,62 @@ function highlightJson(source) {
   });
 }
 
+function highlightScript(source, language) {
+  let escaped=escapeHtml(source);
+  const comment=language==='python'?/#.*$/gm:/#.*$|\/\/.*$/gm;
+  escaped=escaped.replace(comment,(m)=>`<span class="nlab-codeblock__comment">${m}</span>`);
+  escaped=escaped.replace(/(&quot;[^&]*?&quot;|'[^']*?')/g,'<span class="nlab-codeblock__string">$1</span>');
+  const words={
+    javascript:'const|let|var|function|return|if|else|for|while|class|new|import|from|export|async|await|true|false|null',
+    python:'def|return|if|elif|else|for|while|class|import|from|as|True|False|None|with|lambda|in|not|and|or',
+    bash:'if|then|else|fi|for|do|done|case|esac|function|echo|export|local|readonly|in'
+  }[language] || '';
+  if(words) escaped=escaped.replace(new RegExp(`\\b(${words})\\b`,'g'),'<span class="nlab-codeblock__keyword">$1</span>');
+  escaped=escaped.replace(/\b(\d+(?:\.\d+)?)\b/g,'<span class="nlab-codeblock__number">$1</span>');
+  return escaped;
+}
+
 export class CodeBlock {
   constructor({ value='', language='text', filename='export.txt', theme='light', highlighted=false }={}) {
-    this.value=String(value);
-    this.language=language;
-    this.filename=filename;
-    this.theme=theme;
-    this.highlighted=highlighted;
-    this.element=null;
+    this.value=String(value); this.language=language; this.filename=filename; this.theme=theme; this.highlighted=highlighted; this.element=null;
   }
-
   setValue(value) { this.value=String(value ?? ''); this.render(); return this; }
   setTheme(theme) { this.theme=theme==='dark'?'dark':'light'; this.render(); return this; }
   setHighlighted(value) { this.highlighted=Boolean(value); this.render(); return this; }
+  setLanguage(language) { this.language=language || 'text'; this.render(); return this; }
 
-  async copy() {
-    await navigator.clipboard.writeText(this.value);
-    return true;
-  }
-
+  async copy() { await navigator.clipboard.writeText(this.value); return true; }
   download() {
-    const blob=new Blob([this.value],{type:'text/plain;charset=utf-8'});
-    const url=URL.createObjectURL(blob);
-    const link=document.createElement('a');
-    link.href=url;
-    link.download=this.filename || 'export.txt';
-    document.body.append(link);
-    link.click();
-    link.remove();
-    setTimeout(()=>URL.revokeObjectURL(url),0);
+    const blob=new Blob([this.value],{type:'text/plain;charset=utf-8'}); const url=URL.createObjectURL(blob); const link=document.createElement('a');
+    link.href=url; link.download=this.filename || 'export.txt'; document.body.append(link); link.click(); link.remove(); setTimeout(()=>URL.revokeObjectURL(url),0);
   }
-
   mount(element) { this.element=element; this.render(); return this; }
-
   formatted() {
-    if(this.highlighted && this.language==='json') return highlightJson(this.value);
+    if(!this.highlighted) return escapeHtml(this.value);
+    if(this.language==='json') return highlightJson(this.value);
+    if(['javascript','python','bash'].includes(this.language)) return highlightScript(this.value,this.language);
     return escapeHtml(this.value);
   }
-
+  feedback(message,kind='ok') {
+    const node=this.element?.querySelector('.nlab-codeblock__feedback'); if(!node) return;
+    node.textContent=message; node.dataset.kind=kind; node.hidden=false; clearTimeout(this.feedbackTimer); this.feedbackTimer=setTimeout(()=>{ if(node){node.hidden=true;node.textContent='';}},1800);
+  }
   render() {
     if(!this.element) return;
-    this.element.classList.add('nlab-codeblock');
-    this.element.dataset.theme=this.theme;
+    this.element.classList.add('nlab-codeblock'); this.element.dataset.theme=this.theme;
     this.element.innerHTML=`
       <div class="nlab-codeblock__toolbar">
         <span class="nlab-codeblock__meta">${escapeHtml(this.filename)} · ${escapeHtml(this.language)}</span>
-        <button type="button" data-code-theme title="Basculer clair/sombre" aria-label="Basculer le thème du bloc de code">◐</button>
-        <button type="button" data-code-highlight title="Basculer brut/colorisé" aria-pressed="${this.highlighted}">${this.highlighted?'Couleur':'Brut'}</button>
-        <button type="button" data-code-copy title="Copier dans le presse-papiers">⧉</button>
-        <button type="button" data-code-download title="Télécharger le contenu">⇩</button>
+        <button type="button" data-code-theme title="Mode clair / sombre" aria-label="Basculer le thème du bloc de code">◐ <span>Thème</span></button>
+        <button type="button" data-code-highlight title="Visualisation brute / colorisée" aria-pressed="${this.highlighted}">${this.highlighted?'◈':'◇'} <span>${this.highlighted?'Colorisé':'Brut'}</span></button>
+        <button type="button" data-code-copy title="Copier tout dans le presse-papiers">⧉ <span>Copier tout</span></button>
+        <button type="button" data-code-download title="Télécharger le contenu">⇩ <span>Télécharger</span></button>
       </div>
       <pre class="nlab-codeblock__pre"><code>${this.formatted()}</code></pre>
-      <div class="nlab-codeblock__feedback" aria-live="polite"></div>`;
-    const feedback=this.element.querySelector('.nlab-codeblock__feedback');
+      <div class="nlab-codeblock__feedback" role="status" aria-live="polite" hidden></div>`;
     this.element.querySelector('[data-code-theme]')?.addEventListener('click',()=>this.setTheme(this.theme==='dark'?'light':'dark'));
     this.element.querySelector('[data-code-highlight]')?.addEventListener('click',()=>this.setHighlighted(!this.highlighted));
-    this.element.querySelector('[data-code-copy]')?.addEventListener('click',async()=>{ try{await this.copy();feedback.textContent='Copié ✓';setTimeout(()=>{ if(feedback) feedback.textContent=''; },1400);}catch{feedback.textContent='Copie indisponible';} });
-    this.element.querySelector('[data-code-download]')?.addEventListener('click',()=>{ this.download();feedback.textContent='Téléchargement lancé';setTimeout(()=>{ if(feedback) feedback.textContent=''; },1400); });
+    this.element.querySelector('[data-code-copy]')?.addEventListener('click',async()=>{ try{await this.copy();this.feedback('Copié dans le presse-papiers ✓');}catch{this.feedback('Copie indisponible','error');} });
+    this.element.querySelector('[data-code-download]')?.addEventListener('click',()=>{ this.download();this.feedback('Téléchargement lancé ✓'); });
   }
 }
