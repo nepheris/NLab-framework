@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-TEST-RUNNER",
+  "agent": "C",
+  "status": "in_progress",
+  "base": "New@branch-creation",
+  "branch": "agent-c/test-runner",
+  "file_scope": [
+    "dev/framework/tools/testing/run-tests.mjs",
+    "dev/framework/tests/test-runner.test.mjs",
+    "dev/framework/doc/testing/test-runner.md"
+  ],
+  "reserved_at": "2026-08-12T02:20:00+02:00",
+  "notes": "Créer un runner Node autonome pour les *.test.mjs : découverte triée, filtre --match, fail-fast, sortie humaine/JSON, propagation stdout/stderr, code de sortie CI et tests via répertoire temporaire. Nouveaux fichiers uniquement, aucun chevauchement A/B."
+}
