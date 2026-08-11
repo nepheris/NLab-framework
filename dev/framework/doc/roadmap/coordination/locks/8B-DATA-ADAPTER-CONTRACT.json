@@ -1,7 +1,7 @@
 {
   "task_id": "8B-DATA-ADAPTER-CONTRACT",
   "agent": "C",
-  "status": "review",
+  "status": "done",
   "base": "e75dd6579f387e43783e234b0f80f4350d5d3090",
   "branch": "agent-c/data-adapter-contract",
   "file_scope": [
@@ -11,10 +11,12 @@
   ],
   "reserved_at": "2026-08-12T01:49:00+02:00",
   "final_sha": "bcf4ea7ee186c567b189b57fe6237962508ab0c8",
+  "merged_sha": "9d35432e7390038bcef84fef4fba9a7712cc714e",
+  "pull_request": 25,
   "verification": {
     "diff": "3 commits / 3 files, all inside reserved file_scope",
     "tests": "local Node base + concrete subclass contract test",
     "result": "DataAdapter tests: OK"
   },
-  "notes": "DataAdapter valide et copie ses options, conserve canHandle(false) par défaut et structure normalize() NOT_IMPLEMENTED avec opération/type/contexte copié. Aucun adapter concret ni fichier A/B modifié."
+  "notes": "DataAdapter valide et copie ses options, conserve canHandle(false) par défaut et structure normalize() NOT_IMPLEMENTED avec opération/type/contexte copié. Intégré dans New via PR #25."
 }
