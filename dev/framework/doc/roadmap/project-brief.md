@@ -15,7 +15,7 @@
 
 ## 2. Logo / identité visuelle
 
-Le logo officiel est en cours de finalisation selon la procédure canonique nLab. Après validation, les variantes fond clair, fond sombre, monochrome et icône seront affichées ici et dans la roadmap.
+Le logo du nLab Web Framework est **validé**, mais son pack officiel n’est pas encore intégré dans le dépôt. La tâche restante consiste à retrouver les fichiers source validés, créer `dev/framework/doc/roadmap/icons/`, y déposer les variantes officielles (fond clair, fond sombre, monochrome, icône et formats maîtres disponibles), ajouter le manifest/README du pack puis référencer ces assets dans la documentation. Tant que ce pack n’est pas présent et vérifié dans le repo, l’intégration de l’identité visuelle reste ouverte dans la roadmap.
 
 ## 3. Présentation rapide
 
