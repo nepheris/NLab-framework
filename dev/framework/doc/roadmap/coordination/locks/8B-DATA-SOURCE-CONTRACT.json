@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-DATA-SOURCE-CONTRACT",
+  "agent": "C",
+  "status": "in_progress",
+  "base": "9deb29a21c59b150da51f1e1f430afa46ea2ca58",
+  "branch": "agent-c/data-source-contract",
+  "file_scope": [
+    "dev/framework/core/data-source.js",
+    "dev/framework/tests/data-source-contract.test.mjs",
+    "dev/framework/doc/data-source/data-source.md"
+  ],
+  "reserved_at": "2026-08-12T01:45:00+02:00",
+  "notes": "Formaliser DataSource : id/type non vides normalisés, options/metadata objets copiés, sérialisation isolée et tests dédiés. Aucun fichier A/B, provider, resolver, TableWiz, démo ou roadmap dans la branche."
+}
