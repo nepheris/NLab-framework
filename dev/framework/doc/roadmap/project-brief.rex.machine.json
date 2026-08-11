@@ -26,16 +26,18 @@
     "logo_dark": null,
     "logo_mono": null,
     "logo_icon": null,
-    "status": "IN_DESIGN"
+    "target_directory": "./icons/",
+    "status": "VALIDATED_ASSETS_NOT_INTEGRATED"
   },
   "decisions": [
     "Le projet est nommé nLab Web Framework et son dépôt canonique est nepheris/nLab-Web-Framework.",
     "Le cœur métier du framework est la transformation et la mise en intelligibilité de données via des expériences web.",
     "La fiche projet et la roadmap sont deux documents distincts, chacun avec son REX machine nommé.",
+    "Le logo nLab Web Framework est validé ; le travail restant porte sur la récupération et l'intégration du pack officiel dans le dépôt.",
     "Les ressources structurelles doivent être indexables et reliables par la future Knowledge Base."
   ],
   "open_questions": [
-    "Valider le logo nLab Web Framework puis générer light/dark/mono/icon.",
+    "Retrouver les fichiers source du logo validé et intégrer le pack light/dark/mono/icon avec manifest/README dans ./icons/.",
     "Tester les ancres GitHub vers sections et sous-sections de roadmap."
   ],
   "knowledge_index": {
