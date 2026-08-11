@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-EVENT-BUS-ROBUSTNESS",
+  "agent": "C",
+  "status": "in_progress",
+  "base": "66cffd23592215335224b29bc61444f6a9466bd0",
+  "branch": "agent-c/event-bus-robustness",
+  "file_scope": [
+    "dev/framework/core/event-bus.js",
+    "dev/framework/tests/event-bus-robustness.test.mjs",
+    "dev/framework/doc/event-bus/event-bus.md"
+  ],
+  "reserved_at": "2026-08-12T01:23:00+02:00",
+  "notes": "Durcir EventBus indépendamment des chantiers A/B : noms d'événement normalisés/validés, clock injectable, once/off déterministes, introspection listenerCount/events, clear ciblé/global et tests d'erreurs/wildcard/snapshot."
+}
