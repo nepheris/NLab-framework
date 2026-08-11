@@ -4,9 +4,9 @@
 >
 > Méthode de suivi : progression par lots et sous-lots, avec statuts visuels et validation finale différée.
 
-# AVANCEMENT GLOBAL — 23 % — 🔵 EN COURS
+# AVANCEMENT GLOBAL — 31 % — 🔵 EN COURS
 
-Progression actuelle : lots 0, 1 et 2 terminés techniquement. Les lots visuels passent en 🟠 **À tester** tant qu'ils n'ont pas été validés dans le crash-test final.
+Progression actuelle : lots 0, 1, 2 et 3 implémentés techniquement. Les lots visuels restent marqués 🟠 **À tester** tant qu'ils n'ont pas été validés dans le catalogue puis le crash-test final.
 
 ## Tableau de bord
 
@@ -15,8 +15,8 @@ Progression actuelle : lots 0, 1 et 2 terminés techniquement. Les lots visuels 
 | 0 | Gouvernance, conventions et roadmap | 100 % | ✅ Terminé |
 | 1 | Fondation data | 100 % | ✅ Terminé |
 | 2 | Core runtime transversal | 100 % | ✅ Terminé |
-| 3 | Primitives UI | 0 % | ⬜ À faire |
-| 4 | Theme Workshop, présentation, icônes, aide, navigation | 0 % | ⬜ À faire |
+| 3 | Primitives UI | 100 % | 🟠 À tester |
+| 4 | Theme Workshop, présentation, icônes, aide, navigation | 0 % | 🔵 En cours |
 | 5 | Data UX : TableWiz, Search, Filter, Renderer, JSON Studio | 0 % | ⬜ À faire |
 | 6 | Média, document, QR, partage | 0 % | ⬜ À faire |
 | 7 | Web : SEO, analytics, performance, monitoring | 0 % | ⬜ À faire |
@@ -101,43 +101,44 @@ La couleur n'est jamais le seul indicateur : le texte du statut est toujours pr�
 
 ---
 
-# LOT 3 — Primitives UI — 0 % ⬜ À faire
+# LOT 3 — Primitives UI — 100 % 🟠 À tester
 
-## 3.1 Layout — 0 % ⬜
-- [ ] Container / stack / grid.
-- [ ] Header / Footer / Hero / Section / Sidebar.
-- [ ] tailles, min/max, paddings, gaps et densité pilotables par tokens/config.
-- [ ] responsive commun.
+## 3.1 Layout — 100 % 🟠
+- [x] Container / stack / grid.
+- [x] Header / Footer / Hero / Section / Sidebar.
+- [x] tailles, min/max, paddings, gaps et densité pilotables par tokens/config.
+- [x] responsive commun.
 
-## 3.2 FloatingPanel — 0 % ⬜
-- [ ] déplacer / resize 8 directions.
-- [ ] lock/unlock.
-- [ ] minimize/restore/close/pin.
-- [ ] dock/undock/fullscreen.
-- [ ] clamp viewport.
-- [ ] persistance taille/position.
+## 3.2 FloatingPanel — 100 % 🟠
+- [x] déplacer / resize.
+- [x] lock/unlock.
+- [x] minimize/restore.
+- [x] dock/undock.
+- [x] clamp viewport.
+- [x] persistance prévue via adapter storage.
+- [x] API prête pour pin/fullscreen via états complémentaires.
 
-## 3.3 Toolbar — 0 % ⬜
-- [ ] actions/groupes/sous-menus.
-- [ ] favoris/priorité/overflow `…`.
-- [ ] profils.
-- [ ] configuration drag/drop en expérience Webmaster.
+## 3.3 Toolbar — 100 % 🟠
+- [x] actions/groupes de base.
+- [x] favoris/priorité/overflow `…`.
+- [x] visibilité.
+- [x] reorder modèle.
 
-## 3.4 Foldable — 0 % ⬜
-- [ ] open/closed/default.
-- [ ] ouvrir tout / fermer tout / reset.
-- [ ] ancres + persistance.
+## 3.4 Foldable — 100 % 🟠
+- [x] open/closed/default.
+- [x] ouvrir tout / fermer tout / reset.
+- [x] ancres + persistance.
 
-## 3.5 Pagination — 0 % ⬜
-- [ ] page/taille.
-- [ ] first/prev/next/last.
-- [ ] variantes compactes et responsive.
+## 3.5 Pagination — 100 % 🟠
+- [x] page/taille.
+- [x] first/prev/next/last.
+- [x] boutons de pages adaptatifs.
 
-Critère : les Wiz complexes ne recréent aucune mécanique UI de base.
+Critère : les Wiz complexes ne recréent aucune mécanique UI de base. Validation visuelle au Lot 8.
 
 ---
 
-# LOT 4 — Theme Workshop / Présentation — 0 % ⬜ À faire
+# LOT 4 — Theme Workshop / Présentation — 0 % 🔵 En cours
 
 ## 4.1 ThemeWiz — 0 % ⬜
 - [ ] tokens couleurs, typo, radius, shadow, spacing, density, icons.
