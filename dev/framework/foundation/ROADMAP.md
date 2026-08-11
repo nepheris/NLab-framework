@@ -9,10 +9,10 @@
 - [x] Séparation framework / données métier.
 - [x] JSON canonique / CSV export plat.
 - [x] Principe DataProvider.
-- [ ] Contrat DataProvider.
-- [ ] DataRegistry.
-- [ ] DataSchema.
-- [ ] DataRelation.
+- [x] Contrat DataProvider.
+- [x] DataRegistry — contrat initial.
+- [x] DataSchema — contrat initial.
+- [x] DataRelation — contrat initial.
 - [ ] DataResolver.
 - [ ] DataValidator.
 - [ ] Provider JSON local/statique.
