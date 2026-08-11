@@ -1,18 +1,14 @@
 {
   "task_id": "COORD-ROADMAP-AGENT-DASHBOARD",
-  "agent": "B",
-  "status": "released",
-  "base": "0c4fc035b994b2ffed2fbbdbcd1b4daa84fc015f",
+  "agent": "C",
+  "status": "in_progress",
+  "base": "eb9fcb7e72bde8c14586d3b262e8073ab83afc03",
   "branch": "New",
   "file_scope": [
     "dev/framework/doc/roadmap/roadmap.md",
     "dev/framework/doc/roadmap/coordination/README.md",
     "dev/framework/doc/roadmap/coordination/agent-board.md"
   ],
-  "reserved_at": "2026-08-12T01:47:00+02:00",
-  "released_at": "2026-08-12T01:50:00+02:00",
-  "roadmap_sha": "d9948c32bf892efe92a49d49b2a7cde7cf5c1dcb",
-  "agent_board_sha": "46c4c1e490edf0024c9d80f1e034edafc9a1b46e",
-  "procedure_sha": "ae730eaf78b59c0d2edaac424766111c1eb5ce00",
-  "notes": "PR #24 DataSource créditée à C. Collision avec le lock B antérieur consignée ; branche B non fusionnée et lock B released. Procédure renforcée sur contrôle des file_scope et priorité au lock actif le plus ancien."
+  "reserved_at": "2026-08-12T02:04:00+02:00",
+  "notes": "Synchroniser DataAdapter #25, DataSource consolidation #26, Environment B #27 et checker anti-collision #28 ; raccorder le checker exécutable à la procédure renforcée par B."
 }
