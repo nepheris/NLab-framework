@@ -51,6 +51,9 @@
 - 🔎 **Cycle précédent :** [`../../demo/ROADMAP_V18.md`](../../demo/ROADMAP_V18.md) <a href="../../demo/ROADMAP_V18.md" target="_blank">↗</a>
 - 🟧 **Contrat Analytics / consentement :** [`../analytics/contract.md`](../analytics/contract.md) <a href="../analytics/contract.md" target="_blank">↗</a>
 - 🟧 **Contrat NotificationCenter :** [`../components/notification-center.md`](../components/notification-center.md) <a href="../components/notification-center.md" target="_blank">↗</a>
+- 🟧 **Contrat CodeBlock :** [`../components/code-block.md`](../components/code-block.md) <a href="../components/code-block.md" target="_blank">↗</a>
+- 🟧 **Contrat PresetManager :** [`../components/preset-manager.md`](../components/preset-manager.md) <a href="../components/preset-manager.md" target="_blank">↗</a>
+- 🟧 **Contrat NavigationWiz :** [`../navigation/navigation-wiz.md`](../navigation/navigation-wiz.md) <a href="../navigation/navigation-wiz.md" target="_blank">↗</a>
 - 🟧 **Pré-vol Lot 9 — checklist humaine :** [`lot9-preflight-checklist.md`](./lot9-preflight-checklist.md) <a href="./lot9-preflight-checklist.md" target="_blank">↗</a>
 - 🟧 **Pré-vol Lot 9 — checklist machine :** [`lot9-preflight.machine.json`](./lot9-preflight.machine.json) <a href="./lot9-preflight.machine.json" target="_blank">↗</a>
 - 💡 **Boîte à idées :** backlog de cette roadmap jusqu’à création d’un fichier dédié.
@@ -112,13 +115,19 @@
 | Agent | Statut | Tâche verrouillée | Branche | Périmètre synthétique |
 |---|---|---|---|---|
 | 🟦 A | 🛠️ `in_progress` | `8B-V20-SCOPE-LAYOUT` | `review-v20-from-v16` | Scope Lab / Layout Lab V20, démo |
-| 🟦 A | 🛠️ `in_progress` | `8B-SEMANTIC-ARCHITECTURE` | `agent-a/semantic-architecture` | nomenclature et responsabilités architecturales |
+| 🟦 A | 👀 `review` | `8B-SEMANTIC-ARCHITECTURE` | `agent-a/semantic-architecture` | nomenclature et responsabilités architecturales |
 | 🟦 A | 🔒 `reserved` | `8B-HEADER-LEGACY-EXTRACTION` | `agent-a/header-studio-from-v16` | Header Studio générique |
 | 🟦 A | 🔒 `reserved` | `8B-TABLEWIZ-LEGACY-EXTRACTION` | `agent-a/tablewiz-legacy-from-v16` | TableWiz legacy → API générique |
-| 🟩 B | 🛠️ `in_progress` | `8B-OBSERVABILITY-ROBUSTNESS` | `agent-b/observability-robustness` | RuntimeMonitor / robustesse |
-| 🟩 B | 🛠️ `in_progress` | `8B-SEO-SHARE-CONTRACTS` | `agent-b/seo-share-contracts` | SEO / Share / fallbacks navigateur |
-| 🟩 B | 🛠️ `in_progress` | `8B-DATA-SCHEMAS-VALIDATION` | `agent-b/data-schemas-validation` | schémas data et relations |
-| 🟩 B | 🔒 `reserved` | `8B-QR-MEDIA-ROBUSTNESS` | `agent-b/qr-media-robustness` | QRWiz / MediaWiz robustesse |
+| 🟩 B | 🛠️ `in_progress` | `8B-SEARCH-FILTER-ROBUSTNESS` | `agent-b/search-filter-robustness` | SearchWiz / FilterWiz robustesse, hors TableWiz |
+
+**Livraisons B intégrées dans `New` pendant ce cycle :**
+
+| Agent | Statut | Tâche | Intégration | Résultat |
+|---|---|---|---|---|
+| 🟩 B | ✅ `done` | `8B-DATA-SCHEMAS-VALIDATION` | PR #7 — `1257647aa0f9862bc98cadf7938796d7db6fcff4` | schémas data/relations validés et fallback `targetField` corrigé |
+| 🟩 B | ✅ `done` | `8B-QR-MEDIA-ROBUSTNESS` | PR #8 — `5490fd3f1bc13532d1a7d28ba8ec276edf42fa5e` | QRWiz / MediaWiz durcis |
+| 🟩 B | ✅ `done` | `8B-OBSERVABILITY-ROBUSTNESS` | PR #9 — `0a5f08e762f1167ec1991199a33f0da3e63726ac` | RuntimeMonitor durci et testé |
+| 🟩 B | ✅ `done` | `8B-SEO-SHARE-CONTRACTS` | PR #10 — `5d95554858a5a4a60ed205e779dcd4aa4d77b61f` | SEO/Share et fallbacks navigateur durcis |
 
 **Livraisons C intégrées dans `New` :**
 
@@ -127,12 +136,15 @@
 | 🟧 C | ✅ `done` | `8B-ANALYTICS-CONSENT-PROVIDER` | PR #2 — `6571142bba33e8d684a7da37bf217761e4c3cba4` | AnalyticsWiz / consentement / GA4 renforcés + tests dédiés |
 | 🟧 C | ✅ `done` | `9-PREFLIGHT-MACHINE-CHECKLIST` | PR #3 — `3a999b6044f4a360897c8a2f794f5ffe887f1dca` | pré-vol machine + checklist humaine Lot 9 intégrés |
 | 🟧 C | ✅ `done` | `8B-NOTIFICATION-CENTER-CONTRACT` | PR #4 — `8a8c1a8b01efd445e06aae5125c4f02395741a84` | NotificationCenter sans DOM, niveaux complets, cycle de vie, thème + tests |
+| 🟧 C | ✅ `done` | `8B-CODEBLOCK-CONTRACT` | PR #5 — `86f12ae01f199f60c422e79c5f5fa81ee0c4d1d9` | presets/alias, formatage JSON, export/copie sûrs et tokeniseur corrigé |
+| 🟧 C | ✅ `done` | `8B-PRESET-MANAGER-IMPORT` | PR #6 — `ff9ab4ed974ea4a8a83bdf84f545e9b7313434d6` | import atomique, validation de collection et protection des canoniques |
+| 🟧 C | ✅ `done` | `8B-NAVIGATION-CONTRACT` | PR #11 — `9d02216a3395002da7ef300dc83aa1c70567cae5` | NavigationWiz sans DOM implicite, IDs/observer/hash robustes |
 
 **Lecture rapide :**
 
-- 🟦 **A** travaille actuellement sur V20 et l’architecture sémantique ; Header et TableWiz sont réservés par A.
-- 🟩 **B** travaille sur robustesse/contrats/data ; QR/Media est réservé par B.
-- 🟧 **C** a terminé et intégré Analytics/consentement, le pré-vol Lot 9 et NotificationCenter ; aucun lock métier C n’est actif dans ce snapshot.
+- 🟦 **A** travaille sur V20 ; l’architecture sémantique est en review ; Header et TableWiz restent réservés.
+- 🟩 **B** a intégré Data Schemas, QR/Media, Observability et SEO/Share, puis travaille maintenant sur Search/Filter.
+- 🟧 **C** a intégré six lots autonomes dont CodeBlock, PresetManager et NavigationWiz dans ce cycle ; aucun lock métier C n’est actif à cet instant.
 - 🟣👤 **HUMAN** reste requis pour H001 et les arbitrages visuels associés.
 
 Le détail complet et les `file_scope` sont visibles dans [`coordination/agent-board.md`](./coordination/agent-board.md) et surtout dans [`coordination/locks/`](./coordination/locks/).
@@ -153,18 +165,18 @@ Le détail complet et les `file_scope` sont visibles dans [`coordination/agent-b
 | Architecture Framework | ⬜ | 🟡 | ~90 % | socle propre, factorisé et stable |
 | Catalogue / Playground | ⬜ | 🟡 | ~85 % | banc d’essai complet |
 | UX / concepts | 🎯 | 🟡 | ~75 % | comportements validés humainement |
-| Composants industrialisés | ⬜ | 🟡 | ~60 % | prototypes extraits en composants génériques |
-| JSON / data métier | ⬜ | 🟡 | ~50 % | édition + relations inter-JSON robustes |
-| Tests / robustesse | ⬜ | 🟡 | ~35 % | non-régression et cas négatifs |
+| Composants industrialisés | ⬜ | 🟡 | ~70 % | prototypes extraits en composants génériques |
+| JSON / data métier | ⬜ | 🟡 | ~60 % | édition + relations inter-JSON robustes |
+| Tests / robustesse | ⬜ | 🟡 | ~55 % | non-régression et cas négatifs |
 | Intégration métier | ⬜ | 🟡 | ~20 % | crash-test Recettes du Cœur |
 
 ```text
 ⬜ ARCHITECTURE FRAMEWORK       ████████████████████  ~90 %
 ⬜ CATALOGUE / PLAYGROUND      █████████████████░░░  ~85 %
 🎯 UX / CONCEPTS               ███████████████░░░░░  ~75 %   ← VALIDATION ACTIVE
-⬜ COMPOSANTS INDUSTRIALISÉS   ████████████░░░░░░░░  ~60 %
-⬜ JSON / DATA MÉTIER          ██████████░░░░░░░░░░  ~50 %
-⬜ TESTS / ROBUSTESSE          ███████░░░░░░░░░░░░░  ~35 %
+⬜ COMPOSANTS INDUSTRIALISÉS   ██████████████░░░░░░  ~70 %
+⬜ JSON / DATA MÉTIER          ████████████░░░░░░░░  ~60 %
+⬜ TESTS / ROBUSTESSE          ███████████░░░░░░░░░  ~55 %
 ⬜ INTÉGRATION MÉTIER          ████░░░░░░░░░░░░░░░░  ~20 %
 ```
 
@@ -177,7 +189,6 @@ Le détail complet et les `file_scope` sont visibles dans [`coordination/agent-b
 <a name="etat-actuel"></a>
 
 ### 📍 1.7 État actuel
-
 <details open>
 <summary><strong>📍 État actuel — ouvert par défaut</strong></summary>
 
@@ -189,6 +200,10 @@ Catalogue / Playground V18 : preuve de la portée native Theme Workshop
 V19 : raccord technique des contrôles historiques compatibles
 ↓
 POINT ACTIF : validation HUMAN V19 + industrialisation parallèle A/B/C
+↓
+Robustesse data / QR / Media / SEO / Share / Observability consolidée
+↓
+POINT PARALLÈLE : Search / Filter + extractions A + briques autonomes C
 ↓
 SI VALIDÉ : poursuite des composants autonomes
 SI BLOQUANT : correction ciblée V20 déjà isolée par Agent A
@@ -277,10 +292,17 @@ Le détail exact de l’ancienne numérotation interne ne doit pas être réinve
 | 🟢 | 100 % | — | relations inter-JSON de démonstration prouvées |
 | 🟢 | 100 % | — | Theme Workshop : cascade native `global → type → instance`, profils et resets |
 | 🟢 | 100 % technique | — | raccord des contrôles historiques compatibles à l’API scoped en V19 |
+| 🟢 | 100 % | 🟩 B ✅ | schémas `collection / registry / relation` validés et contrat de relation consolidé via PR #7 |
+| 🟢 | 100 % | 🟩 B ✅ | QRWiz / MediaWiz robustesse, fallbacks et entrées invalides consolidés via PR #8 |
+| 🟢 | 100 % | 🟩 B ✅ | RuntimeMonitor / observabilité consolidés via PR #9 |
+| 🟢 | 100 % | 🟩 B ✅ | contrats SEO / Share et fallbacks navigateur consolidés via PR #10 |
 | 🟢 | 100 % | 🟧 C ✅ | contrat AnalyticsWiz / consentement / provider GA4 renforcé, documenté, testé et intégré via PR #2 |
 | 🟢 | 100 % | 🟧 C ✅ | NotificationCenter : niveaux `info/success/warning/error/dev`, compatibilité sans DOM, cycle de vie et thème, intégré via PR #4 |
+| 🟢 | 100 % tâche | 🟧 C ✅ | CodeBlock : presets/alias, formatage JSON, export/copie sûrs et tokenisation corrigée via PR #5 |
+| 🟢 | 100 % | 🟧 C ✅ | PresetManager : import/export atomique, validation de collection, canoniques protégés via PR #6 |
+| 🟢 | 100 % | 🟧 C ✅ | NavigationWiz : dépendances injectables, IDs sans collision, observer/hash robustes via PR #11 |
 | 🟡 | HUMAN actif | 🟦 A + 🟣👤 | validation visuelle des portées, profils, resets et contrôles historiques V19/V20 |
-| 🟡 | ~60 % | 🟦 A / 🟩 B / 🟧 C | extraction et consolidation parallèles de briques framework |
+| 🟡 | ~70 % | 🟦 A / 🟩 B / 🟧 C | extraction et consolidation parallèles de briques framework |
 | ⚪ | 0 % | ⚪ Libre | **intégrer le logo nLab Web Framework déjà validé : retrouver les fichiers source validés, créer `doc/roadmap/icons/`, y déposer le pack officiel (variantes, icône, manifest/README) et le référencer dans la documentation** |
 | ⚪ | 0 % | ⚪ Libre | **industrialiser JSON Studio en composant autonome** |
 | ⚪ | 0 % | 🟦 A — TableWiz réservé | convergence TableWiz / DataWiz / ResultSet |
@@ -288,9 +310,9 @@ Le détail exact de l’ancienne numérotation interne ne doit pas être réinve
 
 **Chantiers parallèles actuellement verrouillés dans le Lot 8B :**
 
-- 🟦 A — V20 Scope/Layout 🛠️ ; architecture sémantique 🛠️ ; Header 🔒 ; TableWiz 🔒.
-- 🟩 B — Observability 🛠️ ; SEO/Share 🛠️ ; Data Schemas 🛠️ ; QR/Media 🔒.
-- 🟧 C — aucun verrou métier actif dans ce snapshot ; Analytics/Consent/Provider et NotificationCenter sont ✅ intégrés.
+- 🟦 A — V20 Scope/Layout 🛠️ ; architecture sémantique 👀 ; Header 🔒 ; TableWiz 🔒.
+- 🟩 B — Search/Filter robustesse 🛠️ ; Data Schemas, QR/Media, Observability et SEO/Share sont ✅ intégrés.
+- 🟧 C — aucun verrou métier actif dans ce snapshot ; six lots autonomes sont ✅ intégrés dans `New`.
 
 <a name="human-h001"></a>
 <details open>
@@ -357,21 +379,22 @@ Ces lots existaient dans l’ancienne roadmap. Leurs intitulés exacts ne sont p
 <a name="industrialisation"></a>
 
 # 6. Séquence d’industrialisation
-
 <details open>
 <summary><strong>📈 Priorités techniques après V19</strong></summary>
 
 0. 🟦 A + 🟣👤 **H001 — validation V19/V20** : confirmer visuellement le raccord scoped ; correction V20 uniquement si anomalie bloquante.
 1. ⚪ **JSON Studio** — composant framework, validation, undo/redo, historique, diff, relations multiples, mapping d’affichage.
 2. 🟦 A **TableWiz / DataWiz** — TableWiz legacy est réservé ; convergence DataSource, ResultSet et renderers partagés à consolider ensuite.
-3. ⚪ **Search / Set Filter** — pondération des tokens, stopwords configurables, locale, suggestions multi-colonnes.
-4. 🟩 B 🔒 **Media Renderer** — robustesse MediaWiz réservée dans `8B-QR-MEDIA-ROBUSTNESS`.
-5. 🟩 B 🔒 **QRWiz** — robustesse QRWiz réservée dans le même lot.
+3. 🟩 B 🛠️ **Search / Set Filter** — robustesse SearchWiz/FilterWiz en cours dans `8B-SEARCH-FILTER-ROBUSTNESS`.
+4. 🟩 B ✅ **Media Renderer** — robustesse MediaWiz intégrée via PR #8.
+5. 🟩 B ✅ **QRWiz** — robustesse QRWiz intégrée via PR #8.
 6. 🟧 C ✅ **NotificationCenter** — niveaux `info / success / warning / error / dev`, cycle de vie, compatibilité sans DOM et variables de thème intégrés via PR #4.
-7. ⚪ **CodeBlock** — presets par langage, JSON hiérarchique pliable, distinction bloc de code / éditeur enrichi.
-8. ⚪ **Identité visuelle** — intégrer dans le dépôt le pack du logo nLab Web Framework déjà validé et raccorder les références documentaires.
-9. 🟩 B / 🟧 C **Consolidation / tests / documentation** — plusieurs sous-lots indépendants restent disponibles ; Analytics et NotificationCenter C sont ✅ intégrés.
-10. 🟧 C ✅ **Lot 9 — pré-vol intégré**, puis crash-test Recettes du Cœur après critères de sortie.
+7. 🟧 C ✅ **CodeBlock — socle contractuel** : presets/alias, formatage JSON, export/copie défensifs et tokeniseur sûr intégrés via PR #5 ; le pliage JSON hiérarchique avancé reste une évolution distincte.
+8. 🟧 C ✅ **PresetManager** — import/export atomique et validation de collection intégrés via PR #6.
+9. 🟧 C ✅ **NavigationWiz** — hiérarchie, IDs, observer et restauration d’ancre durcis via PR #11.
+10. ⚪ **Identité visuelle** — intégrer dans le dépôt le pack du logo nLab Web Framework déjà validé et raccorder les références documentaires.
+11. 🟩 B / 🟧 C **Consolidation / tests / documentation** — plusieurs contrats sont ✅ intégrés ; poursuivre sur les briques encore libres après contrôle des locks.
+12. 🟧 C ✅ **Lot 9 — pré-vol intégré**, puis crash-test Recettes du Cœur après critères de sortie.
 
 > Cette liste donne l’ordre technique. **Les locks A/B/C priment sur l’ordre** : aucune tâche ne peut être reprise si son périmètre ou ses fichiers sont déjà réservés.
 
@@ -467,6 +490,7 @@ Ces lots existaient dans l’ancienne roadmap. Leurs intitulés exacts ne sont p
 - `LATER` — **test des ancres / IDs de section** : vérifier qu’un lien GitHub vers `roadmap.md#section-id` ouvre directement la bonne section/sous-section et étudier si un `<details>` ciblé peut être ouvert automatiquement ou nécessite une convention alternative ;
 - `LATER` — vue graphique DataWiz / ResultSet ;
 - `LATER` — détourage / masque d’images avancé ;
+- `LATER` — pliage JSON hiérarchique avancé dans CodeBlock ;
 - `LATER` — éditeur riche distinct du CodeBlock ;
 - `NOTE` — récupérer la nomenclature historique exacte des lots 10 à 12.
 
