@@ -1,8 +1,8 @@
 {
   "task_id": "COORD-ROADMAP-AGENT-DASHBOARD",
   "agent": "B",
-  "status": "released",
-  "base": "fa941c3ae920946b5ee16f116ba456684f9d06c2",
+  "status": "in_progress",
+  "base": "9a36c700cd88142507d69c51444d438ff6eb1ae9",
   "branch": "New",
   "file_scope": [
     "dev/framework/doc/roadmap/roadmap.md",
@@ -10,7 +10,5 @@
     "dev/framework/doc/roadmap/coordination/agent-board.md"
   ],
   "reserved_at": "2026-08-12T00:27:00+02:00",
-  "released_at": "2026-08-12T00:27:00+02:00",
-  "final_sha": "cc6681b222385570d89998f3e0fd92a165600661",
-  "notes": "Tableau multi-agent A/B/C, procédure de couleurs, mutex documentaire et snapshot des tâches actives ajoutés à la roadmap. Mutex libéré pour le prochain rafraîchissement."
+  "notes": "Rafraîchissement final du snapshot : retirer le chantier de création du dashboard de la liste des tâches actives après mise en place du mécanisme."
 }
