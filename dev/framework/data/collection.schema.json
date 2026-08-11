@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "collection.schema.json",
+  "title": "Framework V2 Collection Definition",
+  "type": "object",
+  "required": ["provider", "source", "idField"],
+  "properties": {
+    "provider": { "type": "string", "minLength": 1 },
+    "source": { "type": "string", "minLength": 1 },
+    "idField": { "type": "string", "minLength": 1 },
+    "labelField": { "type": "string", "minLength": 1 },
+    "schema": { "type": "string", "minLength": 1 },
+    "relations": {
+      "type": "array",
+      "items": { "$ref": "relation.schema.json" },
+      "default": []
+    },
+    "metadata": { "type": "object" }
+  },
+  "additionalProperties": false
+}

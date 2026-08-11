@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "relation.schema.json",
+  "title": "Framework V2 Relation Definition",
+  "type": "object",
+  "required": ["field", "target"],
+  "properties": {
+    "field": { "type": "string", "minLength": 1 },
+    "target": { "type": "string", "minLength": 1 },
+    "targetField": { "type": "string", "default": "id" },
+    "cardinality": { "enum": ["one", "many"], "default": "one" },
+    "required": { "type": "boolean", "default": false },
+    "onMissing": { "enum": ["error", "warn", "keep", "null"], "default": "warn" }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "data-registry.schema.json",
+  "title": "Framework V2 Data Registry",
+  "type": "object",
+  "required": ["version", "providers", "collections"],
+  "properties": {
+    "version": { "type": "string" },
+    "providers": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["type"],
+        "properties": {
+          "type": { "type": "string", "minLength": 1 },
+          "options": { "type": "object" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "collections": {
+      "type": "object",
+      "additionalProperties": { "$ref": "collection.schema.json" }
+    }
+  },
+  "additionalProperties": false
+}
