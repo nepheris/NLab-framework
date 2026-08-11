@@ -1,7 +1,7 @@
 {
   "task_id": "8B-CODEBLOCK-CONTRACT",
   "agent": "C",
-  "status": "reserved",
+  "status": "in_progress",
   "base": "4287257267671f5310ec47d6cb02dddbeab4bf87",
   "branch": "agent-c/codeblock-contract",
   "file_scope": [
