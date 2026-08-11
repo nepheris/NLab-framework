@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-OBSERVABILITY-ROBUSTNESS",
+  "agent": "B",
+  "status": "in_progress",
+  "base": "1cc28dfd4c6737a4c0f42628ee6d8de8b447440f",
+  "branch": "agent-b/observability-robustness",
+  "file_scope": [
+    "dev/framework/observability/runtime-monitor.js",
+    "dev/framework/tests/runtime-monitor*.mjs",
+    "dev/framework/doc/observability/*.md"
+  ],
+  "reserved_at": "2026-08-12T00:05:00+02:00",
+  "notes": "Renforcer RuntimeMonitor sans toucher au rendu V19/V20, Theme Workshop, Header, TableWiz ni aux fichiers de démo. Couvrir erreurs, rétention maxErrors, événements, compteurs, snapshots et clear."
+}
