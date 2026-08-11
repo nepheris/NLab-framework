@@ -1,7 +1,7 @@
 {
   "task_id": "8B-SEO-SHARE-CONTRACTS",
   "agent": "B",
-  "status": "reserved",
+  "status": "in_progress",
   "base": "4800e1cc36812784049c1bd9dd55da38274e8f63",
   "branch": "agent-b/seo-share-contracts",
   "file_scope": [
@@ -11,5 +11,5 @@
     "dev/framework/doc/seo-share/*.md"
   ],
   "reserved_at": "2026-08-12T00:09:00+02:00",
-  "notes": "Contrats et cas négatifs SEO/Share indépendants du chantier UX V20 : canonical, metadata, JSON-LD, URL/payload, fallbacks et APIs absentes. Aucun changement de démo."
+  "notes": "Contrats et cas négatifs SEO/Share indépendants du chantier UX V20 : canonical, metadata, JSON-LD, URL/payload, fallbacks et APIs absentes. Aucun changement de démo. Premier défaut isolé corrigé sur branche : fallback Web Share/Clipboard sûr hors navigateur."
 }
