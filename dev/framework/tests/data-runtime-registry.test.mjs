@@ -55,6 +55,7 @@ assert.equal(registry.clear(), 0);
 
 registry.registerProvider('one', () => 1);
 registry.registerAdapter('two', () => 2);
+assert.throws(() => registry.createProvider('one', []), /factory options/);
 assert.equal(registry.clear(), 2);
 assert.equal(registry.size(), 0);
 
@@ -65,7 +66,6 @@ assert.throws(() => registry.registerAdapter('x', 1), /factory/);
 assert.throws(() => registry.createProvider('missing'), /Unknown provider/);
 assert.throws(() => registry.createAdapter('missing'), /Unknown adapter/);
 assert.throws(() => registry.createProvider(5), /Provider type/);
-assert.throws(() => registry.createProvider('one', []), /factory options/);
 assert.throws(() => registry.size('other'), /Unknown registry kind/);
 assert.throws(() => registry.clear('other'), /Unknown registry kind/);
 
