@@ -1,7 +1,7 @@
 {
   "task_id": "8B-PRESET-MANAGER-IMPORT",
   "agent": "C",
-  "status": "in_progress",
+  "status": "review",
   "base": "e5169b32ecd6e0b5c615960026be41cd235632b2",
   "branch": "agent-c/preset-manager-import",
   "file_scope": [
@@ -10,5 +10,11 @@
     "dev/framework/doc/components/preset-manager.md"
   ],
   "reserved_at": "2026-08-12T00:50:00+02:00",
-  "notes": "Rendre import/export PresetManager atomique et validé : version/type/namespace/shape, doublons, activeId, replace sans état partiel, avec tests de non-régression. Aucun fichier A/B, aucune démo ni roadmap dans la branche."
+  "final_sha": "64fe7944290749a260a4a8e01357e3b2d54cd2b7",
+  "verification": {
+    "diff": "3 commits / 3 files, all inside reserved file_scope",
+    "tests": "local Node contract test",
+    "result": "PresetManager tests: OK"
+  },
+  "notes": "Import de collection désormais atomique : validation type/version/namespace/shape/doublons/activeId avant commit, replace sans état partiel, canoniques préservés. Aucun fichier A/B, aucune démo ni roadmap dans la branche."
 }
