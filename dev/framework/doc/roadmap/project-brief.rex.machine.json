@@ -7,7 +7,7 @@
     "status": "DEV_ACTIVE",
     "project_brief_path": "./project-brief.md",
     "roadmap_path": "./roadmap.md",
-    "repository": "nepheris/NLab-framework"
+    "repository": "nepheris/nLab-Web-Framework"
   },
   "summary": "Framework web orienté données qui transforme des jeux de données dispersés en expériences web structurées, croisées, intelligibles et à valeur ajoutée.",
   "problem": "Rendre exploitables, navigables et compréhensibles des données dispersées sans reconstruire à chaque projet toute l'architecture de rendu, relation, recherche, filtrage, édition et thème.",
@@ -29,19 +29,18 @@
     "status": "IN_DESIGN"
   },
   "decisions": [
-    "Le projet est désormais nommé nLab Web Framework dans sa documentation.",
+    "Le projet est nommé nLab Web Framework et son dépôt canonique est nepheris/nLab-Web-Framework.",
     "Le cœur métier du framework est la transformation et la mise en intelligibilité de données via des expériences web.",
     "La fiche projet et la roadmap sont deux documents distincts, chacun avec son REX machine nommé.",
     "Les ressources structurelles doivent être indexables et reliables par la future Knowledge Base."
   ],
   "open_questions": [
-    "Attribuer/valider l'ID nLab canonique du framework si nécessaire.",
     "Valider le logo nLab Web Framework puis générer light/dark/mono/icon.",
     "Tester les ancres GitHub vers sections et sous-sections de roadmap."
   ],
   "knowledge_index": {
     "indexable": true,
     "tags": ["nlab", "framework", "web", "data", "data-visualization", "data-exploration", "application-web"],
-    "related_nlab_ids": []
+    "related_nlab_ids": ["FRMW001"]
   }
 }
