@@ -1,7 +1,7 @@
 {
   "task_id": "8B-NAVIGATION-CONTRACT",
   "agent": "C",
-  "status": "review",
+  "status": "done",
   "base": "7e1ef884f14cf9a2b25477a6d6d52308752a06db",
   "branch": "agent-c/navigation-contract",
   "file_scope": [
@@ -11,10 +11,13 @@
   ],
   "reserved_at": "2026-08-12T00:54:00+02:00",
   "final_sha": "dd4f13d242269785b2d5216532d26188d3d5dd72",
+  "synchronized_head_sha": "4cf8e873fcaf61dacc9897dbc29c991066186b0d",
+  "merged_sha": "9d02216a3395002da7ef300dc83aa1c70567cae5",
+  "pull_request": 11,
   "verification": {
-    "diff": "3 commits / 3 files, all inside reserved file_scope",
+    "diff": "3 task files inside reserved file_scope; branch later synchronized non-destructively with concurrent B lock closures",
     "tests": "local Node contract test with fake DOM and observer",
     "result": "NavigationWiz tests: OK"
   },
-  "notes": "NavigationWiz fonctionne sans DOM implicite, utilise un document/observer injectables, génère des IDs sans collision, remplace proprement l'observer et protège restore() contre les hashes mal encodés. Aucun fichier A/B, aucune démo ni roadmap dans la branche."
+  "notes": "NavigationWiz fonctionne sans DOM implicite, utilise un document/observer injectables, génère des IDs sans collision, remplace proprement l'observer et protège restore() contre les hashes mal encodés. Intégré dans New via PR #11 après merge de New dans la branche sans force-push."
 }
