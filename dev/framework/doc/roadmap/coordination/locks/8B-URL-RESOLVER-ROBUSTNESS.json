@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-URL-RESOLVER-ROBUSTNESS",
+  "agent": "B",
+  "status": "in_progress",
+  "base": "e4bc36e3102647045215d5bcaa6cfd2ac4651f56",
+  "branch": "agent-b/url-resolver-robustness",
+  "file_scope": [
+    "dev/framework/core/url-resolver.js",
+    "dev/framework/tests/url-resolver-robustness.test.mjs",
+    "dev/framework/doc/url-resolver/*.md"
+  ],
+  "reserved_at": "2026-08-12T01:04:00+02:00",
+  "notes": "Petit lot core indépendant : résolution URL, base/canonical, query/hash, entrées absolues/relatives et contextes sans location. Aucun fichier A/C, démo, TableWiz, Navigation, Preset Manager ou CodeBlock."
+}
