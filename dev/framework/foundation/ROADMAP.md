@@ -14,7 +14,7 @@
 - [x] DataSchema — contrat initial.
 - [x] DataRelation — contrat initial.
 - [x] DataResolver — indexation et résolution `one` / `many` sans mutation des données canoniques.
-- [ ] DataValidator.
+- [x] DataValidator — validation structurelle, IDs, champs requis, cardinalités et intégrité référentielle.
 - [x] Provider JSON local/statique — première implémentation read-only.
 - [x] Datasets de démonstration — jeu multi-collections avec relations `one` et `many`.
 - [ ] State / Events / Registry global.
@@ -28,7 +28,7 @@
 
 ### Étape active suivante
 
-`DataValidator` : valider la structure des collections et des records, les champs requis, les identifiants, les cardinalités et l'intégrité des références, avec un rapport exploitable par JSON Studio et les outils de diagnostic.
+`State / Events / Registry global` : définir le noyau transverse qui permet aux composants de partager un état, d'émettre des événements et d'enregistrer leurs services sans dépendances directes entre modules.
 
 ## Lot 2 — Données et exploration
 

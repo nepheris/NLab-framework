@@ -11,19 +11,22 @@
       "provider": "local",
       "source": "categories.json",
       "idField": "id",
-      "labelField": "label"
+      "labelField": "label",
+      "requiredFields": ["label"]
     },
     "tags": {
       "provider": "local",
       "source": "tags.json",
       "idField": "code",
-      "labelField": "label"
+      "labelField": "label",
+      "requiredFields": ["label"]
     },
     "items": {
       "provider": "local",
       "source": "items.json",
       "idField": "id",
       "labelField": "name",
+      "requiredFields": ["name"],
       "relations": [
         {
           "field": "category_id",
