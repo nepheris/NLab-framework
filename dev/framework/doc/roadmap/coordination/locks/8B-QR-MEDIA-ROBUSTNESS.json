@@ -1,7 +1,7 @@
 {
   "task_id": "8B-QR-MEDIA-ROBUSTNESS",
   "agent": "B",
-  "status": "in_progress",
+  "status": "review",
   "base": "a6fe26de64a67223bb767c03a997230b141c4f8e",
   "branch": "agent-b/qr-media-robustness-r2",
   "file_scope": [
@@ -11,5 +11,11 @@
     "dev/framework/doc/qr-media/*.md"
   ],
   "reserved_at": "2026-08-12T00:10:30+02:00",
-  "notes": "Branche r2 recréée depuis le HEAD récent de New. Robustesse QR/Media hors démo : payloads, encodeur absent, transparence/logo/SVG, rendu sans globals navigateur, image fallback, ratio/object-fit, normalisation d'options et URLs dangereuses. Aucun changement visuel V20 ni fichier A/C."
+  "final_sha": "aa3b69711e27a28f4159f079096641e70d39296f",
+  "verification": {
+    "diff": "4 commits / 4 fichiers, tous dans le file_scope réservé",
+    "tests": "tests/qr-media-robustness.test.mjs exécuté localement sur le contenu exact du lot",
+    "result": "qr media robustness tests: ok"
+  },
+  "notes": "QRWiz : payload/options/encodeur/DOM durcis, transparence et logo SVG testés. MediaWiz : URLs dangereuses filtrées, fallback sûr, loading normalisé, ratio/object-fit contrôlés. Aucun fichier A/C, V20 ou démo modifié."
 }
