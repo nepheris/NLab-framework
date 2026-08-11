@@ -1,17 +1,14 @@
 {
   "task_id": "COORD-ROADMAP-AGENT-DASHBOARD",
   "agent": "C",
-  "status": "released",
-  "base": "d0b1d351add2b82eef671e256daf7f74d5008dd5",
+  "status": "in_progress",
+  "base": "0874c4a8da29c830cc7d60ffa5451cdc9b34d2f0",
   "branch": "New",
   "file_scope": [
     "dev/framework/doc/roadmap/roadmap.md",
     "dev/framework/doc/roadmap/coordination/README.md",
     "dev/framework/doc/roadmap/coordination/agent-board.md"
   ],
-  "reserved_at": "2026-08-12T00:35:00+02:00",
-  "released_at": "2026-08-12T00:38:00+02:00",
-  "final_sha": "b73e030ea72a448b0ef028d92fb91b5e158d4d0e",
-  "agent_board_sha": "25de654f44e9a35c6a80f07fbb88cc3836c5f45a",
-  "notes": "Agent C a synchronisé uniquement son delta : Analytics/Consent/Provider et pré-vol Lot 9 sont désormais done et intégrés dans New via PR #2/#3. Roadmap et agent-board rafraîchis ; mutex libéré sans modifier les arbitrages A/B."
+  "reserved_at": "2026-08-12T00:42:00+02:00",
+  "notes": "Agent C rafraîchit le snapshot documentaire après intégration de `8B-NOTIFICATION-CENTER-CONTRACT` via PR #4. Delta limité au statut NotificationCenter ; arbitrages A/B inchangés."
 }
