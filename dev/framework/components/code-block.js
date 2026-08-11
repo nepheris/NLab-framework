@@ -15,6 +15,14 @@ const LANGUAGE_ALIAS_MAP = Object.freeze(Object.entries(LANGUAGE_PRESETS).reduce
   return map;
 }, {}));
 
+const SCRIPT_PATTERNS = Object.freeze({
+  javascript: /(?<comment>\/\*[\s\S]*?\*\/|\/\/[^\n]*)|(?<string>`(?:\\.|[^`\\])*`|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|(?<keyword>\b(?:const|let|var|function|return|if|else|for|while|class|new|import|from|export|async|await|true|false|null)\b)|(?<number>\b\d+(?:\.\d+)?\b)/g,
+  python: /(?<comment>#[^\n]*)|(?<string>"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|(?<keyword>\b(?:def|return|if|elif|else|for|while|class|import|from|as|True|False|None|with|lambda|in|not|and|or)\b)|(?<number>\b\d+(?:\.\d+)?\b)/g,
+  bash: /(?<comment>#[^\n]*)|(?<string>"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|(?<keyword>\b(?:if|then|else|fi|for|do|done|case|esac|function|echo|export|local|readonly|in)\b)|(?<number>\b\d+(?:\.\d+)?\b)/g
+});
+
+const JSON_PATTERN = /(?<key>"(?:\\.|[^"\\])*"\s*:)|(?<string>"(?:\\.|[^"\\])*")|(?<literal>\b(?:true|false|null)\b)|(?<number>-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)/g;
+
 function escapeHtml(value = '') {
   return String(value).replace(/[&<>"']/g, (char) => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
@@ -35,31 +43,33 @@ function defaultFilename(language, base = 'export') {
   return `${safeBase}.${presetFor(language).extension}`;
 }
 
+function highlightTokens(source, pattern, classPrefix = 'nlab-codeblock__') {
+  const text = String(source ?? '');
+  pattern.lastIndex = 0;
+  let output = '';
+  let lastIndex = 0;
+  let match;
+
+  while ((match = pattern.exec(text)) !== null) {
+    output += escapeHtml(text.slice(lastIndex, match.index));
+    const kind = Object.keys(match.groups ?? {}).find((name) => match.groups[name] !== undefined);
+    output += kind
+      ? `<span class="${classPrefix}${kind}">${escapeHtml(match[0])}</span>`
+      : escapeHtml(match[0]);
+    lastIndex = match.index + match[0].length;
+  }
+
+  output += escapeHtml(text.slice(lastIndex));
+  return output;
+}
+
 function highlightJson(source) {
-  const escaped = escapeHtml(source);
-  return escaped.replace(/("(?:\\.|[^"\\])*"\s*:)|("(?:\\.|[^"\\])*")|\b(true|false|null)\b|(-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)/g,
-    (match, key, string, literal, number) => {
-      if (key) return `<span class="nlab-codeblock__key">${key}</span>`;
-      if (string) return `<span class="nlab-codeblock__string">${string}</span>`;
-      if (literal) return `<span class="nlab-codeblock__literal">${literal}</span>`;
-      if (number) return `<span class="nlab-codeblock__number">${number}</span>`;
-      return match;
-    });
+  return highlightTokens(source, JSON_PATTERN);
 }
 
 function highlightScript(source, language) {
-  let escaped = escapeHtml(source);
-  const comment = language === 'python' ? /#.*$/gm : /#.*$|\/\/.*$/gm;
-  escaped = escaped.replace(comment, (match) => `<span class="nlab-codeblock__comment">${match}</span>`);
-  escaped = escaped.replace(/(&quot;[^&]*?&quot;|'[^']*?')/g, '<span class="nlab-codeblock__string">$1</span>');
-  const words = {
-    javascript: 'const|let|var|function|return|if|else|for|while|class|new|import|from|export|async|await|true|false|null',
-    python: 'def|return|if|elif|else|for|while|class|import|from|as|True|False|None|with|lambda|in|not|and|or',
-    bash: 'if|then|else|fi|for|do|done|case|esac|function|echo|export|local|readonly|in'
-  }[language] || '';
-  if (words) escaped = escaped.replace(new RegExp(`\\b(${words})\\b`, 'g'), '<span class="nlab-codeblock__keyword">$1</span>');
-  escaped = escaped.replace(/\b(\d+(?:\.\d+)?)\b/g, '<span class="nlab-codeblock__number">$1</span>');
-  return escaped;
+  const pattern = SCRIPT_PATTERNS[language];
+  return pattern ? highlightTokens(source, pattern) : escapeHtml(source);
 }
 
 export class CodeBlock {
