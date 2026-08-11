@@ -1,7 +1,7 @@
 {
   "task_id": "8B-EVENT-BUS-ROBUSTNESS",
   "agent": "C",
-  "status": "review",
+  "status": "done",
   "base": "66cffd23592215335224b29bc61444f6a9466bd0",
   "branch": "agent-c/event-bus-robustness",
   "file_scope": [
@@ -11,10 +11,12 @@
   ],
   "reserved_at": "2026-08-12T01:23:00+02:00",
   "final_sha": "b9345efe7078487dd3b9f04e1affdb9aa3bbb789",
+  "merged_sha": "2d7d4e7a195143747e92348c3c99b72334b07466",
+  "pull_request": 17,
   "verification": {
     "diff": "3 commits / 3 files, all inside reserved file_scope",
     "tests": "local Node contract test",
     "result": "EventBus tests: OK"
   },
-  "notes": "EventBus normalise et valide les noms, isole les erreurs, fiabilise once/off, évite le double wildcard sur emit('*'), expose clock/listenerCount/events/clear et conserve le dispatch synchrone. Aucun fichier A/B ni démo/roadmap dans la branche."
+  "notes": "EventBus normalise et valide les noms, isole les erreurs, fiabilise once/off, évite le double wildcard sur emit('*'), expose clock/listenerCount/events/clear et conserve le dispatch synchrone. Intégré dans New via PR #17."
 }
