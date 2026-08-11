@@ -1,7 +1,7 @@
 {
   "task_id": "COORD-LOCK-SCOPE-CHECKER",
   "agent": "C",
-  "status": "review",
+  "status": "done",
   "base": "f74f4508b59afc0a7933d66781121c7e5a62dc75",
   "branch": "agent-c/lock-scope-checker",
   "file_scope": [
@@ -11,10 +11,12 @@
   ],
   "reserved_at": "2026-08-12T01:59:00+02:00",
   "final_sha": "2a0abeea51c05c2b668656eda59ec4174c5177c4",
+  "merged_sha": "45281a878681a122864fefb2e483dca5a44779aa",
+  "pull_request": 28,
   "verification": {
     "diff": "3 commits / 3 new files, all inside reserved file_scope",
     "tests": "Node syntax + synthetic exact/glob/candidate/global collision tests",
     "result": "Coordination lock overlap tests: OK"
   },
-  "notes": "Le checker détecte les collisions file_scope entre task_id différents, traite reserved/in_progress/blocked/review comme occupés et supporte exact/*/**/? de manière conservatrice."
+  "notes": "Checker anti-collision file_scope intégré dans New via PR #28 après l'incident DataSource B/C."
 }
