@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-PAGINATION-CONTRACT",
+  "agent": "C",
+  "status": "in_progress",
+  "base": "e3497e50d6907504311415631b469465817b8e94",
+  "branch": "agent-c/pagination-contract",
+  "file_scope": [
+    "dev/framework/components/pagination.js",
+    "dev/framework/tests/pagination.test.mjs",
+    "dev/framework/doc/components/pagination.md"
+  ],
+  "reserved_at": "2026-08-12T02:12:00+02:00",
+  "notes": "Durcir Pagination sans toucher TableWiz/démo : normalisation total/page/pageSize, DOM/CustomEvent injectables, render défensif, aria, événement page, destroy et tests faux DOM."
+}
