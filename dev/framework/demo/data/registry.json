@@ -13,6 +13,12 @@
       "idField": "id",
       "labelField": "label"
     },
+    "tags": {
+      "provider": "local",
+      "source": "tags.json",
+      "idField": "code",
+      "labelField": "label"
+    },
     "items": {
       "provider": "local",
       "source": "items.json",
@@ -25,6 +31,14 @@
           "targetField": "id",
           "cardinality": "one",
           "required": true,
+          "onMissing": "warn"
+        },
+        {
+          "field": "tag_ids",
+          "target": "tags",
+          "targetField": "code",
+          "cardinality": "many",
+          "required": false,
           "onMissing": "warn"
         }
       ]

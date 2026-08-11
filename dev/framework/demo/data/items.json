@@ -3,6 +3,7 @@
     "id": "ITEM001",
     "name": "Premier objet",
     "category_id": "CAT001",
+    "tag_ids": ["T1", "T2"],
     "value": 12.5,
     "active": true
   },
@@ -10,6 +11,7 @@
     "id": "ITEM002",
     "name": "Deuxième objet",
     "category_id": "CAT002",
+    "tag_ids": ["T2"],
     "value": 42,
     "active": false
   }

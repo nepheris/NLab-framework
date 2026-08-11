@@ -13,10 +13,10 @@
 - [x] DataRegistry — contrat initial.
 - [x] DataSchema — contrat initial.
 - [x] DataRelation — contrat initial.
-- [ ] DataResolver.
+- [x] DataResolver — indexation et résolution `one` / `many` sans mutation des données canoniques.
 - [ ] DataValidator.
 - [x] Provider JSON local/statique — première implémentation read-only.
-- [x] Datasets de démonstration — premier jeu multi-collections relié par IDs.
+- [x] Datasets de démonstration — jeu multi-collections avec relations `one` et `many`.
 - [ ] State / Events / Registry global.
 - [ ] FloatingPanel.
 - [ ] Toolbar.
@@ -28,7 +28,7 @@
 
 ### Étape active suivante
 
-`DataResolver` : construire les index des collections et résoudre les relations déclarées sans modifier les valeurs canoniques stockées.
+`DataValidator` : valider la structure des collections et des records, les champs requis, les identifiants, les cardinalités et l'intégrité des références, avec un rapport exploitable par JSON Studio et les outils de diagnostic.
 
 ## Lot 2 — Données et exploration
 
