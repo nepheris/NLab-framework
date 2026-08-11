@@ -1,17 +1,14 @@
 {
   "task_id": "COORD-ROADMAP-AGENT-DASHBOARD",
   "agent": "B",
-  "status": "released",
-  "base": "f314154003c38450f41e138812224c51e1d4e88f",
+  "status": "in_progress",
+  "base": "0c4fc035b994b2ffed2fbbdbcd1b4daa84fc015f",
   "branch": "New",
   "file_scope": [
     "dev/framework/doc/roadmap/roadmap.md",
     "dev/framework/doc/roadmap/coordination/README.md",
     "dev/framework/doc/roadmap/coordination/agent-board.md"
   ],
-  "reserved_at": "2026-08-12T01:30:00+02:00",
-  "released_at": "2026-08-12T01:32:00+02:00",
-  "roadmap_sha": "0f1ee3e7c6e9c930ebd3db0aea82f357e48b8a76",
-  "agent_board_sha": "095f335a2a5f86f2fb784c72d689159eca671cdf",
-  "notes": "Roadmap et tableau synchronisés jusqu'aux intégrations B #22 et C #20/#21/#23. États A relus avant publication. Attribution A/B/C persistante sur les tâches done. Mutex libéré."
+  "reserved_at": "2026-08-12T01:47:00+02:00",
+  "notes": "Synchroniser PR #24 DataSource créditée à C et consigner la collision de file_scope détectée avec le lock B antérieur."
 }
