@@ -1,7 +1,7 @@
 {
   "task_id": "8B-SESSION-CONFIG-TRANSFER",
   "agent": "A",
-  "status": "in_progress",
+  "status": "done",
   "base": "f0d0530959eebe068c408f5e2ea7676ae9d38643",
   "branch": "agent-a/session-config-transfer",
   "file_scope": [
@@ -10,16 +10,24 @@
     "dev/framework/doc/config/session-config-transfer*.md"
   ],
   "reserved_at": "2026-08-12T17:41:00+02:00",
+  "completed_at": "2026-08-12T17:55:00+02:00",
+  "pull_request": 95,
+  "merged_sha": "9b68de17c688b78a3fe868d74a73469b98eefadf",
   "source": "foundation/BACKLOG-UX.md — bloc JSON global, copier la configuration machine, export/import JSON local",
   "current_increment": "SCT1-COPY-DOWNLOAD-IMPORT-TEXT-FILE",
   "objective": "Create a transport adapter around SessionConfigRegistry/SessionConfigBundle for clipboard copy, downloadable JSON descriptors and text/file import with injected IO, without modifying Registry, Bundle, Storage, CodeBlock or demos.",
-  "coordination": {
-    "session_registry": "SessionConfigRegistry remains the source of truth for the global validated session payload and is consumed read-only except through its public import API.",
-    "session_bundle": "SessionConfigBundle remains the bundle codec/model and is not modified.",
-    "session_storage": "SessionConfigStorage is done and remains responsible only for persistence, not user transfer IO.",
-    "agent_b": "Last observed B task SettingsPanelMode is done; no B lock active at reservation.",
-    "parallel_a": "ResponsivePreview review/in-progress scope remains disjoint and untouched.",
-    "human": "No DOM layout or visual calibration in this lot."
+  "verification": {
+    "tests": "Node 22 — session config transfer tests: ok",
+    "registry_blob": "4ff66d836cb0aaff7c6224d33f9396d050635d35",
+    "bundle_blob": "adcd328d454c9e953454e7fa09920e7e8d92b22c",
+    "transfer_blob": "2bb472e38834cd3dc66b920c69567e616be8ac12",
+    "test_blob": "a8fe87c28b883f77dd6ed0e90b65d886c68b649c",
+    "diff": "exactly 3 files inside reserved scope"
   },
-  "notes": "No registry/bundle/storage/CodeBlock/demo/CSS/roadmap canonical files modified."
+  "coordination": {
+    "agent_d": "DataJoinCompositeKeyMatcher remained on core/data-join-composite-key-matcher.js + test/doc and did not overlap SCT1.",
+    "agent_b": "SettingsPanelMode was done before reservation and no active B lock was observed.",
+    "shared": "Registry, Bundle, Storage, CodeBlock, demo, CSS and canonical roadmap remained unchanged."
+  },
+  "notes": "Integrated in New via PR #95."
 }
