@@ -1,0 +1,53 @@
+name: nLab Framework Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      match:
+        description: Optional regex filter applied to test paths
+        required: false
+        default: ""
+        type: string
+      fail_fast:
+        description: Stop after the first failing test
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nlab-framework-tests-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  test:
+    name: Node framework tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Run nLab framework tests
+        shell: bash
+        env:
+          NLAB_TEST_MATCH: ${{ inputs.match }}
+          NLAB_TEST_FAIL_FAST: ${{ inputs.fail_fast }}
+        run: |
+          set -euo pipefail
+          args=(dev/framework/tests)
+          if [[ -n "${NLAB_TEST_MATCH}" ]]; then
+            args+=(--match "${NLAB_TEST_MATCH}")
+          fi
+          if [[ "${NLAB_TEST_FAIL_FAST}" == "true" ]]; then
+            args+=(--fail-fast)
+          fi
+          node dev/framework/tools/testing/run-tests.mjs "${args[@]}"
