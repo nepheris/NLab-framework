@@ -1,7 +1,7 @@
 {
   "task_id": "8B-TABLEWIZ-LEGACY-EXTRACTION",
   "agent": "A",
-  "status": "in_progress",
+  "status": "review",
   "base": "0112184cd211c6422c33b2deca2a39be3f0da577",
   "branch": "agent-a/tablewiz-legacy-current",
   "file_scope": [
@@ -11,38 +11,43 @@
   ],
   "reserved_at": "2026-08-11T23:58:00+02:00",
   "started_at": "2026-08-12T10:30:00+02:00",
-  "heartbeat_at": "2026-08-12T11:50:00+02:00",
-  "current_increment": "A5-ADVANCED-EXPORTS",
-  "checkpoint_status": "complete",
-  "next_increment": "A6-TYPED-EDITING",
-  "sources": [
-    "anciens rapports solaires : tableaux interactifs",
-    "MVola V15/V16 DataViz et exports"
+  "review_at": "2026-08-12T12:25:00+02:00",
+  "review_head": "fc73fff6b06670ef860021ac310a71631a082baf",
+  "pull_request": 33,
+  "completed_increments": [
+    "A1-MOTOR-SORT-REGEX-RESET",
+    "A2-REAL-COLUMN-RESIZE",
+    "A3-COLUMN-VISIBILITY-ORDER-STATE",
+    "A4-MOBILE-STANDALONE",
+    "A5-ADVANCED-EXPORTS",
+    "A6-TYPED-EDITING",
+    "A7-PROFILES-PRESETS"
   ],
   "verification": {
-    "new_head_latest": "8f3783ea1c8384979014ccce8f1635b681778bfa",
+    "synced_new_sha": "992fce8d2410e185da8b549e5305260f2ec589fa",
     "new_table_wiz_sha": "ad1756ba771494f03a40957eb2081a0b17f4f4bf",
-    "scope_collision": "No change to dev/framework/wiz/table-wiz.js on New since the original reservation; A scope remains exclusive.",
-    "parallel_agent_b": {
-      "active_task": "8B-QR-CONTENT-PAYLOADS",
-      "branch": "agent-b/qr-content-payloads",
-      "file_scope": [
-        "dev/framework/wiz/qr-wiz.js",
-        "dev/framework/tests/qr-media-robustness.test.mjs",
-        "dev/framework/doc/qr-media/contracts.md"
-      ],
-      "overlap": false
-    },
-    "completed_increments": [
-      "A1-MOTOR-SORT-REGEX-RESET",
-      "A2-REAL-COLUMN-RESIZE",
-      "A3-COLUMN-VISIBILITY-ORDER-STATE",
-      "A4-MOBILE-STANDALONE",
-      "A5-ADVANCED-EXPORTS"
+    "branch_diff": "22 commits ahead / 0 behind / exactly 3 files, all inside TableWiz file_scope",
+    "engine_blob": "b7b2c1ce8dcf8ca525a3089beff0c48b3188db26",
+    "test_blob": "5627905aabea4aac63aa611654dd09d12106527d",
+    "doc_blob": "f43c7e2aaa68d38dca772ed2725e13b50ebc458d",
+    "tests": [
+      "Node 22: table wiz legacy tests: ok",
+      "Node 22: data ux tests: ok"
     ],
-    "test": "Node 22: table wiz legacy tests: ok",
-    "tested_engine_blob": "cb86e19ac4c5b99c5f0a1efa150ae411c0addce0",
-    "branch_diff": "17 commits / exactly 3 files, all inside TableWiz file_scope"
+    "security": "Prototype-sensitive edit paths (__proto__, prototype, constructor) are rejected before mutation; regression test green.",
+    "integration": "Current JsonStudio imports TableWiz for table view; current data-ux integration test passes with A7 engine.",
+    "parallel_agent_b": {
+      "latest_observed_task": "8B-CODEBLOCK-LOCAL-PERSISTENCE",
+      "status": "done",
+      "pull_request": 42,
+      "overlap": false,
+      "scope": [
+        "dev/framework/components/code-block-storage.js",
+        "dev/framework/tests/code-block-storage.test.mjs",
+        "dev/framework/doc/components/code-block-storage.md"
+      ]
+    }
   },
-  "notes": "Verrou A reste actif et exclusif : ne pas reprendre TableWiz dans une session parallèle. PR draft #33 contient A1-A5. A5 est complet ; prochaine étape prévue dans le même lock : édition typée, puis profils/presets et revue d'intégration. B est actif sur QRWiz avec un scope disjoint."
+  "review_scope": "Autonomous implementation is complete. Remaining review is API/code review plus optional HUMAN visual validation of resize, editable cells and mobile/standalone UX before merge.",
+  "notes": "Do not take or modify TableWiz scope in a parallel session while this lock is in review. PR #33 contains A1-A7 and remains the integration vehicle."
 }
