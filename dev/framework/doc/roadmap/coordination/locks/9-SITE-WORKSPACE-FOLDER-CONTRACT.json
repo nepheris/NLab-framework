@@ -1,0 +1,30 @@
+{
+  "task_id": "9-SITE-WORKSPACE-FOLDER-CONTRACT",
+  "agent": "A",
+  "status": "reserved",
+  "base": "ce9d6e95cebd4ea9a4b3d0cfc28bb2e6d1a4eacd",
+  "branch": "agent-a/site-workspace-folder-contract",
+  "file_scope": [
+    "dev/framework/data/site-workspace.schema.json",
+    "dev/framework/tests/site-workspace-contract.test.mjs",
+    "dev/framework/doc/preflight/site-workspace-contract.md"
+  ],
+  "reserved_at": "2026-08-12T20:32:00+02:00",
+  "source": "Lot 9 safe_parallel_work explicitly allows preparing the atelier/config/assets/web folder contract; detailed preflight defines generic separation roles atelier/data/assets/config/web and keeps framework separate.",
+  "objective": "Formalize a generic Draft 2020-12 site workspace contract with standard directory roles and explicit framework/business separation, without creating a Recettes-du-Coeur workspace or adding business logic to runtime.",
+  "coordination": {
+    "lot9": "Consumes lot9-recettes-du-coeur-preflight.md read-only as source evidence.",
+    "agent_d": "DataWiz visualization work remains disjoint under wiz/data-wiz-* + tests/doc.",
+    "forbidden": [
+      "Sites/**",
+      "dev/framework/doc/roadmap/lot9-recettes-du-coeur-preflight.md",
+      "dev/framework/doc/roadmap/lot9-preflight.machine.json",
+      "dev/framework/core/**",
+      "dev/framework/wiz/**",
+      "dev/framework/demo/**",
+      "dev/framework/doc/roadmap/roadmap.md",
+      "dev/framework/doc/roadmap/coordination/agent-board.md",
+      "dev/framework/doc/roadmap/coordination/README.md"
+    ]
+  }
+}
