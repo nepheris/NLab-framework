@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-FILE-FORMAT-REGISTRY",
+  "agent": "B",
+  "status": "in_progress",
+  "base": "50bb808153190e1de0a2b342ef20e3a4cda28359",
+  "branch": "agent-b/file-format-registry",
+  "file_scope": [
+    "dev/framework/core/file-format-registry.js",
+    "dev/framework/tests/file-format-registry.test.mjs",
+    "dev/framework/doc/files/file-format-registry.md"
+  ],
+  "reserved_at": "2026-08-12T14:20:00+02:00",
+  "objective": "Ajouter un registre DOM-free de formats de fichiers et clés d'icônes sémantiques pour Documents/Media, avec résolution par extension/MIME/type et registre custom validé, sans modifier IconRegistry, MediaWiz, DocumentWiz, la démo ni les périmètres d'autres agents."
+}
