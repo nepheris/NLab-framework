@@ -1,0 +1,22 @@
+{
+  "task_id": "8B-VISITOR-PREFERENCES-FIRST-VISIT",
+  "agent": "A",
+  "status": "in_progress",
+  "base": "783800d600a5ec23ee19019d5c1e43a9ffb82964",
+  "branch": "agent-a/visitor-preferences-first-visit",
+  "file_scope": [
+    "dev/framework/themes/visitor-preferences.js",
+    "dev/framework/tests/visitor-preferences*.mjs",
+    "dev/framework/doc/themes/visitor-preferences*.md"
+  ],
+  "reserved_at": "2026-08-12T15:19:00+02:00",
+  "source": "foundation/BACKLOG-UX.md — expérience première visite",
+  "current_increment": "VP1-FIRST-VISIT-LANGUAGE-MODE-CONSENTS",
+  "objective": "Extend VisitorPreferences while preserving themePatch compatibility: first-visit completion, language, light/dark/system, density/accent, preferred public/webmaster mode, personalization consent, optional telemetry consent and robust storage import/hydration.",
+  "coordination": {
+    "theme_engine": "ThemeEngine/default theme remain unchanged.",
+    "webmaster_mode": "WebmasterMode remains runtime source of truth; VisitorPreferences only stores the preferred initial viewMode for handoff.",
+    "parallel_agents": "No VisitorPreferences lock found before reservation."
+  },
+  "notes": "No first-visit UI is rendered in this lot. The modal/panel UX is a later integration/HUMAN task."
+}
