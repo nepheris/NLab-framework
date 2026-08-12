@@ -1,0 +1,1 @@
+const FIELD_TYPES = new Set(['color','checkbox','select','number','text','asset']);
