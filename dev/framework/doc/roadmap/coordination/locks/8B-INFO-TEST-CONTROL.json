@@ -1,7 +1,7 @@
 {
   "task_id": "8B-INFO-TEST-CONTROL",
   "agent": "A",
-  "status": "in_progress",
+  "status": "done",
   "base": "8b71a8841c6d9682c740ba6880cf6d5ebdb63526",
   "branch": "agent-a/info-test-control",
   "file_scope": [
@@ -14,11 +14,21 @@
   "current_increment": "IT1-DIAGNOSTIC-DESCRIPTOR-VISIBILITY-OPEN",
   "objective": "Create a reusable Info/Test control that resolves classic/advanced diagnostic descriptors from DiagnosticIdRegistry, obeys WebmasterMode infoTest visibility, renders an accessible button/tooltip descriptor and emits an isolated open request for an external Inspector/FloatingPanel without modifying those components.",
   "coordination": {
-    "responsive_preview": "Parallel Agent A ResponsivePreview remains on core/responsive-preview.js + tests/doc and is untouched.",
-    "agent_d": "Agent D DataJoin workspace is limited to core/data-join-workspace.js + test/doc and is untouched.",
-    "inspector": "Existing Inspector components remain outside this lock.",
-    "diagnostic_registry": "DiagnosticIdRegistry is consumed read-only and remains unchanged.",
-    "webmaster_mode": "WebmasterMode is consumed read-only and remains unchanged."
+    "responsive_preview": "Parallel Agent A ResponsivePreview remained on core/responsive-preview.js + tests/doc and was untouched.",
+    "agent_d": "Agent D DataJoin workspace remained on core/data-join-workspace.js + test/doc and was untouched.",
+    "agent_b": "PanelActionRegistry was reserved in parallel on panel-action-registry.js + test/doc and explicitly forbade modification of InfoTestControl.",
+    "inspector": "Existing Inspector/FloatingPanel components were not modified.",
+    "diagnostic_registry": "DiagnosticIdRegistry was consumed read-only and unchanged.",
+    "webmaster_mode": "WebmasterMode was consumed read-only and unchanged."
   },
-  "notes": "No FloatingPanel, Inspector, header, demo, CSS or roadmap canonical files modified."
+  "pull_request": 80,
+  "final_sha": "98ebbe8611555dd52569a86413760deead2ab4e6",
+  "merged_sha": "51f6b79b512766788d931f5053cd8e532fe81091",
+  "completed_at": "2026-08-12T16:32:00+02:00",
+  "verification": {
+    "diff": "3 files, all inside reserved file_scope",
+    "tests": "Node 22.16.0 local contract harness",
+    "result": "info test control tests: ok"
+  },
+  "notes": "Merged only after GitHub reported mergeable=true. The control emits open requests; panel routing remains external."
 }
