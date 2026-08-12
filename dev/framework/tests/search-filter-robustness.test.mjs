@@ -49,6 +49,28 @@ result = search.search(null, 'x');
 assert.deepEqual(result.items, []);
 assert.equal(result.total, 0);
 
+// Autocomplétion configurable : scoring, accents, champs, tableaux et déduplication.
+let suggestions = search.suggest(rows, 'pom', { fields:'name' });
+assert.deepEqual(suggestions, ['Pomme rôtie "minute"', 'Salade de pommes']);
+suggestions = search.suggest(rows, 'creme', { fields:['name'] });
+assert.deepEqual(suggestions, ['Crème de carottes']);
+suggestions = search.suggest(rows, 'pom', { fields:'name', match:'prefix' });
+assert.deepEqual(suggestions, ['Pomme rôtie "minute"']);
+suggestions = search.suggest(rows, 'chau', { fields:'tags' });
+assert.deepEqual(suggestions, ['chaud']);
+suggestions = search.suggest(rows, 'бор', { fields:'name' });
+assert.deepEqual(suggestions, ['Борщ maison']);
+suggestions = search.suggest([{ name:'Entrée' }, { name:'entree' }, { name:'ENTRÉE' }], 'ent', { fields:'name' });
+assert.deepEqual(suggestions, ['Entrée']);
+suggestions = search.suggest(rows, 'po', { fields:'name', minChars:3 });
+assert.deepEqual(suggestions, []);
+suggestions = search.suggest(rows, 'pom', { fields:'name', limit:1 });
+assert.equal(suggestions.length, 1);
+suggestions = search.suggest(rows, 'pom', { fields:'name', limit:0 });
+assert.deepEqual(suggestions, []);
+assert.deepEqual(search.suggest(null, 'pom', { fields:'name' }), []);
+assert.deepEqual(search.suggest(rows, '', { fields:'name' }), []);
+
 const filter = new FilterWiz();
 result = filter.apply(rows, [{ field:'category', operator:'eq', value:'entrée' }]);
 assert.deepEqual(result.items.map((item)=>item.id), ['REC001','REC003']);
