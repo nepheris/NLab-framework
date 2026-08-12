@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-INSPECTOR-NOTIFICATION-BRIDGE",
+  "agent": "B",
+  "status": "in_progress",
+  "base": "aeb8ca4e30cfc67aa8396ce8e72803f20a7dc4fc",
+  "branch": "agent-b/inspector-notification-bridge",
+  "file_scope": [
+    "dev/framework/components/inspector-notification-bridge.js",
+    "dev/framework/tests/inspector-notification-bridge.test.mjs",
+    "dev/framework/doc/components/inspector-notification-bridge.md"
+  ],
+  "reserved_at": "2026-08-12T13:57:00+02:00",
+  "objective": "Relier les événements et résultats de l’InspectorPanel à NotificationCenter via un adaptateur DOM-free, injectable, avec règles de type, déduplication et no-op sûr, sans modifier NotificationCenter, FloatingPanel ni les périmètres d’autres agents."
+}
