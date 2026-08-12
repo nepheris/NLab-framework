@@ -1,0 +1,24 @@
+{
+  "task_id": "8B-WEBMASTER-MODE-CONTROL",
+  "agent": "A",
+  "status": "in_progress",
+  "base": "9ba42aa3032ac08ca692d418d2ba2d30625a1d34",
+  "branch": "agent-a/webmaster-mode-control",
+  "file_scope": [
+    "dev/framework/components/webmaster-mode-control.js",
+    "dev/framework/tests/webmaster-mode-control*.mjs",
+    "dev/framework/doc/webmaster/webmaster-mode-control*.md"
+  ],
+  "reserved_at": "2026-08-12T18:05:00+02:00",
+  "source": "foundation/BACKLOG-UX.md — toggle global header IDs + Info/Test and mode Web public ↔ Webmaster",
+  "current_increment": "WMC1-MODE-AND-TEST-TOOLS-DESCRIPTORS",
+  "objective": "Create a DOM-free control adapter around WebmasterMode exposing a public/webmaster toggle and a combined IDs+InfoTest toggle with accessible descriptors, subscriptions and no HeaderStudio modification.",
+  "coordination": {
+    "webmaster_mode": "core/webmaster-mode.js remains the source of truth and is consumed through its public API only.",
+    "info_test": "InfoTestControl remains responsible for individual diagnostic buttons and is not modified.",
+    "header": "HeaderStudio remains layout/action presentation only and is not modified.",
+    "parallel": "Current DataJoin suggestion work and historical TableWiz/ResponsivePreview scopes are disjoint.",
+    "human": "No visual placement or CSS in this lot."
+  },
+  "notes": "No WebmasterMode, InfoTestControl, HeaderStudio, demo, CSS or canonical roadmap files modified."
+}
