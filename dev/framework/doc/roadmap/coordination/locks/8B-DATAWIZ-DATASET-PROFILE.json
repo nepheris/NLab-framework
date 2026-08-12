@@ -1,8 +1,8 @@
 {
   "task_id": "8B-DATAWIZ-DATASET-PROFILE",
   "agent": "D",
-  "status": "reserved",
-  "base": "2e09f0b9a400045250ee42f925803e0260064e55",
+  "status": "in_progress",
+  "base": "8316dc068bf23b54e5214d6d914582aa31266a36",
   "branch": "agent-d/datawiz-dataset-profile",
   "file_scope": [
     "dev/framework/wiz/data-wiz-dataset-profile.js",
@@ -10,6 +10,7 @@
     "dev/framework/doc/data-wiz/dataset-profile.md"
   ],
   "reserved_at": "2026-08-12T18:55:00+02:00",
+  "started_at": "2026-08-12T18:57:00+02:00",
   "source": "Agent D visual analytics architecture: DatasetProfile is the next renderer-independent layer after DataWiz provenance and before ChartSpec/recommendations",
   "objective": "Ajouter un profil de dataset DOM-free, déterministe et borné qui infère schéma, types, cardinalité, rôles analytiques, statistiques et warnings à partir de lignes JSON, avec export direct vers les variables du contrat DataWizProvenance, sans modifier DataWiz ni imposer Plotly/Perspective.",
   "coordination": {
