@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-CODEBLOCK-COLOR-PACKS",
+  "agent": "B",
+  "status": "in_progress",
+  "base": "0f13d4affa15840837d730475ca079cb533cd447",
+  "branch": "agent-b/codeblock-color-packs",
+  "file_scope": [
+    "dev/framework/components/code-block.js",
+    "dev/framework/tests/code-block.test.mjs",
+    "dev/framework/doc/components/code-block.md"
+  ],
+  "reserved_at": "2026-08-12T13:29:00+02:00",
+  "objective": "Ajouter des packs de coloration configurables à CodeBlock via un contrat DOM-free et rétrocompatible, avec validation et fallback sûrs, sans toucher DataWiz, JSON Studio, TableWiz, Header Studio, V20 ou la démo."
+}
