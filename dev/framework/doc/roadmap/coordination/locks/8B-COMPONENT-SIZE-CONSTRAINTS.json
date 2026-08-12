@@ -1,0 +1,24 @@
+{
+  "task_id": "8B-COMPONENT-SIZE-CONSTRAINTS",
+  "agent": "A",
+  "status": "in_progress",
+  "base": "0ea5206bd5768527541fdedf3df845a46d5ab3f7",
+  "branch": "agent-a/component-size-constraints",
+  "file_scope": [
+    "dev/framework/core/component-size-constraints.js",
+    "dev/framework/tests/component-size-constraints*.mjs",
+    "dev/framework/doc/layout/component-size-constraints*.md"
+  ],
+  "reserved_at": "2026-08-12T17:05:00+02:00",
+  "source": "foundation/BACKLOG-UX.md — Hero/composants dimensionnables dans les deux sens avec min/max",
+  "current_increment": "CS1-AXES-MINMAX-ASPECT-VIEWPORT-KEYBOARD",
+  "objective": "Create a DOM-free generic component size constraint model with x/y/both/none axes, min/max bounds, optional aspect ratio, viewport-aware clamping, resize planning and keyboard delta descriptors, without modifying Hero/Layout/FloatingPanel/V20.",
+  "coordination": {
+    "layout": "components/layout.js remains unchanged; it only applies CSS values and can consume resolved sizes later.",
+    "floating_panel": "FloatingPanel remains unchanged and keeps its own legacy hardcoded constraints for now.",
+    "responsive_preview": "Parallel Agent A ResponsivePreview remains on core/responsive-preview.js + test/doc and is untouched.",
+    "agent_b": "SessionConfigStorage is active on core/session-config-storage.js + test/doc and is disjoint.",
+    "v20": "V20/demo visual resize integration remains HUMAN-blocked and untouched."
+  },
+  "notes": "No DOM, CSS, Hero, Layout, FloatingPanel, ResponsivePreview, demo or roadmap canonical files modified."
+}
