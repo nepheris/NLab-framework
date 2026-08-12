@@ -1,7 +1,7 @@
 {
   "task_id": "8B-DATAWIZ-DATASET-PROFILE",
   "agent": "D",
-  "status": "in_progress",
+  "status": "done",
   "base": "8316dc068bf23b54e5214d6d914582aa31266a36",
   "branch": "agent-d/datawiz-dataset-profile",
   "file_scope": [
@@ -11,23 +11,24 @@
   ],
   "reserved_at": "2026-08-12T18:55:00+02:00",
   "started_at": "2026-08-12T18:57:00+02:00",
-  "source": "Agent D visual analytics architecture: DatasetProfile is the next renderer-independent layer after DataWiz provenance and before ChartSpec/recommendations",
-  "objective": "Ajouter un profil de dataset DOM-free, déterministe et borné qui infère schéma, types, cardinalité, rôles analytiques, statistiques et warnings à partir de lignes JSON, avec export direct vers les variables du contrat DataWizProvenance, sans modifier DataWiz ni imposer Plotly/Perspective.",
+  "completed_at": "2026-08-12T19:04:00+02:00",
+  "pull_request": 103,
+  "merge_sha": "b936a0282433afd5ec3bbb8bbc9c8eacddc950ae",
+  "validation": {
+    "node_check": "ok",
+    "tests": "data wiz dataset profile tests: ok",
+    "fuzz_profiles": 400,
+    "adversarial": "cycles/unsafe keys/non-finite/invalid calendar date: ok",
+    "published_blobs": {
+      "engine": "aba63c84c52eecd3e95eb90f430384002855f4d7",
+      "test": "a1740fd523b5958dcaab268eeaaf88fd8fd3bfe8",
+      "doc": "85c832c9833254f7fadc06697cba8880e9df9a72"
+    }
+  },
+  "result": "Renderer-independent DatasetProfile V1 now provides bounded schema/type/cardinality/statistical/role facts plus DataWizProvenance-compatible variables and exact JSON Pointer identity for future ChartSpec/recommendations.",
   "coordination": {
-    "agent_a": "DataWiz convergence #54 and DiagnosticCoverageAudit #100 are done; protected TableWiz/Header/architecture/V20 scopes remain untouched. No active DatasetProfile scope observed.",
-    "agent_b": "No active B DataWiz profiling scope announced in latest Issue #1 state.",
-    "agent_c": "No DatasetProfile scope observed.",
-    "agent_d": "DataJoinPreflight #102 is done before this reservation; this lot changes axis from joins to visual analytics profiling.",
-    "forbidden": [
-      "dev/framework/wiz/data-wiz.js",
-      "dev/framework/wiz/data-wiz-provenance.js",
-      "dev/framework/core/data-join-*.js",
-      "dev/framework/wiz/table-wiz.js",
-      "dev/framework/demo/**",
-      "dev/framework/doc/architecture/**",
-      "dev/framework/doc/roadmap/roadmap.md",
-      "dev/framework/doc/roadmap/coordination/agent-board.md",
-      "dev/framework/doc/roadmap/coordination/README.md"
-    ]
+    "existing_datawiz": "data-wiz.js and data-wiz-provenance.js remained unchanged.",
+    "renderers": "No Plotly/Perspective/ECharts/Vega dependency introduced.",
+    "shared_scopes": "No A/B/C, demo, architecture, TableWiz or shared roadmap file modified."
   }
 }
