@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-INSPECTOR-DOCK-MODES",
+  "agent": "B",
+  "status": "in_progress",
+  "base": "1472755637838cc75ed3a27f8bda9471da375de6",
+  "branch": "agent-b/inspector-dock-modes",
+  "file_scope": [
+    "dev/framework/components/inspector-dock-layout.js",
+    "dev/framework/tests/inspector-dock-layout.test.mjs",
+    "dev/framework/doc/components/inspector-dock-layout.md"
+  ],
+  "reserved_at": "2026-08-12T13:38:00+02:00",
+  "objective": "Fournir un moteur DOM-free pour les modes dock overlay/push-content de l'InspectorPanel, avec plan CSS déterministe et application DOM injectable, sans modifier FloatingPanel ni les périmètres A."
+}
