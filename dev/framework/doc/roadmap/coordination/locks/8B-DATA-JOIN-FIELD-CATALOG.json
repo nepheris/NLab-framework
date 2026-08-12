@@ -1,0 +1,32 @@
+{
+  "task_id": "8B-DATA-JOIN-FIELD-CATALOG",
+  "agent": "D",
+  "status": "in_progress",
+  "base": "e0c748460ad61f015f1f46c084812c6bc07f381b",
+  "branch": "agent-d/data-join-field-catalog",
+  "file_scope": [
+    "dev/framework/core/data-join-field-catalog.js",
+    "dev/framework/tests/data-join-field-catalog.test.mjs",
+    "dev/framework/doc/data-join/data-join-field-catalog.md"
+  ],
+  "reserved_at": "2026-08-12T16:40:00+02:00",
+  "started_at": "2026-08-12T16:42:00+02:00",
+  "source": "Agent D graphical join roadmap after DataJoinWorkspace #82: derive hierarchical selectable field metadata for the future two-tree key editor",
+  "objective": "Ajouter un profiler DOM-free de champs imbriqués à partir d'un tableau de records : arbre + liste plate, JSON Pointer canonique, chemin DataJoinSpec V1 lorsqu'adressable, types observés, présence/nulls, exemples et indicateur joinable, avec bornes de profondeur/lignes/champs et diagnostics pour lignes/chemins non exploitables.",
+  "coordination": {
+    "agent_a": "LinkThemeTokens completed; current UI/control work is outside DataJoin field catalog.",
+    "agent_b": "Data schemas validation is historical done; PanelActionRegistry completed; no active field catalog scope.",
+    "agent_c": "No field catalog/DataJoin tree scope observed.",
+    "agent_d_previous": "DataJoinWorkspace #82 done; this lot does not modify DataJoinSpec, Executor or Workspace.",
+    "forbidden": [
+      "dev/framework/core/data-join-spec.js",
+      "dev/framework/core/data-join-executor.js",
+      "dev/framework/core/data-join-workspace.js",
+      "dev/framework/wiz/data-wiz.js",
+      "dev/framework/wiz/json-studio.js",
+      "dev/framework/wiz/table-wiz.js",
+      "dev/framework/demo/**",
+      "dev/framework/doc/architecture/**"
+    ]
+  }
+}
