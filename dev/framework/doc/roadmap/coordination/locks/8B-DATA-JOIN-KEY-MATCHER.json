@@ -1,8 +1,8 @@
 {
   "task_id": "8B-DATA-JOIN-KEY-MATCHER",
   "agent": "D",
-  "status": "reserved",
-  "base": "315fece0878b70de3d48ccd1701db7b0b1cf96df",
+  "status": "in_progress",
+  "base": "a735f9a951d3e683440fe620d0b3470bfecaf6ed",
   "branch": "agent-d/data-join-key-matcher",
   "file_scope": [
     "dev/framework/core/data-join-key-matcher.js",
@@ -10,11 +10,12 @@
     "dev/framework/doc/data-join/data-join-key-matcher.md"
   ],
   "reserved_at": "2026-08-12T16:50:00+02:00",
+  "started_at": "2026-08-12T16:51:00+02:00",
   "source": "Agent D graphical join roadmap after DataJoinFieldCatalog #85: deterministic explainable suggestions of left/right join key pairs",
   "objective": "Ajouter un moteur DOM-free de suggestions de clés de jointure consommant deux FieldCatalog : score déterministe, raisons, warnings, compatibilité de type/coercition, complétude, unicité observée et cardinalité probable. Il ne modifie jamais DataJoinSpec et n'applique aucune suggestion automatiquement.",
   "coordination": {
     "agent_a": "QRStudioSchema #86 is on QR component/test/doc files; no DataJoin key matcher scope.",
-    "agent_b": "StatusPanelModel reported as separate UI/model scope; no DataJoin key matcher scope.",
+    "agent_b": "StatusPanelModel is a separate UI/model scope; no DataJoin key matcher scope.",
     "agent_c": "No active DataJoin key matcher scope observed.",
     "agent_d_previous": "DataJoinFieldCatalog #85 done; matcher consumes catalog outputs but does not modify catalog or existing DataJoin modules.",
     "forbidden": [
