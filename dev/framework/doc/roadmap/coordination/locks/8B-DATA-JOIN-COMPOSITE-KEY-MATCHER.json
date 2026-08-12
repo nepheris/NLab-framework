@@ -1,8 +1,8 @@
 {
   "task_id": "8B-DATA-JOIN-COMPOSITE-KEY-MATCHER",
   "agent": "D",
-  "status": "reserved",
-  "base": "f0d0530959eebe068c408f5e2ea7676ae9d38643",
+  "status": "in_progress",
+  "base": "e1228bea1f7498c2aaf29a7e98f90c2cbe15bab4",
   "branch": "agent-d/data-join-composite-key-matcher",
   "file_scope": [
     "dev/framework/core/data-join-composite-key-matcher.js",
@@ -10,6 +10,7 @@
     "dev/framework/doc/data-join/data-join-composite-key-matcher.md"
   ],
   "reserved_at": "2026-08-12T17:43:00+02:00",
+  "started_at": "2026-08-12T17:46:00+02:00",
   "source": "Agent D DataJoin roadmap after DataJoinKeyMatcher #89: bounded explainable composite-key suggestions validated against actual rows",
   "objective": "Ajouter une brique DOM-free séparée qui combine des suggestions simples en clés composites compatibles DataJoinSpec V1, les évalue sur les lignes réelles via DataJoinSpec.diagnose(), classe les candidats avec score et raisons, borne l'exploration combinatoire et refuse les combinaisons dont les besoins d'opération/comparaison ne peuvent pas être représentés par la coercition globale V1. Aucune suggestion n'est appliquée automatiquement.",
   "coordination": {
