@@ -1,6 +1,6 @@
 import { promises as fs } from 'node:fs';
 import { pathToFileURL } from 'node:url';
-import { loadLocks } from './check-lock-overlaps.mjs';
+import { findLockConflicts, loadLocks } from './check-lock-overlaps.mjs';
 import { auditLocks } from './audit-lock-health.mjs';
 import { PreflightGateEvaluator } from '../../core/preflight-gate-evaluator.js';
 
@@ -54,6 +54,10 @@ export async function runLivePreflight({
   if(!health.ok){
     throw new LivePreflightRunnerError('Lock registry health check failed','LOCK_REGISTRY_INVALID',{health});
   }
+  const conflicts=findLockConflicts(loaded.locks);
+  if(conflicts.length){
+    throw new LivePreflightRunnerError('Active lock scopes overlap','ACTIVE_LOCK_OVERLAP',{conflicts});
+  }
 
   let effectiveOverrides=overrides;
   if(overridesFile){
@@ -78,6 +82,7 @@ export async function runLivePreflight({
       locks_directory:String(locksDirectory),
       overrides_file:overridesFile?String(overridesFile):null
     },
+    coordination:{active_lock_overlaps:0},
     lock_health:{
       ok:health.ok,
       total_locks:health.total_locks,
@@ -110,7 +115,7 @@ export async function runCli(argv=process.argv.slice(2)){
       }
     };
     console.error(JSON.stringify(payload,null,2));
-    return 1;
+    return error?.code==='ACTIVE_LOCK_OVERLAP'?2:1;
   }
 }
 
