@@ -1,8 +1,8 @@
 {
   "task_id": "8B-DATA-JOIN-PREFLIGHT",
   "agent": "D",
-  "status": "reserved",
-  "base": "b8628ef1d72e4c3d40c297b086631e0438e4ef17",
+  "status": "in_progress",
+  "base": "f3b35b6ffc12b1849543f0403748ed2c93160328",
   "branch": "agent-d/data-join-preflight",
   "file_scope": [
     "dev/framework/core/data-join-preflight.js",
@@ -10,6 +10,7 @@
     "dev/framework/doc/data-join/data-join-preflight.md"
   ],
   "reserved_at": "2026-08-12T18:40:00+02:00",
+  "started_at": "2026-08-12T18:43:00+02:00",
   "source": "Agent D DataJoin roadmap after ConfigDraft #101: close the pre-execution diagnostics gap for output-field collisions and materialization risks before graphical integration",
   "objective": "Ajouter un audit DOM-free/non destructif qui combine le diagnostic DataJoin existant avec une analyse de collisions de champs de sortie, de suffixes et de politiques de matérialisation, afin de produire des gates structurés ready/warning/blocked avant exécution sans modifier DataJoinSpec, Executor, Workspace ou ConfigDraft.",
   "coordination": {
