@@ -1,7 +1,7 @@
 {
   "task_id": "8B-DATA-JOIN-SPEC-DIAGNOSTICS",
   "agent": "D",
-  "status": "in_progress",
+  "status": "done",
   "base": "03fe37ed97296ccbb146b5a25c28f56ae4127ff2",
   "branch": "agent-d/data-join-spec-diagnostics",
   "file_scope": [
@@ -11,14 +11,20 @@
   ],
   "reserved_at": "2026-08-12T14:35:00+02:00",
   "started_at": "2026-08-12T14:36:00+02:00",
+  "completed_at": "2026-08-12T14:40:12+02:00",
+  "pull_request": 65,
+  "final_sha": "0319a0e6b05cde588e8c34b6efa491523ff1f009",
+  "merged_sha": "350ebf4b3d3f2943c7766e2c28f11cff8b920e60",
   "source": "Agent D research handoff: graphical JSON joins / JoinSpec / cardinality diagnostics",
   "objective": "Formaliser un JoinSpec DOM-free et versionné pour clés simples/composites, types de jointure, comparaison et politique de collision, avec diagnostic préalable des clés manquantes, doublons, cardinalité observée, correspondances et estimation de sortie. Ne modifie ni n'exécute les sources JSON.",
+  "verification": {
+    "tests": "Node: data join spec tests: ok",
+    "coverage": "1:N, N:N, composite keys, semi/anti joins, null policy, numeric coercion, atomic updates, unsafe paths",
+    "final_scope": "exactly 3 added files, all inside D file_scope",
+    "integration": "PR #65 merged transactionally on current New; source JSON execution/mutation remains out of scope"
+  },
   "coordination": {
-    "agent_a": "Diagnostic ID contract newly reserved on distinct diagnostic-id files; architecture reviews remain separate.",
-    "agent_b": "File Format Registry is already integrated; no JoinSpec scope observed.",
-    "agent_c": "No active conflicting JoinSpec scope observed.",
-    "agent_d_previous": "DataWiz provenance PR #63 merged and lock closed.",
-    "forbidden": [
+    "forbidden_respected": [
       "dev/framework/wiz/data-wiz.js",
       "dev/framework/wiz/table-wiz.js",
       "dev/framework/wiz/json-studio.js",
