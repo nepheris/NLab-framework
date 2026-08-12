@@ -1,0 +1,46 @@
+{
+  "task_id": "8B-JSON-STUDIO-INDUSTRIALIZATION",
+  "agent": "A",
+  "status": "done",
+  "base": "5811e0c6fe293a57553bf0d8112514ec5022a9dc",
+  "branch": "agent-a/json-studio-industrialization",
+  "file_scope": [
+    "dev/framework/wiz/json-studio.js",
+    "dev/framework/tests/json-studio*.mjs",
+    "dev/framework/doc/json-studio/*.md"
+  ],
+  "reserved_at": "2026-08-12T12:52:00+02:00",
+  "review_at": "2026-08-12T13:10:00+02:00",
+  "completed_at": "2026-08-12T14:05:00+02:00",
+  "pull_request": 51,
+  "final_sha": "e591b4fc15924cf7592e27541f4902db57127af7",
+  "merged_sha": "c0672fe44faa499fbb8cb29038d9b71154bf8131",
+  "completed_increments": [
+    "J1-CORE-SAFETY-HISTORY",
+    "J2-DOM-SAFETY-TREE-FORM",
+    "J3-BUFFER-VALIDATION-RELATION-DISPLAY",
+    "REVIEW-HISTORY-RESET-DOTTED-KEYS"
+  ],
+  "verification": {
+    "existing_json_studio_sha": "d2fbcb870b699a548e157ca81fd45c98a0e6b003",
+    "final_engine_blob": "1c4867ae8329322933c8db98aee10c25b44a74bb",
+    "engine_blob_local_match": true,
+    "tests": [
+      "Node 22: json studio core tests: ok",
+      "Node 22: json studio DOM tests: ok",
+      "Node 22: json studio relation/display tests: ok"
+    ],
+    "review_fixes": [
+      "setData without history now clears stale undo/redo stacks",
+      "Tree/Form keep internal array paths so literal JSON keys containing dots remain editable"
+    ],
+    "contracts": {
+      "DataValidator": "Edited collections are validated record-by-record through validateRecord(); validateCollection() is not used for the local buffer.",
+      "DataResolver": "resolved()/resolvedDisplay() consume resolveRecord(collection, record) and preserve raw relation IDs separately from display values.",
+      "TableWiz": "Minimal render(container, rows) contract retained; no TableWiz code changed."
+    },
+    "final_scope": "5 files, all inside JSON Studio file_scope",
+    "parallel_agents": "New JSON Studio blob was unchanged by parallel agents before synchronization and merge."
+  },
+  "notes": "JSON Studio integrated autonomously via PR #51 after code/API review. No HUMAN visual decision was required for this engine-level integration."
+}

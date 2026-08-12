@@ -1,0 +1,19 @@
+{
+  "task_id": "8B-INSPECTOR-DOCK-MODES",
+  "agent": "B",
+  "status": "done",
+  "base": "1472755637838cc75ed3a27f8bda9471da375de6",
+  "branch": "agent-b/inspector-dock-modes",
+  "file_scope": [
+    "dev/framework/components/inspector-dock-layout.js",
+    "dev/framework/tests/inspector-dock-layout.test.mjs",
+    "dev/framework/doc/components/inspector-dock-layout.md"
+  ],
+  "reserved_at": "2026-08-12T13:38:00+02:00",
+  "completed_at": "2026-08-12T13:41:00+02:00",
+  "pull_request": 53,
+  "final_sha": "a482510dcc5dfb944959e0b7a4a98c3e4e2c8371",
+  "test": "Node 22.16.0: inspector dock layout tests: ok",
+  "objective": "Fournir un moteur DOM-free pour les modes dock overlay/push-content de l'InspectorPanel, avec plan CSS déterministe et application DOM injectable, sans modifier FloatingPanel ni les périmètres A.",
+  "coordination_note": "Diff final: trois fichiers neufs uniquement. Aucun overlap avec DataWiz, JSON Studio, TableWiz, Header Studio, V20 ou les fichiers de démonstration."
+}

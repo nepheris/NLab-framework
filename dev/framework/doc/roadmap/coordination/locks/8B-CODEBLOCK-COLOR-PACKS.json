@@ -1,0 +1,21 @@
+{
+  "task_id": "8B-CODEBLOCK-COLOR-PACKS",
+  "agent": "B",
+  "status": "done",
+  "base": "0f13d4affa15840837d730475ca079cb533cd447",
+  "branch": "agent-b/codeblock-color-packs-v2",
+  "previous_branch": "agent-b/codeblock-color-packs",
+  "file_scope": [
+    "dev/framework/components/code-block-color-packs.js",
+    "dev/framework/tests/code-block-color-packs.test.mjs",
+    "dev/framework/doc/components/code-block-color-packs.md"
+  ],
+  "reserved_at": "2026-08-12T13:29:00+02:00",
+  "scope_refined_at": "2026-08-12T13:31:00+02:00",
+  "completed_at": "2026-08-12T13:37:00+02:00",
+  "pull_request": 52,
+  "final_sha": "3b745b1cb5b79a5f8a6a7da2cd9965bef401bd05",
+  "test": "Node 22.16.0: code block color packs tests: ok",
+  "objective": "Ajouter un adaptateur autonome de packs de coloration configurables pour les classes sémantiques de CodeBlock, DOM injectable et rétrocompatible, sans modifier code-block.js ni les périmètres A.",
+  "coordination_note": "Le scope initial sur code-block.js/tests/doc existants a été réduit avant toute modification métier afin d'utiliser trois fichiers neufs et de minimiser le risque de collision. La branche initiale ne contient aucun changement métier. Diff final: trois fichiers neufs uniquement, aucun overlap avec A."
+}

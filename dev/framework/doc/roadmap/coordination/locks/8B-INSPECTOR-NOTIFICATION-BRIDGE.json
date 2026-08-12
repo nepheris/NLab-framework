@@ -1,0 +1,26 @@
+{
+  "task_id": "8B-INSPECTOR-NOTIFICATION-BRIDGE",
+  "agent": "B",
+  "status": "done",
+  "base": "aeb8ca4e30cfc67aa8396ce8e72803f20a7dc4fc",
+  "branch": "agent-b/inspector-notification-bridge",
+  "file_scope": [
+    "dev/framework/components/inspector-notification-bridge.js",
+    "dev/framework/tests/inspector-notification-bridge.test.mjs",
+    "dev/framework/doc/components/inspector-notification-bridge.md"
+  ],
+  "reserved_at": "2026-08-12T13:57:00+02:00",
+  "completed_at": "2026-08-12T14:01:00+02:00",
+  "pull_request": 56,
+  "merged_sha": "ee7de411dbc90df12d264f91761be1dedab1ba85",
+  "final_sha": "ee7de411dbc90df12d264f91761be1dedab1ba85",
+  "verification": {
+    "node": "22.16.0",
+    "tests": "inspector notification bridge tests: ok",
+    "branch_diff": "3 commits / exactly 3 new files / all inside file_scope",
+    "new_divergence_before_pr": "none",
+    "ci_statuses": "none",
+    "pr_creation_note": "First create-PR call was blocked by connector safety classification; retry with concise metadata succeeded and caused no repository change on the blocked attempt."
+  },
+  "objective": "Relier les événements et résultats de l’InspectorPanel à NotificationCenter via un adaptateur DOM-free, injectable, avec règles de type, déduplication et no-op sûr, sans modifier NotificationCenter, FloatingPanel ni les périmètres d’autres agents."
+}

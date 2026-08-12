@@ -1,0 +1,18 @@
+{
+  "task_id": "8B-MEDIA-VIEW-MODES",
+  "agent": "B",
+  "status": "done",
+  "base": "f06759e18acaf8f15ab12f121610030ed73e358a",
+  "branch": "agent-b/media-view-modes",
+  "file_scope": [
+    "dev/framework/wiz/media-wiz.js",
+    "dev/framework/tests/media-view-modes.test.mjs",
+    "dev/framework/doc/qr-media/media-view-modes.md"
+  ],
+  "reserved_at": "2026-08-12T12:42:00+02:00",
+  "completed_at": "2026-08-12T12:45:00+02:00",
+  "pr": 46,
+  "final_sha": "0fa652efa93a40af66e57b0e1b314499bbfac854",
+  "objective": "Étendre MediaWiz avec des modes viewer, thumbnail, new-tab et download pour image/SVG/PDF/fichiers, tout en conservant les comportements existants et sans toucher QRWiz ni les périmètres A.",
+  "validation": "Node 22.16.0 — media view modes tests: ok + media regression tests: ok; 3 fichiers dans le file_scope; PR #46 mergée dans New."
+}
