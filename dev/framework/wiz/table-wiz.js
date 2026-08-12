@@ -2,6 +2,11 @@ import { SearchWiz } from './search-wiz.js';
 import { FilterWiz } from './filter-wiz.js';
 import { PaginationModel } from '../components/pagination.js';
 
+const DEFAULT_MIN_COLUMN_WIDTH = 56;
+const DEFAULT_MAX_COLUMN_WIDTH = 1600;
+const DEFAULT_COLUMN_WIDTH = 120;
+const DEFAULT_RESIZE_STEP = 12;
+
 const asArray = (value) => Array.isArray(value) ? value : [];
 const cloneColumn = (column) => ({ ...column });
 const normalizeDirection = (direction) => String(direction ?? 'asc').toLowerCase() === 'desc' ? 'desc' : 'asc';
@@ -18,13 +23,38 @@ const invalidRegex = (value, flags = 'i') => {
     return error;
   }
 };
+const finiteNumber = (value) => {
+  const number = Number(value);
+  return Number.isFinite(number) ? number : null;
+};
+const positiveNumber = (value, fallback) => {
+  const number = finiteNumber(value);
+  return number != null && number > 0 ? number : fallback;
+};
+const pixelWidth = (value) => {
+  if (typeof value === 'number' && Number.isFinite(value)) return value;
+  if (typeof value !== 'string') return null;
+  const match = value.trim().match(/^(-?\d+(?:\.\d+)?)px$/i);
+  return match ? Number(match[1]) : null;
+};
+const cssWidth = (value) => typeof value === 'number' ? `${value}px` : String(value);
+const columnId = (column) => column?.id ?? column?.field ?? null;
 
 export class TableWiz {
-  constructor({ columns = [], profile = null, pageSize = 24 } = {}) {
+  constructor({
+    columns = [],
+    profile = null,
+    pageSize = 24,
+    resizable = true,
+    minColumnWidth = DEFAULT_MIN_COLUMN_WIDTH,
+    maxColumnWidth = DEFAULT_MAX_COLUMN_WIDTH,
+    resizeStep = DEFAULT_RESIZE_STEP
+  } = {}) {
     this.columns = asArray(columns).map((column, index) => ({
       visible:true,
       sortable:true,
       searchable:true,
+      resizable:true,
       order:index,
       ...(column && typeof column === 'object' ? column : {})
     }));
@@ -38,6 +68,11 @@ export class TableWiz {
     this.queryOptions = {};
     this.filters = [];
     this.lastError = null;
+    this.resizable = Boolean(resizable);
+    this.minColumnWidth = positiveNumber(minColumnWidth, DEFAULT_MIN_COLUMN_WIDTH);
+    this.maxColumnWidth = Math.max(this.minColumnWidth, positiveNumber(maxColumnWidth, DEFAULT_MAX_COLUMN_WIDTH));
+    this.resizeStep = positiveNumber(resizeStep, DEFAULT_RESIZE_STEP);
+    this._renderCleanup = [];
   }
 
   setQuery(query, options = {}) {
@@ -99,11 +134,72 @@ export class TableWiz {
     return this;
   }
 
-  setColumnVisible(id, visible) { const column=this.columns.find((c)=>c.id===id); if(column) column.visible=Boolean(visible); return this; }
-  setColumnWidth(id, width) { const column=this.columns.find((c)=>c.id===id); if(column) column.width=width; return this; }
-  setSticky(id, sticky = true) { const column=this.columns.find((c)=>c.id===id); if(column) column.sticky=sticky; return this; }
-  reorder(ids) { const rank=new Map(asArray(ids).map((id,index)=>[id,index])); this.columns.forEach((column)=>{ if(rank.has(column.id)) column.order=rank.get(column.id); }); return this; }
-  visibleColumns() { return [...this.columns].filter((c)=>c.visible!==false).sort((a,b)=>(a.order??0)-(b.order??0)); }
+  setColumnVisible(id, visible) {
+    const column=this.#column(id);
+    if(column) column.visible=Boolean(visible);
+    return this;
+  }
+
+  columnWidth(id, fallback = null) {
+    const column = this.#column(id);
+    if (!column) return fallback;
+    const numeric = pixelWidth(column.width);
+    return numeric == null ? fallback : this.#clampWidth(column, numeric);
+  }
+
+  setColumnWidth(id, width) {
+    const column = this.#column(id);
+    if (!column) return this;
+    if (width == null || width === '') {
+      delete column.width;
+      return this;
+    }
+    const numeric = pixelWidth(width);
+    if (numeric != null) {
+      column.width = this.#clampWidth(column, numeric);
+      return this;
+    }
+    if (typeof width === 'string' && width.trim()) column.width = width.trim();
+    return this;
+  }
+
+  resizeColumn(id, width) {
+    const column = this.#column(id);
+    if (!column || !this.resizable || column.resizable === false) return this;
+    const numeric = pixelWidth(width);
+    if (numeric == null) return this;
+    column.width = this.#clampWidth(column, numeric);
+    return this;
+  }
+
+  adjustColumnWidth(id, delta, { fallback = DEFAULT_COLUMN_WIDTH } = {}) {
+    const current = this.columnWidth(id, positiveNumber(fallback, DEFAULT_COLUMN_WIDTH));
+    const change = finiteNumber(delta);
+    if (current == null || change == null) return this;
+    return this.resizeColumn(id, current + change);
+  }
+
+  resetColumnWidth(id) {
+    const column = this.#column(id);
+    if (column) delete column.width;
+    return this;
+  }
+
+  setSticky(id, sticky = true) {
+    const column=this.#column(id);
+    if(column) column.sticky=sticky;
+    return this;
+  }
+
+  reorder(ids) {
+    const rank=new Map(asArray(ids).map((id,index)=>[id,index]));
+    this.columns.forEach((column)=>{ if(rank.has(column.id)) column.order=rank.get(column.id); });
+    return this;
+  }
+
+  visibleColumns() {
+    return [...this.columns].filter((c)=>c.visible!==false).sort((a,b)=>(a.order??0)-(b.order??0));
+  }
 
   process(items) {
     let rows = [...asArray(items)];
@@ -178,50 +274,243 @@ export class TableWiz {
 
   exportJSON(items, space = 2) { return JSON.stringify(items ?? [], null, space); }
 
-  render(container, items, { rowClass = null } = {}) {
-    if (!container || !globalThis.document) return;
-    const { page }=this.process(items); const columns=this.visibleColumns();
-    const table=document.createElement('table'); table.className='nlab-tablewiz';
-    const thead=document.createElement('thead'); const headRow=document.createElement('tr');
-    columns.forEach((column,index)=>{
+  destroy() {
+    this.#clearRenderCleanup();
+    return this;
+  }
+
+  render(container, items, { rowClass = null, onColumnResize = null } = {}) {
+    this.#clearRenderCleanup();
+    const documentRef = container?.ownerDocument ?? globalThis.document;
+    if (!container || !documentRef || typeof documentRef.createElement !== 'function') return;
+
+    const { page }=this.process(items);
+    const columns=this.visibleColumns();
+    const stickyOffsets=this.#stickyOffsets(columns);
+
+    const table=documentRef.createElement('table');
+    table.className='nlab-tablewiz';
+    if (this.resizable) table.classList?.add?.('nlab-tablewiz--resizable');
+
+    const colgroup=documentRef.createElement('colgroup');
+    const colNodes=new Map();
+    for (const column of columns) {
+      const col=documentRef.createElement('col');
+      const id=columnId(column);
+      if (id != null) col.setAttribute?.('data-column-id', String(id));
+      this.#applyWidthStyles(col, column, false);
+      if (id != null) colNodes.set(id, col);
+      colgroup.append?.(col);
+    }
+    table.append?.(colgroup);
+
+    const rerender=()=>this.render(container,items,{rowClass,onColumnResize});
+    const notifyResize=(column)=>{
+      if (typeof onColumnResize !== 'function') return;
+      const id=columnId(column);
+      onColumnResize({
+        id,
+        width:this.columnWidth(id),
+        column:cloneColumn(column)
+      });
+    };
+
+    const thead=documentRef.createElement('thead');
+    const headRow=documentRef.createElement('tr');
+
+    columns.forEach((column)=>{
+      const id=columnId(column);
       const field=column.field??column.id;
-      const th=document.createElement('th');
-      th.textContent=column.label??column.id;
-      if(column.width) th.style.width=typeof column.width==='number'?`${column.width}px`:column.width;
-      if(column.sticky){ th.style.position='sticky'; th.style.left=`${index*120}px`; th.style.zIndex='2'; }
+      const th=documentRef.createElement('th');
+      th.textContent=column.label??column.id??field??'';
+      if (id != null) th.setAttribute?.('data-column-id', String(id));
+      this.#applyWidthStyles(th, column, true);
+
+      if(column.sticky){
+        th.style.position='sticky';
+        th.style.left=`${stickyOffsets.get(id) ?? 0}px`;
+        th.style.zIndex='2';
+      }
+
       if(column.sortable!==false){
         th.tabIndex=0;
-        th.setAttribute('aria-sort', this.sortState?.field===field
+        th.setAttribute?.('aria-sort', this.sortState?.field===field
           ? (this.sortState.direction==='desc'?'descending':'ascending')
           : 'none');
-        const sort=()=>{ this.toggleSort(field); this.render(container,items,{rowClass}); };
-        th.addEventListener('click',sort);
-        th.addEventListener('keydown',(event)=>{
+        const sort=()=>{ this.toggleSort(field); rerender(); };
+        th.addEventListener?.('click',sort);
+        th.addEventListener?.('keydown',(event)=>{
           if(event.key==='Enter'||event.key===' '){
-            event.preventDefault();
+            event.preventDefault?.();
             sort();
           }
         });
       }
-      headRow.append(th);
+
+      if(this.resizable && column.resizable!==false && id != null){
+        if (!th.style.position) th.style.position='relative';
+        const handle=documentRef.createElement('span');
+        handle.className='nlab-tablewiz__resize-handle';
+        handle.tabIndex=0;
+        handle.setAttribute?.('role','separator');
+        handle.setAttribute?.('aria-orientation','vertical');
+        handle.setAttribute?.('aria-label',`Redimensionner ${column.label??column.id??field??'colonne'}`);
+        handle.setAttribute?.('data-column-resizer',String(id));
+        handle.style.position='absolute';
+        handle.style.top='0';
+        handle.style.right='0';
+        handle.style.width='8px';
+        handle.style.height='100%';
+        handle.style.cursor='col-resize';
+        handle.style.touchAction='none';
+        handle.style.userSelect='none';
+
+        const stop=(event)=>{
+          event.preventDefault?.();
+          event.stopPropagation?.();
+        };
+        handle.addEventListener?.('click',(event)=>event.stopPropagation?.());
+        handle.addEventListener?.('keydown',(event)=>{
+          if(event.key!=='ArrowLeft'&&event.key!=='ArrowRight') return;
+          stop(event);
+          const delta=event.key==='ArrowLeft'?-this.resizeStep:this.resizeStep;
+          this.adjustColumnWidth(id,delta,{ fallback:this.#measuredWidth(th,column) });
+          notifyResize(column);
+          rerender();
+        });
+        handle.addEventListener?.('pointerdown',(event)=>{
+          if(event.button != null && event.button!==0) return;
+          stop(event);
+          const startX=finiteNumber(event.clientX) ?? 0;
+          const startWidth=this.columnWidth(id,this.#measuredWidth(th,column));
+          if(startWidth==null) return;
+
+          const move=(moveEvent)=>{
+            const x=finiteNumber(moveEvent.clientX);
+            if(x==null) return;
+            this.resizeColumn(id,startWidth+(x-startX));
+            const width=this.columnWidth(id);
+            const col=colNodes.get(id);
+            if(col&&width!=null) col.style.width=cssWidth(width);
+            if(width!=null){
+              th.style.width=cssWidth(width);
+              th.style.minWidth=cssWidth(width);
+              th.style.maxWidth=cssWidth(width);
+            }
+          };
+          const cleanup=()=>{
+            documentRef.removeEventListener?.('pointermove',move);
+            documentRef.removeEventListener?.('pointerup',end);
+            documentRef.removeEventListener?.('pointercancel',end);
+            this._renderCleanup=this._renderCleanup.filter((fn)=>fn!==cleanup);
+          };
+          const end=(endEvent)=>{
+            endEvent?.preventDefault?.();
+            cleanup();
+            notifyResize(column);
+            rerender();
+          };
+          documentRef.addEventListener?.('pointermove',move);
+          documentRef.addEventListener?.('pointerup',end);
+          documentRef.addEventListener?.('pointercancel',end);
+          this._renderCleanup.push(cleanup);
+          handle.setPointerCapture?.(event.pointerId);
+        });
+        th.append?.(handle);
+      }
+      headRow.append?.(th);
     });
-    thead.append(headRow); table.append(thead);
-    const tbody=document.createElement('tbody');
+    thead.append?.(headRow);
+    table.append?.(thead);
+
+    const tbody=documentRef.createElement('tbody');
     page.forEach((row,rowIndex)=>{
-      const tr=document.createElement('tr');
+      const tr=documentRef.createElement('tr');
       if(rowClass) tr.className=rowClass(row,rowIndex)||'';
-      columns.forEach((column,index)=>{
-        const td=document.createElement('td');
+      columns.forEach((column)=>{
+        const id=columnId(column);
+        const td=documentRef.createElement('td');
+        if (id != null) td.setAttribute?.('data-column-id', String(id));
         const value=row?.[column.field??column.id];
         if(column.type==='image'&&value){
-          const img=document.createElement('img'); img.src=value; img.alt=column.altField?row?.[column.altField]??'':''; img.loading='lazy'; img.style.maxWidth='72px'; td.append(img);
+          const img=documentRef.createElement('img');
+          img.src=value;
+          img.alt=column.altField?row?.[column.altField]??'':'';
+          img.loading='lazy';
+          img.style.maxWidth='72px';
+          td.append?.(img);
         } else td.textContent=Array.isArray(value)?value.join(', '):String(value??'');
-        if(column.sticky){ td.style.position='sticky'; td.style.left=`${index*120}px`; }
-        tr.append(td);
+        this.#applyWidthStyles(td,column,true);
+        if(column.sticky){
+          td.style.position='sticky';
+          td.style.left=`${stickyOffsets.get(id) ?? 0}px`;
+        }
+        tr.append?.(td);
       });
-      tbody.append(tr);
+      tbody.append?.(tr);
     });
-    table.append(tbody);
-    container.replaceChildren(table);
+    table.append?.(tbody);
+    container.replaceChildren?.(table);
+  }
+
+  #column(id) {
+    return this.columns.find((column)=>column.id===id || (!column.id && column.field===id));
+  }
+
+  #bounds(column) {
+    const min=Math.max(1,positiveNumber(column?.minWidth,this.minColumnWidth));
+    const requestedMax=positiveNumber(column?.maxWidth,this.maxColumnWidth);
+    return { min, max:Math.max(min,requestedMax) };
+  }
+
+  #clampWidth(column,width) {
+    const numeric=finiteNumber(width);
+    if(numeric==null) return null;
+    const { min,max }=this.#bounds(column);
+    return Math.min(max,Math.max(min,numeric));
+  }
+
+  #applyWidthStyles(node,column,exact=false) {
+    if(!node?.style) return;
+    const numeric=pixelWidth(column.width);
+    if(numeric!=null){
+      const width=this.#clampWidth(column,numeric);
+      node.style.width=cssWidth(width);
+      if(exact){
+        node.style.minWidth=cssWidth(width);
+        node.style.maxWidth=cssWidth(width);
+      }
+      return;
+    }
+    if(typeof column.width==='string'&&column.width.trim()) node.style.width=column.width.trim();
+    if(exact){
+      const { min,max }=this.#bounds(column);
+      node.style.minWidth=cssWidth(min);
+      node.style.maxWidth=cssWidth(max);
+    }
+  }
+
+  #measuredWidth(node,column) {
+    const measured=finiteNumber(node?.getBoundingClientRect?.().width);
+    const fallback=measured!=null&&measured>0?measured:DEFAULT_COLUMN_WIDTH;
+    return this.#clampWidth(column,fallback);
+  }
+
+  #stickyOffsets(columns) {
+    const offsets=new Map();
+    let left=0;
+    for(const column of columns){
+      if(!column.sticky) continue;
+      const id=columnId(column);
+      offsets.set(id,left);
+      left+=this.columnWidth(id,DEFAULT_COLUMN_WIDTH)??DEFAULT_COLUMN_WIDTH;
+    }
+    return offsets;
+  }
+
+  #clearRenderCleanup() {
+    for(const cleanup of this._renderCleanup.splice(0)){
+      try{ cleanup(); }catch{}
+    }
   }
 }
