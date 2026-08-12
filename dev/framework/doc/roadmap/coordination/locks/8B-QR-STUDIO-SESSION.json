@@ -1,7 +1,7 @@
 {
   "task_id": "8B-QR-STUDIO-SESSION",
   "agent": "A",
-  "status": "in_progress",
+  "status": "done",
   "base": "62b13a0c82b7aa7ff3c3b9e5f5b1d3190ec3f684",
   "branch": "agent-a/qr-studio-session",
   "file_scope": [
@@ -15,11 +15,21 @@
   "objective": "Create a DOM-free QR Studio session model for the six system presets: selection, editable drafts, dirty/editing state, regeneration through an injected generator, validation as the local session reference, reset to reference/canonical and optional codec/storage delegation, without duplicating PresetManager catalogue operations.",
   "coordination": {
     "qr_schema": "QRStudioSchema #88 is integrated and consumed read-only.",
-    "qr_wiz": "QRWiz remains the generator source of truth and is not modified; generation is injected.",
-    "qr_codec_storage": "QRPresetCodec/QRPresetStorage remain the serialization/storage sources of truth and are consumed via adapters only.",
-    "preset_manager": "Generic create/duplicate/rename/delete operations stay in PresetManager and are not duplicated.",
-    "agent_b": "AssetLogoProfile remains on core/asset-logo-profile.js + test/doc and is disjoint.",
-    "agent_d": "DataJoin KeyMatcher #89 is integrated; no QR session scope observed."
+    "qr_wiz": "QRWiz remained unchanged; generation is injected.",
+    "qr_codec_storage": "QRPresetCodec/QRPresetStorage remained unchanged and are delegated to via adapters.",
+    "preset_manager": "Generic create/duplicate/rename/delete operations remain in PresetManager and were not duplicated.",
+    "agent_b": "AssetLogoProfile was integrated on a disjoint scope during QSS1.",
+    "agent_d": "DataJoin KeyMatcher #89 was integrated before QSS1 publication."
   },
-  "notes": "No QRWiz, codec, storage, PresetManager, schema, demo, CSS or roadmap canonical files modified."
+  "pull_request": 91,
+  "final_sha": "c773610344daa77ec9c1354631d8051c4fba3f6e",
+  "merged_sha": "ab5110945fe97c52960da1d430cba63092e81f5b",
+  "completed_at": "2026-08-12T17:02:00+02:00",
+  "verification": {
+    "diff": "3 files exactly, all inside reserved file_scope",
+    "tests": "Node 22 — qr studio session tests: ok",
+    "component_blob": "1066d237c7943d2724737d54a8863eef18eb2a48",
+    "test_blob": "adc60ac4ce5d397a448d9ff95ff2b3ea0e55e5d2"
+  },
+  "notes": "Merged after GitHub reported mergeable=true; no QRWiz/codec/storage/PresetManager/schema/demo/CSS modifications."
 }
