@@ -1,0 +1,51 @@
+{
+  "version": "1.0.0",
+  "providers": {
+    "fixture-json": {
+      "type": "json-static",
+      "options": {
+        "baseUrl": "./"
+      }
+    }
+  },
+  "collections": {
+    "groups": {
+      "provider": "fixture-json",
+      "source": "groups.json",
+      "idField": "code",
+      "labelField": "label",
+      "requiredFields": ["code", "label"]
+    },
+    "tags": {
+      "provider": "fixture-json",
+      "source": "tags.json",
+      "idField": "id",
+      "labelField": "label",
+      "requiredFields": ["id", "label"]
+    },
+    "items": {
+      "provider": "fixture-json",
+      "source": "items.json",
+      "idField": "uid",
+      "labelField": "name",
+      "requiredFields": ["uid", "name", "groupCode"],
+      "relations": [
+        {
+          "field": "groupCode",
+          "target": "groups",
+          "targetField": "code",
+          "cardinality": "one",
+          "required": true,
+          "onMissing": "error"
+        },
+        {
+          "field": "tagIds",
+          "target": "tags",
+          "cardinality": "many",
+          "required": false,
+          "onMissing": "warn"
+        }
+      ]
+    }
+  }
+}
