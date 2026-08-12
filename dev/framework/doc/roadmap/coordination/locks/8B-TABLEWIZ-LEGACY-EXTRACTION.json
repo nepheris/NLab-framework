@@ -12,7 +12,7 @@
   "reserved_at": "2026-08-11T23:58:00+02:00",
   "started_at": "2026-08-12T10:30:00+02:00",
   "heartbeat_at": "2026-08-12T11:22:00+02:00",
-  "current_increment": "A2-REAL-COLUMN-RESIZE",
+  "current_increment": "A3-COLUMN-VISIBILITY-ORDER-STATE",
   "sources": [
     "anciens rapports solaires : tableaux interactifs",
     "MVola V15/V16 DataViz et exports"
@@ -21,7 +21,13 @@
     "new_head_before_a2": "8587aaad67b4aabf43c59220e433204ecd8f7c38",
     "new_table_wiz_sha": "ad1756ba771494f03a40957eb2081a0b17f4f4bf",
     "branch_table_wiz_sha_before_a2": "c1b314f76c8f8dfceeed5ea28f2f437f22b67e4b",
-    "scope_collision": "No change to dev/framework/wiz/table-wiz.js on New since the original reservation; A2 remains inside the existing exclusive file_scope."
+    "scope_collision": "No change to dev/framework/wiz/table-wiz.js on New since the original reservation; A scope remains exclusive.",
+    "parallel_agent_b": {
+      "task_id": "8B-CODEBLOCK-LANGUAGE-EXTENSIONS",
+      "branch": "agent-b/codeblock-language-extensions",
+      "new_head": "d237ba3f0072354ba2acdf896a5fe0a43538d8d8",
+      "overlap": false
+    }
   },
-  "notes": "Verrou A maintenu actif pour empêcher toute collision avec de futurs agents. Branche agent-a/tablewiz-legacy-current basée sur le chantier A1 déjà ouvert en PR #33. Incrément courant A2 : resize réel de colonnes, normalisation/min-max, interaction pointer et non-régression ; ensuite visibilité/réordre, mobile/standalone et exports avancés."
+  "notes": "Verrou A maintenu actif pour empêcher toute collision avec de futurs agents. A1 et A2 sont dans la PR draft #33. Incrément courant A3 : visibilité/réordre déterministes et état de pilotage TableWiz, sans toucher au composant Toolbar externe. B travaille en parallèle sur CodeBlock avec un file_scope disjoint."
 }
