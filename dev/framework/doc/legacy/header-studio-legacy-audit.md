@@ -1,187 +1,78 @@
-# Header Studio — extraction legacy
-
-## Sources
-
-- MVola V15/V16 — comportements de Header Studio ;
-- MadaNotes — navigation/UI ;
-- nLab Review V16 — header d’actions, sommaire responsive et libellés icône/texte.
+# Header Studio — extraction legacy et revue d’intégration
 
 ## Décision
 
-Ne pas recopier un header métier ni une barre de navigation spécifique à une application.
+`HeaderStudio` est une primitive générique de composition de header. L’application fournit les items, callbacks et adaptateurs ; le composant gère ordre, visibilité, responsive, menu, libellés et profils. Il ne connaît ni le métier, ni les routes d’une application, ni la démo.
 
-`HeaderStudio` devient un moteur générique de composition d’un header : l’application fournit les items et les callbacks ; le composant gère ordre, visibilité, présentation, responsive, menu et profils.
-
-Le composant ne connaît ni MVola, ni MadaNotes, ni les routes d’une application.
-
-## Périmètre réservé Agent A
+## Périmètre Agent A
 
 - `dev/framework/components/header-studio.js`
 - `dev/framework/tests/header-studio*.mjs`
 - `dev/framework/doc/legacy/header-studio*.md`
 
-## H1 — état / responsive / profils
+## Contrat H1
 
-### Modèle d’item
+### Items
 
-Un item accepte notamment :
+Un item accepte notamment : `id`, labels court/long, icône, visibilité, ordre, position `start|center|end|menu`, `labelMode`, politique responsive `keep|menu|hide`, groupe, href et état disabled.
 
-- `id` obligatoire et unique ;
-- `labels.short` / `labels.long` ou `label` ;
-- `icon` ;
-- `visible` ;
-- `order` ;
-- `position`: `start | center | end | menu` ;
-- `labelMode`: `auto | icon | short | long` ;
-- `collapse`: `keep | menu | hide` ;
-- `group` ;
-- `href` ;
-- `disabled`.
+Les IDs absents ou dupliqués sont rejetés tôt.
 
-Les IDs dupliqués ou absents sont rejetés tôt.
+### Ordre / visibilité / responsive
 
-### Ordre et visibilité
-
-API :
+API principale :
 
 - `orderedItems()` ;
 - `setVisible()` / `toggleVisible()` ;
 - `setPosition()` ;
-- `setItemLabelMode()` ;
-- `reorder()` ;
-- `moveItem()` ;
-- `resetItems()` ;
-- `itemState()` / `applyItemState()`.
+- `setItemLabelMode()` / `setLabelMode()` ;
+- `reorder()` / `moveItem()` / `resetItems()` ;
+- `itemState()` / `applyItemState()` ;
+- `resolve({ width })`.
 
-`reorder()` accepte une liste partielle : les items explicitement nommés passent en tête dans l’ordre fourni ; les autres conservent leur ordre relatif.
+`resolve()` produit les zones `start`, `center`, `end`, `menu`. En mode compact, un item peut rester, migrer vers le menu ou disparaître selon sa politique `collapse`.
 
-### Labels
+### Rendu
 
-Le composant distingue :
+Le rendu utilise des éléments DOM natifs, `textContent` et des attributs ARIA. Aucun HTML ou SVG arbitraire n’est injecté via `innerHTML`.
 
-- `icon` — icône seule, avec `aria-label` / title long ;
-- `short` — libellé court ;
-- `long` — libellé complet ;
-- `auto` — long en mode normal, court en mode compact.
+`iconRenderer(iconId, item, documentRef)` peut retourner un vrai nœud DOM. Une chaîne retournée par l’adaptateur reste du texte.
 
-Un `labelMode` global peut être surchargé par item.
+Les actions restent applicatives via `onAction`. Le drag/drop appelle `onReorder(itemState)` et n’impose aucun stockage.
 
-### Responsive
+### Profils
 
-`compactBreakpoint` détermine le mode :
+Les profils sont versionnés et peuvent capturer label mode, breakpoint, libellé de menu et état des items. L’import est atomique et le stockage est injectable via `getItem/setItem` ; il n’existe aucune dépendance directe à `localStorage`.
 
-- largeur supérieure → `full` ;
-- largeur inférieure ou égale → `compact`.
-
-En compact, chaque item décide :
-
-- `keep` — reste dans sa zone ;
-- `menu` — migre dans le menu ;
-- `hide` — disparaît.
-
-Un item dont `position=menu` reste toujours dans le menu.
-
-`resolve({ width })` produit un état pur avec :
-
-- `mode` ;
-- zones `start`, `center`, `end`, `menu` ;
-- présentation résolue de chaque item ;
-- nombre d’items visibles.
-
-### Groupes / menu
-
-`group` est conservé comme métadonnée et exposé via `data-header-group` dans le rendu.
-
-La zone menu est rendue dans un `details/summary` natif et les items reçoivent `role=menuitem`.
-
-### Drag & drop
-
-Lorsque `reorderable=true` :
-
-- les items rendus sont `draggable` ;
-- `dragstart/drop` déclenche un déplacement déterministe ;
-- `onReorder(itemState)` permet au consommateur de persister le nouvel ordre ;
-- aucun stockage n’est imposé par le drag/drop.
-
-### Actions
-
-Le composant ne contient aucune logique métier.
-
-- un item avec `href` est rendu comme lien ;
-- sinon comme bouton ;
-- `onAction({ id, item, event })` transmet l’action au consommateur ;
-- un item `disabled` ne déclenche pas l’action.
-
-Les labels et icônes fallback sont injectés via `textContent`, jamais via `innerHTML`.
-
-### Profils / presets
-
-Format versionné `1`.
-
-Un profil contient :
-
-- `labelMode` ;
-- `compactBreakpoint` ;
-- `menuLabel` ;
-- état des items : visibilité, ordre, position, labelMode, collapse.
-
-API :
-
-- `snapshotProfile()` ;
-- `registerProfile()` / `registerProfiles()` ;
-- `profileNames()` / `profileState()` / `removeProfile()` ;
-- `applyProfile()` ;
-- `serializeProfiles()` / `importProfiles()` ;
-- `saveProfiles()` / `loadProfiles()`.
-
-L’import de profils est atomique : un payload invalide ne remplace pas la collection existante.
-
-Le stockage est injectable via `getItem/setItem`; aucune dépendance directe à `localStorage`.
-
-## H2 — audit d’intégration et sécurité
+## H2 — frontières d’intégration
 
 ### NavigationWiz
 
-`NavigationWiz` reste une brique indépendante : il construit le sommaire de contenu et suit la section active. `HeaderStudio` ne doit pas absorber cette logique.
-
-L’intégration applicative se fait simplement en déclarant dans HeaderStudio un item « Sommaire » / « Navigation » dont le callback pilote l’UI NavigationWiz. Cette séparation évite de dupliquer la hiérarchie de navigation dans le header.
+NavigationWiz reste indépendante. HeaderStudio peut exposer un item « navigation » dont le callback pilote l’UI externe, sans absorber la hiérarchie de navigation.
 
 ### IconRegistry
 
-`IconRegistry.render()` retourne actuellement une chaîne SVG. HeaderStudio ne l’injecte volontairement pas par `innerHTML`.
+HeaderStudio ne consomme aucune chaîne SVG brute. L’adaptation se fait par le callback `iconRenderer` et un nœud DOM explicite.
 
-Le contrat d’intégration est :
+### Dépendances runtime
 
-```js
-iconRenderer(iconId, item, documentRef)
-```
+HeaderStudio conserve zéro import vers NavigationWiz, IconRegistry, BrowserStorage ou la démo.
 
-L’adaptateur peut retourner un vrai nœud DOM construit par le consommateur. Si l’adaptateur retourne une chaîne, HeaderStudio la traite comme texte et non comme HTML.
+## Revue sécurité avant intégration
 
-Cette frontière conserve la possibilité d’utiliser IconRegistry sans transformer HeaderStudio en point d’injection SVG/HTML arbitraire.
+La revue autonome précédant l’intégration a ajouté deux durcissements.
 
-### Hrefs sûrs
+### 1. Normalisation des schémas d’URL
 
-Les `href` relatifs, ancres et URLs normales restent acceptés.
+Avant contrôle, les caractères de contrôle et espaces ASCII de la partie schéma sont neutralisés pour la décision de sécurité. Un schéma interdit reste donc refusé même s’il est obfusqué par un retour ligne, une tabulation ou un autre caractère de contrôle.
 
-Les schémas exécutables ou embarqués suivants sont rejetés dès la construction de l’item :
+Les ancres, chemins relatifs et schémas ordinaires restent inchangés dans la valeur rendue.
 
-- `javascript:` ;
-- `data:` ;
-- `vbscript:`.
+### 2. Clonage défensif des profils
 
-Un `href` refusé produit une erreur explicite `Unsafe header href for <id>` avant tout rendu DOM.
+Le clone récursif des objets utilise désormais `Object.defineProperty()` pour créer chaque propriété propre. Une propriété JSON nommée `__proto__` reste ainsi une propriété de données ordinaire du clone et ne modifie pas son prototype.
 
-### Dépendances
-
-HeaderStudio conserve **zéro import runtime** vers :
-
-- `NavigationWiz` ;
-- `IconRegistry` ;
-- `BrowserStorage` ;
-- la démo.
-
-Les interactions se font par callbacks/adaptateurs et stockage injecté.
+Cette correction protège les profils importés tout en préservant leur contenu JSON.
 
 ## Validation automatisée
 
@@ -189,37 +80,33 @@ Test : `dev/framework/tests/header-studio.test.mjs`.
 
 Couverture :
 
-- IDs obligatoires/uniques ;
-- ordre partiel et déplacement ;
-- visibilité / positions ;
-- full/compact ;
-- modes icon/short/long/auto ;
+- IDs obligatoires et uniques ;
+- ordre, déplacement, visibilité et positions ;
+- modes full/compact ;
+- libellés icon/short/long/auto ;
 - politiques keep/menu/hide ;
 - round-trip d’état ;
-- profils isolés et import atomique ;
-- persistance injectable ;
-- rendu DOM / ARIA ;
-- callback action ;
-- drag/drop ;
+- profils, import atomique et stockage injectable ;
+- DOM / ARIA / callbacks / drag-drop ;
 - item désactivé ;
-- rejet des `href` dangereux ;
-- lien relatif conservé comme ancre ;
-- adaptateur d’icône retournant un nœud DOM.
+- liens relatifs ;
+- adaptateur d’icône DOM ;
+- refus des schémas dangereux, y compris obfusqués par caractères de contrôle ;
+- conservation sûre d’une propriété propre `__proto__` dans un profil importé.
 
-Résultat Node 22 après H2 :
+Node 22 après revue :
 
 ```text
 header studio tests: ok
+header studio security review tests: ok
 ```
 
-## Restant avant revue
+Blob exact du moteur testé et publié :
 
-Travail autonome :
+```text
+1017be6f14af7027fb0c0b1259ac67d9e9286124
+```
 
-1. contrôler le `New` courant et les locks parallèles ;
-2. comparer la branche au `New` courant et vérifier que le diff reste limité aux trois fichiers Header Studio ;
-3. synchroniser la branche avec `New` si celui-ci a avancé ;
-4. créer la PR et effectuer l’audit final API / sécurité / tests ;
-5. passer le lock en `review` lorsque ces contrôles sont verts.
+## Critère de sortie
 
-Une validation HUMAN n’est utile qu’au moment où le rendu visuel / ergonomique réel du header doit être arbitré.
+Le moteur générique peut être intégré sans validation visuelle. La **validation HUMAN reste nécessaire uniquement lors du raccord dans une démo/application réelle**, pour juger ergonomie, densité, comportement compact et cohérence visuelle. Elle ne bloque pas l’intégration de la primitive testée dans le framework.
