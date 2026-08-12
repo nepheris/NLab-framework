@@ -7,11 +7,7 @@ const text=(value,fallback='')=>value==null?fallback:String(value).trim();
 const plain=value=>Boolean(value)&&typeof value==='object'&&!Array.isArray(value);
 const clone=value=>value===undefined?undefined:structuredClone(value);
 const enumValue=(value,set,fallback)=>set.has(value)?value:fallback;
-const blockedScheme=scheme=>['scr'+'ipt','embedded','legacy-script'].some((kind,index)=>{
-  if(index===0) return scheme===['java',kind].join('');
-  if(index===1) return scheme===['da','ta'].join('');
-  return scheme===['vb','script'].join('');
-});
+const blockedScheme=scheme=>scheme===['java','script'].join('')||scheme===['da','ta'].join('')||scheme===['vb','script'].join('');
 
 export class LinkWizError extends Error {
   constructor(message, code='LINK_WIZ_ERROR', details=null){ super(message); this.name='LinkWizError'; this.code=code; this.details=details; }
@@ -91,7 +87,7 @@ export class LinkWiz {
 
   render(container,definition={}, {document:doc=container?.ownerDocument??globalThis.document,onAction=null,navigate=null,contentRenderer=null,externalIconRenderer=null,insideLink=ancestorAnchor(container)}={}){
     if(!container||!doc?.createElement) return null;
-    const {link,attrs}=this.attributes(definition);const navigable=Boolean(link.href)&&link.type!=='action';const useAnchor=navigable&&!insideLink;
+    const {link,attrs}=this.attributes(definition);const navigable=Boolean(link.href)&&link.type!=='action';const useAnchor=navigable&&!insideLink&&link.target!=='viewer';
     const tag=useAnchor?'a':link.type==='action'?'button':'span';const node=doc.createElement(tag);
     if(tag==='button') node.type='button';
     if(!useAnchor&&navigable){node.setAttribute?.('role','link');if(!link.disabled)node.setAttribute?.('tabindex','0');}
