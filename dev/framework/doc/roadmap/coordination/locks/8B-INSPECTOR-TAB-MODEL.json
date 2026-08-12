@@ -2,13 +2,17 @@
   "task_id": "8B-INSPECTOR-TAB-MODEL",
   "agent": "B",
   "status": "in_progress",
-  "base": "dadb0ca0a93dc6547aba5351f102a64a109c0937",
-  "branch": "agent-b/inspector-tab-model",
+  "base": "0c26359181f87fd7a14e422d3269178360d5a346",
+  "branch": "agent-b/inspector-tab-model-v2",
+  "previous_branch": "agent-b/inspector-tab-model",
+  "previous_pr": 49,
   "file_scope": [
     "dev/framework/components/inspector-tabs.js",
     "dev/framework/tests/inspector-tabs.test.mjs",
     "dev/framework/doc/components/inspector-tabs.md"
   ],
   "reserved_at": "2026-08-12T12:46:00+02:00",
-  "objective": "Ajouter le modèle DOM-free des onglets Inspector Test/Technique/Dépendances/État/Configuration, avec activation, visibilité, disponibilité et snapshot déterministes, sans toucher aux périmètres A."
+  "rebased_at": "2026-08-12T12:48:00+02:00",
+  "objective": "Ajouter le modèle DOM-free des onglets Inspector Test/Technique/Dépendances/État/Configuration, avec activation, visibilité, disponibilité et snapshot déterministes, sans toucher aux périmètres A.",
+  "coordination_note": "PR #49 rendue divergente par deux commits concurrents limités aux locks Architecture Map et Semantic Architecture. Aucun chevauchement de file_scope ; reprise propre sur le New courant sans force-merge."
 }
