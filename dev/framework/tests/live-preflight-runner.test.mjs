@@ -33,6 +33,19 @@ try{
   assert.equal(report.ready_for_real_integration,false);
   assert.equal(report.lock_health.ok,true);
 
+  await assert.rejects(
+    ()=>runLivePreflight({preflightFile,locksDirectory:locks,overrides:{P404:'pass'},clock}),
+    error=>error instanceof LivePreflightRunnerError&&error.code==='UNKNOWN_OVERRIDE_GATE'&&error.details.gateId==='P404'
+  );
+  await assert.rejects(
+    ()=>runLivePreflight({preflightFile,locksDirectory:locks,overrides:{P2:'pass'},clock}),
+    error=>error instanceof LivePreflightRunnerError&&error.code==='OVERRIDE_REASON_REQUIRED'
+  );
+  await assert.rejects(
+    ()=>runLivePreflight({preflightFile,locksDirectory:locks,overrides:{P2:{status:'pass',reason:'   '}},clock}),
+    error=>error instanceof LivePreflightRunnerError&&error.code==='OVERRIDE_REASON_REQUIRED'
+  );
+
   await fs.writeFile(overridesFile,JSON.stringify({overrides:{P2:{status:'pass',reason:'human approved'}}}));
   report=await runLivePreflight({preflightFile,locksDirectory:locks,overridesFile,clock});
   assert.equal(report.ready_for_real_integration,true);
