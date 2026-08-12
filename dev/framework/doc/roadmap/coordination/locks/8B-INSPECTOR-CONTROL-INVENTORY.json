@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-INSPECTOR-CONTROL-INVENTORY",
+  "agent": "B",
+  "status": "in_progress",
+  "base": "d8137379cbc1b47e3365a3697f28ea546bd55d4e",
+  "branch": "agent-b/inspector-control-inventory",
+  "file_scope": [
+    "dev/framework/components/inspector-control-inventory.js",
+    "dev/framework/tests/inspector-control-inventory.test.mjs",
+    "dev/framework/doc/components/inspector-control-inventory.md"
+  ],
+  "reserved_at": "2026-08-12T12:39:00+02:00",
+  "objective": "Ajouter un inventaire dynamique et déterministe des contrôles d'un InspectorPanel, DOM injectable et compatible Node, sans toucher aux périmètres A."
+}
