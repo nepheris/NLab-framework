@@ -1,7 +1,7 @@
 {
   "task_id": "8B-WEBMASTER-MODE-CONTRACT",
   "agent": "A",
-  "status": "in_progress",
+  "status": "done",
   "base": "e848b755003c16cbe50d942a07be6b7ff8a9c5e7",
   "branch": "agent-a/webmaster-mode-contract",
   "file_scope": [
@@ -10,13 +10,19 @@
     "dev/framework/doc/webmaster-mode/*.md"
   ],
   "reserved_at": "2026-08-12T14:59:00+02:00",
+  "completed_at": "2026-08-12T15:04:00+02:00",
   "source": "foundation/BACKLOG-UX.md — toggle global IDs/Info-Test + Web public ↔ Webmaster",
-  "current_increment": "WM1-GLOBAL-MODE-FEATURES-STORAGE",
-  "objective": "Create a global DOM-free public/webmaster mode controller that gates IDs, Info/Test, contextual help, tools and diagnostics, with storage hydration, feature overrides, attributes and subscriptions.",
-  "coordination": {
-    "header": "HeaderStudio stays unchanged; a future header toggle will call this controller.",
-    "inspector": "Inspector components remain outside this lock.",
-    "diagnostic_ids": "DiagnosticIdRegistry is already integrated and remains unchanged."
+  "pull_request": 70,
+  "final_sha": "6b0e8f6b08db5a3e880fef1fcd117734ddc4c715",
+  "merged_sha": "4fa3fab556e26b27d40ddd49c6f9d4a6599d3ff6",
+  "completed_increments": ["WM1-GLOBAL-MODE-FEATURES-STORAGE"],
+  "verification": {
+    "engine_blob": "9fdcde3b75c36576f48cdf970fe46f2af3ec2ede",
+    "test_blob": "93e01e3d42c2c8e210fb5f139a0925d5248d6685",
+    "tests": "Node 22 exact blobs: webmaster mode tests: ok",
+    "scope": "3 files only; no HeaderStudio/Inspector/DiagnosticIdRegistry/demo/CSS modifications",
+    "merge_guard": "Initial merge attempt used a stale expected head SHA and returned 409. Agent A re-fetched PR/head/diff, confirmed the head remained 6b0e8f6b... with exactly the three locked files and mergeable=true, then merged without force."
   },
-  "notes": "No demo/UI modifications. This lot fixes state semantics only; visual toggle wiring is separate."
+  "follow_up": "Visual Header toggle and Inspector/Diagnostic wiring remain separate integration tasks.",
+  "notes": "Global WebmasterMode state contract integrated safely via PR #70."
 }
