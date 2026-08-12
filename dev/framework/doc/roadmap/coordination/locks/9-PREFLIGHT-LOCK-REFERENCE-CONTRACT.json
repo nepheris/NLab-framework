@@ -1,0 +1,29 @@
+{
+  "task_id": "9-PREFLIGHT-LOCK-REFERENCE-CONTRACT",
+  "agent": "A",
+  "status": "reserved",
+  "base": "7b02a8c8d963570ee326d1efd5e56026d619c0f9",
+  "branch": "agent-a/lot9-preflight-lock-reference-contract",
+  "file_scope": [
+    "dev/framework/tests/lot9-preflight-lock-references.test.mjs",
+    "dev/framework/doc/preflight/lot9-preflight-lock-references.md"
+  ],
+  "reserved_at": "2026-08-12T20:02:00+02:00",
+  "source": "Lot 9 machine checklist references coordination task IDs; integrity should be tested without freezing mutable lock statuses.",
+  "objective": "Read the canonical Lot 9 checklist and lock directory, verify every coordination_task(s) resolves to exactly one lock whose task_id matches, and prove snapshot evaluation with these referenced locks has no TASK_STATE_MISSING warning, without asserting mutable done/review/blocked statuses.",
+  "coordination": {
+    "agent_c": "Canonical lot9-preflight.machine.json remains read-only.",
+    "agent_d": "Recent DataWiz visualization work is disjoint and not touched.",
+    "forbidden": [
+      "dev/framework/doc/roadmap/lot9-preflight.machine.json",
+      "dev/framework/doc/roadmap/coordination/locks/*.json",
+      "dev/framework/core/preflight-gate-evaluator.js",
+      "dev/framework/tools/coordination/*.mjs",
+      "dev/framework/wiz/data-wiz-*.js",
+      "dev/framework/doc/roadmap/roadmap.md",
+      "dev/framework/doc/roadmap/coordination/agent-board.md",
+      "dev/framework/doc/roadmap/coordination/README.md",
+      "dev/framework/demo/**"
+    ]
+  }
+}
