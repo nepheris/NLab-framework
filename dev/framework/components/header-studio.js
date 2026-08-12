@@ -29,6 +29,12 @@ const clone = (value) => {
   return copy;
 };
 const profileName = (value) => cleanString(value) || null;
+const safeHref = (value, id) => {
+  if (value == null || value === '') return null;
+  const href = String(value).trim();
+  if (/^(?:javascript|data|vbscript):/i.test(href)) throw new TypeError(`Unsafe header href for ${id}`);
+  return href;
+};
 
 function normalizeItem(item, index) {
   if (!isObject(item)) throw new TypeError(`Header item at index ${index} must be an object`);
@@ -48,7 +54,7 @@ function normalizeItem(item, index) {
     collapse:normalizeCollapse(item.collapse),
     group:cleanString(item.group) || null,
     icon:item.icon ?? null,
-    href:item.href == null ? null : String(item.href),
+    href:safeHref(item.href, id),
     disabled:Boolean(item.disabled)
   };
 }
@@ -423,7 +429,7 @@ export class HeaderStudio {
     if (item.icon != null) {
       const iconHost = documentRef.createElement('span');
       iconHost.className = 'nlab-header-studio__icon';
-      const rendered = this.iconRenderer?.(item.icon, item);
+      const rendered = this.iconRenderer?.(item.icon, item, documentRef);
       if (rendered && typeof rendered === 'object') iconHost.append?.(rendered);
       else iconHost.textContent = rendered == null ? String(item.icon) : String(rendered);
       iconHost.setAttribute?.('aria-hidden', 'true');
