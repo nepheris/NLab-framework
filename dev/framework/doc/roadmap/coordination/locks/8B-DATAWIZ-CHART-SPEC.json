@@ -1,7 +1,7 @@
 {
   "task_id": "8B-DATAWIZ-CHART-SPEC",
   "agent": "D",
-  "status": "in_progress",
+  "status": "done",
   "base": "30faca8437a85274696a0130aab2263ed52f2871",
   "branch": "agent-d/datawiz-chart-spec",
   "file_scope": [
@@ -11,24 +11,23 @@
   ],
   "reserved_at": "2026-08-12T19:05:00+02:00",
   "started_at": "2026-08-12T19:06:00+02:00",
-  "source": "Agent D visual analytics architecture after DatasetProfile #103: serializable renderer-independent ChartSpec before recommendation engines and renderer adapters",
-  "objective": "Ajouter une grammaire ChartSpec V1 DOM-free/sérialisable qui décrit mark, encodages sémantiques, agrégation/bin/timeUnit, tri et présentation générique, avec validation explicable contre DataWizDatasetProfile, sans introduire de dépendance Plotly/Perspective/ECharts/Vega ni modifier DataWiz/DatasetProfile.",
+  "completed_at": "2026-08-12T19:14:00+02:00",
+  "pull_request": 104,
+  "merge_sha": "5aa9908ecb99ff14c94adcce784bfb31392a7ecd",
+  "validation": {
+    "node_check": "ok",
+    "tests": "data wiz chart spec tests: ok",
+    "fuzz_specs": 500,
+    "published_blobs": {
+      "engine": "25f7fa84abb0256d494bd9c13fd8652a5325923d",
+      "test": "588c11c9c053604ff8bf70b981e647cdef064f1e",
+      "doc": "aece7b7fd5f261f4512ab019e24ce831043c5345"
+    }
+  },
+  "result": "Renderer-independent ChartSpec V1 now separates visual intent from Plotly/ECharts/Vega adapters, with strict serializable grammar and explainable DatasetProfile validation gates.",
   "coordination": {
-    "agent_a": "No active chart/visualization spec scope observed; protected TableWiz/Header/architecture/V20 remain untouched.",
-    "agent_b": "No chart spec scope announced.",
-    "agent_c": "No chart spec scope observed.",
-    "agent_d_previous": "DatasetProfile #103 is done and consumed read-only by validation only.",
-    "forbidden": [
-      "dev/framework/wiz/data-wiz.js",
-      "dev/framework/wiz/data-wiz-provenance.js",
-      "dev/framework/wiz/data-wiz-dataset-profile.js",
-      "dev/framework/core/data-join-*.js",
-      "dev/framework/wiz/table-wiz.js",
-      "dev/framework/demo/**",
-      "dev/framework/doc/architecture/**",
-      "dev/framework/doc/roadmap/roadmap.md",
-      "dev/framework/doc/roadmap/coordination/agent-board.md",
-      "dev/framework/doc/roadmap/coordination/README.md"
-    ]
+    "existing_datawiz": "data-wiz.js, DataWizProvenance and DatasetProfile remained unchanged.",
+    "renderers": "No renderer dependency or renderer-specific API introduced.",
+    "shared_scopes": "No A/B/C, TableWiz, demo, architecture or shared roadmap file modified."
   }
 }
