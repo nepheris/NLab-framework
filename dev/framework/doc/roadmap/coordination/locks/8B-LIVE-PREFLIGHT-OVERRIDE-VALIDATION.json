@@ -1,19 +1,21 @@
 {
   "task_id": "8B-LIVE-PREFLIGHT-OVERRIDE-VALIDATION",
   "agent": "A",
-  "status": "reserved",
-  "base": "d902993282e6f9b51963bf3d497c3dde9d776742",
-  "branch": "agent-a/live-preflight-override-validation",
+  "status": "in_progress",
+  "base": "23c43fd5d58617cef1187717b0167dcdd92f9ed0",
+  "branch": "agent-a/live-preflight-override-validation-v2",
   "file_scope": [
     "dev/framework/tools/coordination/run-live-preflight.mjs",
     "dev/framework/tests/live-preflight-runner.test.mjs",
     "dev/framework/doc/preflight/live-preflight-runner.md"
   ],
   "reserved_at": "2026-08-12T19:42:00+02:00",
-  "source": "LivePreflightRunner accepts explicit overrides but currently does not reject unknown gate IDs or require an audit reason when lifting blocked_human/blocked_external gates.",
+  "restarted_at": "2026-08-12T19:45:00+02:00",
+  "source": "LivePreflightRunner accepts explicit overrides but did not reject unknown gate IDs or require an audit reason when lifting blocked_human/blocked_external gates.",
   "objective": "Validate override gate IDs against the loaded preflight and require a non-empty reason before changing a human/external blocker, preventing typo-based or unaudited overrides without modifying PreflightGateEvaluator or the machine checklist.",
   "coordination": {
-    "agent_d": "Current DataWiz visualization work remains confined to wiz/data-wiz-* + test/doc and is disjoint.",
+    "agent_d": "DataMaterializer completed and PlotlyAdapter started while the first branch was in progress; DataWiz scopes remain disjoint.",
+    "branch_rebuild": "Rebuilding from current New after disjoint DataWiz/coordination commits; exact tested LPR3 blobs will be republished without force merge.",
     "dependencies": "PreflightGateEvaluator consumed unchanged; validation occurs in runner before evaluate().",
     "forbidden": [
       "dev/framework/core/preflight-gate-evaluator.js",
