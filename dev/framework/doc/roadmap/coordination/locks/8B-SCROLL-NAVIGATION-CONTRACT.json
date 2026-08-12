@@ -1,7 +1,7 @@
 {
   "task_id": "8B-SCROLL-NAVIGATION-CONTRACT",
   "agent": "A",
-  "status": "in_progress",
+  "status": "done",
   "base": "592e9a2ade7feca7d931bcc27c2150c45562453d",
   "branch": "agent-a/scroll-navigation-contract",
   "file_scope": [
@@ -10,13 +10,17 @@
     "dev/framework/doc/navigation/scroll-wiz*.md"
   ],
   "reserved_at": "2026-08-12T15:14:00+02:00",
+  "completed_at": "2026-08-12T15:18:00+02:00",
   "source": "foundation/BACKLOG-UX.md — conserver la position de scroll + Retour en haut configurable",
-  "current_increment": "SC1-POSITION-REGISTRY-RESTORE-BACKTOP",
-  "objective": "Create a DOM-free scroll/navigation state contract for preserving positions across links/tabs/panels and configurable back-to-top visibility policies, with optional storage hydration and restore descriptors.",
-  "coordination": {
-    "navigation_wiz": "Existing NavigationWiz remains unchanged and can adopt this contract later.",
-    "header": "HeaderStudio remains unchanged.",
-    "parallel_agents": "No ScrollWiz file or lock found before reservation."
+  "pull_request": 72,
+  "final_sha": "22e6a24cc9da388fc3acedd7cb373e14bf8bc5b7",
+  "merged_sha": "615f97ff0365ebf4fc66f94d5f3afcb10024d15e",
+  "completed_increments": ["SC1-POSITION-REGISTRY-RESTORE-BACKTOP"],
+  "verification": {
+    "tests": "Node 22: scroll wiz tests: ok",
+    "scope": "3 new files only; NavigationWiz/HeaderStudio/demo unchanged",
+    "merge": "PR #72 recalculated mergeable=true and merged without rebase or force."
   },
-  "notes": "No DOM scrolling is performed by this lot; actual browser scroll wiring is a separate integration task."
+  "follow_up": "Browser window.scrollTo wiring, tab/panel hooks and visual back-to-top control remain separate integration tasks.",
+  "notes": "Scroll position preservation and back-to-top policy contract integrated via PR #72."
 }
