@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {DensityWiz,DensityWizError} from '../wiz/density-wiz.js';
+const w=new DensityWiz();
+assert.deepEqual(w.presetNames(),['comfortable','compact','normal']);
+assert.equal(w.normalize('compact').tokens.controlHeight,'30px');assert.equal(w.normalize('comfortable').tokens.sectionGap,'22px');
+const edited=w.normalize({preset:'compact',gap:'7px',scope:'type',target:'table'});assert.equal(edited.tokens.gap,'7px');assert.equal(edited.tokens.paddingX,'8px');assert.equal(edited.scope,'type');
+w.registerPreset('Tight Custom',{gap:4,paddingX:'5px',paddingY:'4px',controlHeight:28,rowHeight:30,sectionGap:8});assert.ok(w.presetNames().includes('tight-custom'));assert.equal(w.normalize('tight-custom').tokens.gap,'4px');
+assert.throws(()=>w.registerPreset('tight-custom',{gap:2}),e=>e instanceof DensityWizError&&e.code==='DUPLICATE_PRESET');w.registerPreset('tight-custom',{gap:'3px'},{replace:true});assert.equal(w.getPreset('tight-custom').gap,'3px');assert.equal(w.getPreset('tight-custom').controlHeight,'28px');
+w.registerPreset('compact',{gap:'2px'},{replace:true});assert.equal(w.normalize('compact').tokens.gap,'2px');w.resetPreset('compact');assert.equal(w.normalize('compact').tokens.gap,'6px');assert.throws(()=>w.removePreset('normal'),e=>e.code==='BUILTIN_PRESET');w.removePreset('tight-custom');assert.equal(w.getPreset('tight-custom'),null);
+assert.throws(()=>w.normalize('missing'),e=>e.code==='UNKNOWN_PRESET');assert.throws(()=>w.normalize({preset:'normal',gap:'calc(1px + 1px)'}),e=>e.code==='INVALID_LENGTH');assert.throws(()=>w.normalize({preset:'normal',controlHeight:0}),e=>e.code==='INVALID_LENGTH');
+const vars=w.variables({preset:'normal',scope:'global'},{prefix:'--d'});assert.equal(vars['--d-preset'],'normal');assert.equal(vars['--d-control-height'],'36px');assert.equal(vars['--d-section-gap'],'16px');
+const snap=w.snapshot('normal');snap.tokens.gap='0';assert.equal(w.snapshot('normal').tokens.gap,'10px');
+const builtins=DensityWiz.builtins();builtins.normal.gap='0';assert.equal(DensityWiz.builtins().normal.gap,'10px');
+console.log('density wiz tests: ok');
