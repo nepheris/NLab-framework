@@ -1,0 +1,22 @@
+{
+  "task_id": "8B-TYPOGRAPHYWIZ-CONTRACT",
+  "agent": "A",
+  "status": "in_progress",
+  "base": "6341509caf47ede76abd793a8a357374b6cc3f29",
+  "branch": "agent-a/typographywiz-contract",
+  "file_scope": [
+    "dev/framework/wiz/typography-wiz.js",
+    "dev/framework/tests/typography-wiz*.mjs",
+    "dev/framework/doc/typography/*.md"
+  ],
+  "reserved_at": "2026-08-12T14:46:00+02:00",
+  "source": "foundation/BACKLOG-UX.md — TypographyWiz",
+  "current_increment": "TY1-FAMILY-SIZE-WEIGHT-RHYTHM-SCOPE",
+  "objective": "Create a pure typography descriptor engine for font family, size, weight, line-height, letter-spacing, alignment, transform and descriptive global/type/instance scope with deterministic style/variable output.",
+  "coordination": {
+    "v20": "V20 visual/scoped integration remains HUMAN-blocked and is not modified.",
+    "theme": "Theme Workshop/theme-engine/default theme stay outside this lock.",
+    "parallel_agents": "No TypographyWiz file or lock found before reservation."
+  },
+  "notes": "No CSS/demo/theme-engine changes. Visual wiring and font catalog choices remain separate."
+}
