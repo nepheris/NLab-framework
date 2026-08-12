@@ -49,6 +49,41 @@ Le contact accepte notamment `name/fullName`, `firstName`, `lastName`, `organiza
 
 La sortie est une vCard 3.0 à lignes CRLF. Les caractères structurants `\`, `;`, `,` et les retours à la ligne sont échappés. Une adresse objet peut fournir `street`, `city`, `region`, `postalCode/zip` et `country`.
 
+### Génération multiple
+
+`generateMany(entries, options)` produit une liste structurée en conservant strictement l'ordre d'entrée.
+
+Une entrée recommandée est :
+
+```js
+{
+  batchName: 'menu-ete',
+  label: 'Menu été',
+  config: { type: 'url', url: '/menus/ete' }
+}
+```
+
+Les valeurs primitives sont acceptées comme raccourci de `type:'text'`. Pour chaque entrée, le résultat contient :
+
+- `index` : index métier configurable ;
+- `position` : position 0-based dans le tableau source ;
+- `name` : `batchName`, sinon `name`, sinon `<namePrefix>-<index>` ;
+- `label` : libellé fourni ou nom ;
+- `ok` ;
+- `payload` ;
+- `output` généré ou `null` ;
+- `error` normalisée (`name`, `message`) ou `null`.
+
+Options :
+
+- `startIndex` : premier index, `1` par défaut ;
+- `namePrefix` : préfixe automatique, `qr` par défaut ;
+- `stopOnError` : `false` par défaut pour continuer le lot malgré une entrée invalide.
+
+Avec `stopOnError:false`, une erreur reste locale à sa ligne et les entrées suivantes sont générées. Avec `stopOnError:true`, l'erreur est relancée et enrichie par `error.qrBatch` avec le contexte de la ligne fautive.
+
+Le batch reste séquentiel volontairement : ordre déterministe, charge encodeur maîtrisée et comportement identique pour les adaptateurs synchrones ou asynchrones.
+
 ### Options normalisées
 
 - `width` : entier borné entre 64 et 4096, défaut 256 ;
@@ -96,8 +131,9 @@ Les labels, légendes, URLs et styles générés sont échappés avant insertion
 
 ## Vérification
 
-`tests/qr-media-robustness.test.mjs` couvre maintenant les payloads structurés en plus du contrat QR/Media historique. Il a été exécuté localement sur le contenu exact du lot :
+`tests/qr-media-robustness.test.mjs` couvre les payloads structurés, le mode batch et le contrat QR/Media historique. Les validations locales du lot donnent :
 
 ```text
+qr batch tests: ok
 qr media robustness tests: ok
 ```
