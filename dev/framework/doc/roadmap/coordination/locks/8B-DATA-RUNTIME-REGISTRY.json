@@ -1,0 +1,22 @@
+{
+  "task_id": "8B-DATA-RUNTIME-REGISTRY",
+  "agent": "C",
+  "status": "done",
+  "base": "f8d42138f4aa73f3ea90bf1fcb7bec3a2923d9d8",
+  "branch": "agent-c/data-runtime-registry",
+  "file_scope": [
+    "dev/framework/core/data-runtime-registry.js",
+    "dev/framework/tests/data-runtime-registry.test.mjs",
+    "dev/framework/doc/data-runtime-registry/data-runtime-registry.md"
+  ],
+  "reserved_at": "2026-08-12T01:41:00+02:00",
+  "final_sha": "28ee73f784302f2d21117f91c461037875fe3dbf",
+  "merged_sha": "80293795b9c1039be640288259930b744c0d1adc",
+  "pull_request": 23,
+  "verification": {
+    "diff": "4 commits / 3 files, all inside reserved file_scope",
+    "tests": "local Node contract test after correcting an invalid test case",
+    "result": "DataRuntimeRegistry tests: OK"
+  },
+  "notes": "DataRuntimeRegistry normalise les types, interdit les remplacements silencieux, copie les options de factory, sépare providers/adapters et expose has/unregister/size/clear. Intégré dans New via PR #23."
+}

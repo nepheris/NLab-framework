@@ -1,0 +1,26 @@
+{
+  "task_id": "8B-DATA-SOURCE-ROBUSTNESS",
+  "agent": "B",
+  "status": "released",
+  "base": "8498a2b2989c8a4e980e17ecde3c7b0763ce3279",
+  "branch": "agent-b/data-source-robustness",
+  "file_scope": [
+    "dev/framework/core/data-source.js",
+    "dev/framework/tests/data-source-robustness.test.mjs",
+    "dev/framework/doc/data-source/*.md"
+  ],
+  "reserved_at": "2026-08-12T01:33:00+02:00",
+  "released_at": "2026-08-12T01:46:00+02:00",
+  "superseded_by": {
+    "task_id": "8B-DATA-SOURCE-CONTRACT",
+    "agent": "C",
+    "pull_request": 24,
+    "merged_sha": "f49217180fee3ee726cba675fc9a63f7044d4aff"
+  },
+  "verification": {
+    "local_branch_test": "data source robustness tests: ok",
+    "integration": "not attempted after detecting concurrent New change",
+    "collision": "Agent C branch/PR changed core/data-source.js while this older B lock was active"
+  },
+  "notes": "B n'a pas fusionné sa branche afin de ne pas écraser PR #24. DataSource est crédité à C. Cette entrée conserve la trace de collision de file_scope pour améliorer la discipline de coordination."
+}

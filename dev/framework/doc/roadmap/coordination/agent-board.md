@@ -4,20 +4,22 @@
 
 ## Légende agents
 
-- 🟦 **A** — Agent A : UX, démo active, extraction legacy et architecture sémantique selon ses locks.
+- 🟦 **A** — Agent A : UX, démo active, extraction legacy et architecture selon ses locks.
 - 🟩 **B** — Agent B : robustesse, contrats, tests et lots autonomes selon ses locks.
 - 🟧 **C** — Agent C : lots parallèles indépendants selon ses locks.
 - 🟣👤 **HUMAN** — validation humaine requise ; ce n'est pas un agent logiciel.
 - ⚪ **Libre** — aucune réservation active connue.
 
+> **Convention de traçabilité : la couleur de l'agent reste affichée après `done`.** Une tâche `🟩 B ✅`, par exemple, signifie qu'elle a été réalisée par B même si son lock n'est plus actif. En cas de reprise d'un lot interrompu, le lock conserve aussi `original_agent` / `completed_by` afin de distinguer l'origine du chantier de sa clôture effective.
+
 ## Légende statuts
 
-- 🔒 `reserved` — réservé, pas encore commencé.
-- 🛠️ `in_progress` — travail en cours.
-- 👀 `review` — prêt pour revue / consolidation.
-- ⛔ `blocked` — bloqué par dépendance ou validation.
-- ✅ `done` — terminé / intégré / livré.
-- ♻️ `released` — libéré et disponible pour réattribution.
+- `🔒 reserved` — réservé, pas encore commencé.
+- `🛠️ in_progress` — travail en cours.
+- `👀 review` — prêt pour revue / consolidation.
+- `⛔ blocked` — bloqué par dépendance ou validation.
+- `✅ done` — terminé / intégré / livré.
+- `♻️ released` — libéré et disponible pour réattribution.
 
 ## Tâches actuellement attribuées
 
@@ -25,13 +27,21 @@
 |---|---|---|---|---|
 | 🟦 A | 🛠️ `in_progress` | `8B-V20-SCOPE-LAYOUT` | `review-v20-from-v16` | Scope Lab / Layout Lab V20, démo |
 | 🟦 A | 👀 `review` | `8B-SEMANTIC-ARCHITECTURE` | `agent-a/semantic-architecture` | nomenclature et responsabilités architecturales |
+| 🟦 A | 👀 `review` | `8B-ARCHITECTURE-MAP` | `agent-a/architecture-map` | carte hiérarchique Framework + Data métier |
 | 🟦 A | 🔒 `reserved` | `8B-HEADER-LEGACY-EXTRACTION` | `agent-a/header-studio-from-v16` | Header Studio générique |
-| 🟦 A | 🔒 `reserved` | `8B-TABLEWIZ-LEGACY-EXTRACTION` | `agent-a/tablewiz-legacy-from-v16` | TableWiz legacy → API générique |
-| 🟩 B | 🛠️ `in_progress` | `8B-SEARCH-FILTER-ROBUSTNESS` | `agent-b/search-filter-robustness` | SearchWiz / FilterWiz robustesse, hors TableWiz |
+| 🟦 A | 🛠️ `in_progress` | `8B-TABLEWIZ-LEGACY-EXTRACTION` | `agent-a/tablewiz-legacy-current` | TableWiz legacy → API générique ; PR draft #33 |
 
-> 🟧 **C n'a pas de lock métier actif dans ce snapshot.** Les lots CodeBlock, PresetManager et NavigationWiz viennent d'être intégrés puis fermés en `done`.
+> 🟩 **B** et 🟧 **C** n'ont actuellement aucun lock métier actif. Le 12/08/2026, la session C a été constatée absente après fermeture des conversations : ses locks déjà mergés mais laissés `in_progress` ont été clôturés administrativement, et son unique lot réellement interrompu (`Pagination`) a été explicitement réattribué à A puis terminé. Les JSON de `locks/` restent l'autorité.
 
-## Livraisons B récemment intégrées
+## Livraisons A intégrées / reprises
+
+| Agent | Statut | Tâche | Intégration | Résultat |
+|---|---|---|---|---|
+| 🟦 A | ✅ `done` | `8B-PAGINATION-CONTRACT` — reprise de C | PR #34 — `6a1b7628cf36b702c1572c842727a93af158d3c6` | lot C interrompu repris sur le même lock : normalisation robuste, DOM/CustomEvent injectables, ARIA, `nlab:page`, `destroy`, tests Node 22 OK |
+
+> Le lock Pagination conserve `original_agent: C` et `completed_by: A` : la ligne est créditée à A pour la livraison finale, sans effacer l'origine C du chantier.
+
+## Livraisons B intégrées
 
 | Agent | Statut | Tâche | Intégration | Résultat |
 |---|---|---|---|---|
@@ -39,8 +49,14 @@
 | 🟩 B | ✅ `done` | `8B-QR-MEDIA-ROBUSTNESS` | PR #8 — `5490fd3f1bc13532d1a7d28ba8ec276edf42fa5e` | QRWiz / MediaWiz durcis, fallbacks et entrées invalides couverts |
 | 🟩 B | ✅ `done` | `8B-OBSERVABILITY-ROBUSTNESS` | PR #9 — `0a5f08e762f1167ec1991199a33f0da3e63726ac` | RuntimeMonitor durci et testé |
 | 🟩 B | ✅ `done` | `8B-SEO-SHARE-CONTRACTS` | PR #10 — `5d95554858a5a4a60ed205e779dcd4aa4d77b61f` | SEO/Share déterministes et fallbacks navigateur durcis |
+| 🟩 B | ✅ `done` | `8B-SEARCH-FILTER-ROBUSTNESS` | PR #12 — `7572591e4f4987c2478d5891f7e5fc3453db785c` | SearchWiz Unicode/stopwords/fields et FilterWiz fail-closed consolidés |
+| 🟩 B | ✅ `done` | `8B-URL-RESOLVER-ROBUSTNESS` | PR #13 — `cf606f256329567200bc8d054d7ef073a1e393cc` | URL Resolver résilient, bases relatives et contexte hors navigateur couverts |
+| 🟩 B | ✅ `done` | `8B-DATA-INDEX-ROBUSTNESS` | PR #19 — `00d1a5738a8eb5dcf56049ec02ff3af2e08db4f3` | DataIndex atomique, entrées validées, doublons structurés, `has/size` |
+| 🟩 B | ✅ `done` | `8B-DATA-RESOLVER-ROBUSTNESS` | PR #22 — `6f4f3a999b235983b16494fd22930b3352899440` | DataResolver : collections own-property, provider/data/relations validés, cache ciblé |
+| 🟩 B | ✅ `done` | `8B-ENVIRONMENT-ROBUSTNESS` | PR #27 — `fa8a4d2c7c19030cf2256d15d3ea41b3ae821e35` | Environment : modes/experiences normalisés, erreurs structurées, bases string/URL/null, `isVisitorExperience` |
+| 🟩 B | ✅ `done` | `8B-DATA-VALIDATOR-ROBUSTNESS` | PR #29 — `c8325a9029e984e342666adc7e553cf4b0f29e22` | DataValidator : shapes/providers/relations validés, erreurs structurées, doublons de clé cible remontés en issues |
 
-## Livraisons C récemment intégrées
+## Livraisons C intégrées
 
 | Agent | Statut | Tâche | Intégration | Résultat |
 |---|---|---|---|---|
@@ -50,21 +66,61 @@
 | 🟧 C | ✅ `done` | `8B-CODEBLOCK-CONTRACT` | PR #5 — `86f12ae01f199f60c422e79c5f5fa81ee0c4d1d9` | presets/alias langage, formatage JSON, export/copie sûrs et tokeniseur corrigé |
 | 🟧 C | ✅ `done` | `8B-PRESET-MANAGER-IMPORT` | PR #6 — `ff9ab4ed974ea4a8a83bdf84f545e9b7313434d6` | import de collections atomique et validé, canoniques protégés |
 | 🟧 C | ✅ `done` | `8B-NAVIGATION-CONTRACT` | PR #11 — `9d02216a3395002da7ef300dc83aa1c70567cae5` | NavigationWiz sans DOM implicite, IDs sûrs, observer/hash robustes |
+| 🟧 C | ✅ `done` | `8B-HELPWIZ-CONTRACT` | PR #14 — `181ab313a73e00bd74749119e41a939f526856a9` | HelpWiz cloné/contextualisé, attach idempotent, detach/destroy et événements injectables |
+| 🟧 C | ✅ `done` | `8B-STORAGE-ROBUSTNESS` | PR #15 — `1b84292ee6d10c0de0b34cc4dc11150ccf499de8` | BrowserStorage résilient aux erreurs quota/security/sérialisation et clear best-effort |
+| 🟧 C | ✅ `done` | `8B-STATE-STORE-ROBUSTNESS` | PR #16 — `d4ba568af90ccf91ab413159dde2ed499b86f124` | StateStore protégé contre chemins invalides/prototype pollution et hydratation/reset fiabilisés |
+| 🟧 C | ✅ `done` | `8B-EVENT-BUS-ROBUSTNESS` | PR #17 — `2d7d4e7a195143747e92348c3c99b72334b07466` | EventBus déterministe, listeners isolés, wildcard/once/off/introspection consolidés |
+| 🟧 C | ✅ `done` | `8B-REGISTRY-ROBUSTNESS` | PR #18 — `892d96e1aa1aa074acf0c1965ee0bc42a43031e6` | FrameworkRegistry : lectures sûres, validation, pruning et introspection |
+| 🟧 C | ✅ `done` | `8B-RESULTSET-ROBUSTNESS` | PR #20 — `f23baf9e723aae7055fb4167ed0e0b723a28087d` | ResultSet : contexte isolé, total logique conservé et helpers d'itération/introspection |
+| 🟧 C | ✅ `done` | `8B-DATA-PROVIDER-ROBUSTNESS` | PR #21 — `539f418b38e5f5b82743d16df362e5653b558d81` | DataProvider : options clonées, capabilities, getRecord et erreurs structurées |
+| 🟧 C | ✅ `done` | `8B-DATA-RUNTIME-REGISTRY` | PR #23 — `80293795b9c1039be640288259930b744c0d1adc` | DataRuntimeRegistry : types normalisés, remplacements explicites, providers/adapters séparés |
+| 🟧 C | ✅ `done` | `8B-DATA-SOURCE-CONTRACT` | PR #24 — `f49217180fee3ee726cba675fc9a63f7044d4aff` | DataSource : premier contrat id/type/options/metadata et sérialisation isolée |
+| 🟧 C | ✅ `done` | `8B-DATA-ADAPTER-CONTRACT` | PR #25 — `9d35432e7390038bcef84fef4fba9a7712cc714e` | DataAdapter : options validées/copiées, `canHandle(false)` par défaut, erreur `NOT_IMPLEMENTED` structurée |
+| 🟧 C | ✅ `done` | `8B-DATA-SOURCE-CONSOLIDATION` | PR #26 — `8eff874f9a9343d8884008bb971fc7709fdd5f86` | consolidation des apports B/C : DataSourceError structurée, clone récursif, cycles rejetés ; remplace le lock B libéré |
+| 🟧 C | ✅ `done` | `COORD-LOCK-SCOPE-CHECKER` | PR #28 — `45281a878681a122864fefb2e483dca5a44779aa` | checker mécanique des chevauchements `file_scope` ajouté après l'incident DataSource |
+| 🟧 C | ✅ `done` | `8B-PRESENTATION-RESOLVER-CONTRACT` | PR #30 — `cde06e1bc49eaa566031afc6f71b57ec2710eeed` | résolution déterministe defaults/byType/schema/override, `null` explicite, isolation des configs |
+| 🟧 C | ✅ `done` | `8B-TEST-RUNNER` | PR #31 — `9a1b8c14c69ae57297ea3f0e42ab473c145bc26f` | runner Node autonome `*.test.mjs`, filtre, fail-fast, JSON/verbose et codes CI |
+| 🟧 C | ✅ `done` | `8B-MANUAL-TEST-WORKFLOW` | PR #32 — `c95637019159565d286025a563eee45f175fe44e` | workflow GitHub Actions manuel Node 22 basé sur le runner, sans gate automatique |
 
-## Règle de lecture
+> Les trois derniers locks C (#30/#31/#32) étaient restés administrativement `in_progress` malgré leurs merges. A les a passés à `done` après vérification des PR réelles ; le crédit de livraison reste intégralement 🟧 C.
 
-1. Une ligne colorée signifie qu'un agent possède un lock actif ou en review.
+## Collision DataSource — traitée et consolidée
+
+- 🟩 B avait réservé `8B-DATA-SOURCE-ROBUSTNESS` avant le chantier C ;
+- 🟧 C a ensuite créé `8B-DATA-SOURCE-CONTRACT` avec un `file_scope` chevauchant `core/data-source.js` et a intégré PR #24 ;
+- B a détecté le changement de `New` avant PR, **n'a pas fusionné sa branche** et a passé son lock à `released` ;
+- 🟧 C a ensuite intégré `8B-DATA-SOURCE-CONSOLIDATION` via PR #26, qui réconcilie les apports compatibles B/C ;
+- le checker `COORD-LOCK-SCOPE-CHECKER` de PR #28 constitue désormais le garde-fou mécanique ;
+- la procédure impose toujours la priorité au lock actif le plus ancien en cas de chevauchement.
+
+## Incident de session C — locks orphelins
+
+Le 12/08/2026, après fermeture des conversations ChatGPT :
+
+- le mutex documentaire est resté `in_progress` chez C ;
+- PresentationResolver #30, Test Runner #31 et Workflow #32 étaient déjà mergés mais leurs locks n'étaient pas clôturés ;
+- Pagination était réellement interrompu : lock `in_progress`, aucune PR Pagination réelle identifiable, aucune branche C persistante correspondante ;
+- A a repris le mutex, clôturé les trois locks factuellement terminés, réattribué **le même lock Pagination** à A, terminé/testé le lot et intégré PR #34.
+
+Cette reprise ne constitue pas une nouvelle attribution rétroactive : l'historique `original_agent` / `completed_by` est conservé dans le lock Pagination.
+
+## Règle de lecture et d'historique
+
+1. Une ligne colorée active signifie qu'un agent possède un lock actif ou en review.
 2. La couleur identifie **le propriétaire**, le pictogramme de statut indique **l'état**.
-3. Avant de prendre une tâche, un agent doit contrôler tous les `file_scope` A/B/C, pas seulement le nom du lot.
-4. Une tâche `done` reste historisée dans son lock ; elle peut être retirée de la section active et déplacée vers une synthèse de clôture.
+3. Une ligne `✅ done` **conserve définitivement la couleur de l'agent qui l'a réalisée**.
+4. Avant de prendre une tâche, un agent doit contrôler tous les `file_scope` A/B/C, pas seulement le nom du lot.
 5. Une tâche sans lock actif est considérée libre uniquement après vérification des branches et du HEAD de `New`.
+6. Les tâches historiques antérieures au protocole de locks ne sont pas réattribuées rétroactivement sans preuve Git fiable.
+7. L'existence d'un lock/branche Git ne prouve pas qu'une session ChatGPT est encore active ; une reprise orpheline doit être explicitement tracée et réutiliser le lock existant.
 
 ## Mutex de mise à jour du tableau
 
 `locks/COORD-ROADMAP-AGENT-DASHBOARD.json` sert de verrou de contrôle pour `roadmap.md`, ce tableau et la procédure de coordination.
 
-- si le mutex est `in_progress` chez un autre agent : ne pas éditer ces fichiers ;
+- si le mutex est `in_progress` chez un autre agent : ne pas éditer ces fichiers tant que la session est réellement active ou que son état n'a pas été qualifié ;
 - si le mutex est `released` ou `done` : l'agent qui veut rafraîchir le tableau met à jour ce même lock à son nom avant édition ;
+- si le mutex est orphelin après disparition confirmée de la session : réattribuer explicitement ce même lock, documenter `original_agent`, `taken_over_at` et la raison ;
 - après rafraîchissement : passer le mutex à `released` avec le SHA de sortie ;
 - les locks métier restent la source de vérité et peuvent être créés même si le mutex du tableau est occupé.
 

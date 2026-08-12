@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-INSPECTOR-TAB-MODEL",
+  "agent": "B",
+  "status": "in_progress",
+  "base": "dadb0ca0a93dc6547aba5351f102a64a109c0937",
+  "branch": "agent-b/inspector-tab-model",
+  "file_scope": [
+    "dev/framework/components/inspector-tabs.js",
+    "dev/framework/tests/inspector-tabs.test.mjs",
+    "dev/framework/doc/components/inspector-tabs.md"
+  ],
+  "reserved_at": "2026-08-12T12:46:00+02:00",
+  "objective": "Ajouter le modèle DOM-free des onglets Inspector Test/Technique/Dépendances/État/Configuration, avec activation, visibilité, disponibilité et snapshot déterministes, sans toucher aux périmètres A."
+}

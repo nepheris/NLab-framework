@@ -1,0 +1,22 @@
+{
+  "task_id": "8B-MANUAL-TEST-WORKFLOW",
+  "agent": "C",
+  "status": "done",
+  "base": "New@branch-creation",
+  "branch": "agent-c/manual-test-workflow",
+  "file_scope": [
+    ".github/workflows/nlab-framework-tests.yml",
+    "dev/framework/doc/testing/github-actions.md"
+  ],
+  "reserved_at": "2026-08-12T02:25:00+02:00",
+  "final_sha": "a337af008ccfd8a527a7554f45514e96ae2d2615",
+  "merged_sha": "c95637019159565d286025a563eee45f175fe44e",
+  "pull_request": 32,
+  "closed_by": "A",
+  "closed_at": "2026-08-12T11:04:00+02:00",
+  "verification": {
+    "source": "PR #32 merged",
+    "result": "workflow yaml: OK"
+  },
+  "notes": "Livraison réalisée par C et intégrée via PR #32. A clôt uniquement le lock administratif resté in_progress après disparition de la session C."
+}

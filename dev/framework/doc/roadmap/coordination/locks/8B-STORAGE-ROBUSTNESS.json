@@ -1,0 +1,22 @@
+{
+  "task_id": "8B-STORAGE-ROBUSTNESS",
+  "agent": "C",
+  "status": "done",
+  "base": "1cd71618c09b12c0aef840132921cc96b5c89c40",
+  "branch": "agent-c/storage-robustness",
+  "file_scope": [
+    "dev/framework/core/storage.js",
+    "dev/framework/tests/storage-robustness.test.mjs",
+    "dev/framework/doc/storage/storage.md"
+  ],
+  "reserved_at": "2026-08-12T01:09:00+02:00",
+  "final_sha": "e47c4f69a014e787fdeb6565ed3af0950faf67f7",
+  "merged_sha": "1b84292ee6d10c0de0b34cc4dc11150ccf499de8",
+  "pull_request": 15,
+  "verification": {
+    "diff": "3 commits / 3 files, all inside reserved file_scope",
+    "tests": "local Node contract test",
+    "result": "BrowserStorage tests: OK"
+  },
+  "notes": "BrowserStorage neutralise les erreurs d'accès localStorage, provider, quota et sérialisation, conserve les fallbacks et nettoie son namespace en best-effort. Intégré dans New via PR #15."
+}

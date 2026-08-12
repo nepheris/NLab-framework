@@ -1,0 +1,22 @@
+{
+  "task_id": "8B-DATA-RESOLVER-ROBUSTNESS",
+  "agent": "B",
+  "status": "done",
+  "base": "c7686188f547c7a5fa6b9999baffaa41521fc3f3",
+  "branch": "agent-b/data-resolver-robustness",
+  "file_scope": [
+    "dev/framework/core/data-resolver.js",
+    "dev/framework/tests/data-resolver-robustness.test.mjs",
+    "dev/framework/doc/data-resolver/*.md"
+  ],
+  "reserved_at": "2026-08-12T01:22:00+02:00",
+  "final_sha": "4faf80e33d57216834ca39d59bb58dc32d5b7e53",
+  "merged_sha": "6f4f3a999b235983b16494fd22930b3352899440",
+  "pull_request": 22,
+  "verification": {
+    "diff": "4 commits / 3 files, all inside reserved file_scope",
+    "tests": "local Node contract test",
+    "result": "data resolver robustness tests: ok"
+  },
+  "notes": "DataResolver protège les lookups de collections contre les propriétés héritées, valide provider/data/relations/cardinalités/policies et réutilise/invalide proprement les index. Aucun fichier A/C, TableWiz, FrameworkRegistry, EventBus, StateStore, démo ou roadmap modifié dans la branche métier."
+}

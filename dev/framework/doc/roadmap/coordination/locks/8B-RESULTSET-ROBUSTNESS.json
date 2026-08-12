@@ -1,0 +1,22 @@
+{
+  "task_id": "8B-RESULTSET-ROBUSTNESS",
+  "agent": "C",
+  "status": "done",
+  "base": "906aa08ec87b07bf26dd6e0738418af763468abe",
+  "branch": "agent-c/resultset-robustness",
+  "file_scope": [
+    "dev/framework/data/result-set.js",
+    "dev/framework/tests/result-set-robustness.test.mjs",
+    "dev/framework/doc/result-set/result-set.md"
+  ],
+  "reserved_at": "2026-08-12T01:31:00+02:00",
+  "final_sha": "e509df344fe92b61f22e4d572a031a993f0292fd",
+  "merged_sha": "f23baf9e723aae7055fb4167ed0e0b723a28087d",
+  "pull_request": 20,
+  "verification": {
+    "diff": "3 commits / 3 files, all inside reserved file_scope",
+    "tests": "local Node contract test",
+    "result": "ResultSet tests: OK"
+  },
+  "notes": "ResultSet valide iterable/total/meta, propage query/filters/meta sans partager les conteneurs, expose length/isEmpty/first/at/iterator/toJSON et conserve le total logique sur map/slice. Intégré dans New via PR #20 sans toucher TableWiz."
+}

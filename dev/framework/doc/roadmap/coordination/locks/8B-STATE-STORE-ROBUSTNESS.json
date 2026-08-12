@@ -1,0 +1,22 @@
+{
+  "task_id": "8B-STATE-STORE-ROBUSTNESS",
+  "agent": "C",
+  "status": "done",
+  "base": "4b0c61c0bd5b7158c5cf8038de69fbb588220fdb",
+  "branch": "agent-c/state-store-robustness",
+  "file_scope": [
+    "dev/framework/core/state-store.js",
+    "dev/framework/tests/state-store-robustness.test.mjs",
+    "dev/framework/doc/state-store/state-store.md"
+  ],
+  "reserved_at": "2026-08-12T01:18:00+02:00",
+  "final_sha": "1a4511d7ff15fc1c51d71780b5d56330c9ed9d41",
+  "merged_sha": "d4ba568af90ccf91ab413159dde2ed499b86f124",
+  "pull_request": 16,
+  "verification": {
+    "diff": "3 commits / 3 files, all inside reserved file_scope",
+    "tests": "local Node contract test",
+    "result": "StateStore tests: OK"
+  },
+  "notes": "StateStore valide les chemins et bloque la pollution de prototype, remplace les intermédiaires primitifs, évite la double notification au reset, hydrate profondément les defaults et isole les erreurs storage/listeners. Intégré dans New via PR #16."
+}

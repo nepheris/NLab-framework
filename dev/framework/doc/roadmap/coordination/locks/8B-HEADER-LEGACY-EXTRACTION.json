@@ -1,18 +1,48 @@
 {
   "task_id": "8B-HEADER-LEGACY-EXTRACTION",
   "agent": "A",
-  "status": "reserved",
-  "base": "de21ec85170112efb23c4d5c987502b9e49dd966",
-  "branch": "agent-a/header-studio-from-v16",
+  "status": "review",
+  "base": "07527363db53d04a3452931e09104352bfd3c968",
+  "branch": "agent-a/header-studio-current",
   "file_scope": [
     "dev/framework/components/header-studio.js",
     "dev/framework/tests/header-studio*.mjs",
     "dev/framework/doc/legacy/header-studio*.md"
   ],
   "reserved_at": "2026-08-11T23:58:00+02:00",
+  "started_at": "2026-08-12T12:28:00+02:00",
+  "original_branch": "agent-a/header-studio-from-v16",
+  "pull_request": 44,
+  "review_head": "700c119b4559af71839eed20523a777c808f2c9e",
   "sources": [
     "MVola V15/V16 Header Studio",
-    "MadaNotes navigation/UI"
+    "MadaNotes navigation/UI",
+    "nLab Review V16 demo header/navigation patterns"
   ],
-  "notes": "Extraire les comportements génériques sans recopier la logique métier MVola : ordre drag/drop, visibilité, libellé icône/court/long, position, groupes/menu, responsive et profils."
+  "completed_increments": [
+    "H1-STATE-RESPONSIVE-PROFILES",
+    "H2-INTEGRATION-SECURITY"
+  ],
+  "verification": {
+    "existing_component_on_new_at_start": false,
+    "latest_synced_new_before_review": "fb951aee0c6a2d3a81936880f52773101469d15d",
+    "scope_collision": "No Header Studio file overlap detected; branch diff limited to the three reserved files.",
+    "branch_diff": "8 commits ahead / 0 behind at PR creation / exactly 3 files",
+    "tests": "Node 22: header studio tests: ok",
+    "security": "Unsafe javascript:/data:/vbscript: href values are rejected before rendering; strings are never injected through innerHTML.",
+    "integration": "NavigationWiz remains independent; IconRegistry can be bridged through an injected iconRenderer returning a DOM node.",
+    "parallel_agent_b": {
+      "task_id": "8B-INSPECTOR-CONTROL-INVENTORY",
+      "status": "in_progress",
+      "branch": "agent-b/inspector-control-inventory",
+      "overlap": false,
+      "scope": [
+        "dev/framework/components/inspector-control-inventory.js",
+        "dev/framework/tests/inspector-control-inventory.test.mjs",
+        "dev/framework/doc/components/inspector-control-inventory.md"
+      ]
+    }
+  },
+  "review_scope": "Autonomous extraction is complete. Remaining review is API/code review plus optional HUMAN visual/ergonomic validation before wiring HeaderStudio into the demo or an application.",
+  "notes": "Keep Header Studio scope reserved to A during review. PR #44 is the integration vehicle; no demo, NavigationWiz, IconRegistry or Agent B files are part of the PR diff."
 }
