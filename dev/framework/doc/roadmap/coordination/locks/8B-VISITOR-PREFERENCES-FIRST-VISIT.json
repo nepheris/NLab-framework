@@ -1,7 +1,7 @@
 {
   "task_id": "8B-VISITOR-PREFERENCES-FIRST-VISIT",
   "agent": "A",
-  "status": "in_progress",
+  "status": "done",
   "base": "783800d600a5ec23ee19019d5c1e43a9ffb82964",
   "branch": "agent-a/visitor-preferences-first-visit",
   "file_scope": [
@@ -18,5 +18,14 @@
     "webmaster_mode": "WebmasterMode remains runtime source of truth; VisitorPreferences only stores the preferred initial viewMode for handoff.",
     "parallel_agents": "No VisitorPreferences lock found before reservation."
   },
-  "notes": "No first-visit UI is rendered in this lot. The modal/panel UX is a later integration/HUMAN task."
+  "pull_request": 73,
+  "final_sha": "9bdc7ece39026747f2a9ff87e8a2e20e56ca1710",
+  "merged_sha": "e3f855fb835998465b07a0dc3ecaeb6199379bcd",
+  "completed_at": "2026-08-12T16:00:36+02:00",
+  "verification": {
+    "diff": "3 commits / 3 files, all inside reserved file_scope",
+    "tests": "Node 22",
+    "result": "visitor preferences tests: ok"
+  },
+  "notes": "Merged after revalidation of the actual open PR state. No first-visit UI is rendered in this lot; modal/panel UX remains a separate HUMAN/integration task."
 }
