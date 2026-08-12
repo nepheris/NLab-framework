@@ -2,8 +2,8 @@
   "task_id": "8B-TABLEWIZ-LEGACY-EXTRACTION",
   "agent": "A",
   "status": "in_progress",
-  "base": "de21ec85170112efb23c4d5c987502b9e49dd966",
-  "branch": "agent-a/tablewiz-legacy-from-v16",
+  "base": "0112184cd211c6422c33b2deca2a39be3f0da577",
+  "branch": "agent-a/tablewiz-legacy-current",
   "file_scope": [
     "dev/framework/wiz/table-wiz.js",
     "dev/framework/tests/table-wiz*.mjs",
@@ -15,5 +15,5 @@
     "anciens rapports solaires : tableaux interactifs",
     "MVola V15/V16 DataViz et exports"
   ],
-  "notes": "Priorité avant JSON Studio. Reprendre les capacités déjà éprouvées : tri, regex, reset, sticky, resize colonnes, mobile, pleine page, export/PDF, puis adapter proprement à l'API TableWiz."
+  "notes": "Rebase logique sur le HEAD courant de New afin d'éviter d'écraser les intégrations B/C. L'ancienne branche agent-a/tablewiz-legacy-from-v16 reste une source d'audit seulement. Priorité avant JSON Studio : non-régression, tri/regex/reset, puis resize, mobile/standalone et exports avancés."
 }
