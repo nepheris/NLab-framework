@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nlab.dev/schemas/site-workspace.schema.json",
+  "title": "nLab Site Workspace Contract",
+  "description": "Generic separation contract for a site workspace built with nLab Web Framework.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "version", "root", "directories", "framework"],
+  "properties": {
+    "schema": { "const": "nlab.site-workspace" },
+    "version": { "const": 1 },
+    "root": {
+      "type": "string",
+      "minLength": 2,
+      "pattern": "^(?![/\\\\])(?!.*\\\\)(?!.*(?:^|/)\\.\\.(?:/|$)).+/$",
+      "description": "Relative POSIX-style root ending with /."
+    },
+    "directories": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["atelier", "data", "assets", "config", "web"],
+      "properties": {
+        "atelier": {
+          "allOf": [
+            { "$ref": "#/$defs/directory" },
+            { "properties": {
+              "path": { "const": "atelier/" },
+              "mutable": { "const": true },
+              "generated": { "const": false },
+              "publishable": { "const": false }
+            }}
+          ]
+        },
+        "data": {
+          "allOf": [
+            { "$ref": "#/$defs/directory" },
+            { "properties": {
+              "path": { "const": "data/" },
+              "mutable": { "const": true },
+              "generated": { "const": false },
+              "publishable": { "const": false }
+            }}
+          ]
+        },
+        "assets": {
+          "allOf": [
+            { "$ref": "#/$defs/directory" },
+            { "properties": {
+              "path": { "const": "assets/" },
+              "mutable": { "const": true },
+              "generated": { "const": false },
+              "publishable": { "const": false }
+            }}
+          ]
+        },
+        "config": {
+          "allOf": [
+            { "$ref": "#/$defs/directory" },
+            { "properties": {
+              "path": { "const": "config/" },
+              "mutable": { "const": true },
+              "generated": { "const": false },
+              "publishable": { "const": false }
+            }}
+          ]
+        },
+        "web": {
+          "allOf": [
+            { "$ref": "#/$defs/directory" },
+            { "properties": {
+              "path": { "const": "web/" },
+              "mutable": { "const": false },
+              "generated": { "const": true },
+              "publishable": { "const": true }
+            }}
+          ]
+        }
+      }
+    },
+    "framework": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["strategy", "business_logic_allowed"],
+      "properties": {
+        "strategy": {
+          "enum": ["external", "synchronized", "embedded-readonly"],
+          "description": "How the generic framework is made available to the site workspace."
+        },
+        "path": {
+          "oneOf": [
+            { "type": "string", "minLength": 1 },
+            { "type": "null" }
+          ]
+        },
+        "business_logic_allowed": { "const": false }
+      }
+    },
+    "metadata": { "type": "object" }
+  },
+  "$defs": {
+    "directory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "purpose", "mutable", "generated", "publishable"],
+      "properties": {
+        "path": { "type": "string", "minLength": 2 },
+        "purpose": { "type": "string", "minLength": 1 },
+        "mutable": { "type": "boolean" },
+        "generated": { "type": "boolean" },
+        "publishable": { "type": "boolean" }
+      }
+    }
+  }
+}
