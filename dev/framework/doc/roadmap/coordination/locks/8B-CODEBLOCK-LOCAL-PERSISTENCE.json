@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-CODEBLOCK-LOCAL-PERSISTENCE",
+  "agent": "B",
+  "status": "in_progress",
+  "base": "46ac7b3f1ff763305986065a1bb18859acbdf7c9",
+  "branch": "agent-b/codeblock-local-persistence",
+  "file_scope": [
+    "dev/framework/components/code-block.js",
+    "dev/framework/tests/code-block.test.mjs",
+    "dev/framework/doc/components/code-block.md"
+  ],
+  "reserved_at": "2026-08-12T11:35:00+02:00",
+  "objective": "Ajouter une persistance locale optionnelle et défensive du contenu CodeBlock édité, avec stockage injectable, sans dépendance DOM et sans modifier les périmètres A."
+}
