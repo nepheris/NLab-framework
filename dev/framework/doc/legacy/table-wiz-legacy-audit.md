@@ -125,6 +125,23 @@ L’incrément A1 conserve `SearchWiz`, `FilterWiz` et `PaginationModel` comme b
 
 Test dédié : `dev/framework/tests/table-wiz-legacy.test.mjs`.
 
+## Incrément A2 — resize réel des colonnes
+
+A2 transforme la largeur déclarative en interaction générique intégrée à TableWiz, sans dépendance CSS/DOM externe :
+
+- paramètres globaux `resizable`, `minColumnWidth`, `maxColumnWidth` et `resizeStep` ;
+- override par colonne avec `resizable:false`, `minWidth` et `maxWidth` ;
+- largeur numérique ou `px` normalisée et bornée ; les autres valeurs CSS restent déclaratives pour compatibilité ;
+- API `columnWidth()`, `resizeColumn()`, `adjustColumnWidth()` et `resetColumnWidth()` ;
+- `colgroup` généré pour appliquer la largeur à toute la colonne ;
+- poignée accessible `role=separator`, utilisable au pointer et avec `ArrowLeft` / `ArrowRight` ;
+- callback `onColumnResize` après validation du changement ;
+- nettoyage des listeners globaux de drag via `destroy()` et avant chaque nouveau rendu ;
+- recalcul des offsets sticky à partir des largeurs réellement connues plutôt que d’un pas fixe par index ;
+- tests DOM sans navigateur via faux document injecté par `ownerDocument`.
+
+Validation locale Node 22 : `table wiz legacy tests: ok`.
+
 ## Critères de validation
 
 - aucune régression de `process()` / recherche / filtres / pagination ;
