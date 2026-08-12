@@ -1,7 +1,7 @@
 {
   "task_id": "8B-DATAWIZ-CONVERGENCE",
   "agent": "A",
-  "status": "in_progress",
+  "status": "done",
   "base": "c538d6e31b6551a124664c57d0c745528d11b7c6",
   "branch": "agent-a/datawiz-convergence",
   "file_scope": [
@@ -10,13 +10,22 @@
     "dev/framework/doc/data-wiz/*.md"
   ],
   "reserved_at": "2026-08-12T13:12:00+02:00",
-  "dependencies": [
-    {
-      "task_id": "8B-TABLEWIZ-LEGACY-EXTRACTION",
-      "status": "review",
-      "rule": "No TableWiz file may be modified; convergence is contract-level only."
-    }
+  "completed_at": "2026-08-12T14:00:00+02:00",
+  "pull_request": 54,
+  "final_sha": "872cf8068a7ec68c95a012715bf8b2d20eb14786",
+  "merged_sha": "4fdc193f388f8707cc0f40169226b3a1f0176f37",
+  "completed_increments": [
+    "D1-ROBUST-STATS-GROUP-HISTOGRAM"
   ],
-  "current_increment": "D1-ROBUST-STATS-GROUP-HISTOGRAM",
-  "notes": "Consolidate DataWiz as a pure analytics/data-description engine: defensive inputs, nested fields, deterministic grouping, numeric semantics and histogram edge cases. Scope is disjoint from active/review TableWiz, JSON Studio and Agent B files."
+  "verification": {
+    "engine_blob": "46118da7e264b3283573a933cb9a209c5556f5f4",
+    "engine_blob_local_match": true,
+    "tests": [
+      "Node 22: data wiz convergence tests: ok",
+      "Node 22: data ux DataWiz compatibility: ok"
+    ],
+    "final_scope": "4 files, all inside DataWiz file_scope",
+    "parallel_agent_b": "CodeBlock JSON Folding lock was disjoint; branch synchronized with New before merge."
+  },
+  "notes": "DataWiz convergence integrated via PR #54. Historical describe/groupBy/histogram contract preserved while adding safe nested paths, strict numeric semantics, deterministic grouping, median/type stats and robust histogram domains."
 }
