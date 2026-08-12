@@ -1,7 +1,7 @@
 {
   "task_id": "8B-DIAGNOSTIC-ID-CONTRACT",
   "agent": "A",
-  "status": "in_progress",
+  "status": "done",
   "base": "4b144e3404ab9edce095b1805a1816050e79d4d0",
   "branch": "agent-a/diagnostic-id-contract",
   "file_scope": [
@@ -10,13 +10,19 @@
     "dev/framework/doc/diagnostic/*.md"
   ],
   "reserved_at": "2026-08-12T14:35:00+02:00",
+  "completed_at": "2026-08-12T14:41:00+02:00",
   "source": "foundation/BACKLOG-UX.md — Identification et diagnostic",
-  "current_increment": "G1-HUMAN-TECHNICAL-IDS-TEST-DESCRIPTOR",
-  "objective": "Provide stable human/technical diagnostic IDs, uniqueness/indexing, test descriptors, classic/advanced diagnostic projections and DOM attribute descriptors without modifying Inspector UI components.",
-  "coordination": {
-    "inspectors": "Existing Inspector tabs/snapshot/control inventory/dock files remain outside this lock.",
-    "agent_b": "File-format/search/codeblock work is disjoint.",
-    "agent_d": "DataWiz provenance was integrated before reservation; no provenance files are modified."
+  "pull_request": 64,
+  "final_sha": "28272fec77eae1f45c5e6560a0e4e1f1d9aab326",
+  "merged_sha": "d854811e1638dc6dd66b83d18559653678fe1d6b",
+  "completed_increments": ["G1-HUMAN-TECHNICAL-IDS-TEST-DESCRIPTOR","G1-REVIEW-AMBIGUOUS-REPLACE"],
+  "verification": {
+    "engine_blob": "d33589422793de81ab1899a9aa71364bbc1ca71f",
+    "test_blob": "3863b3283e81705fedb2ac8d14995ea8f94c089b",
+    "tests": "Node 22 exact blobs: diagnostic id registry tests: ok",
+    "scope": "3 new files only, no Inspector/demo/EventBus/FrameworkRegistry modifications",
+    "parallel_agent_d": "Data JoinSpec diagnostics scope was disjoint and explicitly acknowledged A Diagnostic IDs; PR #64 remained mergeable."
   },
-  "notes": "Do not modify demo, Inspector components, EventBus or FrameworkRegistry. This is a standalone contract consumed later by those layers."
+  "follow_up": "Inspector UI wiring, title badges, Info/Test buttons and the global Webmaster toggle remain separate integration/visual lots.",
+  "notes": "Stable human/technical diagnostic ID contract integrated via PR #64."
 }
