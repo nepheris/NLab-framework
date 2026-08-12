@@ -12,7 +12,10 @@ const nonNegativeInteger = (value, fallback = 0) => {
 
 const normalizePageSizes = (values, current) => {
   const source = Array.isArray(values) ? values : [];
-  const normalized = [...new Set(source.map((value) => positiveInteger(value, 0)).filter(Boolean))];
+  const normalized = [...new Set(source.map((value) => {
+    const number = Number(value);
+    return Number.isFinite(number) && number > 0 ? Math.floor(number) : null;
+  }).filter((value) => value != null && value > 0))];
   if (!normalized.includes(current)) normalized.push(current);
   return normalized.sort((left, right) => left - right);
 };
