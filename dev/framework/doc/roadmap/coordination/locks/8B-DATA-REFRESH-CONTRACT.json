@@ -1,0 +1,22 @@
+{
+  "task_id": "8B-DATA-REFRESH-CONTRACT",
+  "agent": "A",
+  "status": "in_progress",
+  "base": "e2d6729b82d6d7a29c2ad6437b1039a9e8733a4a",
+  "branch": "agent-a/data-refresh-contract",
+  "file_scope": [
+    "dev/framework/core/data-refresh-controller.js",
+    "dev/framework/tests/data-refresh-controller*.mjs",
+    "dev/framework/doc/data-refresh/*.md"
+  ],
+  "reserved_at": "2026-08-12T16:03:00+02:00",
+  "source": "autonomous backlog consolidation — refresh when JSON/dynamic data source changes",
+  "current_increment": "DR1-INVALIDATE-REFRESH-COALESCE-STATUS",
+  "objective": "Create a DOM-free refresh orchestration contract over existing DataProvider APIs: invalidate/cache refresh, coalesced concurrent loads, per-collection status/revision, change detection, refreshAll and subscriptions without modifying DataProvider/JsonDataProvider/DataWiz.",
+  "coordination": {
+    "providers": "DataProvider and JsonDataProvider remain unchanged; controller consumes getCollection(...,{refresh:true}) and optional clearCache().",
+    "datawiz": "DataWiz and DataWiz provenance/join files remain unchanged.",
+    "parallel_agents": "No active refresh-controller lock or file found before reservation."
+  },
+  "notes": "No polling timer or browser event wiring in this lot. External source-watch/polling can call invalidate()/refresh() later."
+}
