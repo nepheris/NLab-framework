@@ -1,6 +1,6 @@
 {
   "task_id": "COORD-ROADMAP-AGENT-DASHBOARD",
-  "agent": "C",
+  "agent": "A",
   "status": "in_progress",
   "base": "eb9fcb7e72bde8c14586d3b262e8073ab83afc03",
   "branch": "New",
@@ -10,5 +10,8 @@
     "dev/framework/doc/roadmap/coordination/agent-board.md"
   ],
   "reserved_at": "2026-08-12T02:04:00+02:00",
-  "notes": "Synchroniser DataAdapter #25, DataSource consolidation #26, Environment B #27 et checker anti-collision #28 ; raccorder le checker exécutable à la procédure renforcée par B."
+  "original_agent": "C",
+  "taken_over_at": "2026-08-12T11:04:00+02:00",
+  "takeover_reason": "Session C absente après fermeture des conversations ; mutex laissé in_progress et snapshot documentaire incomplet.",
+  "notes": "A reprend uniquement la clôture documentaire : synchroniser les livraisons réellement intégrées #25 à #32, corriger les locks C laissés in_progress après merge, conserver l'attribution historique B/C, puis libérer le mutex. Le nouveau template de roadmap en cours de conception n'est pas appliqué."
 }
