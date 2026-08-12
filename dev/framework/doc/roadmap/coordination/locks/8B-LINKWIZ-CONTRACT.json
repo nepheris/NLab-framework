@@ -1,0 +1,22 @@
+{
+  "task_id": "8B-LINKWIZ-CONTRACT",
+  "agent": "A",
+  "status": "in_progress",
+  "base": "580d19761c77702b5154f9d004abd546b6451ec8",
+  "branch": "agent-a/linkwiz-contract",
+  "file_scope": [
+    "dev/framework/wiz/link-wiz.js",
+    "dev/framework/tests/link-wiz*.mjs",
+    "dev/framework/doc/link-wiz/*.md"
+  ],
+  "reserved_at": "2026-08-12T14:15:00+02:00",
+  "source": "foundation/BACKLOG-UX.md — LinkWiz / contrat de lien",
+  "current_increment": "L1-DESCRIPTOR-SECURITY-RENDER",
+  "objective": "Create a generic link contract for anchors/internal/external/media/actions with target policies, accessibility metadata, safe href handling, external-link metadata and DOM rendering that never creates nested anchors.",
+  "coordination": {
+    "existing_linkwiz": false,
+    "existing_lock": false,
+    "parallel_agent_b": "Latest observed CodeBlock color-pack/folding scopes are disjoint; no LinkWiz lock or files found."
+  },
+  "notes": "Do not modify UrlResolver, MediaWiz, ThemeWiz, demo, CodeBlock or Agent B files. LinkWiz consumes/produces generic descriptors and optional injected callbacks only."
+}
