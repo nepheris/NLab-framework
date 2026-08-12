@@ -1,0 +1,24 @@
+{
+  "task_id": "8B-DIAGNOSTIC-COVERAGE-AUDIT",
+  "agent": "A",
+  "status": "in_progress",
+  "base": "91403763b85dd8fff346580cc66ec1f10c3ee778",
+  "branch": "agent-a/diagnostic-coverage-audit",
+  "file_scope": [
+    "dev/framework/core/diagnostic-coverage-audit.js",
+    "dev/framework/tests/diagnostic-coverage-audit*.mjs",
+    "dev/framework/doc/diagnostic/diagnostic-coverage-audit*.md"
+  ],
+  "reserved_at": "2026-08-12T18:11:00+02:00",
+  "source": "foundation/BACKLOG-UX.md — chaque zone testable possède deux IDs, Info/Test, objectif, choses à tester et résultat attendu",
+  "current_increment": "DCA1-REGISTRY-AND-ZONE-PREFLIGHT",
+  "objective": "Create a DOM-free preflight auditor for DiagnosticIdRegistry entries and zone manifests: verify registered human/technical IDs, required testing metadata and explicit Info/Test/title-ID wiring declarations, with structured errors/warnings and no demo modification.",
+  "coordination": {
+    "registry": "DiagnosticIdRegistry remains the source of truth and is consumed read-only.",
+    "info_test": "InfoTestControl remains the runtime control and is not modified.",
+    "demo": "No DOM/demo inspection or mutation; zones are supplied as a manifest by the caller.",
+    "parallel": "Agent D DataJoinSuggestionSession completed before reservation; no active overlap observed.",
+    "human": "Visual readability of IDs/buttons remains HUMAN; this lot only checks declarative coverage."
+  },
+  "notes": "No DiagnosticIdRegistry, InfoTestControl, WebmasterMode, demo, CSS or canonical roadmap modified."
+}
