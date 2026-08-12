@@ -1,0 +1,30 @@
+{
+  "task_id": "8B-DATA-JOIN-EXECUTOR",
+  "agent": "D",
+  "status": "reserved",
+  "base": "3fe87e0229795ba10d8f7069f06e312c2c2632fe",
+  "branch": "agent-d/data-join-executor",
+  "file_scope": [
+    "dev/framework/core/data-join-executor.js",
+    "dev/framework/tests/data-join-executor.test.mjs",
+    "dev/framework/doc/data-join/data-join-executor.md"
+  ],
+  "reserved_at": "2026-08-12T15:59:00+02:00",
+  "source": "DataJoinSpec V1 + Agent D roadmap: executeur non destructif de jointures",
+  "objective": "Ajouter un moteur DOM-free qui exécute un DataJoinSpec sans modifier les sources, respecte les types de jointure et politiques de collision, retourne lignes + provenance d'exécution et refuse les cardinalités invalides lorsqu'une exécution stricte est demandée.",
+  "coordination": {
+    "agent_a": "PR #73 VisitorPreferences sur themes/tests/doc distincts; PR #33 TableWiz en review; PR #47/#48 documentaires.",
+    "agent_b": "Aucun scope Join Executor observé dans les PR/locks actifs.",
+    "agent_c": "Aucun scope Join Executor observé.",
+    "agent_d_previous": "DataJoinSpec diagnostics PR #65 merged; ce lot ne modifie pas data-join-spec.js.",
+    "forbidden": [
+      "dev/framework/core/data-join-spec.js",
+      "dev/framework/wiz/data-wiz.js",
+      "dev/framework/wiz/table-wiz.js",
+      "dev/framework/wiz/json-studio.js",
+      "dev/framework/core/data-resolver.js",
+      "dev/framework/core/data-validator.js",
+      "dev/framework/demo/**"
+    ]
+  }
+}
