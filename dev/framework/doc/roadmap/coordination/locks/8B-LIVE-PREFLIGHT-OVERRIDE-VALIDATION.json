@@ -1,0 +1,30 @@
+{
+  "task_id": "8B-LIVE-PREFLIGHT-OVERRIDE-VALIDATION",
+  "agent": "A",
+  "status": "reserved",
+  "base": "d902993282e6f9b51963bf3d497c3dde9d776742",
+  "branch": "agent-a/live-preflight-override-validation",
+  "file_scope": [
+    "dev/framework/tools/coordination/run-live-preflight.mjs",
+    "dev/framework/tests/live-preflight-runner.test.mjs",
+    "dev/framework/doc/preflight/live-preflight-runner.md"
+  ],
+  "reserved_at": "2026-08-12T19:42:00+02:00",
+  "source": "LivePreflightRunner accepts explicit overrides but currently does not reject unknown gate IDs or require an audit reason when lifting blocked_human/blocked_external gates.",
+  "objective": "Validate override gate IDs against the loaded preflight and require a non-empty reason before changing a human/external blocker, preventing typo-based or unaudited overrides without modifying PreflightGateEvaluator or the machine checklist.",
+  "coordination": {
+    "agent_d": "Current DataWiz visualization work remains confined to wiz/data-wiz-* + test/doc and is disjoint.",
+    "dependencies": "PreflightGateEvaluator consumed unchanged; validation occurs in runner before evaluate().",
+    "forbidden": [
+      "dev/framework/core/preflight-gate-evaluator.js",
+      "dev/framework/tools/coordination/check-lock-overlaps.mjs",
+      "dev/framework/tools/coordination/audit-lock-health.mjs",
+      "dev/framework/wiz/data-wiz-*.js",
+      "dev/framework/doc/roadmap/lot9-preflight.machine.json",
+      "dev/framework/doc/roadmap/roadmap.md",
+      "dev/framework/doc/roadmap/coordination/agent-board.md",
+      "dev/framework/doc/roadmap/coordination/README.md",
+      "dev/framework/demo/**"
+    ]
+  }
+}
