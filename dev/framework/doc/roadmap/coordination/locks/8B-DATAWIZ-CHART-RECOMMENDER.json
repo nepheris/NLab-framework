@@ -1,8 +1,8 @@
 {
   "task_id": "8B-DATAWIZ-CHART-RECOMMENDER",
   "agent": "D",
-  "status": "reserved",
-  "base": "58223b622ddc18dca2f5a0d5cacef40137f358e8",
+  "status": "in_progress",
+  "base": "2a70ae36e609a702b86ea30afb9e1bcb8c9cd004",
   "branch": "agent-d/datawiz-chart-recommender",
   "file_scope": [
     "dev/framework/wiz/data-wiz-chart-recommender.js",
@@ -10,6 +10,7 @@
     "dev/framework/doc/data-wiz/chart-recommender.md"
   ],
   "reserved_at": "2026-08-12T19:15:00+02:00",
+  "started_at": "2026-08-12T19:17:00+02:00",
   "source": "Agent D visual analytics architecture after DatasetProfile #103 + ChartSpec #104: deterministic explainable visualization recommendations before renderer adapters",
   "objective": "Ajouter un moteur DOM-free déterministe qui consomme DataWizDatasetProfile et produit des propositions ChartSpec classées avec score, raisons et warnings pour les patterns V1 (numérique, catégorie, temps+mesure, catégorie+mesure, deux mesures, distributions), sans jamais auto-appliquer une proposition ni dépendre d'un renderer.",
   "coordination": {
