@@ -1,7 +1,7 @@
 {
   "task_id": "8B-CODEBLOCK-JSON-FOLDING",
   "agent": "B",
-  "status": "in_progress",
+  "status": "done",
   "base": "7e4c86a33a7abd7a132949a12bb2bb7c28ae340c",
   "branch": "agent-b/codeblock-json-folding",
   "file_scope": [
@@ -10,5 +10,16 @@
     "dev/framework/doc/components/code-block-json-folding.md"
   ],
   "reserved_at": "2026-08-12T13:53:00+02:00",
+  "completed_at": "2026-08-12T13:56:00+02:00",
+  "pull_request": 55,
+  "merged_sha": "5126e94f8a8163982ca4ad68d4ef1e83bb738a3c",
+  "final_sha": "5126e94f8a8163982ca4ad68d4ef1e83bb738a3c",
+  "verification": {
+    "node": "22.16.0",
+    "tests": "code block json folding tests: ok",
+    "branch_diff": "3 commits / exactly 3 new files / all inside file_scope",
+    "new_divergence_before_pr": "none",
+    "ci_statuses": "none"
+  },
   "objective": "Ajouter une primitive DOM-free de pliage JSON hiérarchique pour CodeBlock : arbre déterministe, chemins sûrs, expansion/repli, profondeur, snapshot et rendu textuel/HTML échappé, sans modifier code-block.js ni les périmètres A ou futurs agents."
 }
