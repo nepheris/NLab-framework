@@ -1,7 +1,7 @@
 {
   "task_id": "8B-INSPECTOR-TAB-MODEL",
   "agent": "B",
-  "status": "in_progress",
+  "status": "done",
   "base": "0c26359181f87fd7a14e422d3269178360d5a346",
   "branch": "agent-b/inspector-tab-model-v2",
   "previous_branch": "agent-b/inspector-tab-model",
@@ -13,6 +13,10 @@
   ],
   "reserved_at": "2026-08-12T12:46:00+02:00",
   "rebased_at": "2026-08-12T12:48:00+02:00",
+  "completed_at": "2026-08-12T12:50:00+02:00",
+  "pr": 50,
+  "final_sha": "dae712451aefc9422732c8fa2ef64667abf582dd",
   "objective": "Ajouter le modèle DOM-free des onglets Inspector Test/Technique/Dépendances/État/Configuration, avec activation, visibilité, disponibilité et snapshot déterministes, sans toucher aux périmètres A.",
-  "coordination_note": "PR #49 rendue divergente par deux commits concurrents limités aux locks Architecture Map et Semantic Architecture. Aucun chevauchement de file_scope ; reprise propre sur le New courant sans force-merge."
+  "coordination_note": "PR #49 rendue divergente par deux commits concurrents limités aux locks Architecture Map et Semantic Architecture. Aucun chevauchement de file_scope ; reprise propre sur le New courant sans force-merge.",
+  "validation": "Node 22.16.0 — inspector tabs tests: ok; 3 fichiers neufs dans le file_scope; PR #50 mergée dans New."
 }
