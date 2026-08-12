@@ -101,7 +101,7 @@ const rows=[
 {
   const spec=new DataWizChartSpec({mark:'bar',encodings:{x:{field:'category',bin:true},y:{field:'value',aggregate:'sum'}}});
   const out=mat.materialize(rows,spec);
-  assert.equal(out.records.length,0);
+  assert.equal(out.records.length,0); // category cannot be numerically binned, rows are rejected as group values
   assert.ok(out.diagnostics.messages.some(m=>m.code==='GROUP_VALUE_REJECTED'));
 }
 {
