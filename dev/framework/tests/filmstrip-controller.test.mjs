@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {FilmstripController,FilmstripControllerError} from '../components/filmstrip-controller.js';
+const events=[];const film=new FilmstripController({count:4,index:1,controllers:['arrows','dots','slider','thumbnails','counter'],onChange:e=>events.push(e.type)});
+assert.equal(film.index,1);assert.equal(film.snapshot().canPrevious,true);assert.equal(film.snapshot().canNext,true);
+film.next();assert.equal(film.index,2);film.previous();assert.equal(film.index,1);film.first();assert.equal(film.index,0);film.previous();assert.equal(film.index,0);film.last();assert.equal(film.index,3);film.next();assert.equal(film.index,3);
+assert.deepEqual(film.controller('arrows').nextDisabled,true);assert.equal(film.controller('dots').items[3].active,true);assert.equal(film.controller('slider').value,3);assert.equal(film.controller('thumbnails').items[3].selected,true);assert.equal(film.controller('counter').text,'4 / 4');
+film.setLoop(true);film.next();assert.equal(film.index,0);film.previous();assert.equal(film.index,3);film.go(-6);assert.equal(film.index,2);
+film.setCount(2);assert.equal(film.index,1);film.setCount(5,{preserve:'start'});assert.equal(film.index,0);
+film.setControllers(['counter','counter','scrollbar']);assert.deepEqual(film.snapshot().controllers,['counter','scrollbar']);assert.equal(film.controller('dots'),null);assert.equal(film.controller('scrollbar').progress,0);
+const snap=film.snapshot();snap.metadata.changed=true;assert.equal(film.snapshot().metadata.changed,undefined);
+const off=[];const unsub=film.subscribe(e=>off.push(e.type));film.next();unsub();film.next();assert.deepEqual(off,['index']);
+const empty=new FilmstripController();assert.equal(empty.controller('counter').text,'0 / 0');assert.equal(empty.progress(),0);empty.next();assert.equal(empty.index,0);
+assert.throws(()=>new FilmstripController({controllers:['bogus']}),e=>e instanceof FilmstripControllerError&&e.code==='INVALID_CONTROLLER');
+assert.throws(()=>film.subscribe(null),e=>e.code==='INVALID_LISTENER');
+console.log('filmstrip controller tests: ok');
