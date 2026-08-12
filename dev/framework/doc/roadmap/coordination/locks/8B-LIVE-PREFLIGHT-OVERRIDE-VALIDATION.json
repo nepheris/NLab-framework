@@ -1,7 +1,7 @@
 {
   "task_id": "8B-LIVE-PREFLIGHT-OVERRIDE-VALIDATION",
   "agent": "A",
-  "status": "in_progress",
+  "status": "done",
   "base": "23c43fd5d58617cef1187717b0167dcdd92f9ed0",
   "branch": "agent-a/live-preflight-override-validation-v2",
   "file_scope": [
@@ -11,22 +11,18 @@
   ],
   "reserved_at": "2026-08-12T19:42:00+02:00",
   "restarted_at": "2026-08-12T19:45:00+02:00",
-  "source": "LivePreflightRunner accepts explicit overrides but did not reject unknown gate IDs or require an audit reason when lifting blocked_human/blocked_external gates.",
-  "objective": "Validate override gate IDs against the loaded preflight and require a non-empty reason before changing a human/external blocker, preventing typo-based or unaudited overrides without modifying PreflightGateEvaluator or the machine checklist.",
+  "completed_at": "2026-08-12T19:48:00+02:00",
+  "pr": 113,
+  "merge_sha": "49c5b86ec9e72979a852430cdf941d374eec0250",
+  "tests": [
+    "live preflight override validation: ok",
+    "versioned coverage: unknown gate / missing reason / blank reason / valid reason"
+  ],
+  "source": "LivePreflightRunner accepted explicit overrides but did not reject unknown gate IDs or require an audit reason when lifting blocked_human/blocked_external gates.",
+  "objective": "Validate override gate IDs against the loaded preflight and require a non-empty reason before changing a human/external blocker.",
   "coordination": {
-    "agent_d": "DataMaterializer completed and PlotlyAdapter started while the first branch was in progress; DataWiz scopes remain disjoint.",
-    "branch_rebuild": "Rebuilding from current New after disjoint DataWiz/coordination commits; exact tested LPR3 blobs will be republished without force merge.",
-    "dependencies": "PreflightGateEvaluator consumed unchanged; validation occurs in runner before evaluate().",
-    "forbidden": [
-      "dev/framework/core/preflight-gate-evaluator.js",
-      "dev/framework/tools/coordination/check-lock-overlaps.mjs",
-      "dev/framework/tools/coordination/audit-lock-health.mjs",
-      "dev/framework/wiz/data-wiz-*.js",
-      "dev/framework/doc/roadmap/lot9-preflight.machine.json",
-      "dev/framework/doc/roadmap/roadmap.md",
-      "dev/framework/doc/roadmap/coordination/agent-board.md",
-      "dev/framework/doc/roadmap/coordination/README.md",
-      "dev/framework/demo/**"
-    ]
+    "agent_d": "DataMaterializer/PlotlyAdapter remained disjoint.",
+    "branch_rebuild": "A 409 on stale New was handled by rereading head/lock and rebuilding from current New; no force merge.",
+    "result": "Exactly 3 scoped runner/test/doc files updated via #113; no evaluator, checker, health auditor, DataWiz, checklist, canonical roadmap or demo modified."
   }
 }
