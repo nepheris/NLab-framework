@@ -40,11 +40,9 @@ export class TableWiz {
     this.lastError = null;
   }
 
-  setQuery(query, options = null) {
+  setQuery(query, options = {}) {
     this.query = query ?? '';
-    if (options !== null) {
-      this.queryOptions = options && typeof options === 'object' && !Array.isArray(options) ? { ...options } : {};
-    }
+    this.queryOptions = options && typeof options === 'object' && !Array.isArray(options) ? { ...options } : {};
     this.pagination.setPage(1);
     return this;
   }
@@ -178,7 +176,7 @@ export class TableWiz {
     ].join('\n');
   }
 
-  exportJSON(items, space = 2) { return JSON.stringify(asArray(items), null, space); }
+  exportJSON(items, space = 2) { return JSON.stringify(items ?? [], null, space); }
 
   render(container, items, { rowClass = null } = {}) {
     if (!container || !globalThis.document) return;
