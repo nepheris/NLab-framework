@@ -133,6 +133,21 @@ A3 prépare la toolbar et la persistance sans prendre le scope du composant Tool
 
 Validation locale Node 22 après A3 : `table wiz legacy tests: ok`.
 
+## Incrément A4 — mobile / standalone
+
+A4 ajoute une présentation responsive générique sans remplacer le rendu table historique :
+
+- `viewMode` accepte `table`, `stacked` ou `auto` ; `table` reste la valeur par défaut rétrocompatible ;
+- `mobileBreakpoint` pilote la bascule `auto` à partir de la largeur réelle du conteneur au rendu ;
+- `setViewMode()`, `setStandalone()` et `setMobileBreakpoint()` exposent le pilotage sans dépendance externe ;
+- la vue `stacked` transforme chaque ligne en bloc lisible avec couples label/valeur et support des images ;
+- le mode `standalone` enveloppe la sortie dans une région ARIA focusable et scrollable, adaptée à une page ou une zone autonome ;
+- `toolbarState()` expose aussi `view.mode`, `view.standalone` et `view.mobileBreakpoint` ;
+- la logique de recherche, filtre, tri et pagination reste commune aux vues table et stacked ;
+- aucun fichier CSS global ni composant Toolbar externe n’est modifié : le périmètre reste strictement TableWiz.
+
+Validation locale Node 22 après A4 : `table wiz legacy tests: ok`.
+
 ## Critères de validation
 
 - aucune régression de `process()` / recherche / filtres / pagination ;
