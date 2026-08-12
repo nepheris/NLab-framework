@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nlab.dev/schemas/live-preflight-output.schema.json",
+  "title": "nLab Live Preflight Machine Output",
+  "description": "Union schema for machine-readable LivePreflight success reports and CLI error envelopes.",
+  "oneOf": [
+    { "$ref": "live-preflight-report.schema.json" },
+    { "$ref": "live-preflight-error.schema.json" }
+  ]
+}
