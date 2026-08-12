@@ -36,6 +36,47 @@ assert.match(contactPayload, /NOTE:Math\\; code\\, notes/);
 assert.match(contactPayload, /END:VCARD$/);
 assert.equal(payloadWiz.payload({ type:'unknown', text:'x' }), '');
 
+// Génération multiple structurée : ordre, métadonnées et erreurs par entrée.
+const batchCalls = [];
+const batchWiz = new QRWiz({ encoder:{
+  async encode(text){
+    batchCalls.push(text);
+    if (text === 'explode') throw new Error('encoder boom');
+    return `OUT:${text}`;
+  }
+} });
+const batch = await batchWiz.generateMany([
+  { batchName:'welcome', label:'Accueil', config:{ type:'text', text:'hello' } },
+  { config:{ type:'email', email:'a@example.test' } },
+  { batchName:'empty', config:{ type:'text', text:'' } },
+  'plain text',
+  { batchName:'boom', config:{ type:'text', text:'explode' } },
+], { startIndex:10, namePrefix:'item' });
+assert.deepEqual(batch.map((row)=>row.index), [10,11,12,13,14]);
+assert.equal(batch[0].name, 'welcome');
+assert.equal(batch[0].label, 'Accueil');
+assert.equal(batch[0].ok, true);
+assert.equal(batch[0].payload, 'hello');
+assert.equal(batch[0].output, 'OUT:hello');
+assert.equal(batch[1].name, 'item-11');
+assert.equal(batch[1].payload, 'mailto:a@example.test');
+assert.equal(batch[2].ok, false);
+assert.match(batch[2].error.message, /payload is empty/);
+assert.equal(batch[3].payload, 'plain text');
+assert.equal(batch[4].ok, false);
+assert.equal(batch[4].payload, 'explode');
+assert.match(batch[4].error.message, /encoder boom/);
+assert.deepEqual(batchCalls, ['hello','mailto:a@example.test','plain text','explode']);
+assert.deepEqual(await batchWiz.generateMany(null), []);
+await assert.rejects(
+  () => batchWiz.generateMany([
+    { batchName:'first', config:{type:'text', text:'ok'} },
+    { batchName:'stop', config:{type:'text', text:''} },
+    { batchName:'never', config:{type:'text', text:'later'} },
+  ], { stopOnError:true }),
+  (error) => error.qrBatch?.name === 'stop' && error.qrBatch?.index === 2 && /payload is empty/.test(error.message)
+);
+
 // Normalisation déterministe des options.
 const normalized = payloadWiz.options({
   width:12,
