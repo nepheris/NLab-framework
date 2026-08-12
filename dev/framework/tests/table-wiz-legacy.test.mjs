@@ -234,6 +234,32 @@ assert.equal(stateTable.toolbarState().canReset, false);
 stateTable.reorder(['d','c','b','a']).resetColumnOrder();
 assert.deepEqual(stateTable.visibleColumnIds(), ['a','b','c','d']);
 
+// A5: row/column/selection exports are deterministic and HTML is print-safe.
+const exportTable = new TableWiz({ columns:[
+  { id:'id', label:'ID' },
+  { id:'name', label:'Nom' },
+  { id:'category', label:'Catégorie' },
+  { id:'score', label:'Score' }
+] });
+assert.deepEqual(exportTable.exportSelection(items,{ rowIndexes:[2,0,2], columnIds:['name','score'] }), [
+  { name:'Pommes rôties', score:9 },
+  { name:'Tarte aux pommes', score:12 }
+]);
+assert.deepEqual(exportTable.exportRow(items,1,{ columnIds:['id','category'] }), { id:'B', category:'plat' });
+assert.deepEqual(exportTable.exportColumn(items,'score',{ rowIndexes:[0,2] }), [12,9]);
+exportTable.setSort('score','desc');
+assert.deepEqual(exportTable.exportSelection(items,{ processed:true, rowIndexes:[0], columnIds:['id'] }), [{ id:'A' }]);
+assert.equal(exportTable.exportCSV(items,{ rowIndexes:[1], columnIds:['name','score'], delimiter:',' }), '"Nom","Score"\n"Soupe de carottes","7"');
+assert.match(exportTable.exportSelectionJSON(items,{ rowIndexes:[0], columnIds:['id'], space:0 }), /^\[{"id":"A"}\]$/);
+const exportHtml = exportTable.exportPrintHTML([{ id:'X', name:'<script>alert(1)</script>', category:'A&B', score:1 }], {
+  title:'A&B <Test>',
+  columnIds:['name','category']
+});
+assert.match(exportHtml, /@page\{size:landscape/);
+assert.match(exportHtml, /A&amp;B &lt;Test&gt;/);
+assert.match(exportHtml, /&lt;script&gt;alert\(1\)&lt;\/script&gt;/);
+assert.doesNotMatch(exportHtml, /<script>alert\(1\)<\/script>/);
+
 // A4: responsive auto mode selects stacked/table and standalone wraps the output.
 const mobileTable = new TableWiz({
   columns:[
