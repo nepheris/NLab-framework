@@ -1,7 +1,7 @@
 {
   "task_id": "8B-TYPOGRAPHYWIZ-CONTRACT",
   "agent": "A",
-  "status": "in_progress",
+  "status": "done",
   "base": "6341509caf47ede76abd793a8a357374b6cc3f29",
   "branch": "agent-a/typographywiz-contract",
   "file_scope": [
@@ -10,13 +10,19 @@
     "dev/framework/doc/typography/*.md"
   ],
   "reserved_at": "2026-08-12T14:46:00+02:00",
+  "completed_at": "2026-08-12T14:50:00+02:00",
   "source": "foundation/BACKLOG-UX.md — TypographyWiz",
-  "current_increment": "TY1-FAMILY-SIZE-WEIGHT-RHYTHM-SCOPE",
-  "objective": "Create a pure typography descriptor engine for font family, size, weight, line-height, letter-spacing, alignment, transform and descriptive global/type/instance scope with deterministic style/variable output.",
-  "coordination": {
-    "v20": "V20 visual/scoped integration remains HUMAN-blocked and is not modified.",
-    "theme": "Theme Workshop/theme-engine/default theme stay outside this lock.",
-    "parallel_agents": "No TypographyWiz file or lock found before reservation."
+  "pull_request": 67,
+  "final_sha": "3d5a07f7a8817911ad0d18fd9577e1412d2b8d24",
+  "merged_sha": "68b8005c386851f7699743340b188b4d5d423957",
+  "completed_increments": ["TY1-FAMILY-SIZE-WEIGHT-RHYTHM-SCOPE","TY1-IDEMPOTENCE-REVIEW"],
+  "verification": {
+    "engine_blob": "c3f7ae407b02e1534c1245d36b6f9806f26e87cd",
+    "test_blob": "21151b6d0b616b7de5b5a11eae9bd83bb21b5812",
+    "tests": "Node 22 exact blobs: typography wiz tests: ok",
+    "review_fix": "Normalized comma-separated font-family lists remain idempotent through normalize/merge/snapshot.",
+    "scope": "3 new files only; no V20/Theme Workshop/ThemeEngine/demo modifications"
   },
-  "notes": "No CSS/demo/theme-engine changes. Visual wiring and font catalog choices remain separate."
+  "human_follow_up": "Font catalogue choices and visual/scoped wiring remain separate HUMAN/integration tasks.",
+  "notes": "TypographyWiz pure descriptor contract integrated via PR #67."
 }
