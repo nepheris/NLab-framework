@@ -148,6 +148,23 @@ A4 ajoute une présentation responsive générique sans remplacer le rendu table
 
 Validation locale Node 22 après A4 : `table wiz legacy tests: ok`.
 
+## Incrément A5 — exports avancés
+
+A5 couvre les sorties utiles sans introduire de générateur PDF externe dans TableWiz :
+
+- `exportSelection()` produit une sélection déterministe de lignes et colonnes ;
+- `exportRow()` et `exportColumn()` couvrent les exports unitaires ;
+- `rowIndexes` déduplique les indices, ignore les valeurs invalides et conserve l’ordre explicitement demandé ;
+- `columnIds` permet de cibler et ordonner les colonnes, y compris indépendamment de leur visibilité courante ;
+- l’option `processed:true` permet d’exporter le résultat après recherche, filtre et tri plutôt que les données brutes ;
+- `exportCSV()` conserve sa signature historique tout en acceptant désormais sélection de lignes/colonnes et données traitées ;
+- `exportSelectionJSON()` sérialise la sélection sans modifier `exportJSON()` et sa compatibilité historique ;
+- `exportHTML()` génère un document HTML autonome, UTF-8 et imprimable, avec échappement systématique des données et du titre ;
+- `exportPrintHTML()` prépare par défaut une vue d’impression paysage via `@page`, utilisable ensuite par le navigateur pour produire un PDF ;
+- aucun téléchargement automatique, aucune dépendance navigateur et aucune bibliothèque PDF ne sont imposés au moteur.
+
+Validation locale Node 22 après A5 : `table wiz legacy tests: ok`, y compris test d’échappement d’une valeur `<script>`.
+
 ## Critères de validation
 
 - aucune régression de `process()` / recherche / filtres / pagination ;
