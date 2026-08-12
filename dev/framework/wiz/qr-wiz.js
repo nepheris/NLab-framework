@@ -61,6 +61,51 @@ export class QRWiz {
     return this.#decorate(output, options);
   }
 
+  async generateMany(entries = [], { stopOnError = false, startIndex = 1, namePrefix = 'qr' } = {}) {
+    const source = Array.isArray(entries) ? entries : [];
+    const numericStart = Number(startIndex);
+    const firstIndex = Number.isFinite(numericStart) ? Math.max(0, Math.floor(numericStart)) : 1;
+    const prefix = cleanLine(namePrefix) || 'qr';
+    const results = [];
+
+    for (let position = 0; position < source.length; position += 1) {
+      const entry = source[position];
+      const wrapped = entry && typeof entry === 'object' && !Array.isArray(entry);
+      const config = wrapped && entry.config && typeof entry.config === 'object' && !Array.isArray(entry.config)
+        ? { ...entry.config }
+        : wrapped ? { ...entry } : { type:'text', text:entry };
+      const index = firstIndex + position;
+      const name = cleanLine(wrapped ? entry.batchName ?? entry.name : '') || `${prefix}-${index}`;
+      const label = cleanLine(wrapped ? entry.label : '') || name;
+      let payload = '';
+
+      try {
+        payload = this.payload(config);
+        const output = await this.generate(config);
+        results.push({ index, position, name, label, ok:true, payload, output, error:null });
+      } catch (error) {
+        const failure = {
+          index,
+          position,
+          name,
+          label,
+          ok:false,
+          payload,
+          output:null,
+          error:{ name:String(error?.name ?? 'Error'), message:String(error?.message ?? error ?? 'QR generation failed') }
+        };
+        results.push(failure);
+        if (stopOnError) {
+          const batchError = error instanceof Error ? error : new Error(failure.error.message);
+          batchError.qrBatch = { ...failure, error:{ ...failure.error } };
+          throw batchError;
+        }
+      }
+    }
+
+    return results;
+  }
+
   async render(container, config = {}) {
     if (!container) return null;
     const output = await this.generate(config);
