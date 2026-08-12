@@ -1,7 +1,7 @@
 {
   "task_id": "8B-CONTEXT-HELP-PANEL",
   "agent": "B",
-  "status": "in_progress",
+  "status": "done",
   "base": "170f2163d65f82c6e7bd876a83d960ba012c6319",
   "branch": "agent-b/context-help-panel",
   "file_scope": [
@@ -10,18 +10,18 @@
     "dev/framework/doc/help/context-help-panel.md"
   ],
   "reserved_at": "2026-08-12T16:37:00+02:00",
+  "completed_at": "2026-08-12T16:44:00+02:00",
+  "pull_request": 84,
+  "head_sha": "4757d57452ebf7ad5677ed6cdd6811f617bd7905",
+  "merged_sha": "b94f62dec681c294e6f151bb114626b6f9e9b88b",
   "source": "foundation/BACKLOG-UX.md — panneau d'aide contextuel latéral repliable, distinct du FloatingPanel",
   "objective": "Ajouter un modèle DOM-free de panneau d'aide contextuelle avec contenu HelpWiz injecté, open/close, collapse, expérience visitor/webmaster, side/width, navigation historique et snapshots, sans modifier HelpWiz, FloatingPanel, Inspector, ResponsivePreview ou la démo.",
-  "coordination": {
-    "help_wiz": "HelpWiz est consommé read-only via get/content ou un resolver injecté et reste inchangé.",
-    "agent_a": "ResponsivePreview reste sur core/responsive-preview.js; LinkThemeTokens est terminé et hors scope.",
-    "agent_d": "DataJoinWorkspace est intégré et hors scope.",
-    "forbidden": [
-      "dev/framework/help/help-wiz.js",
-      "dev/framework/components/floating-panel.js",
-      "dev/framework/core/responsive-preview.js",
-      "dev/framework/demo/**",
-      "dev/framework/doc/roadmap/roadmap.md"
-    ]
+  "verification": {
+    "node": "22.16.0",
+    "tests": "context help panel tests: ok",
+    "final_scope": "3 new files only",
+    "pr_mergeable": true,
+    "ci_statuses": "none",
+    "parallel_agents": "D DataJoin Field Catalog and A QR Studio Schema remained on disjoint scopes; A LinkThemeTokens closure was also disjoint."
   }
 }
