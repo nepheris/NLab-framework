@@ -1,16 +1,17 @@
 {
   "task_id": "8B-CODEBLOCK-LOCAL-PERSISTENCE",
   "agent": "B",
-  "status": "released",
-  "base": "46ac7b3f1ff763305986065a1bb18859acbdf7c9",
-  "branch": "agent-b/codeblock-local-persistence",
+  "status": "in_progress",
+  "base": "fd973a35817fb9ac4f87bfbdfc7ca5899f75a35b",
+  "branch": "agent-b/codeblock-local-persistence-v2",
   "file_scope": [
-    "dev/framework/components/code-block.js",
-    "dev/framework/tests/code-block.test.mjs",
-    "dev/framework/doc/components/code-block.md"
+    "dev/framework/components/code-block-storage.js",
+    "dev/framework/tests/code-block-storage.test.mjs",
+    "dev/framework/doc/components/code-block-storage.md"
   ],
   "reserved_at": "2026-08-12T11:35:00+02:00",
   "released_at": "2026-08-12T11:38:00+02:00",
-  "objective": "Ajouter une persistance locale optionnelle et défensive du contenu CodeBlock édité, avec stockage injectable, sans dépendance DOM et sans modifier les périmètres A.",
-  "release_reason": "Libéré avant toute modification métier afin de ne pas immobiliser CodeBlock pendant la prise d'un lot DatePicker entièrement isolé."
+  "reopened_at": "2026-08-12T12:07:00+02:00",
+  "objective": "Ajouter une persistance locale optionnelle du contenu CodeBlock édité sous forme d'adaptateur indépendant, stockage injectable et sans dépendance DOM.",
+  "history": "Premier scope libéré avant modification métier ; reprise sur trois fichiers neufs pour ne pas rouvrir code-block.js."
 }
