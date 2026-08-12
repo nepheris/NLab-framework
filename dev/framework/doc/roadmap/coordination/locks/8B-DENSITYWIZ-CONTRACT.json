@@ -1,7 +1,7 @@
 {
   "task_id": "8B-DENSITYWIZ-CONTRACT",
   "agent": "A",
-  "status": "in_progress",
+  "status": "done",
   "base": "a526e3a80624ff1174bafc97df01d60e06b30fae",
   "branch": "agent-a/densitywiz-contract",
   "file_scope": [
@@ -10,13 +10,18 @@
     "dev/framework/doc/density/*.md"
   ],
   "reserved_at": "2026-08-12T14:51:00+02:00",
+  "completed_at": "2026-08-12T14:54:00+02:00",
   "source": "foundation/BACKLOG-UX.md — Densité Compact/Normal/Confortable + presets personnalisés",
-  "current_increment": "DN1-BASE-PRESETS-CUSTOM-SPACING-TOKENS",
-  "objective": "Create a pure density descriptor engine with Compact/Normal/Comfortable built-ins, editable custom presets, safe spacing/control tokens, descriptive scope and deterministic CSS variable output.",
-  "coordination": {
-    "preset_manager": "Generic PresetManager remains unchanged; DensityWiz only owns density-specific preset semantics.",
-    "v20": "V20 scoped/visual integration remains HUMAN-blocked and untouched.",
-    "parallel_agents": "No DensityWiz file or lock found before reservation."
+  "pull_request": 68,
+  "final_sha": "ceda58cbc0fa9261e3bfe8d4a8984ca5b0bb487b",
+  "merged_sha": "fc09d74dab70a04eb7eb36b1fa499b9468140004",
+  "completed_increments": ["DN1-BASE-PRESETS-CUSTOM-SPACING-TOKENS"],
+  "verification": {
+    "engine_blob": "aaf636fe3ee6106da85275786dfcf7c6bc13ba3a",
+    "test_blob": "a2864fefc48763b8e9847b32185b800e83384365",
+    "tests": "Node 22 exact blobs: density wiz tests: ok",
+    "scope": "3 new files only; PresetManager/V20/Theme Workshop/demo unchanged"
   },
-  "notes": "No demo/CSS/theme-engine/PresetManager changes. Visual calibration of preset values remains a separate HUMAN check."
+  "human_follow_up": "Visual calibration of Compact/Normal/Comfortable and scoped wiring remain separate HUMAN/integration tasks.",
+  "notes": "DensityWiz specialized preset contract integrated via PR #68."
 }
