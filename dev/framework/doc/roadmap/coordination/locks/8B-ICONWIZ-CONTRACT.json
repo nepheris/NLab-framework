@@ -1,7 +1,7 @@
 {
   "task_id": "8B-ICONWIZ-CONTRACT",
   "agent": "A",
-  "status": "in_progress",
+  "status": "done",
   "base": "5074d79aed21c5b3383eae2174f3eea597244703",
   "branch": "agent-a/iconwiz-contract",
   "file_scope": [
@@ -10,13 +10,19 @@
     "dev/framework/doc/icons/icon-wiz*.md"
   ],
   "reserved_at": "2026-08-12T14:30:00+02:00",
+  "completed_at": "2026-08-12T14:33:00+02:00",
   "source": "foundation/BACKLOG-UX.md — IconWiz / états standards",
-  "current_increment": "I1-SEMANTIC-IDS-STATES-PACKS-AUDIT",
-  "objective": "Add a semantic icon layer independent from physical SVGs: stable IDs, state resolution, replaceable packs, DOM/string rendering adapters and coverage audit against an injected IconRegistry.",
-  "coordination": {
-    "icon_registry": "Existing physical IconRegistry remains unchanged and outside this lock.",
-    "agent_b_file_formats": "File Format Registry may emit semantic icon keys but does not modify IconRegistry/IconWiz.",
-    "agent_d_datawiz": "DataWiz provenance scope is disjoint."
+  "pull_request": 62,
+  "final_sha": "08f8099e42b0280298d065527548e9da0b0631e6",
+  "merged_sha": "32cb3e1f6c84c721d68fa5bc6716ffd46416f689",
+  "completed_increments": ["I1-SEMANTIC-IDS-STATES-PACKS-AUDIT"],
+  "verification": {
+    "engine_blob": "b038c02d9bbff49d74edd827981d0620c3681db7",
+    "test_blob": "3087c66b82c46289a1bcc5f59cabe2fc24825a7c",
+    "tests": "Node 22 exact blobs: icon wiz tests: ok",
+    "scope": "3 new files only; icon-registry.js unchanged",
+    "parallel_agents": "B File Format Registry and D DataWiz Provenance remained disjoint; PR #62 was mergeable against their updated New."
   },
-  "notes": "Do not modify icon-registry.js, File Format Registry, demo or other agents' scopes. Physical SVG additions/cosmetic catalogue remain separate lots."
+  "follow_up": "Visual catalogue and replacement of substitute physical icons remain separate tasks; the semantic contract is integrated.",
+  "notes": "IconWiz semantic layer integrated via PR #62 without changing physical SVG assets."
 }
