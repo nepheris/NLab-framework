@@ -1,0 +1,37 @@
+{
+  "task_id": "8B-DATAWIZ-PLOTLY-ADAPTER",
+  "agent": "D",
+  "status": "reserved",
+  "base": "76df9a25172dcc51b899ca8404085b8105215f9e",
+  "branch": "agent-d/datawiz-plotly-adapter",
+  "file_scope": [
+    "dev/framework/wiz/data-wiz-plotly-adapter.js",
+    "dev/framework/tests/data-wiz-plotly-adapter.test.mjs",
+    "dev/framework/doc/data-wiz/plotly-adapter.md"
+  ],
+  "reserved_at": "2026-08-12T19:45:00+02:00",
+  "source": "Agent D visual analytics architecture after ChartDataMaterializer #112 and RendererAdapter #108: first concrete renderer compiler without runtime coupling",
+  "objective": "Ajouter un adapter Plotly V1 purement compilateur qui déclare ses capabilities via DataWizRendererAdapter et traduit ChartSpec + payload ChartDataMaterializer vers un plan JSON-safe {data, layout, config}, sans importer Plotly.js, sans DOM et sans réimplémenter les transformations de données.",
+  "coordination": {
+    "agent_a": "Latest preflight/coordination lots are disjoint and no Plotly scope was found.",
+    "agent_b": "No Plotly adapter scope found.",
+    "agent_c": "No Plotly adapter scope found.",
+    "agent_d_previous": "ChartSpec, ChartRecommender, RendererAdapter and ChartDataMaterializer are done and consumed read-only.",
+    "forbidden": [
+      "dev/framework/wiz/data-wiz.js",
+      "dev/framework/wiz/data-wiz-provenance.js",
+      "dev/framework/wiz/data-wiz-dataset-profile.js",
+      "dev/framework/wiz/data-wiz-chart-spec.js",
+      "dev/framework/wiz/data-wiz-chart-recommender.js",
+      "dev/framework/wiz/data-wiz-renderer-adapter.js",
+      "dev/framework/wiz/data-wiz-chart-data-materializer.js",
+      "dev/framework/core/data-join-*.js",
+      "dev/framework/wiz/table-wiz.js",
+      "dev/framework/demo/**",
+      "dev/framework/doc/architecture/**",
+      "dev/framework/doc/roadmap/roadmap.md",
+      "dev/framework/doc/roadmap/coordination/agent-board.md",
+      "dev/framework/doc/roadmap/coordination/README.md"
+    ]
+  }
+}
