@@ -1,0 +1,22 @@
+{
+  "task_id": "8B-WEBMASTER-MODE-CONTRACT",
+  "agent": "A",
+  "status": "in_progress",
+  "base": "e848b755003c16cbe50d942a07be6b7ff8a9c5e7",
+  "branch": "agent-a/webmaster-mode-contract",
+  "file_scope": [
+    "dev/framework/core/webmaster-mode.js",
+    "dev/framework/tests/webmaster-mode*.mjs",
+    "dev/framework/doc/webmaster-mode/*.md"
+  ],
+  "reserved_at": "2026-08-12T14:59:00+02:00",
+  "source": "foundation/BACKLOG-UX.md — toggle global IDs/Info-Test + Web public ↔ Webmaster",
+  "current_increment": "WM1-GLOBAL-MODE-FEATURES-STORAGE",
+  "objective": "Create a global DOM-free public/webmaster mode controller that gates IDs, Info/Test, contextual help, tools and diagnostics, with storage hydration, feature overrides, attributes and subscriptions.",
+  "coordination": {
+    "header": "HeaderStudio stays unchanged; a future header toggle will call this controller.",
+    "inspector": "Inspector components remain outside this lock.",
+    "diagnostic_ids": "DiagnosticIdRegistry is already integrated and remains unchanged."
+  },
+  "notes": "No demo/UI modifications. This lot fixes state semantics only; visual toggle wiring is separate."
+}
