@@ -1,7 +1,7 @@
 {
   "task_id": "9-SITE-GENERATION-CHECKLIST-CONTRACT",
   "agent": "A",
-  "status": "reserved",
+  "status": "done",
   "base": "9185a751f7c2697c4cfeefb1baa84ea73845a16a",
   "branch": "agent-a/site-generation-checklist-contract",
   "file_scope": [
@@ -11,23 +11,12 @@
     "dev/framework/doc/preflight/site-generation-checklist.md"
   ],
   "reserved_at": "2026-08-12T20:47:00+02:00",
+  "completed_at": "2026-08-12T20:51:00+02:00",
+  "pr": 126,
+  "merge_sha": "d1b5073e4c76e16a60948cb95f80dd64626408d4",
   "source": "Lot 9 detailed preflight explicitly allows preparing a generation checklist while business source/Preview blockers remain unresolved.",
-  "objective": "Formalize a generic, non-executable site generation checklist contract and reference fixture covering preflight, data, validation, relation resolution, rendering, assets, routes, output, preview/comparison and report stages without embedding business logic or creating a site workspace.",
+  "objective": "Formalize a generic, non-executable site generation checklist contract and reference fixture.",
   "coordination": {
-    "lot9": "Consumes lot9-recettes-du-coeur-preflight.md read-only as source intent.",
-    "workspace": "site-workspace.schema.json remains the separate folder contract and is not modified.",
-    "agent_d": "DataWiz visualization work remains disjoint under wiz/data-wiz-* + tests/doc.",
-    "forbidden": [
-      "Sites/**",
-      "dev/framework/data/site-workspace.schema.json",
-      "dev/framework/doc/roadmap/lot9-recettes-du-coeur-preflight.md",
-      "dev/framework/doc/roadmap/lot9-preflight.machine.json",
-      "dev/framework/core/**",
-      "dev/framework/wiz/**",
-      "dev/framework/demo/**",
-      "dev/framework/doc/roadmap/roadmap.md",
-      "dev/framework/doc/roadmap/coordination/agent-board.md",
-      "dev/framework/doc/roadmap/coordination/README.md"
-    ]
+    "result": "Exactly 4 schema/fixture/test/doc files merged via #126; no runtime, Sites, DataWiz, workspace schema, Lot 9 checklist, canonical roadmap or demo modified."
   }
 }
