@@ -1,7 +1,7 @@
 {
   "task_id": "8B-PRESENTATION-RESOLVER-CONTRACT",
   "agent": "C",
-  "status": "in_progress",
+  "status": "done",
   "base": "New@branch-creation",
   "branch": "agent-c/presentation-resolver-contract",
   "file_scope": [
@@ -10,5 +10,14 @@
     "dev/framework/doc/presentation-resolver/presentation-resolver.md"
   ],
   "reserved_at": "2026-08-12T02:16:00+02:00",
-  "notes": "Formaliser PresentationResolver hors TableWiz/démo : configs defaults/byType validées et isolées, résolution pure, merge view, valeurs explicites null/false préservées, support type fallback et tests dédiés. La branche a été créée directement depuis le HEAD live de New."
+  "final_sha": "a2838535693463f795e3ea9d3f009fbdb5fb0dc9",
+  "merged_sha": "cde06e1bc49eaa566031afc6f71b57ec2710eeed",
+  "pull_request": 30,
+  "closed_by": "A",
+  "closed_at": "2026-08-12T11:04:00+02:00",
+  "verification": {
+    "source": "PR #30 merged",
+    "result": "PresentationResolver tests: OK"
+  },
+  "notes": "Livraison réalisée par C et intégrée via PR #30. A ne change pas l'attribution ; il clôt uniquement le lock administratif resté in_progress après disparition de la session C."
 }
