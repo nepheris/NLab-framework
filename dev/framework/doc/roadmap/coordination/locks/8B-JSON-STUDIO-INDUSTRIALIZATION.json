@@ -1,7 +1,7 @@
 {
   "task_id": "8B-JSON-STUDIO-INDUSTRIALIZATION",
   "agent": "A",
-  "status": "in_progress",
+  "status": "review",
   "base": "5811e0c6fe293a57553bf0d8112514ec5022a9dc",
   "branch": "agent-a/json-studio-industrialization",
   "file_scope": [
@@ -10,18 +10,39 @@
     "dev/framework/doc/json-studio/*.md"
   ],
   "reserved_at": "2026-08-12T12:52:00+02:00",
+  "review_at": "2026-08-12T13:10:00+02:00",
+  "pull_request": 51,
+  "review_head": "281103206f2ee00f551adbce8316927e72e9de82",
   "dependencies": [
     {
       "task_id": "8B-TABLEWIZ-LEGACY-EXTRACTION",
       "pull_request": 33,
       "status": "review",
-      "rule": "Do not modify TableWiz in this branch; JSON Studio must remain compatible with the current minimal TableWiz render contract and may adopt A7 APIs only after PR #33 integration."
+      "rule": "No TableWiz file is modified. JSON Studio remains compatible with the historical table.render(container, rows) contract and does not require A1-A7 APIs."
     }
   ],
-  "current_increment": "J1-CORE-SAFETY-HISTORY",
+  "completed_increments": [
+    "J1-CORE-SAFETY-HISTORY",
+    "J2-DOM-SAFETY-TREE-FORM",
+    "J3-BUFFER-VALIDATION-RELATION-DISPLAY"
+  ],
   "verification": {
     "existing_json_studio_sha": "d2fbcb870b699a548e157ca81fd45c98a0e6b003",
-    "parallel_agent_b_latest": "Inspector tab model completed on New; no JSON Studio overlap observed."
+    "review_engine_blob": "8d8edcd1b0559d413060ad43a9ae819ca3ddf0ee",
+    "engine_blob_local_match": true,
+    "tests": [
+      "Node 22: json studio core tests: ok",
+      "Node 22: json studio DOM tests: ok",
+      "Node 22: json studio relation/display tests: ok"
+    ],
+    "contracts": {
+      "DataValidator": "Edited collections are validated record-by-record through validateRecord(); validateCollection() is not used for the local buffer.",
+      "DataResolver": "resolved()/resolvedDisplay() consume resolveRecord(collection, record) and preserve raw relation IDs separately from display values.",
+      "TableWiz": "Minimal render(container, rows) contract retained; no TableWiz code changed."
+    },
+    "branch_diff": "6 commits / 5 files / 0 behind before PR creation; all files inside JSON Studio file_scope",
+    "parallel_agent_b": "No JSON Studio overlap observed; New remained unchanged during J1-J3."
   },
-  "notes": "Industrialize JsonStudio without touching TableWiz, CodeBlock, demo or Agent B scopes. Priority: safe path operations, transactional raw import, history/undo-redo, diff correctness, then DOM safety/tree-form rendering and relation/display mapping."
+  "review_scope": "J1-J3 implement the roadmap requirements: validation, undo/redo, history, diff, multiple relations and display mapping. Remaining work is code/API review before merge, not additional autonomous feature scope.",
+  "notes": "Keep JSON Studio scope reserved to A during review. PR #51 is the integration vehicle."
 }
