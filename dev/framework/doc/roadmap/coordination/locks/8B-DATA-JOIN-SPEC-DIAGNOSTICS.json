@@ -1,7 +1,7 @@
 {
   "task_id": "8B-DATA-JOIN-SPEC-DIAGNOSTICS",
   "agent": "D",
-  "status": "reserved",
+  "status": "in_progress",
   "base": "03fe37ed97296ccbb146b5a25c28f56ae4127ff2",
   "branch": "agent-d/data-join-spec-diagnostics",
   "file_scope": [
@@ -10,6 +10,7 @@
     "dev/framework/doc/data-join/data-join-spec.md"
   ],
   "reserved_at": "2026-08-12T14:35:00+02:00",
+  "started_at": "2026-08-12T14:36:00+02:00",
   "source": "Agent D research handoff: graphical JSON joins / JoinSpec / cardinality diagnostics",
   "objective": "Formaliser un JoinSpec DOM-free et versionné pour clés simples/composites, types de jointure, comparaison et politique de collision, avec diagnostic préalable des clés manquantes, doublons, cardinalité observée, correspondances et estimation de sortie. Ne modifie ni n'exécute les sources JSON.",
   "coordination": {
