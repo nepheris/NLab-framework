@@ -1,7 +1,7 @@
 {
   "task_id": "8B-DATA-JOIN-FIELD-CATALOG",
   "agent": "D",
-  "status": "in_progress",
+  "status": "done",
   "base": "e0c748460ad61f015f1f46c084812c6bc07f381b",
   "branch": "agent-d/data-join-field-catalog",
   "file_scope": [
@@ -11,13 +11,25 @@
   ],
   "reserved_at": "2026-08-12T16:40:00+02:00",
   "started_at": "2026-08-12T16:42:00+02:00",
+  "completed_at": "2026-08-12T16:48:00+02:00",
+  "pr": 85,
+  "merge_sha": "0d5530c119694200bc942eb1ec5b6d70a0925458",
   "source": "Agent D graphical join roadmap after DataJoinWorkspace #82: derive hierarchical selectable field metadata for the future two-tree key editor",
   "objective": "Ajouter un profiler DOM-free de champs imbriqués à partir d'un tableau de records : arbre + liste plate, JSON Pointer canonique, chemin DataJoinSpec V1 lorsqu'adressable, types observés, présence/nulls, exemples et indicateur joinable, avec bornes de profondeur/lignes/champs et diagnostics pour lignes/chemins non exploitables.",
+  "validation": {
+    "syntax": "node --check: ok",
+    "exact_repo_layout_test": "data join field catalog tests: ok",
+    "published_blob_match": true,
+    "engine_blob": "c200f2e5826b60f311d56035802aa32a3aaf821e",
+    "test_blob": "6627aca4db738c5cf6a8a20ebefb6ea52a8d1432",
+    "doc_blob": "5b13a19f7ef7ffb1e6310c1c9a723e307508047d",
+    "scope_compare": "exactly 3 added files"
+  },
   "coordination": {
-    "agent_a": "LinkThemeTokens completed; current UI/control work is outside DataJoin field catalog.",
-    "agent_b": "Data schemas validation is historical done; PanelActionRegistry completed; no active field catalog scope.",
+    "agent_a": "Concurrent ContextHelp/QR Studio lock activity was disjoint.",
+    "agent_b": "Data schemas validation confirmed historical done; no active field catalog conflict.",
     "agent_c": "No field catalog/DataJoin tree scope observed.",
-    "agent_d_previous": "DataJoinWorkspace #82 done; this lot does not modify DataJoinSpec, Executor or Workspace.",
+    "agent_d_previous": "DataJoinWorkspace #82 done; field catalog #85 does not modify DataJoinSpec, Executor or Workspace.",
     "forbidden": [
       "dev/framework/core/data-join-spec.js",
       "dev/framework/core/data-join-executor.js",
