@@ -1,0 +1,22 @@
+{
+  "task_id": "8B-RESPONSIVE-PREVIEW-CONTRACT",
+  "agent": "A",
+  "status": "in_progress",
+  "base": "64235088d74322c89c3db2b8287321aa7fdca1e0",
+  "branch": "agent-a/responsive-preview-contract",
+  "file_scope": [
+    "dev/framework/core/responsive-preview.js",
+    "dev/framework/tests/responsive-preview*.mjs",
+    "dev/framework/doc/responsive-preview/*.md"
+  ],
+  "reserved_at": "2026-08-12T16:22:00+02:00",
+  "source": "foundation/BACKLOG-UX.md — contrôle responsive téléphone/tablette/desktop/large",
+  "current_increment": "RP1-PRESETS-ORIENTATION-CUSTOM-VIEWPORT",
+  "objective": "Create a DOM-free responsive preview state contract with phone/tablet/desktop/large presets, orientation, custom viewport sizes, scale-to-fit planning and deterministic descriptors without modifying demo/layout/V20 renderers.",
+  "coordination": {
+    "v20": "V20 Scope/Layout remains HUMAN-blocked and unchanged.",
+    "demo": "No demo or iframe renderer files are modified.",
+    "parallel_agents": "No responsive preview contract/file/lock found before reservation."
+  },
+  "notes": "No actual iframe/device chrome rendering in this lot."
+}
