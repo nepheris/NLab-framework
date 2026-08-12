@@ -1,7 +1,7 @@
 {
   "task_id": "8B-WEBMASTER-MODE-CONTROL",
   "agent": "A",
-  "status": "in_progress",
+  "status": "done",
   "base": "9ba42aa3032ac08ca692d418d2ba2d30625a1d34",
   "branch": "agent-a/webmaster-mode-control",
   "file_scope": [
@@ -10,15 +10,23 @@
     "dev/framework/doc/webmaster/webmaster-mode-control*.md"
   ],
   "reserved_at": "2026-08-12T18:05:00+02:00",
+  "completed_at": "2026-08-12T18:09:00+02:00",
+  "pull_request": 98,
+  "merged_sha": "fed137afdfbeefd8d42a79b6d989190c8425dc74",
   "source": "foundation/BACKLOG-UX.md — toggle global header IDs + Info/Test and mode Web public ↔ Webmaster",
   "current_increment": "WMC1-MODE-AND-TEST-TOOLS-DESCRIPTORS",
-  "objective": "Create a DOM-free control adapter around WebmasterMode exposing a public/webmaster toggle and a combined IDs+InfoTest toggle with accessible descriptors, subscriptions and no HeaderStudio modification.",
-  "coordination": {
-    "webmaster_mode": "core/webmaster-mode.js remains the source of truth and is consumed through its public API only.",
-    "info_test": "InfoTestControl remains responsible for individual diagnostic buttons and is not modified.",
-    "header": "HeaderStudio remains layout/action presentation only and is not modified.",
-    "parallel": "Current DataJoin suggestion work and historical TableWiz/ResponsivePreview scopes are disjoint.",
-    "human": "No visual placement or CSS in this lot."
+  "verification": {
+    "tests": "Node 22 — webmaster mode control tests: ok",
+    "webmaster_mode_blob": "9fdcde3b75c36576f48cdf970fe46f2af3ec2ede",
+    "component_blob": "83a08bac2b9adc2f145e18bc59b057d424022a72",
+    "test_blob": "2cf076d6dc96c55645a013bddbc7769bfb22f558",
+    "diff": "exactly 3 files inside reserved scope"
   },
-  "notes": "No WebmasterMode, InfoTestControl, HeaderStudio, demo, CSS or canonical roadmap files modified."
+  "coordination": {
+    "webmaster_mode": "Source model unchanged.",
+    "info_test": "InfoTestControl unchanged.",
+    "header": "HeaderStudio unchanged; visual placement remains separate.",
+    "parallel": "DataJoin scopes and historical TableWiz/ResponsivePreview scopes remained disjoint."
+  },
+  "notes": "Integrated in New via PR #98."
 }
