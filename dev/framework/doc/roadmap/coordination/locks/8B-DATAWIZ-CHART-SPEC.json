@@ -1,8 +1,8 @@
 {
   "task_id": "8B-DATAWIZ-CHART-SPEC",
   "agent": "D",
-  "status": "reserved",
-  "base": "401f52b517a35222af31ca125b972d929eac8c9e",
+  "status": "in_progress",
+  "base": "30faca8437a85274696a0130aab2263ed52f2871",
   "branch": "agent-d/datawiz-chart-spec",
   "file_scope": [
     "dev/framework/wiz/data-wiz-chart-spec.js",
@@ -10,6 +10,7 @@
     "dev/framework/doc/data-wiz/chart-spec.md"
   ],
   "reserved_at": "2026-08-12T19:05:00+02:00",
+  "started_at": "2026-08-12T19:06:00+02:00",
   "source": "Agent D visual analytics architecture after DatasetProfile #103: serializable renderer-independent ChartSpec before recommendation engines and renderer adapters",
   "objective": "Ajouter une grammaire ChartSpec V1 DOM-free/sérialisable qui décrit mark, encodages sémantiques, agrégation/bin/timeUnit, tri et présentation générique, avec validation explicable contre DataWizDatasetProfile, sans introduire de dépendance Plotly/Perspective/ECharts/Vega ni modifier DataWiz/DatasetProfile.",
   "coordination": {
