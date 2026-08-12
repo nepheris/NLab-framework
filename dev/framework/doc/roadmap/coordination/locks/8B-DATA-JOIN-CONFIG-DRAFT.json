@@ -1,0 +1,36 @@
+{
+  "task_id": "8B-DATA-JOIN-CONFIG-DRAFT",
+  "agent": "D",
+  "status": "reserved",
+  "base": "d29b030397b60998f089a52ff0615b05385cb592",
+  "branch": "agent-d/data-join-config-draft",
+  "file_scope": [
+    "dev/framework/core/data-join-config-draft.js",
+    "dev/framework/tests/data-join-config-draft.test.mjs",
+    "dev/framework/doc/data-join/data-join-config-draft.md"
+  ],
+  "reserved_at": "2026-08-12T18:12:00+02:00",
+  "source": "Agent D graphical DataJoin roadmap after SuggestionSession #99: explicit reviewed configuration draft before any JoinSpec/Workspace mutation",
+  "objective": "Ajouter un modèle DOM-free de brouillon qui adopte une proposition de DataJoinSuggestionSession, conserve les choix métier par sections, exige une revue explicite des politiques de jointure avant finalisation et produit un payload DataJoinSpec V1 cloné/validable sans jamais modifier un DataJoinSpec ou DataJoinWorkspace existant.",
+  "coordination": {
+    "agent_a": "8B-DIAGNOSTIC-COVERAGE-AUDIT is in_progress on diagnostic-coverage-audit.js + tests/doc only; exact scope checked and disjoint.",
+    "agent_b": "No active B DataJoin configuration scope observed in latest coordination state.",
+    "agent_c": "No active DataJoin configuration draft scope observed.",
+    "agent_d_previous": "SuggestionSession #99 is done; DataJoinSpec and all existing DataJoin modules remain read-only/unchanged.",
+    "forbidden": [
+      "dev/framework/core/data-join-spec.js",
+      "dev/framework/core/data-join-executor.js",
+      "dev/framework/core/data-join-workspace.js",
+      "dev/framework/core/data-join-field-catalog.js",
+      "dev/framework/core/data-join-key-matcher.js",
+      "dev/framework/core/data-join-composite-key-matcher.js",
+      "dev/framework/core/data-join-suggestion-session.js",
+      "dev/framework/wiz/**",
+      "dev/framework/demo/**",
+      "dev/framework/doc/architecture/**",
+      "dev/framework/doc/roadmap/roadmap.md",
+      "dev/framework/doc/roadmap/coordination/agent-board.md",
+      "dev/framework/doc/roadmap/coordination/README.md"
+    ]
+  }
+}
