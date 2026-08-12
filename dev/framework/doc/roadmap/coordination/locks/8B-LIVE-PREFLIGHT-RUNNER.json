@@ -1,0 +1,29 @@
+{
+  "task_id": "8B-LIVE-PREFLIGHT-RUNNER",
+  "agent": "A",
+  "status": "reserved",
+  "base": "d5d03e4e354a29b4881c8ef5a17ea2ed734d30e8",
+  "branch": "agent-a/live-preflight-runner",
+  "file_scope": [
+    "dev/framework/tools/coordination/run-live-preflight.mjs",
+    "dev/framework/tests/live-preflight-runner.test.mjs",
+    "dev/framework/doc/preflight/live-preflight-runner.md"
+  ],
+  "reserved_at": "2026-08-12T19:31:00+02:00",
+  "source": "PreflightGateEvaluator #105 and CoordinationLockHealthAudit #107 are integrated; missing file-system runner that composes them against a machine checklist and live lock directory.",
+  "objective": "Add a read-only CLI/library runner that loads a preflight JSON, validates the live lock registry, maps task states by task_id, applies optional explicit overrides, evaluates effective gates and emits a deterministic go/no-go report without modifying checklist, locks or roadmap.",
+  "coordination": {
+    "dependencies": "Consumes PreflightGateEvaluator and audit-lock-health public APIs read-only.",
+    "agent_d": "RendererAdapter scope remains under dev/framework/wiz/data-wiz-* and is disjoint.",
+    "forbidden": [
+      "dev/framework/core/preflight-gate-evaluator.js",
+      "dev/framework/tools/coordination/audit-lock-health.mjs",
+      "dev/framework/wiz/data-wiz-*.js",
+      "dev/framework/doc/roadmap/lot9-preflight.machine.json",
+      "dev/framework/doc/roadmap/roadmap.md",
+      "dev/framework/doc/roadmap/coordination/agent-board.md",
+      "dev/framework/doc/roadmap/coordination/README.md",
+      "dev/framework/demo/**"
+    ]
+  }
+}
