@@ -2,13 +2,17 @@
   "task_id": "8B-FILE-FORMAT-REGISTRY",
   "agent": "B",
   "status": "in_progress",
-  "base": "50bb808153190e1de0a2b342ef20e3a4cda28359",
-  "branch": "agent-b/file-format-registry",
+  "base": "59e1d205ddbd939365fe5a5b203d9f26b2e30c44",
+  "branch": "agent-b/file-format-registry-v2",
+  "previous_branch": "agent-b/file-format-registry",
+  "original_base": "50bb808153190e1de0a2b342ef20e3a4cda28359",
   "file_scope": [
     "dev/framework/core/file-format-registry.js",
     "dev/framework/tests/file-format-registry.test.mjs",
     "dev/framework/doc/files/file-format-registry.md"
   ],
   "reserved_at": "2026-08-12T14:20:00+02:00",
+  "rebased_at": "2026-08-12T14:24:00+02:00",
+  "coordination_note": "New advanced by one commit reserving Agent A FloatingPanel robustness. That lock explicitly records this B file-format scope as disjoint. The tested lot is therefore recreated cleanly from current New on v2; no force-merge is used.",
   "objective": "Ajouter un registre DOM-free de formats de fichiers et clés d'icônes sémantiques pour Documents/Media, avec résolution par extension/MIME/type et registre custom validé, sans modifier IconRegistry, MediaWiz, DocumentWiz, la démo ni les périmètres d'autres agents."
 }
