@@ -1,7 +1,7 @@
 {
   "task_id": "8B-FLOATING-PANEL-ROBUSTNESS",
   "agent": "A",
-  "status": "in_progress",
+  "status": "done",
   "base": "ad3f663b27ed832999e56a07eba67ba3042d27ca",
   "branch": "agent-a/floating-panel-robustness",
   "file_scope": [
@@ -10,17 +10,19 @@
     "dev/framework/doc/components/floating-panel*.md"
   ],
   "reserved_at": "2026-08-12T14:22:00+02:00",
+  "completed_at": "2026-08-12T14:28:00+02:00",
   "source": "foundation/BACKLOG-UX.md — FloatingPanel / InspectorPanel interaction contract",
-  "current_increment": "F1-STATE-STORAGE-ACTIONS-DOM",
-  "objective": "Harden FloatingPanel state and mounting contract: injected DOM/window, normalized docking/state hydration, storage load/save, explicit actions/ARIA, open-close lifecycle, pointer cleanup and backward compatibility.",
-  "coordination": {
-    "inspector_dock_modes": "B task done on inspector-dock-layout.js only; objective explicitly excluded FloatingPanel.",
-    "file_format_registry": "B task in_progress on core/file-format-registry.js plus dedicated test/doc; disjoint.",
-    "forbidden": [
-      "dev/framework/components/inspector-*.js",
-      "dev/framework/components/layout.js",
-      "dev/framework/demo/**"
-    ]
+  "pull_request": 60,
+  "final_sha": "6c1357974eb2c4311acb38ef12492c537eacf8d8",
+  "merged_sha": "b107a62207a0444668d8e9735d6aec9cfd0eb2fd",
+  "completed_increments": ["F1-STATE-STORAGE-ACTIONS-DOM"],
+  "verification": {
+    "engine_blob": "c1e27023945de7fd31f829fc48baf594b256ea56",
+    "test_blob": "1e10e51de8b188c52c0db4cb9c93d1390dd36ff9",
+    "tests": "Node 22: floating panel robustness tests: ok",
+    "scope": "3 files only, all inside FloatingPanel file_scope",
+    "parallel_agents": "B File Format Registry and D DataWiz Provenance were disjoint; D lock explicitly forbade floating-panel.js. PR #60 remained mergeable while agents advanced in parallel."
   },
-  "notes": "Do not modify Inspector dock engine, layout.js, demo or Agent B scopes. Visual handle styling remains separate/HUMAN; this lot industrializes behavior and accessibility contract only."
+  "human_follow_up": "Visual styling/affordance validation of drag/resize/action handles remains a separate demo UX check and did not block integration of F1 behavior.",
+  "notes": "FloatingPanel behavior/accessibility/storage contract integrated via PR #60 without modifying Inspector dock engine, layout.js or demo."
 }
