@@ -7,6 +7,10 @@ import { PreflightGateEvaluator } from '../../core/preflight-gate-evaluator.js';
 const plain=value=>Boolean(value)&&typeof value==='object'&&!Array.isArray(value);
 const clean=value=>String(value??'').trim();
 const EXPLICIT_BLOCKERS=new Set(['blocked_human','blocked_external']);
+const CLI_USAGE='node run-live-preflight.mjs <preflight.json> <locks-directory> [overrides.json]';
+
+export const LIVE_PREFLIGHT_ERROR_SCHEMA='nlab.live-preflight-error';
+export const LIVE_PREFLIGHT_ERROR_VERSION=1;
 
 export class LivePreflightRunnerError extends Error {
   constructor(message,code='LIVE_PREFLIGHT_RUNNER_ERROR',details=null){
@@ -51,6 +55,22 @@ function validateOverrides(preflight,overrides){
       if(!reason)throw new LivePreflightRunnerError('Lifting a human/external blocker requires an explicit reason','OVERRIDE_REASON_REQUIRED',{gateId,snapshotStatus,targetStatus});
     }
   }
+}
+function exitCodeForError(error){return error?.code==='ACTIVE_LOCK_OVERLAP'?2:1;}
+export function livePreflightErrorPayload(error,{exitCode=exitCodeForError(error)}={}){
+  const normalized=error instanceof Error?error:new Error(String(error));
+  return {
+    schema:LIVE_PREFLIGHT_ERROR_SCHEMA,
+    version:LIVE_PREFLIGHT_ERROR_VERSION,
+    ok:false,
+    exit_code:exitCode,
+    error:{
+      name:normalized.name||'Error',
+      code:normalized.code??'LIVE_PREFLIGHT_ERROR',
+      message:normalized.message||String(error),
+      details:normalized.details??null
+    }
+  };
 }
 
 export async function runLivePreflight({
@@ -114,25 +134,19 @@ export async function runLivePreflight({
 export async function runCli(argv=process.argv.slice(2)){
   const [preflightFile,locksDirectory,overridesFile]=argv;
   if(!preflightFile||!locksDirectory){
-    console.error('Usage: node run-live-preflight.mjs <preflight.json> <locks-directory> [overrides.json]');
-    return 1;
+    const error=new LivePreflightRunnerError('preflightFile and locksDirectory are required','USAGE',{usage:CLI_USAGE});
+    const payload=livePreflightErrorPayload(error,{exitCode:1});
+    console.error(JSON.stringify(payload,null,2));
+    return payload.exit_code;
   }
   try{
     const report=await runLivePreflight({preflightFile,locksDirectory,overridesFile:overridesFile??null});
     console.log(JSON.stringify(report,null,2));
     return report.ready_for_real_integration?0:2;
   }catch(error){
-    const payload={
-      ok:false,
-      error:{
-        name:error?.name??'Error',
-        code:error?.code??'LIVE_PREFLIGHT_ERROR',
-        message:error?.message??String(error),
-        details:error?.details??null
-      }
-    };
+    const payload=livePreflightErrorPayload(error);
     console.error(JSON.stringify(payload,null,2));
-    return error?.code==='ACTIVE_LOCK_OVERLAP'?2:1;
+    return payload.exit_code;
   }
 }
 
