@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import {ResponsivePreview,ResponsivePreviewError} from '../core/responsive-preview.js';
+const events=[];const preview=new ResponsivePreview({preset:'phone',orientation:'portrait',onChange:e=>events.push(e.type)});
+assert.deepEqual(ResponsivePreview.presets().map(x=>x.id),['phone','tablet','desktop','large']);
+assert.deepEqual([preview.viewport().width,preview.viewport().height],[390,844]);
+preview.toggleOrientation();assert.deepEqual([preview.viewport().width,preview.viewport().height],[844,390]);
+preview.setPreset('tablet');assert.deepEqual([preview.viewport().width,preview.viewport().height],[1180,820]);
+preview.setCustom({width:1000,height:500,dpr:2.5,label:'Test'});assert.equal(preview.snapshot().preset,'custom');assert.equal(preview.viewport().width,1000);assert.equal(preview.viewport().dpr,2.5);
+preview.setOrientation('portrait');assert.deepEqual([preview.viewport().width,preview.viewport().height],[500,1000]);
+preview.setScale(0);assert.equal(preview.snapshot().scale,0.1);preview.setScale(9);assert.equal(preview.snapshot().scale,2);
+const fit=preview.fit({width:300,height:600},{padding:10});assert.equal(fit.scale,0.56);assert.equal(fit.renderWidth,280);assert.equal(fit.renderHeight,560);
+const descriptor=preview.descriptor();assert.equal(descriptor.cssVariables['--nlab-preview-width'],'500px');assert.equal(descriptor.renderWidth,1000);
+const snap=preview.snapshot();snap.custom.width=2;assert.equal(preview.snapshot().custom.width,1000);
+const unsub=[];const off=preview.subscribe(e=>unsub.push(e.type));preview.setPreset('desktop');off();preview.setPreset('large');assert.deepEqual(unsub,['preset']);
+assert.throws(()=>preview.setPreset('watch'),e=>e instanceof ResponsivePreviewError&&e.code==='INVALID_PRESET');
+assert.throws(()=>preview.setOrientation('diagonal'),e=>e.code==='INVALID_ORIENTATION');
+assert.throws(()=>preview.setCustom({width:0,height:100}),e=>e.code==='INVALID_DIMENSION');
+console.log('responsive preview tests: ok');
