@@ -1,7 +1,7 @@
 {
   "task_id": "8B-DATEPICKER-SIMPLE",
   "agent": "B",
-  "status": "in_progress",
+  "status": "done",
   "base": "0e3c958339515a0f1135d547cbe07ef7d3158e90",
   "branch": "agent-b/datepicker-simple",
   "file_scope": [
@@ -10,5 +10,9 @@
     "dev/framework/doc/components/date-picker.md"
   ],
   "reserved_at": "2026-08-12T11:39:00+02:00",
-  "objective": "Créer un DatePicker simple réutilisable, ISO YYYY-MM-DD, validation min/max/required, DOM injectable et tests Node, sans toucher aux périmètres A."
+  "completed_at": "2026-08-12T11:42:00+02:00",
+  "pr": 36,
+  "final_sha": "169be7e6859d41ed52f0860cf0e66dce2db74bc7",
+  "objective": "Créer un DatePicker simple réutilisable, ISO YYYY-MM-DD, validation min/max/required, DOM injectable et tests Node, sans toucher aux périmètres A.",
+  "validation": "Node 22.16.0 — date picker tests: ok; 3 fichiers neufs dans le file_scope; PR #36 mergée dans New."
 }
