@@ -1,7 +1,7 @@
 {
   "task_id": "8B-SEARCH-ADVANCED-OPTIONS",
   "agent": "B",
-  "status": "in_progress",
+  "status": "done",
   "base": "580d19761c77702b5154f9d004abd546b6451ec8",
   "branch": "agent-b/search-advanced-options",
   "file_scope": [
@@ -10,5 +10,16 @@
     "dev/framework/doc/search-filter/search-advanced-options.md"
   ],
   "reserved_at": "2026-08-12T14:13:00+02:00",
+  "completed_at": "2026-08-12T14:19:00+02:00",
+  "pull_request": 58,
+  "merged_sha": "8aedb337fee78da5b8d1c66aadcb52b0074df211",
+  "final_sha": "8aedb337fee78da5b8d1c66aadcb52b0074df211",
+  "verification": {
+    "node": "22.16.0",
+    "tests": "search advanced options tests: ok",
+    "branch_diff": "3 commits / exactly 3 new files / all inside file_scope",
+    "new_divergence_before_pr": "none",
+    "ci_statuses": "none"
+  },
   "objective": "Ajouter un modèle DOM-free et versionné pour le panneau de paramètres avancés SearchWiz, compatible avec les options search()/suggest(), sans modifier search-wiz.js, FilterWiz, TableWiz, la démo ni les périmètres d'autres agents."
 }
