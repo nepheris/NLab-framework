@@ -1,7 +1,7 @@
 {
   "task_id": "8B-DATA-JOIN-WORKSPACE",
   "agent": "D",
-  "status": "in_progress",
+  "status": "done",
   "base": "38b7b57682bf5475f1d25f8f37e00ad9c6542fa8",
   "branch": "agent-d/data-join-workspace",
   "file_scope": [
@@ -11,13 +11,24 @@
   ],
   "reserved_at": "2026-08-12T16:25:00+02:00",
   "started_at": "2026-08-12T16:27:00+02:00",
+  "completed_at": "2026-08-12T16:38:00+02:00",
+  "pr": 82,
+  "merge_sha": "b1752f4ededa5da612411bab313c900360080d52",
   "source": "Agent D join roadmap after DataJoinSpec + DataJoinExecutor; prepare graphical two-source join editor without committing to RelationGraph nomenclature under architecture review",
   "objective": "Ajouter un modèle DOM-free et versionné de workspace de jointure à deux sources : descripteurs de sources, binding runtime des lignes, JoinSpec courant, état de préparation, diagnostic/exécution via les briques D déjà intégrées, sérialisation sans embarquer les datasets, et rechargement/binding explicite des sources.",
+  "validation": {
+    "syntax": "node --check: ok",
+    "workspace_contract_tests": "ok",
+    "published_blob_match": true,
+    "public_api_signatures_checked_on_new": true,
+    "strict_cardinality_fixture_corrected_before_merge": true,
+    "scope_compare": "exactly 3 added files"
+  },
   "coordination": {
-    "agent_a": "ResponsivePreview and InfoTestControl observed on UI-specific scopes; TableWiz and architecture PRs remain separate.",
-    "agent_b": "No open PR or lock observed in DataJoin workspace scope.",
-    "agent_c": "No active DataJoin workspace scope observed in coordination comments/locks.",
-    "agent_d_previous": "DataJoinSpec #65 and DataJoinExecutor #75 are done; this lot consumes their public contracts but does not modify them.",
+    "agent_a": "Concurrent InfoTestControl/PanelActionRegistry work was disjoint; architecture and TableWiz reviews remain separate.",
+    "agent_b": "No DataJoin workspace conflict observed.",
+    "agent_c": "No DataJoin workspace conflict observed.",
+    "agent_d_previous": "DataJoinSpec #65 and DataJoinExecutor #75 are done; workspace #82 consumes their public contracts without modifying them.",
     "forbidden": [
       "dev/framework/core/data-join-spec.js",
       "dev/framework/core/data-join-executor.js",
