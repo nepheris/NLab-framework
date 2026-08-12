@@ -1,7 +1,7 @@
 {
   "task_id": "8B-SEARCH-AUTOCOMPLETE",
   "agent": "B",
-  "status": "in_progress",
+  "status": "done",
   "base": "7bb4a6742a05e03620d2e557adde68cdb46d1399",
   "branch": "agent-b/search-autocomplete",
   "file_scope": [
@@ -10,5 +10,9 @@
     "dev/framework/doc/search-filter/contracts.md"
   ],
   "reserved_at": "2026-08-12T11:44:00+02:00",
-  "objective": "Ajouter une autocomplétion configurable SearchWiz déterministe, Unicode/locale aware, dédupliquée, sans modifier FilterWiz/TableWiz ni la démo."
+  "completed_at": "2026-08-12T11:48:00+02:00",
+  "pr": 37,
+  "final_sha": "9777acdf92479c466632ae18deb82f98e3cadf19",
+  "objective": "Ajouter une autocomplétion configurable SearchWiz déterministe, Unicode/locale aware, dédupliquée, sans modifier FilterWiz/TableWiz ni la démo.",
+  "validation": "Node 22.16.0 — search filter robustness tests: ok; 3 fichiers dans le file_scope; PR #37 mergée dans New."
 }
