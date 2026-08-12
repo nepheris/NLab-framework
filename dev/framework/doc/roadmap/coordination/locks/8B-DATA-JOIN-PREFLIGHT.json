@@ -1,7 +1,7 @@
 {
   "task_id": "8B-DATA-JOIN-PREFLIGHT",
   "agent": "D",
-  "status": "in_progress",
+  "status": "done",
   "base": "f3b35b6ffc12b1849543f0403748ed2c93160328",
   "branch": "agent-d/data-join-preflight",
   "file_scope": [
@@ -11,28 +11,25 @@
   ],
   "reserved_at": "2026-08-12T18:40:00+02:00",
   "started_at": "2026-08-12T18:43:00+02:00",
-  "source": "Agent D DataJoin roadmap after ConfigDraft #101: close the pre-execution diagnostics gap for output-field collisions and materialization risks before graphical integration",
-  "objective": "Ajouter un audit DOM-free/non destructif qui combine le diagnostic DataJoin existant avec une analyse de collisions de champs de sortie, de suffixes et de politiques de matérialisation, afin de produire des gates structurés ready/warning/blocked avant exécution sans modifier DataJoinSpec, Executor, Workspace ou ConfigDraft.",
+  "completed_at": "2026-08-12T18:54:00+02:00",
+  "pull_request": 102,
+  "merge_sha": "6ccde7f9dbfda7ed9c49037aa98f203045fee9f6",
+  "validation": {
+    "node_check": "ok",
+    "tests": "data join preflight tests: ok",
+    "fuzz_iterations": 500,
+    "published_blobs": {
+      "engine": "05deb72ba6e7a144db3150eee000c808555acb4b",
+      "test": "204be741d9dbcd46bf9be6cab689c448e1c8281c",
+      "doc": "e26ab7fd9a9c0873a6db7c27c25d20fc152cffa0"
+    }
+  },
+  "result": "DataJoinPreflight V1 adds non-destructive ready/warning/blocked gates for DataJoinSpec diagnostics, materializable-row safety, output limits and actual matched-row-shape collision/suffix projection before execution.",
   "coordination": {
-    "agent_a": "Current protected/review areas remain TableWiz/Header/architecture/V20 and visual/HUMAN integration; latest DiagnosticCoverageAudit is done. No DataJoin preflight scope observed.",
-    "agent_b": "Latest announced B lots are done; no active B DataJoin scope announced in Issue #1.",
-    "agent_c": "No current DataJoin preflight scope observed.",
-    "agent_d_previous": "DataJoinSpec/Executor/Workspace/FieldCatalog/KeyMatcher/CompositeKeyMatcher/SuggestionSession/ConfigDraft are integrated and remain unchanged.",
-    "forbidden": [
-      "dev/framework/core/data-join-spec.js",
-      "dev/framework/core/data-join-executor.js",
-      "dev/framework/core/data-join-workspace.js",
-      "dev/framework/core/data-join-field-catalog.js",
-      "dev/framework/core/data-join-key-matcher.js",
-      "dev/framework/core/data-join-composite-key-matcher.js",
-      "dev/framework/core/data-join-suggestion-session.js",
-      "dev/framework/core/data-join-config-draft.js",
-      "dev/framework/wiz/**",
-      "dev/framework/demo/**",
-      "dev/framework/doc/architecture/**",
-      "dev/framework/doc/roadmap/roadmap.md",
-      "dev/framework/doc/roadmap/coordination/agent-board.md",
-      "dev/framework/doc/roadmap/coordination/README.md"
-    ]
+    "agent_a": "No A file modified; protected TableWiz/Header/architecture/V20 and visual/HUMAN areas remain untouched.",
+    "agent_b": "No B file modified.",
+    "agent_c": "No C file modified.",
+    "agent_d_previous": "All existing DataJoin modules remained unchanged.",
+    "notable_finding": "Fuzz exposed that global schema overlap is insufficient for suffix safety; V1 audits actual matched row-shape pairs with executor-equivalent key comparison semantics."
   }
 }
