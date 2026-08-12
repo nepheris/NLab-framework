@@ -33,11 +33,14 @@ const items=[
   {id:'account',labels:{short:'Compte',long:'Mon compte'},icon:'●',position:'menu',group:'user'}
 ];
 
+// Construction validates ids and keeps deterministic order.
 assert.throws(()=>new HeaderStudio({items:[{id:'a'},{id:'a'}]}),/Duplicate header item id/);
 assert.throws(()=>new HeaderStudio({items:[{}]}),/requires an id/);
+assert.throws(()=>new HeaderStudio({items:[{id:'bad',href:'javascript:alert(1)'}]}),/Unsafe header href/);
 const header=new HeaderStudio({items,compactBreakpoint:700});
 assert.deepEqual(header.orderedItems().map((item)=>item.id),['home','search','settings','help','account']);
 
+// Visibility, position and partial reorder are deterministic.
 header.setVisible('help',false).setPosition('settings','start').reorder(['settings','home']);
 assert.deepEqual(header.orderedItems().map((item)=>item.id),['settings','home','search','help','account']);
 assert.equal(header.item('help').visible,false);
@@ -46,6 +49,7 @@ assert.equal(header.item('help').visible,true);
 header.moveItem('account',1);
 assert.deepEqual(header.orderedItems().map((item)=>item.id),['settings','account','home','search','help']);
 
+// Full vs compact: auto labels, menu collapse and hide policies.
 header.resetItems().setLabelMode('auto');
 let resolved=header.resolve({width:1200});
 assert.equal(resolved.mode,'full');
@@ -68,6 +72,7 @@ resolved=header.resolve({width:1200});
 assert.equal(resolved.zones.start[0].text,'');
 assert.equal(resolved.zones.start[0].title,'Accueil');
 
+// Item state round-trip.
 const state=header.itemState();
 header.setVisible('home',false).setPosition('search','start').reorder(['account']);
 header.applyItemState(state);
@@ -75,6 +80,7 @@ assert.equal(header.item('home').visible,true);
 assert.equal(header.item('search').position,'center');
 assert.deepEqual(header.orderedItems().map((item)=>item.id),['home','search','settings','help','account']);
 
+// Profiles are isolated, atomic and persist through an injected storage.
 const storage=new MemoryStorage();
 const profiles=new HeaderStudio({items,profileStorage:storage,profileStorageKey:'headers'});
 profiles.setVisible('help',false).setLabelMode('short').setCompactBreakpoint(640).registerProfile('Compact');
@@ -94,6 +100,7 @@ restored.importProfiles(JSON.stringify({Broken:{version:99}}));
 assert.equal(restored.lastError.code,'UNSUPPORTED_PROFILE_VERSION');
 assert.deepEqual(restored.profileNames(),['Compact']);
 
+// DOM rendering uses textContent, actions, ARIA and drag/drop reorder.
 const doc=new FakeDocument();
 const container=new FakeElement('div',doc);container.clientWidth=1200;
 const actions=[];const reorders=[];
@@ -112,6 +119,27 @@ settings.dispatch('drop',{dataTransfer:transfer,preventDefault(){}});
 assert.equal(reorders.length,1);
 assert.deepEqual(header.orderedItems().map((item)=>item.id),['home','settings','search','help','account']);
 
+// Icon adapters can return DOM nodes without enabling raw HTML injection.
+let iconArgs=null;
+const iconHeader=new HeaderStudio({
+  items:[{id:'settings',label:'Settings',icon:'settings'}],
+  iconRenderer:(id,item,documentRef)=>{ iconArgs={id,itemId:item.id,documentRef}; return documentRef.createElement('svg'); }
+});
+const iconContainer=new FakeElement('div',doc);
+iconHeader.render(iconContainer);
+const iconItem=find(iconContainer,'data-header-item','settings');
+assert.equal(iconArgs.id,'settings');
+assert.equal(iconArgs.itemId,'settings');
+assert.equal(iconArgs.documentRef,doc);
+assert.equal(iconItem.children[0].children[0].tagName,'SVG');
+
+// Relative and standard navigation hrefs remain anchors.
+const linkHeader=new HeaderStudio({items:[{id:'docs',label:'Docs',href:'#docs'}]});
+const linkContainer=new FakeElement('div',doc);
+linkHeader.render(linkContainer);
+assert.equal(find(linkContainer,'data-header-item','docs').tagName,'A');
+
+// Disabled items do not activate.
 const disabled=new HeaderStudio({items:[{id:'x',label:'X',disabled:true}]});
 const disabledContainer=new FakeElement('div',doc);let called=0;
 disabled.render(disabledContainer,{onAction:()=>called++});
