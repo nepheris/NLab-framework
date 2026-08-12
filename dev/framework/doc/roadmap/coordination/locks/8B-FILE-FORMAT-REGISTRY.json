@@ -1,7 +1,7 @@
 {
   "task_id": "8B-FILE-FORMAT-REGISTRY",
   "agent": "B",
-  "status": "in_progress",
+  "status": "done",
   "base": "5074d79aed21c5b3383eae2174f3eea597244703",
   "branch": "agent-b/file-format-registry-v3",
   "previous_branches": [
@@ -15,7 +15,19 @@
     "dev/framework/doc/files/file-format-registry.md"
   ],
   "reserved_at": "2026-08-12T14:20:00+02:00",
-  "rebased_at": "2026-08-12T14:29:00+02:00",
-  "coordination_note": "The tested three-file lot is recreated on current New after A completed FloatingPanel and D reserved a disjoint DataWiz provenance scope. Both locks explicitly record File Format Registry as disjoint. No force merge is used.",
+  "completed_at": "2026-08-12T14:32:00+02:00",
+  "pull_request": 61,
+  "merged_sha": "d3ed71de7c1eba74e1f07b8d60376039991a4234",
+  "final_sha": "d3ed71de7c1eba74e1f07b8d60376039991a4234",
+  "verification": {
+    "node": "22.16.0",
+    "tests": "file format registry tests: ok",
+    "final_diff": "exactly 3 new files inside file_scope",
+    "initial_divergence": "New advanced with Agent A FloatingPanel lock/work and Agent D DataWiz Provenance lock; all scopes explicitly disjoint.",
+    "final_sync": "v3 synchronized with current New using a two-parent merge, no force; behind_by 0 before PR.",
+    "parallel_iconwiz": "Agent A IconWiz lock explicitly permits File Format Registry semantic icon keys while forbidding modifications to File Format Registry.",
+    "ci_statuses": "none",
+    "pr_mergeable": true
+  },
   "objective": "Ajouter un registre DOM-free de formats de fichiers et clés d'icônes sémantiques pour Documents/Media, avec résolution par extension/MIME/type et registre custom validé, sans modifier IconRegistry, MediaWiz, DocumentWiz, la démo ni les périmètres d'autres agents."
 }
