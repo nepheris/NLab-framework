@@ -1,8 +1,8 @@
 {
   "task_id": "8B-DATA-JOIN-CONFIG-DRAFT",
   "agent": "D",
-  "status": "reserved",
-  "base": "d29b030397b60998f089a52ff0615b05385cb592",
+  "status": "in_progress",
+  "base": "15aa64e9c0f67c2703c2e6487d2caabba7be2e82",
   "branch": "agent-d/data-join-config-draft",
   "file_scope": [
     "dev/framework/core/data-join-config-draft.js",
@@ -10,6 +10,7 @@
     "dev/framework/doc/data-join/data-join-config-draft.md"
   ],
   "reserved_at": "2026-08-12T18:12:00+02:00",
+  "started_at": "2026-08-12T18:13:00+02:00",
   "source": "Agent D graphical DataJoin roadmap after SuggestionSession #99: explicit reviewed configuration draft before any JoinSpec/Workspace mutation",
   "objective": "Ajouter un modèle DOM-free de brouillon qui adopte une proposition de DataJoinSuggestionSession, conserve les choix métier par sections, exige une revue explicite des politiques de jointure avant finalisation et produit un payload DataJoinSpec V1 cloné/validable sans jamais modifier un DataJoinSpec ou DataJoinWorkspace existant.",
   "coordination": {
