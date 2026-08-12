@@ -9,5 +9,13 @@
   ],
   "reserved_at": "2026-08-12T00:26:00+02:00",
   "draft_sha": "ccd8f6572ad4b2edf9709d3fc42cae0d10b97ba1",
-  "notes": "Proposition de nomenclature et responsabilités prête à relire. Aucun renommage de code effectué ; migration différée après validation de l'architecture."
+  "review_head": "065cf115a752856a8f822e0fad35bfb0d3eec6f0",
+  "pull_request": 47,
+  "verification": {
+    "branch_sync": "Resynchronized with current New using a two-parent merge, no force-push.",
+    "branch_diff": "ahead_by 2 / behind_by 0 / exactly 1 file",
+    "runtime_audit": "DataAdapter, DataSource, ResultSet, PresentationResolver and PaginationModel already fit the proposed vocabulary; *Wiz classes still exist and therefore remain migration targets rather than immediate renames.",
+    "decision_boundary": "No code rename is included. Naming grammar and migration order require architecture/HUMAN validation before implementation."
+  },
+  "notes": "PR #47 is ready for architecture review. Proposal remains documentary; do not rename runtime classes until the nomenclature is validated."
 }
