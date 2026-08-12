@@ -1,7 +1,7 @@
 {
   "task_id": "8B-ASSET-LOGO-PROFILE",
   "agent": "B",
-  "status": "in_progress",
+  "status": "done",
   "base": "d8741f9a8b352f3c7811cd32879940b210cfd358",
   "branch": "agent-b/asset-logo-profile",
   "file_scope": [
@@ -10,18 +10,18 @@
     "dev/framework/doc/assets/asset-logo-profile.md"
   ],
   "reserved_at": "2026-08-12T16:53:00+02:00",
+  "completed_at": "2026-08-12T17:00:00+02:00",
+  "pull_request": 90,
+  "head_sha": "1da2185aa457a7151e9d6fba1095b3b0ceea3959",
+  "merged_sha": "f6429cbd214d013c1d1e0e6a4d6fb8f4a1e5e782",
   "source": "foundation/BACKLOG-UX.md — Asset/Logo Workshop : original, couleur transparent, couleur avec fond, monochrome recolorable, favicon ; previews clair/sombre et formes carrées/arrondies",
   "objective": "Ajouter un contrat DOM-free de profil logo/assets : variantes canoniques, source/mime/dimensions, monochrome recolorable, favicon, matrices de preview clair/sombre et carré/arrondi, audit de complétude et snapshots, sans générer ni modifier d'images.",
-  "coordination": {
-    "agent_a": "QR Studio Schema et ResponsivePreview sont sur des scopes distincts ; aucun asset/logo profile observé avant réservation.",
-    "agent_d": "DataJoin KeyMatcher est sur core/data-join-key-matcher.js + test/doc.",
-    "forbidden": [
-      "dev/framework/components/qr-studio-schema.js",
-      "dev/framework/core/responsive-preview.js",
-      "dev/framework/core/data-join-key-matcher.js",
-      "dev/framework/icons/**",
-      "dev/framework/demo/**",
-      "dev/framework/doc/roadmap/roadmap.md"
-    ]
+  "verification": {
+    "node": "22.16.0",
+    "tests": "asset logo profile tests: ok",
+    "final_scope": "3 new files only",
+    "pr_mergeable": true,
+    "ci_statuses": "none",
+    "parallel_agents": "A QR Studio Schema/Session and D DataJoin KeyMatcher remained disjoint; A QR Studio Session lock explicitly recorded AssetLogoProfile as separate B scope."
   }
 }
