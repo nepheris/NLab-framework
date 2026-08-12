@@ -1,0 +1,34 @@
+{
+  "task_id": "8B-DATAWIZ-CHART-RECOMMENDER",
+  "agent": "D",
+  "status": "reserved",
+  "base": "58223b622ddc18dca2f5a0d5cacef40137f358e8",
+  "branch": "agent-d/datawiz-chart-recommender",
+  "file_scope": [
+    "dev/framework/wiz/data-wiz-chart-recommender.js",
+    "dev/framework/tests/data-wiz-chart-recommender.test.mjs",
+    "dev/framework/doc/data-wiz/chart-recommender.md"
+  ],
+  "reserved_at": "2026-08-12T19:15:00+02:00",
+  "source": "Agent D visual analytics architecture after DatasetProfile #103 + ChartSpec #104: deterministic explainable visualization recommendations before renderer adapters",
+  "objective": "Ajouter un moteur DOM-free déterministe qui consomme DataWizDatasetProfile et produit des propositions ChartSpec classées avec score, raisons et warnings pour les patterns V1 (numérique, catégorie, temps+mesure, catégorie+mesure, deux mesures, distributions), sans jamais auto-appliquer une proposition ni dépendre d'un renderer.",
+  "coordination": {
+    "agent_a": "No new commit or chart recommendation scope observed since ChartSpec completion; protected TableWiz/Header/architecture/V20 remain untouched.",
+    "agent_b": "No chart recommender scope announced or found.",
+    "agent_c": "No chart recommender scope observed.",
+    "agent_d_previous": "DatasetProfile #103 and ChartSpec #104 are done and consumed read-only.",
+    "forbidden": [
+      "dev/framework/wiz/data-wiz.js",
+      "dev/framework/wiz/data-wiz-provenance.js",
+      "dev/framework/wiz/data-wiz-dataset-profile.js",
+      "dev/framework/wiz/data-wiz-chart-spec.js",
+      "dev/framework/core/data-join-*.js",
+      "dev/framework/wiz/table-wiz.js",
+      "dev/framework/demo/**",
+      "dev/framework/doc/architecture/**",
+      "dev/framework/doc/roadmap/roadmap.md",
+      "dev/framework/doc/roadmap/coordination/agent-board.md",
+      "dev/framework/doc/roadmap/coordination/README.md"
+    ]
+  }
+}
