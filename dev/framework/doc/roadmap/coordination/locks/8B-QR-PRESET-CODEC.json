@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-QR-PRESET-CODEC",
+  "agent": "B",
+  "status": "in_progress",
+  "base": "f9f3a15add707ff0ca4a4d39e619723b103bd6aa",
+  "branch": "agent-b/qr-preset-codec",
+  "file_scope": [
+    "dev/framework/wiz/qr-preset-codec.js",
+    "dev/framework/tests/qr-preset-codec.test.mjs",
+    "dev/framework/doc/qr-media/qr-preset-codec.md"
+  ],
+  "reserved_at": "2026-08-12T12:00:00+02:00",
+  "objective": "Ajouter validation atomique et import/export JSON versionné des presets QR dans un codec autonome, sans modifier QRWiz, PresetManager ni les périmètres A/C."
+}
