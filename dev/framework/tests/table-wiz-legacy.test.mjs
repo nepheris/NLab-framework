@@ -11,11 +11,9 @@ function pointerEvent(overrides = {}) {
     ...overrides
   };
 }
-
 function keyEvent(key) {
   return { key, preventDefault(){}, stopPropagation(){} };
 }
-
 function findByAttribute(node, name, value) {
   if (node.attributes?.get(name) === value) return node;
   for (const child of node.children ?? []) {
@@ -24,13 +22,11 @@ function findByAttribute(node, name, value) {
   }
   return null;
 }
-
 class FakeClassList {
   constructor(){ this.values = new Set(); }
   add(...values){ values.forEach((value)=>this.values.add(value)); }
   remove(...values){ values.forEach((value)=>this.values.delete(value)); }
 }
-
 class FakeElement {
   constructor(tagName='div', ownerDocument=null) {
     this.tagName=tagName.toUpperCase();
@@ -60,7 +56,6 @@ class FakeElement {
   }
   setPointerCapture(){}
 }
-
 class FakeDocument extends FakeElement {
   constructor(){ super('#document',null); this.ownerDocument=this; }
   createElement(tagName){ return new FakeElement(tagName,this); }
@@ -79,6 +74,7 @@ const table = new TableWiz({ columns:[
   { id:'score' }
 ], pageSize:2 });
 
+// Baseline: process is non-mutating and pagination remains coherent.
 const original = structuredClone(items);
 let result = table.process(items);
 assert.deepEqual(items, original);
@@ -86,6 +82,7 @@ assert.equal(result.total, 3);
 assert.deepEqual(result.page.map((row)=>row.id), ['A','B']);
 assert.equal(result.pageModel.pageCount, 2);
 
+// Sorting accepts id-only columns, normalizes direction and toggles deterministically.
 table.setSort('score', 'DESC');
 assert.equal(table.sortState.direction, 'desc');
 assert.deepEqual(table.process(items).all.map((row)=>row.id), ['A','C','B']);
@@ -93,11 +90,13 @@ table.toggleSort('score');
 assert.equal(table.sortState.direction, 'asc');
 assert.deepEqual(table.process(items).all.map((row)=>row.id), ['B','C','A']);
 
+// Query/filter changes bring pagination back to the first page.
 table.pagination.setPage(2);
 table.setQuery('pommes');
 assert.equal(table.pagination.page, 1);
 assert.equal(table.process(items).total, 2);
 
+// Regex filters reuse FilterWiz and fail closed without throwing.
 table.setQuery('').setRegexFilter('name', '^Tarte');
 result = table.process(items);
 assert.deepEqual(result.all.map((row)=>row.id), ['A']);
@@ -108,6 +107,7 @@ assert.deepEqual(result.all, []);
 assert.equal(result.error?.code, 'INVALID_REGEX');
 assert.equal(result.error?.field, 'name');
 
+// Invalid regex search is contained by TableWiz rather than escaping to consumers.
 table.reset().setQuery('[', { regex:true });
 result = table.process(items);
 assert.deepEqual(result.all, []);
@@ -116,6 +116,7 @@ table.setQuery('pommes');
 assert.deepEqual(table.queryOptions, {});
 assert.equal(table.process(items).total, 2);
 
+// Reset restores interaction state and optionally the initial column configuration.
 table.setColumnVisible('category', false).setColumnWidth('name', 320).reorder(['score','name','category']);
 table.setFilters([{ field:'category', operator:'eq', value:'dessert' }]).setSort('name','desc');
 table.pagination.setPage(2);
@@ -128,6 +129,7 @@ assert.deepEqual(table.visibleColumns().map((column)=>column.id), ['name','categ
 assert.equal(table.columns.find((column)=>column.id==='category').visible, true);
 assert.equal(table.columns.find((column)=>column.id==='name').width, undefined);
 
+// A2: numeric/px widths are clamped; arbitrary CSS widths stay declarative.
 const resizeTable = new TableWiz({
   columns:[
     { id:'name', label:'Nom', width:120, minWidth:80, maxWidth:220 },
@@ -154,6 +156,7 @@ assert.equal(resizeTable.columnWidth('name'), null);
 resizeTable.adjustColumnWidth('name', 15, { fallback:100 });
 assert.equal(resizeTable.columnWidth('name'), 115);
 
+// A2: pointer and keyboard resize are covered without a browser dependency.
 const fakeDocument = new FakeDocument();
 const container = new FakeElement('div', fakeDocument);
 const resizeEvents = [];
@@ -184,6 +187,7 @@ assert.equal(resizeTable.columnWidth('name'), 220);
 resizeTable.destroy();
 assert.equal(fakeDocument.listenerCount('pointermove'), 0);
 
+// A3: visibility, ordering and toolbar state are deterministic.
 const stateTable = new TableWiz({
   columns:[
     { id:'a', label:'A' },
@@ -230,6 +234,40 @@ assert.equal(stateTable.toolbarState().canReset, false);
 stateTable.reorder(['d','c','b','a']).resetColumnOrder();
 assert.deepEqual(stateTable.visibleColumnIds(), ['a','b','c','d']);
 
+// A4: responsive auto mode selects stacked/table and standalone wraps the output.
+const mobileTable = new TableWiz({
+  columns:[
+    { id:'name', label:'Nom' },
+    { id:'category', label:'Catégorie' },
+    { id:'score', label:'Score' }
+  ],
+  viewMode:'auto',
+  mobileBreakpoint:640,
+  standalone:true
+});
+const mobileDocument = new FakeDocument();
+const mobileContainer = new FakeElement('div', mobileDocument);
+mobileContainer.clientWidth = 480;
+mobileTable.render(mobileContainer, items);
+let shell = mobileContainer.children[0];
+assert.match(shell.className, /nlab-tablewiz-standalone--stacked/);
+assert.equal(shell.attributes.get('role'), 'region');
+assert.match(shell.children[0].className, /nlab-tablewiz--stacked/);
+assert.equal(shell.children[0].children.length, 3);
+
+mobileContainer.clientWidth = 900;
+mobileTable.render(mobileContainer, items);
+shell = mobileContainer.children[0];
+assert.match(shell.className, /nlab-tablewiz-standalone--table/);
+assert.equal(shell.children[0].tagName, 'TABLE');
+
+mobileTable.setViewMode('stacked').setStandalone(false).setMobileBreakpoint(500);
+mobileTable.render(mobileContainer, items);
+assert.match(mobileContainer.children[0].className, /nlab-tablewiz--stacked/);
+const mobileToolbar = mobileTable.toolbarState();
+assert.deepEqual(mobileToolbar.view, { mode:'stacked', standalone:false, mobileBreakpoint:500 });
+
+// Defensive inputs and exports remain safe without narrowing valid JSON export values.
 assert.equal(table.process(null).total, 0);
 assert.equal(table.exportJSON(null), '[]');
 assert.match(table.exportJSON({ ok:true }), /"ok": true/);
