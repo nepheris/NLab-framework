@@ -19,11 +19,12 @@ const pixelWidth=(value)=>{
 const cssWidth=(value)=>typeof value==='number'?`${value}px`:String(value);
 const columnId=(column)=>column?.id??column?.field??null;
 const normalizeDirection=(direction)=>String(direction??'asc').toLowerCase()==='desc'?'desc':'asc';
+const normalizeViewMode=(mode)=>['table','stacked','auto'].includes(String(mode??'table').toLowerCase())?String(mode??'table').toLowerCase():'table';
 const searchableFields=(columns)=>columns.filter((column)=>column.searchable!==false).map((column)=>column.field??column.id).filter(Boolean);
 const invalidRegex=(value,flags='i')=>{try{if(value instanceof RegExp)return null;new RegExp(String(value??''),flags);return null;}catch(error){return error;}};
 
 export class TableWiz{
-  constructor({columns=[],profile=null,pageSize=24,resizable=true,minColumnWidth=DEFAULT_MIN_COLUMN_WIDTH,maxColumnWidth=DEFAULT_MAX_COLUMN_WIDTH,resizeStep=DEFAULT_RESIZE_STEP}={}){
+  constructor({columns=[],profile=null,pageSize=24,resizable=true,minColumnWidth=DEFAULT_MIN_COLUMN_WIDTH,maxColumnWidth=DEFAULT_MAX_COLUMN_WIDTH,resizeStep=DEFAULT_RESIZE_STEP,viewMode='table',standalone=false,mobileBreakpoint=720}={}){
     this.columns=asArray(columns).map((column,index)=>({visible:true,sortable:true,searchable:true,resizable:true,order:index,...(column&&typeof column==='object'?column:{})}));
     this.initialColumns=this.columns.map(cloneColumn);
     this.profile=profile;
@@ -39,6 +40,9 @@ export class TableWiz{
     this.minColumnWidth=positiveNumber(minColumnWidth,DEFAULT_MIN_COLUMN_WIDTH);
     this.maxColumnWidth=Math.max(this.minColumnWidth,positiveNumber(maxColumnWidth,DEFAULT_MAX_COLUMN_WIDTH));
     this.resizeStep=positiveNumber(resizeStep,DEFAULT_RESIZE_STEP);
+    this.viewMode=normalizeViewMode(viewMode);
+    this.standalone=Boolean(standalone);
+    this.mobileBreakpoint=positiveNumber(mobileBreakpoint,720);
     this._renderCleanup=[];
   }
 
@@ -113,9 +117,14 @@ export class TableWiz{
       sort:this.sortState?{...this.sortState}:null,
       columns,
       counts:{columns:columns.length,visibleColumns:columns.filter((column)=>column.visible).length},
+      view:{mode:this.viewMode,standalone:this.standalone,mobileBreakpoint:this.mobileBreakpoint},
       canReset:Boolean(this.query||this.filters.length||this.sortState||this.#columnStateDirty())
     };
   }
+
+  setViewMode(mode){this.viewMode=normalizeViewMode(mode);return this;}
+  setStandalone(enabled=true){this.standalone=Boolean(enabled);return this;}
+  setMobileBreakpoint(value){this.mobileBreakpoint=positiveNumber(value,this.mobileBreakpoint);return this;}
 
   columnWidth(id,fallback=null){
     const column=this.#column(id);
@@ -235,12 +244,18 @@ export class TableWiz{
   exportJSON(items,space=2){return JSON.stringify(items??[],null,space);}
   destroy(){this.#clearRenderCleanup();return this;}
 
-  render(container,items,{rowClass=null,onColumnResize=null}={}){
+  render(container,items,{rowClass=null,onColumnResize=null,viewMode=this.viewMode,standalone=this.standalone,mobileBreakpoint=this.mobileBreakpoint}={}){
     this.#clearRenderCleanup();
     const documentRef=container?.ownerDocument??globalThis.document;
     if(!container||!documentRef||typeof documentRef.createElement!=='function')return;
     const {page}=this.process(items);
     const columns=this.visibleColumns();
+    const effectiveMode=this.#effectiveViewMode(container,viewMode,mobileBreakpoint);
+    if(effectiveMode==='stacked'){
+      const stacked=this.#renderStacked(documentRef,page,columns,rowClass);
+      this.#mount(container,stacked,standalone,documentRef,effectiveMode);
+      return;
+    }
     const stickyOffsets=this.#stickyOffsets(columns);
     const table=documentRef.createElement('table');
     table.className='nlab-tablewiz';
@@ -258,7 +273,7 @@ export class TableWiz{
     }
     table.append?.(colgroup);
 
-    const rerender=()=>this.render(container,items,{rowClass,onColumnResize});
+    const rerender=()=>this.render(container,items,{rowClass,onColumnResize,viewMode,standalone,mobileBreakpoint});
     const notifyResize=(column)=>{
       if(typeof onColumnResize!=='function')return;
       const id=columnId(column);
@@ -362,7 +377,69 @@ export class TableWiz{
       tbody.append?.(tr);
     });
     table.append?.(tbody);
-    container.replaceChildren?.(table);
+    this.#mount(container,table,standalone,documentRef,effectiveMode);
+  }
+
+  #renderStacked(documentRef,page,columns,rowClass){
+    const root=documentRef.createElement('div');
+    root.className='nlab-tablewiz nlab-tablewiz--stacked';
+    Object.assign(root.style,{display:'grid',gap:'12px',width:'100%',boxSizing:'border-box'});
+    page.forEach((row,rowIndex)=>{
+      const article=documentRef.createElement('article');
+      article.className='nlab-tablewiz__stacked-row';
+      if(rowClass){
+        const custom=rowClass(row,rowIndex)||'';
+        if(custom)article.className+=` ${custom}`;
+      }
+      Object.assign(article.style,{display:'grid',gap:'8px',width:'100%',boxSizing:'border-box'});
+      for(const column of columns){
+        const field=documentRef.createElement('div');
+        field.className='nlab-tablewiz__stacked-field';
+        field.setAttribute?.('data-column-id',String(columnId(column)??''));
+        Object.assign(field.style,{display:'grid',gridTemplateColumns:'minmax(96px, 0.35fr) minmax(0, 1fr)',gap:'8px',alignItems:'start'});
+        const label=documentRef.createElement('strong');
+        label.className='nlab-tablewiz__stacked-label';
+        label.textContent=column.label??column.id??column.field??'';
+        const valueNode=documentRef.createElement('span');
+        valueNode.className='nlab-tablewiz__stacked-value';
+        const value=row?.[column.field??column.id];
+        if(column.type==='image'&&value){
+          const img=documentRef.createElement('img');
+          img.src=value;
+          img.alt=column.altField?row?.[column.altField]??'':'';
+          img.loading='lazy';
+          img.style.maxWidth='100%';
+          valueNode.append?.(img);
+        }else valueNode.textContent=Array.isArray(value)?value.join(', '):String(value??'');
+        field.append?.(label,valueNode);
+        article.append?.(field);
+      }
+      root.append?.(article);
+    });
+    return root;
+  }
+
+  #mount(container,node,standalone,documentRef,mode){
+    if(!standalone){
+      container.replaceChildren?.(node);
+      return;
+    }
+    const shell=documentRef.createElement('section');
+    shell.className=`nlab-tablewiz-standalone nlab-tablewiz-standalone--${mode}`;
+    shell.setAttribute?.('role','region');
+    shell.setAttribute?.('aria-label','Tableau de données');
+    shell.tabIndex=0;
+    Object.assign(shell.style,{width:'100%',maxWidth:'100%',overflow:'auto',boxSizing:'border-box',minHeight:'0'});
+    shell.append?.(node);
+    container.replaceChildren?.(shell);
+  }
+
+  #effectiveViewMode(container,mode,mobileBreakpoint){
+    const normalized=normalizeViewMode(mode);
+    if(normalized!=='auto')return normalized;
+    const width=finiteNumber(container?.clientWidth);
+    const breakpoint=positiveNumber(mobileBreakpoint,this.mobileBreakpoint);
+    return width!=null&&width>0&&width<=breakpoint?'stacked':'table';
   }
 
   #column(id){return this.columns.find((column)=>columnId(column)===id);}
