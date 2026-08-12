@@ -1,7 +1,7 @@
 {
   "task_id": "8B-LINKWIZ-CONTRACT",
   "agent": "A",
-  "status": "in_progress",
+  "status": "done",
   "base": "580d19761c77702b5154f9d004abd546b6451ec8",
   "branch": "agent-a/linkwiz-contract",
   "file_scope": [
@@ -10,13 +10,20 @@
     "dev/framework/doc/link-wiz/*.md"
   ],
   "reserved_at": "2026-08-12T14:15:00+02:00",
+  "completed_at": "2026-08-12T14:21:00+02:00",
   "source": "foundation/BACKLOG-UX.md — LinkWiz / contrat de lien",
-  "current_increment": "L1-DESCRIPTOR-SECURITY-RENDER",
-  "objective": "Create a generic link contract for anchors/internal/external/media/actions with target policies, accessibility metadata, safe href handling, external-link metadata and DOM rendering that never creates nested anchors.",
-  "coordination": {
-    "existing_linkwiz": false,
-    "existing_lock": false,
-    "parallel_agent_b": "Latest observed CodeBlock color-pack/folding scopes are disjoint; no LinkWiz lock or files found."
+  "pull_request": 59,
+  "final_sha": "340113025a7ca80a0392966b82af16d489d04aac",
+  "merged_sha": "05c72a87644f09ac8dfba8e51545743a3c7cbcf4",
+  "completed_increments": [
+    "L1-DESCRIPTOR-SECURITY-RENDER",
+    "L1-REVIEW-VIEWER-CALLBACK"
+  ],
+  "verification": {
+    "tests": "Node 22 prototype: link wiz tests: ok",
+    "scope": "3 files only: LinkWiz engine, test, documentation",
+    "review_fix": "viewer targets are routed through the injected navigation/viewer callback rather than normal browser-anchor navigation",
+    "parallel_agent_b": "Search Advanced Options #58 was integrated in parallel on disjoint search-* files; PR #59 remained mergeable without chasing every B commit."
   },
-  "notes": "Do not modify UrlResolver, MediaWiz, ThemeWiz, demo, CodeBlock or Agent B files. LinkWiz consumes/produces generic descriptors and optional injected callbacks only."
+  "notes": "Generic LinkWiz contract integrated via PR #59. MediaWiz/catalogue/theme raccords remain separate integration lots."
 }
