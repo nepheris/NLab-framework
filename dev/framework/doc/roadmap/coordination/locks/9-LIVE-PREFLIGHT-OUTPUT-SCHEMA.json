@@ -1,7 +1,7 @@
 {
   "task_id": "9-LIVE-PREFLIGHT-OUTPUT-SCHEMA",
   "agent": "A",
-  "status": "reserved",
+  "status": "done",
   "base": "3c3270cdef28feb3a77a458e8c2fc63ed8a354ef",
   "branch": "agent-a/live-preflight-output-schema",
   "file_scope": [
@@ -10,21 +10,17 @@
     "dev/framework/doc/preflight/live-preflight-output-schema.md"
   ],
   "reserved_at": "2026-08-12T20:24:00+02:00",
-  "source": "LivePreflight success and CLI error envelopes now each have a V1 schema; generic consumers still lack a single machine-output schema.",
-  "objective": "Add a Draft 2020-12 union schema that accepts either the successful nlab.live-preflight-report V1 or nlab.live-preflight-error V1, with a dependency-free contract test and no runtime modification.",
+  "completed_at": "2026-08-12T20:27:00+02:00",
+  "pr": 121,
+  "merge_sha": "502f279d5afbc82128a614b701b5931f5fa8c9ea",
+  "tests": [
+    "union schema refs/discriminators contract checked",
+    "published schema blob 697a368a6b0a9a22ac07ee4bc561e3cceeb07e4a",
+    "published test blob 4e73c160e392bf4db4576ade9bfb47f2a32c2eba"
+  ],
+  "source": "LivePreflight success and CLI error envelopes each have a V1 schema; generic consumers needed a single machine-output schema.",
+  "objective": "Add a Draft 2020-12 union schema accepting either nlab.live-preflight-report V1 or nlab.live-preflight-error V1.",
   "coordination": {
-    "dependencies": "References live-preflight-report.schema.json and live-preflight-error.schema.json read-only.",
-    "agent_d": "DataWiz visualization scopes remain disjoint under wiz/data-wiz-* + tests/doc.",
-    "forbidden": [
-      "dev/framework/data/live-preflight-report.schema.json",
-      "dev/framework/data/live-preflight-error.schema.json",
-      "dev/framework/tools/coordination/run-live-preflight.mjs",
-      "dev/framework/core/preflight-gate-evaluator.js",
-      "dev/framework/wiz/data-wiz-*.js",
-      "dev/framework/doc/roadmap/roadmap.md",
-      "dev/framework/doc/roadmap/coordination/agent-board.md",
-      "dev/framework/doc/roadmap/coordination/README.md",
-      "dev/framework/demo/**"
-    ]
+    "result": "Exactly 3 new union-schema/test/doc files merged via #121; report/error schemas, runtime, DataWiz, PGE, checklist, canonical roadmap and demo unchanged."
   }
 }
