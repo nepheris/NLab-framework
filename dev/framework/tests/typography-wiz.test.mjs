@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import {TypographyWiz,TypographyWizError} from '../wiz/typography-wiz.js';
+const w=new TypographyWiz();
+const d=w.normalize({});assert.equal(d.fontFamily,'system-ui');assert.equal(d.fontSize,'16px');assert.equal(d.fontWeight,400);assert.equal(d.lineHeight,'1.5');assert.equal(d.scope,'instance');
+const custom=w.normalize({scope:'type',target:'card',fontFamily:['Inter','sans-serif'],size:18,weight:650,style:'italic',lineHeight:1.4,letterSpacing:'0.02em',align:'center',transform:'uppercase',decoration:'underline'});assert.equal(custom.fontFamily,'Inter, sans-serif');assert.equal(custom.fontSize,'18px');assert.equal(custom.fontWeight,650);assert.equal(custom.lineHeight,'1.4');assert.equal(custom.letterSpacing,'0.02em');assert.equal(custom.scope,'type');
+const style=w.style(custom);assert.equal(style.fontWeight,'650');assert.equal(style.textTransform,'uppercase');
+assert.equal(w.normalize({fontFamily:'Open Sans'}).fontFamily,'"Open Sans"');assert.equal(w.normalize({weight:'bold'}).fontWeight,'bold');assert.equal(w.normalize({fontSize:'1.25rem'}).fontSize,'1.25rem');assert.equal(w.normalize({letterSpacing:'normal'}).letterSpacing,'normal');
+assert.throws(()=>w.normalize({fontFamily:'x;position:absolute'}),e=>e.code==='INVALID_CSS_TOKEN');assert.throws(()=>w.normalize({fontFamily:'url(x)'}),e=>e.code==='INVALID_CSS_TOKEN');assert.throws(()=>w.normalize({fontSize:'calc(1rem + 1px)'}),e=>e.code==='INVALID_LENGTH');assert.throws(()=>w.normalize({fontSize:0}),e=>e instanceof TypographyWizError&&e.code==='INVALID_LENGTH');assert.throws(()=>w.normalize({weight:2000}),e=>e.code==='INVALID_WEIGHT');assert.throws(()=>w.normalize({lineHeight:0}),e=>e.code==='INVALID_LENGTH');
+const vars=w.variables(custom,{prefix:'--t'});assert.equal(vars['--t-size'],'18px');assert.equal(vars['--t-align'],'center');
+const merged=w.merge({fontFamily:'Inter',fontSize:'14px',scope:'global'},{fontSize:'16px',fontWeight:700});assert.equal(merged.fontFamily,'Inter');assert.equal(merged.fontSize,'16px');assert.equal(merged.scope,'global');assert.equal(merged.fontWeight,700);
+const snap=w.snapshot(custom);snap.fontFamily='mutated';assert.equal(w.snapshot(custom).fontFamily,'Inter, sans-serif');
+console.log('typography wiz tests: ok');
