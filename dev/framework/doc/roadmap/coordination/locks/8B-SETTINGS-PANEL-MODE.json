@@ -1,0 +1,25 @@
+{
+  "task_id": "8B-SETTINGS-PANEL-MODE",
+  "agent": "B",
+  "status": "in_progress",
+  "base": "e64b0a7bc14c14f0950ea65c8aad1eb5dd5e279e",
+  "branch": "agent-b/settings-panel-mode",
+  "file_scope": [
+    "dev/framework/core/settings-panel-mode.js",
+    "dev/framework/tests/settings-panel-mode.test.mjs",
+    "dev/framework/doc/config/settings-panel-mode.md"
+  ],
+  "reserved_at": "2026-08-12T17:13:00+02:00",
+  "source": "foundation/BACKLOG-UX.md — Contrat commun Classique / Avancé pour les panneaux de réglage",
+  "objective": "Ajouter un modèle DOM-free et générique du mode classique/avancé des panneaux : visibilité des sections/champs, overrides explicites, mode initial, snapshots et descripteurs de rendu, sans modifier les panneaux/Studios existants.",
+  "coordination": {
+    "parallel_agents": "A ComponentSizeConstraints vient d'être clôturé; aucune lock/fichier SettingsPanelMode observé avant réservation.",
+    "forbidden": [
+      "dev/framework/components/**",
+      "dev/framework/wiz/**",
+      "dev/framework/themes/**",
+      "dev/framework/demo/**",
+      "dev/framework/doc/roadmap/roadmap.md"
+    ]
+  }
+}
