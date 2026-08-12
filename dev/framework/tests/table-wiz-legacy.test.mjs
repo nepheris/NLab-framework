@@ -1,6 +1,72 @@
 import assert from 'node:assert/strict';
 import { TableWiz } from '../wiz/table-wiz.js';
 
+function pointerEvent(overrides = {}) {
+  return {
+    button:0,
+    clientX:0,
+    pointerId:1,
+    preventDefault(){},
+    stopPropagation(){},
+    ...overrides
+  };
+}
+
+function keyEvent(key) {
+  return { key, preventDefault(){}, stopPropagation(){} };
+}
+
+function findByAttribute(node, name, value) {
+  if (node.attributes?.get(name) === value) return node;
+  for (const child of node.children ?? []) {
+    const found = findByAttribute(child, name, value);
+    if (found) return found;
+  }
+  return null;
+}
+
+class FakeClassList {
+  constructor(){ this.values = new Set(); }
+  add(...values){ values.forEach((value)=>this.values.add(value)); }
+  remove(...values){ values.forEach((value)=>this.values.delete(value)); }
+}
+
+class FakeElement {
+  constructor(tagName='div', ownerDocument=null) {
+    this.tagName=tagName.toUpperCase();
+    this.ownerDocument=ownerDocument;
+    this.children=[];
+    this.attributes=new Map();
+    this.listeners=new Map();
+    this.classList=new FakeClassList();
+    this.style={};
+    this.className='';
+    this.textContent='';
+    this.tabIndex=-1;
+  }
+  append(...nodes){ this.children.push(...nodes); }
+  appendChild(node){ this.append(node); }
+  replaceChildren(...nodes){ this.children=[...nodes]; }
+  setAttribute(name,value){ this.attributes.set(name,String(value)); }
+  addEventListener(type,listener){
+    if(!this.listeners.has(type)) this.listeners.set(type,new Set());
+    this.listeners.get(type).add(listener);
+  }
+  removeEventListener(type,listener){ this.listeners.get(type)?.delete(listener); }
+  dispatch(type,event={}){ for(const listener of [...(this.listeners.get(type)??[])]) listener(event); }
+  getBoundingClientRect(){
+    const width=Number.parseFloat(this.style.width);
+    return { width:Number.isFinite(width)?width:120 };
+  }
+  setPointerCapture(){}
+}
+
+class FakeDocument extends FakeElement {
+  constructor(){ super('#document',null); this.ownerDocument=this; }
+  createElement(tagName){ return new FakeElement(tagName,this); }
+  listenerCount(type){ return this.listeners.get(type)?.size??0; }
+}
+
 const items = [
   { id:'A', name:'Tarte aux pommes', category:'dessert', score:12 },
   { id:'B', name:'Soupe de carottes', category:'plat', score:7 },
@@ -67,6 +133,64 @@ assert.equal(table.pagination.page, 1);
 assert.deepEqual(table.visibleColumns().map((column)=>column.id), ['name','category','score']);
 assert.equal(table.columns.find((column)=>column.id==='category').visible, true);
 assert.equal(table.columns.find((column)=>column.id==='name').width, undefined);
+
+// A2: numeric/px widths are clamped; arbitrary CSS widths stay declarative.
+const resizeTable = new TableWiz({
+  columns:[
+    { id:'name', label:'Nom', width:120, minWidth:80, maxWidth:220 },
+    { id:'category', resizable:false },
+    { id:'score' }
+  ],
+  minColumnWidth:64,
+  maxColumnWidth:400,
+  resizeStep:10
+});
+resizeTable.setColumnWidth('name', 20);
+assert.equal(resizeTable.columnWidth('name'), 80);
+resizeTable.setColumnWidth('name', '180px');
+assert.equal(resizeTable.columnWidth('name'), 180);
+resizeTable.resizeColumn('name', 999);
+assert.equal(resizeTable.columnWidth('name'), 220);
+resizeTable.resizeColumn('category', 200);
+assert.equal(resizeTable.columnWidth('category'), null);
+resizeTable.setColumnWidth('score', '25%');
+assert.equal(resizeTable.columns.find((column)=>column.id==='score').width, '25%');
+assert.equal(resizeTable.columnWidth('score'), null);
+resizeTable.resetColumnWidth('name');
+assert.equal(resizeTable.columnWidth('name'), null);
+resizeTable.adjustColumnWidth('name', 15, { fallback:100 });
+assert.equal(resizeTable.columnWidth('name'), 115);
+
+// A2: pointer and keyboard resize are covered without a browser dependency.
+const fakeDocument = new FakeDocument();
+const container = new FakeElement('div', fakeDocument);
+const resizeEvents = [];
+resizeTable.setColumnWidth('name', 120);
+resizeTable.render(container, items, { onColumnResize:(event)=>resizeEvents.push(event) });
+
+let handle = findByAttribute(container, 'data-column-resizer', 'name');
+assert.ok(handle);
+handle.dispatch('pointerdown', pointerEvent({ clientX:100 }));
+fakeDocument.dispatch('pointermove', pointerEvent({ clientX:175 }));
+assert.equal(resizeTable.columnWidth('name'), 195);
+fakeDocument.dispatch('pointerup', pointerEvent({ clientX:175 }));
+assert.equal(resizeEvents.at(-1).width, 195);
+assert.equal(fakeDocument.listenerCount('pointermove'), 0);
+assert.equal(fakeDocument.listenerCount('pointerup'), 0);
+
+handle = findByAttribute(container, 'data-column-resizer', 'name');
+handle.dispatch('keydown', keyEvent('ArrowRight'));
+assert.equal(resizeTable.columnWidth('name'), 205);
+assert.equal(resizeEvents.at(-1).width, 205);
+
+handle = findByAttribute(container, 'data-column-resizer', 'name');
+handle.dispatch('keydown', keyEvent('ArrowRight'));
+handle = findByAttribute(container, 'data-column-resizer', 'name');
+handle.dispatch('keydown', keyEvent('ArrowRight'));
+assert.equal(resizeTable.columnWidth('name'), 220);
+
+resizeTable.destroy();
+assert.equal(fakeDocument.listenerCount('pointermove'), 0);
 
 // Defensive inputs and exports remain safe without narrowing valid JSON export values.
 assert.equal(table.process(null).total, 0);
