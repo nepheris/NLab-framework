@@ -1,0 +1,27 @@
+{
+  "task_id": "8B-DATAWIZ-PROVENANCE-MODEL",
+  "agent": "D",
+  "status": "reserved",
+  "base": "a7a63cda73dcf351fb0f0b4dfcc9a647ca5f1d1a",
+  "branch": "agent-d/datawiz-provenance-model",
+  "file_scope": [
+    "dev/framework/wiz/data-wiz-provenance.js",
+    "dev/framework/tests/data-wiz-provenance.test.mjs",
+    "dev/framework/doc/data-wiz/provenance.md"
+  ],
+  "reserved_at": "2026-08-12T14:26:00+02:00",
+  "source": "foundation/BACKLOG-UX.md — DataWiz : expliciter source, variable, mesure et résultat",
+  "objective": "Ajouter un modèle DOM-free, sérialisable et déterministe de provenance DataWiz source -> variable -> mesure -> résultat, sans modifier data-wiz.js ni imposer un moteur graphique. Le contrat prépare les futures ViewSpec/ChartSpec et permet à l'UI d'expliquer clairement comment un résultat a été produit.",
+  "coordination": {
+    "agent_a": "FloatingPanel robustness in_progress; DataWiz convergence D1 already done. Do not modify data-wiz.js or A scopes.",
+    "agent_b": "File Format Registry in_progress on distinct core/test/doc files.",
+    "agent_c": "No active conflicting scope observed before reservation.",
+    "forbidden": [
+      "dev/framework/wiz/data-wiz.js",
+      "dev/framework/wiz/table-wiz.js",
+      "dev/framework/components/floating-panel.js",
+      "dev/framework/core/file-format-registry.js",
+      "dev/framework/demo/**"
+    ]
+  }
+}
