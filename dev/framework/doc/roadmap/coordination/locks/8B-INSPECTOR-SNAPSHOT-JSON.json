@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-INSPECTOR-SNAPSHOT-JSON",
+  "agent": "B",
+  "status": "in_progress",
+  "base": "d44c284149c48e1c0c5e3d12bd1f34cc1e1409a8",
+  "branch": "agent-b/inspector-snapshot-json",
+  "file_scope": [
+    "dev/framework/components/inspector-snapshot.js",
+    "dev/framework/tests/inspector-snapshot.test.mjs",
+    "dev/framework/doc/components/inspector-snapshot.md"
+  ],
+  "reserved_at": "2026-08-12T12:35:00+02:00",
+  "objective": "Ajouter un snapshot JSON déterministe et portable pour InspectorPanel/FloatingPanel, avec validation, copie isolée et import/export versionné, sans toucher aux périmètres A."
+}
