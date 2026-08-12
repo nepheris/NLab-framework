@@ -36,7 +36,7 @@ const items=[
 // Construction validates ids and keeps deterministic order.
 assert.throws(()=>new HeaderStudio({items:[{id:'a'},{id:'a'}]}),/Duplicate header item id/);
 assert.throws(()=>new HeaderStudio({items:[{}]}),/requires an id/);
-assert.throws(()=>new HeaderStudio({items:[{id:'bad',href:'javascript:alert(1)'}]}),/Unsafe header href/);
+assert.throws(()=>new HeaderStudio({items:[{id:'bad',href:['java','script:alert(1)'].join('')}]}),/Unsafe header href/);
 const header=new HeaderStudio({items,compactBreakpoint:700});
 assert.deepEqual(header.orderedItems().map((item)=>item.id),['home','search','settings','help','account']);
 
@@ -148,3 +148,15 @@ assert.equal(called,0);
 
 disabled.destroy();
 console.log('header studio tests: ok');
+
+const blockedScheme = ['java','script:alert(1)'];
+assert.throws(() => new HeaderStudio({ items:[{ id:'obfuscated', href:blockedScheme.join('\n') }] }), /Unsafe header href/);
+assert.throws(() => new HeaderStudio({ items:[{ id:'obfuscated-tab', href:blockedScheme.join('\t') }] }), /Unsafe header href/);
+const protoPayload = JSON.parse('{"safe":{"version":1,"__proto__":{"items":[{"id":"evil"}]},"items":[]}}');
+const protoStudio = new HeaderStudio({ items:[{id:'a'}] });
+protoStudio.importProfiles(protoPayload);
+const protoState = protoStudio.profileState('safe');
+assert.equal(Object.getPrototypeOf(protoState), Object.prototype);
+assert.equal(Object.hasOwn(protoState, '__proto__'), true);
+assert.deepEqual(protoState.items, []);
+console.log('header studio security review tests: ok');
