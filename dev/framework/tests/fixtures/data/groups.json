@@ -1,0 +1,12 @@
+[
+  {
+    "code": "GRP-A",
+    "label": "Alpha Group",
+    "order": 1
+  },
+  {
+    "code": "GRP-B",
+    "label": "Beta Group",
+    "order": 2
+  }
+]

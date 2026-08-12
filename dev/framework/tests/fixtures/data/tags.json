@@ -1,0 +1,16 @@
+{
+  "records": [
+    {
+      "id": "TAG-1",
+      "label": "Featured"
+    },
+    {
+      "id": "TAG-2",
+      "label": "Compact"
+    },
+    {
+      "id": "TAG-3",
+      "label": "Reference"
+    }
+  ]
+}
