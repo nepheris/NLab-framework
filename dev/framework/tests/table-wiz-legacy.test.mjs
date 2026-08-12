@@ -51,6 +51,9 @@ table.reset().setQuery('[', { regex:true });
 result = table.process(items);
 assert.deepEqual(result.all, []);
 assert.equal(result.error?.code, 'INVALID_SEARCH');
+table.setQuery('pommes');
+assert.deepEqual(table.queryOptions, {});
+assert.equal(table.process(items).total, 2);
 
 // Reset restores interaction state and optionally the initial column configuration.
 table.setColumnVisible('category', false).setColumnWidth('name', 320).reorder(['score','name','category']);
@@ -65,9 +68,10 @@ assert.deepEqual(table.visibleColumns().map((column)=>column.id), ['name','categ
 assert.equal(table.columns.find((column)=>column.id==='category').visible, true);
 assert.equal(table.columns.find((column)=>column.id==='name').width, undefined);
 
-// Defensive inputs and exports remain safe.
+// Defensive inputs and exports remain safe without narrowing valid JSON export values.
 assert.equal(table.process(null).total, 0);
 assert.equal(table.exportJSON(null), '[]');
+assert.match(table.exportJSON({ ok:true }), /"ok": true/);
 assert.match(table.exportCSV([{ name:'A "quote"', category:'x', score:1 }]), /"A ""quote"""/);
 
 console.log('table wiz legacy tests: ok');
