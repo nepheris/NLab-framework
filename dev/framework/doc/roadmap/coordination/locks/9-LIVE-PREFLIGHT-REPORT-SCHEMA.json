@@ -1,0 +1,29 @@
+{
+  "task_id": "9-LIVE-PREFLIGHT-REPORT-SCHEMA",
+  "agent": "A",
+  "status": "reserved",
+  "base": "6bff145ab3850ca0827f51fce3a6eee6a850560b",
+  "branch": "agent-a/live-preflight-report-schema",
+  "file_scope": [
+    "dev/framework/data/live-preflight-report.schema.json",
+    "dev/framework/tests/live-preflight-report-schema.test.mjs",
+    "dev/framework/doc/preflight/live-preflight-report-schema.md"
+  ],
+  "reserved_at": "2026-08-12T20:07:00+02:00",
+  "source": "LivePreflightRunner emits versioned nlab.live-preflight-report V1 but no machine-readable JSON Schema exists; framework data schemas use JSON Schema Draft 2020-12.",
+  "objective": "Define a conservative Draft 2020-12 schema for successful LivePreflight reports and a Node-only structural contract test, without adding a validator dependency or modifying the runner/evaluator/checklist.",
+  "coordination": {
+    "agent_d": "Recent DataWiz visualization work remains under dev/framework/wiz/data-wiz-* + tests/doc and is disjoint.",
+    "schema_convention": "Follow dev/framework/data/collection.schema.json Draft 2020-12 convention.",
+    "forbidden": [
+      "dev/framework/tools/coordination/run-live-preflight.mjs",
+      "dev/framework/core/preflight-gate-evaluator.js",
+      "dev/framework/doc/roadmap/lot9-preflight.machine.json",
+      "dev/framework/wiz/data-wiz-*.js",
+      "dev/framework/doc/roadmap/roadmap.md",
+      "dev/framework/doc/roadmap/coordination/agent-board.md",
+      "dev/framework/doc/roadmap/coordination/README.md",
+      "dev/framework/demo/**"
+    ]
+  }
+}
