@@ -1,0 +1,13 @@
+{
+  "task_id": "8B-MANUAL-TEST-WORKFLOW",
+  "agent": "C",
+  "status": "in_progress",
+  "base": "New@branch-creation",
+  "branch": "agent-c/manual-test-workflow",
+  "file_scope": [
+    ".github/workflows/nlab-framework-tests.yml",
+    "dev/framework/doc/testing/github-actions.md"
+  ],
+  "reserved_at": "2026-08-12T02:25:00+02:00",
+  "notes": "Ajouter un workflow GitHub Actions manuel basé sur le runner #31, sans trigger push/PR afin de ne pas bloquer A/B avant validation explicite du baseline. Deux nouveaux fichiers uniquement."
+}
