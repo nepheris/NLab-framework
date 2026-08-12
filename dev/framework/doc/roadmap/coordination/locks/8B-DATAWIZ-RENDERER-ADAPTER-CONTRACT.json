@@ -1,7 +1,7 @@
 {
   "task_id": "8B-DATAWIZ-RENDERER-ADAPTER-CONTRACT",
   "agent": "D",
-  "status": "in_progress",
+  "status": "done",
   "base": "e90c0fce3b13296e70dc745ecc88fc690c5837eb",
   "branch": "agent-d/datawiz-renderer-adapter-contract",
   "file_scope": [
@@ -11,26 +11,24 @@
   ],
   "reserved_at": "2026-08-12T19:27:00+02:00",
   "started_at": "2026-08-12T19:29:00+02:00",
-  "source": "Agent D visual analytics architecture after DatasetProfile #103, ChartSpec #104 and ChartRecommender #106: formalize renderer capabilities before any concrete Plotly adapter",
-  "objective": "Ajouter un contrat DOM-free de RendererAdapter avec descriptor/capabilities sérialisables, vérification ChartSpec→adapter, gates ready/warning/blocked et compilateur injectable protégé par le preflight de compatibilité, sans introduire de dépendance renderer concrète.",
+  "completed_at": "2026-08-12T19:32:00+02:00",
+  "pull_request": 108,
+  "merge_sha": "ce66105c5e02eb24e9aed87a15a73cfafbab5cb2",
+  "validation": {
+    "node_check": "ok",
+    "tests": "data wiz renderer adapter tests: ok",
+    "fuzz_capability_sets": 500,
+    "published_blobs": {
+      "engine": "6b1ad6f3343475149b0fd02fedbb2789d9467fae",
+      "test": "ac2b57c97c8d63c70b6ac5fce1ece037b239125f",
+      "doc": "579e3797e9093adf456fea412e71e75bb58f6827"
+    }
+  },
+  "result": "Renderer-neutral adapter contract V1 now exposes serializable capabilities, ChartSpec compatibility assessment and a guarded synchronous JSON-safe compiler injection without introducing any concrete renderer dependency.",
   "coordination": {
-    "agent_a": "CoordinationLockHealthAudit is active on tools/coordination + test/doc and is disjoint from this DataWiz scope.",
-    "agent_b": "No renderer adapter scope announced or found.",
-    "agent_c": "No renderer adapter scope observed.",
-    "agent_d_previous": "DatasetProfile/ChartSpec/ChartRecommender are done and consumed read-only.",
-    "forbidden": [
-      "dev/framework/wiz/data-wiz.js",
-      "dev/framework/wiz/data-wiz-provenance.js",
-      "dev/framework/wiz/data-wiz-dataset-profile.js",
-      "dev/framework/wiz/data-wiz-chart-spec.js",
-      "dev/framework/wiz/data-wiz-chart-recommender.js",
-      "dev/framework/core/data-join-*.js",
-      "dev/framework/wiz/table-wiz.js",
-      "dev/framework/demo/**",
-      "dev/framework/doc/architecture/**",
-      "dev/framework/doc/roadmap/roadmap.md",
-      "dev/framework/doc/roadmap/coordination/agent-board.md",
-      "dev/framework/doc/roadmap/coordination/README.md"
-    ]
+    "agent_a": "CoordinationLockHealthAudit completed and LivePreflightRunner was reserved concurrently on tools/coordination + tests/doc; both remained disjoint and LivePreflightRunner explicitly forbids data-wiz files.",
+    "agent_b": "No B file modified.",
+    "agent_c": "No C file modified.",
+    "datawiz_dependencies": "ChartSpec/DatasetProfile/ChartRecommender consumed read-only and unchanged."
   }
 }
