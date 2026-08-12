@@ -1,7 +1,24 @@
+const cleanLine = (value) => String(value ?? '').replace(/[\r\n]+/g, ' ').trim();
+const escapeWifi = (value) => String(value ?? '').replace(/([\\;,:"])/g, '\\$1');
+const escapeVCard = (value) => String(value ?? '')
+  .replaceAll('\\', '\\\\')
+  .replace(/\r?\n/g, '\\n')
+  .replaceAll(';', '\\;')
+  .replaceAll(',', '\\,');
+
 export class QRWiz {
   constructor({ urlResolver = null, encoder = null } = {}) { this.urlResolver = urlResolver; this.encoder = encoder; }
 
-  payload({ url = null, canonical = false, stripHash = false } = {}) {
+  payload(config = {}) {
+    const type = String(config.type ?? 'url').trim().toLowerCase();
+    if (type === 'text') return String(config.text ?? config.value ?? '');
+    if (['email','mail'].includes(type)) return this.#emailPayload(config);
+    if (['tel','phone','telephone'].includes(type)) return this.#phonePayload(config);
+    if (['wifi','wi-fi'].includes(type)) return this.#wifiPayload(config.wifi ?? config);
+    if (['contact','vcard'].includes(type)) return this.#contactPayload(config.contact ?? config);
+    if (type !== 'url') return '';
+
+    const { url = null, canonical = false, stripHash = false } = config;
     if (url) return String(this.urlResolver ? this.urlResolver.resolve(url) : url);
     if (!this.urlResolver) return String(globalThis.location?.href ?? '');
     return String(canonical ? this.urlResolver.current({ stripHash:true, stripQuery:true }) : this.urlResolver.current({ stripHash }));
@@ -62,6 +79,53 @@ export class QRWiz {
     }
     if (output && typeof output === 'object' && Number.isInteger(output.nodeType)) container.replaceChildren?.(output);
     return output;
+  }
+
+  #emailPayload(config) {
+    const address = cleanLine(config.email ?? config.address);
+    if (!address) return '';
+    const params = [];
+    if (config.subject != null && String(config.subject) !== '') params.push(`subject=${encodeURIComponent(String(config.subject))}`);
+    if (config.body != null && String(config.body) !== '') params.push(`body=${encodeURIComponent(String(config.body))}`);
+    return `mailto:${address}${params.length ? `?${params.join('&')}` : ''}`;
+  }
+
+  #phonePayload(config) {
+    const phone = cleanLine(config.phone ?? config.tel ?? config.number).replace(/\s+/g, '');
+    return phone ? `tel:${phone}` : '';
+  }
+
+  #wifiPayload(config) {
+    const ssid = cleanLine(config.ssid ?? config.name);
+    if (!ssid) return '';
+    const rawSecurity = String(config.security ?? config.auth ?? 'WPA').trim().toUpperCase();
+    const security = ['NONE','OPEN','NOPASS'].includes(rawSecurity) ? 'nopass' : rawSecurity === 'WEP' ? 'WEP' : 'WPA';
+    const password = String(config.password ?? config.pass ?? '');
+    const hidden = Boolean(config.hidden);
+    return `WIFI:T:${security};S:${escapeWifi(ssid)};${security === 'nopass' ? '' : `P:${escapeWifi(password)};`}H:${hidden ? 'true' : 'false'};;`;
+  }
+
+  #contactPayload(config) {
+    const firstName = cleanLine(config.firstName ?? config.givenName);
+    const lastName = cleanLine(config.lastName ?? config.familyName);
+    const fullName = cleanLine(config.name ?? config.fullName) || [firstName, lastName].filter(Boolean).join(' ');
+    if (!fullName) return '';
+
+    const lines = ['BEGIN:VCARD', 'VERSION:3.0', `FN:${escapeVCard(fullName)}`];
+    if (firstName || lastName) lines.push(`N:${escapeVCard(lastName)};${escapeVCard(firstName)};;;`);
+    if (config.organization ?? config.org) lines.push(`ORG:${escapeVCard(config.organization ?? config.org)}`);
+    if (config.phone ?? config.tel) lines.push(`TEL:${escapeVCard(cleanLine(config.phone ?? config.tel))}`);
+    if (config.email) lines.push(`EMAIL:${escapeVCard(cleanLine(config.email))}`);
+    if (config.url) lines.push(`URL:${escapeVCard(cleanLine(config.url))}`);
+    const address = config.address;
+    if (address && typeof address === 'object') {
+      lines.push(`ADR:;;${escapeVCard(address.street ?? '')};${escapeVCard(address.city ?? '')};${escapeVCard(address.region ?? '')};${escapeVCard(address.postalCode ?? address.zip ?? '')};${escapeVCard(address.country ?? '')}`);
+    } else if (address) {
+      lines.push(`ADR:;;${escapeVCard(address)};;;;`);
+    }
+    if (config.note) lines.push(`NOTE:${escapeVCard(config.note)}`);
+    lines.push('END:VCARD');
+    return lines.join('\r\n');
   }
 
   #decorate(output, options) {

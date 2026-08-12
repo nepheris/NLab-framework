@@ -2,12 +2,52 @@
 
 ## QRWiz
 
-### Payload
+### Payload URL historique
 
+- sans `type`, le comportement reste `url` pour compatibilité ;
 - une URL explicite est résolue par `urlResolver` lorsqu'il existe ;
 - `canonical=true` utilise l'URL courante sans hash ni query ;
 - sans resolver, l'URL courante du navigateur est utilisée si disponible ;
 - un payload vide est refusé avant appel de l'encodeur.
+
+### Payloads structurés
+
+`payload(config)` accepte désormais un `type` explicite :
+
+- `text` : `text` ou `value` est encodé tel quel ;
+- `email` / `mail` : URI `mailto:` avec `subject` et `body` encodés en query string ;
+- `tel` / `phone` / `telephone` : URI `tel:` avec espaces retirés ;
+- `wifi` / `wi-fi` : payload standard `WIFI:` ;
+- `contact` / `vcard` : vCard 3.0.
+
+Un `type` inconnu produit une chaîne vide et est donc refusé par `generate()` au même titre qu'un autre payload vide.
+
+#### Wi-Fi
+
+Configuration acceptée directement ou sous `wifi` :
+
+```js
+{
+  type: 'wifi',
+  wifi: {
+    ssid: 'Mon réseau',
+    password: 'secret',
+    security: 'WPA2',
+    hidden: false
+  }
+}
+```
+
+- `WEP` reste `WEP` ;
+- `open`, `none`, `nopass` deviennent `nopass` et n'émettent pas de champ mot de passe ;
+- les autres variantes WPA/WPA2/WPA3 utilisent `WPA`, largement reconnu par les lecteurs QR ;
+- `\`, `;`, `,`, `:` et `"` sont échappés dans SSID/mot de passe.
+
+#### Contact / vCard
+
+Le contact accepte notamment `name/fullName`, `firstName`, `lastName`, `organization/org`, `phone/tel`, `email`, `url`, `address` et `note`.
+
+La sortie est une vCard 3.0 à lignes CRLF. Les caractères structurants `\`, `;`, `,` et les retours à la ligne sont échappés. Une adresse objet peut fournir `street`, `city`, `region`, `postalCode/zip` et `country`.
 
 ### Options normalisées
 
@@ -50,12 +90,13 @@ Les labels, légendes, URLs et styles générés sont échappés avant insertion
 ## Compatibilité
 
 - les signatures publiques existantes sont conservées ;
+- l'absence de `type` conserve le payload URL historique ;
 - les options nouvelles sont facultatives ;
 - les SVG inline restent un chemin volontairement brut et doivent donc provenir d'une source de confiance.
 
 ## Vérification
 
-`tests/qr-media-robustness.test.mjs` a été exécuté localement sur le contenu exact du lot :
+`tests/qr-media-robustness.test.mjs` couvre maintenant les payloads structurés en plus du contrat QR/Media historique. Il a été exécuté localement sur le contenu exact du lot :
 
 ```text
 qr media robustness tests: ok

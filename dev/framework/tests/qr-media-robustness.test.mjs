@@ -13,6 +13,29 @@ assert.equal(payloadWiz.payload({ url:'/recipe' }), 'https://example.test/recipe
 assert.equal(payloadWiz.payload({ canonical:true }), 'https://example.test/page');
 assert.deepEqual(resolverCalls[1], ['current', { stripHash:true, stripQuery:true }]);
 
+// Payloads QR structurés : texte, email, téléphone, Wi-Fi et contact/vCard.
+assert.equal(payloadWiz.payload({ type:'text', text:'Bonjour' }), 'Bonjour');
+assert.equal(
+  payloadWiz.payload({ type:'email', email:'a@example.test', subject:'Hello world', body:'A&B' }),
+  'mailto:a@example.test?subject=Hello%20world&body=A%26B'
+);
+assert.equal(payloadWiz.payload({ type:'tel', phone:'+33 6 12 34 56 78' }), 'tel:+33612345678');
+assert.equal(
+  payloadWiz.payload({ type:'wifi', ssid:'Lab;Guest', password:'p:a,ss', security:'WPA2', hidden:true }),
+  'WIFI:T:WPA;S:Lab\\;Guest;P:p\\:a\\,ss;H:true;;'
+);
+assert.equal(payloadWiz.payload({ type:'wifi', ssid:'Public', security:'open' }), 'WIFI:T:nopass;S:Public;H:false;;');
+const contactPayload = payloadWiz.payload({
+  type:'contact',
+  contact:{ firstName:'Ada', lastName:'Lovelace', email:'ada@example.test', note:'Math; code, notes' }
+});
+assert.match(contactPayload, /^BEGIN:VCARD\r\nVERSION:3\.0\r\nFN:Ada Lovelace/);
+assert.match(contactPayload, /N:Lovelace;Ada;;;/);
+assert.match(contactPayload, /EMAIL:ada@example\.test/);
+assert.match(contactPayload, /NOTE:Math\\; code\\, notes/);
+assert.match(contactPayload, /END:VCARD$/);
+assert.equal(payloadWiz.payload({ type:'unknown', text:'x' }), '');
+
 // Normalisation déterministe des options.
 const normalized = payloadWiz.options({
   width:12,
@@ -34,6 +57,7 @@ assert.equal(normalized.transparent, true);
 // Erreurs explicites : encodeur absent et payload vide.
 await assert.rejects(() => new QRWiz().generate({ url:'https://example.test' }), /requires an encoder adapter/);
 await assert.rejects(() => new QRWiz({ encoder:{ async encode(){ return 'unused'; } } }).generate(), /payload is empty/);
+await assert.rejects(() => new QRWiz({ encoder:{ async encode(){ return 'unused'; } } }).generate({ type:'text', text:'' }), /payload is empty/);
 
 // Transparence transmise à l'encodeur et décoration SVG avec logo échappé.
 let encoded = null;
@@ -52,6 +76,8 @@ assert.equal(encoded.options.color.light, '#00000000');
 assert.match(decorated, /nlab-qr-logo/);
 assert.match(decorated, /logo&amp;quot;|logo&quot;/);
 assert.match(decorated, /&lt;bad&gt;/);
+await qr.generate({ type:'text', text:'hello' });
+assert.equal(encoded.text, 'hello');
 
 // Rendu SVG sans DOM global.
 const svgContainer = { innerHTML:'', replaceChildren(){ throw new Error('replaceChildren should not be called for SVG'); } };
