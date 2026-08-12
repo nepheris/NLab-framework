@@ -1,0 +1,35 @@
+{
+  "task_id": "8B-DATAWIZ-RENDERER-ADAPTER-CONTRACT",
+  "agent": "D",
+  "status": "reserved",
+  "base": "4b16da57cb13837ad5cfdb047dc82b6adfbb3297",
+  "branch": "agent-d/datawiz-renderer-adapter-contract",
+  "file_scope": [
+    "dev/framework/wiz/data-wiz-renderer-adapter.js",
+    "dev/framework/tests/data-wiz-renderer-adapter.test.mjs",
+    "dev/framework/doc/data-wiz/renderer-adapter.md"
+  ],
+  "reserved_at": "2026-08-12T19:27:00+02:00",
+  "source": "Agent D visual analytics architecture after DatasetProfile #103, ChartSpec #104 and ChartRecommender #106: formalize renderer capabilities before any concrete Plotly adapter",
+  "objective": "Ajouter un contrat DOM-free de RendererAdapter avec descriptor/capabilities sérialisables, vérification ChartSpec→adapter, gates ready/warning/blocked et compilateur injectable protégé par le preflight de compatibilité, sans introduire de dépendance renderer concrète.",
+  "coordination": {
+    "agent_a": "PreflightGateEvaluator is completed and disjoint; no renderer adapter scope observed.",
+    "agent_b": "No renderer adapter scope announced or found.",
+    "agent_c": "No renderer adapter scope observed.",
+    "agent_d_previous": "DatasetProfile/ChartSpec/ChartRecommender are done and consumed read-only.",
+    "forbidden": [
+      "dev/framework/wiz/data-wiz.js",
+      "dev/framework/wiz/data-wiz-provenance.js",
+      "dev/framework/wiz/data-wiz-dataset-profile.js",
+      "dev/framework/wiz/data-wiz-chart-spec.js",
+      "dev/framework/wiz/data-wiz-chart-recommender.js",
+      "dev/framework/core/data-join-*.js",
+      "dev/framework/wiz/table-wiz.js",
+      "dev/framework/demo/**",
+      "dev/framework/doc/architecture/**",
+      "dev/framework/doc/roadmap/roadmap.md",
+      "dev/framework/doc/roadmap/coordination/agent-board.md",
+      "dev/framework/doc/roadmap/coordination/README.md"
+    ]
+  }
+}
