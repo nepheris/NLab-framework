@@ -1,7 +1,7 @@
 {
   "task_id": "8B-DATAWIZ-PLOTLY-ADAPTER",
   "agent": "D",
-  "status": "in_progress",
+  "status": "done",
   "base": "42a04c0375fd9940f9adbdc5e94d3c23f314dd08",
   "branch": "agent-d/datawiz-plotly-adapter",
   "file_scope": [
@@ -11,28 +11,24 @@
   ],
   "reserved_at": "2026-08-12T19:45:00+02:00",
   "started_at": "2026-08-12T19:47:00+02:00",
-  "source": "Agent D visual analytics architecture after ChartDataMaterializer #112 and RendererAdapter #108: first concrete renderer compiler without runtime coupling",
-  "objective": "Ajouter un adapter Plotly V1 purement compilateur qui déclare ses capabilities via DataWizRendererAdapter et traduit ChartSpec + payload ChartDataMaterializer vers un plan JSON-safe {data, layout, config}, sans importer Plotly.js, sans DOM et sans réimplémenter les transformations de données.",
+  "completed_at": "2026-08-12T19:52:00+02:00",
+  "pull_request": 114,
+  "merge_sha": "7355e9bac6be5a0e0ec9b3dfb72748d69c7dd160",
+  "validation": {
+    "node_check": "ok",
+    "tests": "data wiz plotly adapter tests: ok",
+    "fuzz_plans": 500,
+    "published_blobs": {
+      "engine": "79e91f852423a4311fd9f99c752624045cb3c957",
+      "test": "d374e44fc7a59b18ee415651363bbfe9f680e2dc",
+      "doc": "b21999727f56e1f39743d539ee30f2a8c376d233"
+    }
+  },
+  "result": "Pure Plotly adapter V1 now compiles validated ChartSpec plus pre-materialized ChartData to JSON-safe data/layout/config plans for bar, line, area, point, scatter, histogram, box and radar without loading Plotly.js or duplicating data transforms.",
   "coordination": {
-    "agent_a": "Latest preflight/coordination lots are disjoint and no Plotly scope was found.",
-    "agent_b": "No Plotly adapter scope found.",
-    "agent_c": "No Plotly adapter scope found.",
-    "agent_d_previous": "ChartSpec, ChartRecommender, RendererAdapter and ChartDataMaterializer are done and consumed read-only.",
-    "forbidden": [
-      "dev/framework/wiz/data-wiz.js",
-      "dev/framework/wiz/data-wiz-provenance.js",
-      "dev/framework/wiz/data-wiz-dataset-profile.js",
-      "dev/framework/wiz/data-wiz-chart-spec.js",
-      "dev/framework/wiz/data-wiz-chart-recommender.js",
-      "dev/framework/wiz/data-wiz-renderer-adapter.js",
-      "dev/framework/wiz/data-wiz-chart-data-materializer.js",
-      "dev/framework/core/data-join-*.js",
-      "dev/framework/wiz/table-wiz.js",
-      "dev/framework/demo/**",
-      "dev/framework/doc/architecture/**",
-      "dev/framework/doc/roadmap/roadmap.md",
-      "dev/framework/doc/roadmap/coordination/agent-board.md",
-      "dev/framework/doc/roadmap/coordination/README.md"
-    ]
+    "agent_a": "PreflightReadySemantics remained on core preflight evaluator + test/doc and explicitly forbade data-wiz files.",
+    "agent_b": "No B file modified.",
+    "agent_c": "No C file modified.",
+    "runtime": "Plotly.js remains external; no DOM/runtime import introduced."
   }
 }
