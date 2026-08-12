@@ -1,7 +1,7 @@
 {
   "task_id": "9-PREFLIGHT-MACHINE-CONTRACT",
   "agent": "A",
-  "status": "reserved",
+  "status": "done",
   "base": "b77ae31bb7d7dd0bfe50a97b90101e85653198a5",
   "branch": "agent-a/lot9-preflight-machine-contract",
   "file_scope": [
@@ -9,20 +9,19 @@
     "dev/framework/doc/preflight/lot9-preflight-contract.md"
   ],
   "reserved_at": "2026-08-12T19:57:00+02:00",
-  "source": "Canonical lot9-preflight.machine.json is now consumed by live preflight tooling; add a read-only contract test to prevent status/blocking semantic drift.",
-  "objective": "Test the actual Lot 9 machine checklist against PreflightGateEvaluator semantics, status enum, unique gate IDs, acceptance coverage and decision.blocking_gates_snapshot without modifying the checklist itself.",
+  "completed_at": "2026-08-12T20:01:00+02:00",
+  "pr": 117,
+  "merge_sha": "1069493898b8a4e2af77b3be45c47cc062da633a",
+  "tests": [
+    "lot9 preflight contract tests: ok (local contract reconstruction with exact PGE semantics)",
+    "canonical checklist blob 85b52e5029975f86baa60b4017ca0a33adf62b85 inspected directly",
+    "published test blob a21be209bfe2eff80cad903c1123abe285ff9b15"
+  ],
+  "source": "Canonical lot9-preflight.machine.json is consumed by live preflight tooling; read-only contract prevents status/blocking semantic drift.",
+  "objective": "Test the actual Lot 9 machine checklist against PreflightGateEvaluator semantics without modifying the checklist itself.",
   "coordination": {
-    "agent_c": "lot9-preflight.machine.json remains read-only; no C file modified.",
-    "agent_d": "DataWiz VisualizationSession remains disjoint under wiz/data-wiz-* + test/doc.",
-    "forbidden": [
-      "dev/framework/doc/roadmap/lot9-preflight.machine.json",
-      "dev/framework/core/preflight-gate-evaluator.js",
-      "dev/framework/tools/coordination/run-live-preflight.mjs",
-      "dev/framework/wiz/data-wiz-*.js",
-      "dev/framework/doc/roadmap/roadmap.md",
-      "dev/framework/doc/roadmap/coordination/agent-board.md",
-      "dev/framework/doc/roadmap/coordination/README.md",
-      "dev/framework/demo/**"
-    ]
+    "agent_c": "lot9-preflight.machine.json remained read-only and unchanged.",
+    "agent_d": "DataWiz VisualizationSession remained disjoint.",
+    "result": "Exactly 2 new test/doc files merged via #117; no checklist, PGE, runner, DataWiz, roadmap canonical or demo modified."
   }
 }
