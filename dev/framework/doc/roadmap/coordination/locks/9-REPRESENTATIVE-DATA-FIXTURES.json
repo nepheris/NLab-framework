@@ -1,0 +1,34 @@
+{
+  "task_id": "9-REPRESENTATIVE-DATA-FIXTURES",
+  "agent": "A",
+  "status": "reserved",
+  "base": "670b666eb55e13c49aed4699a868939e9c4da075",
+  "branch": "agent-a/representative-data-fixtures",
+  "file_scope": [
+    "dev/framework/tests/fixtures/data/registry.json",
+    "dev/framework/tests/fixtures/data/groups.json",
+    "dev/framework/tests/fixtures/data/tags.json",
+    "dev/framework/tests/fixtures/data/items.json",
+    "dev/framework/tests/representative-data-fixtures.test.mjs",
+    "dev/framework/doc/preflight/representative-data-fixtures.md"
+  ],
+  "reserved_at": "2026-08-12T20:36:00+02:00",
+  "source": "Lot 9 safe_parallel_work explicitly allows preparing representative fixtures without business-specific runtime; JsonDataProvider/DataResolver contracts are stable in New.",
+  "objective": "Add a small synthetic generic registry and collections exercising JsonDataProvider array/records payloads, custom idField, one/many relations, cache/refresh and onMissing warning behavior, with no Recettes-du-Coeur names or source data.",
+  "coordination": {
+    "runtime": "JsonDataProvider, DataResolver and data schemas are consumed read-only and not modified.",
+    "agent_d": "DataWiz visualization scopes remain disjoint under wiz/data-wiz-* + tests/doc.",
+    "forbidden": [
+      "dev/framework/providers/json-data-provider.js",
+      "dev/framework/core/data-resolver.js",
+      "dev/framework/data/*.schema.json",
+      "dev/framework/wiz/data-wiz-*.js",
+      "dev/framework/doc/roadmap/lot9-preflight.machine.json",
+      "dev/framework/doc/roadmap/roadmap.md",
+      "dev/framework/doc/roadmap/coordination/agent-board.md",
+      "dev/framework/doc/roadmap/coordination/README.md",
+      "dev/framework/demo/**",
+      "Sites/**"
+    ]
+  }
+}
