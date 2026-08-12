@@ -1,0 +1,30 @@
+{
+  "task_id": "8B-DATA-JOIN-WORKSPACE",
+  "agent": "D",
+  "status": "reserved",
+  "base": "c2e2e5d4886cb3b5cc1d56606ab0bde3857a7ed5",
+  "branch": "agent-d/data-join-workspace",
+  "file_scope": [
+    "dev/framework/core/data-join-workspace.js",
+    "dev/framework/tests/data-join-workspace.test.mjs",
+    "dev/framework/doc/data-join/data-join-workspace.md"
+  ],
+  "reserved_at": "2026-08-12T16:25:00+02:00",
+  "source": "Agent D join roadmap after DataJoinSpec + DataJoinExecutor; prepare graphical two-source join editor without committing to RelationGraph nomenclature under architecture review",
+  "objective": "Ajouter un modèle DOM-free et versionné de workspace de jointure à deux sources : descripteurs de sources, binding runtime des lignes, JoinSpec courant, état de préparation, diagnostic/exécution via les briques D déjà intégrées, sérialisation sans embarquer les datasets, et rechargement/binding explicite des sources.",
+  "coordination": {
+    "agent_a": "RefreshControl just completed; ResponsivePreview reserved on UI-specific files; TableWiz and architecture PRs remain separate.",
+    "agent_b": "No open PR or lock observed in DataJoin workspace scope.",
+    "agent_c": "No active DataJoin workspace scope observed in coordination comments/locks.",
+    "agent_d_previous": "DataJoinSpec #65 and DataJoinExecutor #75 are done; this lot consumes their public contracts but does not modify them.",
+    "forbidden": [
+      "dev/framework/core/data-join-spec.js",
+      "dev/framework/core/data-join-executor.js",
+      "dev/framework/wiz/data-wiz.js",
+      "dev/framework/wiz/table-wiz.js",
+      "dev/framework/wiz/json-studio.js",
+      "dev/framework/demo/**",
+      "dev/framework/doc/architecture/**"
+    ]
+  }
+}
