@@ -1,0 +1,37 @@
+{
+  "task_id": "8B-DATA-JOIN-PREFLIGHT",
+  "agent": "D",
+  "status": "reserved",
+  "base": "b8628ef1d72e4c3d40c297b086631e0438e4ef17",
+  "branch": "agent-d/data-join-preflight",
+  "file_scope": [
+    "dev/framework/core/data-join-preflight.js",
+    "dev/framework/tests/data-join-preflight.test.mjs",
+    "dev/framework/doc/data-join/data-join-preflight.md"
+  ],
+  "reserved_at": "2026-08-12T18:40:00+02:00",
+  "source": "Agent D DataJoin roadmap after ConfigDraft #101: close the pre-execution diagnostics gap for output-field collisions and materialization risks before graphical integration",
+  "objective": "Ajouter un audit DOM-free/non destructif qui combine le diagnostic DataJoin existant avec une analyse de collisions de champs de sortie, de suffixes et de politiques de matérialisation, afin de produire des gates structurés ready/warning/blocked avant exécution sans modifier DataJoinSpec, Executor, Workspace ou ConfigDraft.",
+  "coordination": {
+    "agent_a": "Current protected/review areas remain TableWiz/Header/architecture/V20 and visual/HUMAN integration; latest DiagnosticCoverageAudit is done. No DataJoin preflight scope observed.",
+    "agent_b": "Latest announced B lots are done; no active B DataJoin scope announced in Issue #1.",
+    "agent_c": "No current DataJoin preflight scope observed.",
+    "agent_d_previous": "DataJoinSpec/Executor/Workspace/FieldCatalog/KeyMatcher/CompositeKeyMatcher/SuggestionSession/ConfigDraft are integrated and remain unchanged.",
+    "forbidden": [
+      "dev/framework/core/data-join-spec.js",
+      "dev/framework/core/data-join-executor.js",
+      "dev/framework/core/data-join-workspace.js",
+      "dev/framework/core/data-join-field-catalog.js",
+      "dev/framework/core/data-join-key-matcher.js",
+      "dev/framework/core/data-join-composite-key-matcher.js",
+      "dev/framework/core/data-join-suggestion-session.js",
+      "dev/framework/core/data-join-config-draft.js",
+      "dev/framework/wiz/**",
+      "dev/framework/demo/**",
+      "dev/framework/doc/architecture/**",
+      "dev/framework/doc/roadmap/roadmap.md",
+      "dev/framework/doc/roadmap/coordination/agent-board.md",
+      "dev/framework/doc/roadmap/coordination/README.md"
+    ]
+  }
+}
