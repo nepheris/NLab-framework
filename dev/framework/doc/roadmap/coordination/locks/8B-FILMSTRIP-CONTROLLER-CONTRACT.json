@@ -1,7 +1,7 @@
 {
   "task_id": "8B-FILMSTRIP-CONTROLLER-CONTRACT",
   "agent": "A",
-  "status": "in_progress",
+  "status": "done",
   "base": "605b4603a44f75303d9640d5d8667dd4307ef969",
   "branch": "agent-a/filmstrip-controller-contract",
   "file_scope": [
@@ -18,5 +18,15 @@
     "json_studio": "JsonStudio remains unchanged; it may consume this controller later.",
     "parallel_agents": "No Filmstrip controller file or lock found before reservation."
   },
-  "notes": "No DOM renderer or visual controller implementation in this lot."
+  "pull_request": 78,
+  "final_sha": "f9e75777442609b6c9414ca5d60bdc8579ae27d7",
+  "merged_sha": "06e0683e1b6530f3fe451a7acf36babfb250b9c4",
+  "verification": {
+    "diff": "3 commits / 3 files, all inside reserved file_scope",
+    "tests": "Node 22.16.0 on exact published blobs",
+    "result": "filmstrip controller tests: ok",
+    "engine_blob": "1e874588fafbb0a463d484e3f92bd9677d44ebe6",
+    "test_blob": "ea7deb2e2e1ee5a845221b1c91242170bddaa77d"
+  },
+  "notes": "No DOM renderer or visual controller implementation added."
 }
