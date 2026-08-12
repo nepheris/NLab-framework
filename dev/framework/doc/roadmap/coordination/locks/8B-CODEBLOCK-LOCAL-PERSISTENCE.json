@@ -1,7 +1,7 @@
 {
   "task_id": "8B-CODEBLOCK-LOCAL-PERSISTENCE",
   "agent": "B",
-  "status": "in_progress",
+  "status": "released",
   "base": "46ac7b3f1ff763305986065a1bb18859acbdf7c9",
   "branch": "agent-b/codeblock-local-persistence",
   "file_scope": [
@@ -10,5 +10,7 @@
     "dev/framework/doc/components/code-block.md"
   ],
   "reserved_at": "2026-08-12T11:35:00+02:00",
-  "objective": "Ajouter une persistance locale optionnelle et défensive du contenu CodeBlock édité, avec stockage injectable, sans dépendance DOM et sans modifier les périmètres A."
+  "released_at": "2026-08-12T11:38:00+02:00",
+  "objective": "Ajouter une persistance locale optionnelle et défensive du contenu CodeBlock édité, avec stockage injectable, sans dépendance DOM et sans modifier les périmètres A.",
+  "release_reason": "Libéré avant toute modification métier afin de ne pas immobiliser CodeBlock pendant la prise d'un lot DatePicker entièrement isolé."
 }
