@@ -1,0 +1,28 @@
+{
+  "task_id": "9-DATA-SCHEMA-INTEGRITY-CONTRACT",
+  "agent": "A",
+  "status": "reserved",
+  "base": "b73ebee946355a04a128438947180cd53632fa75",
+  "branch": "agent-a/data-schema-integrity-contract",
+  "file_scope": [
+    "dev/framework/tests/data-schema-integrity.test.mjs",
+    "dev/framework/doc/preflight/data-schema-integrity.md"
+  ],
+  "reserved_at": "2026-08-12T20:28:00+02:00",
+  "source": "Framework data/ contains multiple Draft 2020-12 schemas, including LivePreflight schemas, but no generic integrity test for parseability, unique IDs and resolvable local refs.",
+  "objective": "Add a dependency-free read-only integrity test over every dev/framework/data/*.schema.json: JSON parse, Draft 2020-12 marker, non-empty unique $id, and resolvable local relative $ref targets without modifying schema files.",
+  "coordination": {
+    "schemas": "All existing schema files are read-only inputs in this lot.",
+    "agent_d": "DataWiz visualization scopes remain disjoint under wiz/data-wiz-* + tests/doc.",
+    "forbidden": [
+      "dev/framework/data/*.schema.json",
+      "dev/framework/tools/coordination/**",
+      "dev/framework/core/**",
+      "dev/framework/wiz/data-wiz-*.js",
+      "dev/framework/doc/roadmap/roadmap.md",
+      "dev/framework/doc/roadmap/coordination/agent-board.md",
+      "dev/framework/doc/roadmap/coordination/README.md",
+      "dev/framework/demo/**"
+    ]
+  }
+}
