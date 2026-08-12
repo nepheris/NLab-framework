@@ -1,7 +1,7 @@
 {
   "task_id": "8B-SESSION-CONFIG-STORAGE",
   "agent": "B",
-  "status": "in_progress",
+  "status": "done",
   "base": "0f34ca9ef860fb42a1c60a8633531e8ec8ce9a9c",
   "branch": "agent-b/session-config-storage",
   "file_scope": [
@@ -10,20 +10,19 @@
     "dev/framework/doc/config/session-config-storage.md"
   ],
   "reserved_at": "2026-08-12T17:04:00+02:00",
+  "completed_at": "2026-08-12T17:10:00+02:00",
+  "pull_request": 92,
+  "head_sha": "45e01780f1230d12c84bb5c4ef80861ab75b3703",
+  "merged_sha": "45ef5f5f62f1e17d2b44eaf8ed98e2feee717400",
   "source": "foundation/BACKLOG-UX.md — persistance locale des configurations validées de session",
   "objective": "Ajouter un adaptateur DOM-free de persistance entre SessionConfigRegistry et un stockage injecté BrowserStorage/WebStorage-like, avec save/load/remove/auto-save optionnel, enveloppe versionnée, erreurs structurées et aucune modification des modèles existants.",
-  "coordination": {
-    "session_registry": "SessionConfigRegistry reste la source de vérité du contenu et n'est pas modifié.",
-    "storage": "BrowserStorage reste le provider namespacé et n'est pas modifié.",
-    "session_bundle": "SessionConfigBundle reste un format distinct et n'est pas modifié.",
-    "parallel_agents": "A QR Studio Session est intégré; aucun session-config-storage lock/fichier observé avant réservation.",
-    "forbidden": [
-      "dev/framework/core/session-config-registry.js",
-      "dev/framework/core/session-config-bundle.js",
-      "dev/framework/core/storage.js",
-      "dev/framework/components/qr-studio-session.js",
-      "dev/framework/demo/**",
-      "dev/framework/doc/roadmap/roadmap.md"
-    ]
+  "verification": {
+    "node": "22.16.0",
+    "tests": "session config storage tests: ok",
+    "final_scope": "3 new files only",
+    "pr_mergeable": true,
+    "ci_statuses": "none",
+    "review_fix": "Auto-save is suspended during load so restoration never rewrites the envelope being loaded.",
+    "parallel_agents": "A ComponentSizeConstraints remained disjoint and its lock explicitly recorded SessionConfigStorage as separate B scope."
   }
 }
