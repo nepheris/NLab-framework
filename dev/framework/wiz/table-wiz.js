@@ -236,12 +236,42 @@ export class TableWiz{
     return{all:rows,page:this.pagination.slice(rows),total:rows.length,pageModel:this.pagination,error:this.lastError};
   }
 
-  exportCSV(items,{delimiter=';'}={}){
-    const columns=this.visibleColumns();
-    const quote=(value)=>{const text=Array.isArray(value)?value.join(', '):String(value??'');return `"${text.replaceAll('"','""')}"`;};
-    return[columns.map((column)=>quote(column.label??column.id)).join(delimiter),...asArray(items).map((row)=>columns.map((column)=>quote(row?.[column.field??column.id])).join(delimiter))].join('\n');
+  exportSelection(items,{rowIndexes=null,columnIds=null,processed=false}={}){
+    const rows=processed?this.process(items).all:asArray(items);
+    const selectedRows=this.#exportRows(rows,rowIndexes);
+    const columns=this.#exportColumns(columnIds);
+    return selectedRows.map((row)=>Object.fromEntries(columns.map((column)=>[column.field??column.id,row?.[column.field??column.id]])));
+  }
+  exportRow(items,index,{columnIds=null,processed=false}={}){
+    return this.exportSelection(items,{rowIndexes:[index],columnIds,processed})[0]??null;
+  }
+  exportColumn(items,id,{rowIndexes=null,processed=false}={}){
+    const column=this.#column(id);
+    if(!column)return[];
+    const rows=processed?this.process(items).all:asArray(items);
+    const field=column.field??column.id;
+    return this.#exportRows(rows,rowIndexes).map((row)=>row?.[field]);
+  }
+  exportCSV(items,{delimiter=';',rowIndexes=null,columnIds=null,processed=false}={}){
+    const columns=this.#exportColumns(columnIds);
+    const rows=this.#exportRows(processed?this.process(items).all:asArray(items),rowIndexes);
+    const quote=(value)=>{const text=this.#exportText(value);return `"${text.replaceAll('"','""')}"`;};
+    return[columns.map((column)=>quote(column.label??column.id??column.field)).join(delimiter),...rows.map((row)=>columns.map((column)=>quote(row?.[column.field??column.id])).join(delimiter))].join('\n');
   }
   exportJSON(items,space=2){return JSON.stringify(items??[],null,space);}
+  exportSelectionJSON(items,{space=2,...options}={}){return JSON.stringify(this.exportSelection(items,options),null,space);}
+  exportHTML(items,{title='TableWiz export',rowIndexes=null,columnIds=null,processed=false,landscape=true,lang='fr'}={}){
+    const columns=this.#exportColumns(columnIds);
+    const rows=this.#exportRows(processed?this.process(items).all:asArray(items),rowIndexes);
+    const escape=(value)=>this.#escapeHtml(this.#exportText(value));
+    const head=columns.map((column)=>`<th scope="col">${escape(column.label??column.id??column.field)}</th>`).join('');
+    const body=rows.map((row)=>`<tr>${columns.map((column)=>`<td>${escape(row?.[column.field??column.id])}</td>`).join('')}</tr>`).join('\n');
+    const safeTitle=this.#escapeHtml(String(title??'TableWiz export'));
+    const safeLang=String(lang??'fr').replace(/[^A-Za-z0-9-]/g,'')||'fr';
+    const pageSize=landscape?'landscape':'auto';
+    return `<!doctype html>\n<html lang="${safeLang}">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1">\n<title>${safeTitle}</title>\n<style>body{font-family:system-ui,sans-serif;margin:24px}table{border-collapse:collapse;width:100%}th,td{border:1px solid #bbb;padding:6px 8px;text-align:left;vertical-align:top}thead{display:table-header-group}tr{break-inside:avoid}@page{size:${pageSize};margin:12mm}@media print{body{margin:0}}</style>\n</head>\n<body>\n<h1>${safeTitle}</h1>\n<table>\n<thead><tr>${head}</tr></thead>\n<tbody>${body}</tbody>\n</table>\n</body>\n</html>`;
+  }
+  exportPrintHTML(items,options={}){return this.exportHTML(items,{...options,landscape:options.landscape??true});}
   destroy(){this.#clearRenderCleanup();return this;}
 
   render(container,items,{rowClass=null,onColumnResize=null,viewMode=this.viewMode,standalone=this.standalone,mobileBreakpoint=this.mobileBreakpoint}={}){
@@ -441,6 +471,34 @@ export class TableWiz{
     const breakpoint=positiveNumber(mobileBreakpoint,this.mobileBreakpoint);
     return width!=null&&width>0&&width<=breakpoint?'stacked':'table';
   }
+
+  #exportColumns(ids){
+    if(ids==null)return this.visibleColumns();
+    const selected=[];const seen=new Set();
+    for(const id of asArray(ids)){
+      if(seen.has(id))continue;
+      const column=this.#column(id);
+      if(!column)continue;
+      seen.add(id);selected.push(column);
+    }
+    return selected;
+  }
+  #exportRows(rows,indexes){
+    if(indexes==null)return[...rows];
+    const selected=[];const seen=new Set();
+    for(const raw of asArray(indexes)){
+      const index=Number(raw);
+      if(!Number.isInteger(index)||index<0||index>=rows.length||seen.has(index))continue;
+      seen.add(index);selected.push(rows[index]);
+    }
+    return selected;
+  }
+  #exportText(value){
+    if(Array.isArray(value))return value.join(', ');
+    if(value&&typeof value==='object'){try{return JSON.stringify(value);}catch{return String(value);}}
+    return String(value??'');
+  }
+  #escapeHtml(value){return String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');}
 
   #column(id){return this.columns.find((column)=>columnId(column)===id);}
   #orderedColumns(){return[...this.columns].sort((left,right)=>(left.order??0)-(right.order??0));}
