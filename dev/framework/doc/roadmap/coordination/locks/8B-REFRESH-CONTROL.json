@@ -1,0 +1,22 @@
+{
+  "task_id": "8B-REFRESH-CONTROL",
+  "agent": "A",
+  "status": "in_progress",
+  "base": "4bba35aa0a90450e6b0a9e78e3f4f51ccaef62d4",
+  "branch": "agent-a/refresh-control-contract",
+  "file_scope": [
+    "dev/framework/components/refresh-control.js",
+    "dev/framework/tests/refresh-control*.mjs",
+    "dev/framework/doc/components/refresh-control*.md"
+  ],
+  "reserved_at": "2026-08-12T16:13:00+02:00",
+  "source": "foundation/BACKLOG-UX.md — Bouton Actualiser avec SVG et feedback d'état, équivalent fonctionnel à un reload",
+  "current_increment": "RC1-STATE-A11Y-RELOAD-CALLBACK",
+  "objective": "Create an isolated refresh control primitive with deterministic idle/running/success/error state, accessible DOM rendering, semantic refresh icon adapter, async callback/reload activation and visible feedback without modifying NavigationWiz, HeaderStudio or DataRefresh.",
+  "coordination": {
+    "session_config_registry": "Another Agent A session owns core/session-config-registry.js + tests/doc and remains untouched.",
+    "tablewiz": "TableWiz PR #33 remains HUMAN review and is untouched.",
+    "parallel_agents": "No refresh-control file or lock existed immediately before reservation."
+  },
+  "notes": "No NavigationWiz/Header/DataRefresh/demo/CSS changes. This lot establishes only the reusable control contract."
+}
