@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import {IconWiz,CORE_SEMANTIC_ICON_PACK} from '../icons/icon-wiz.js';
+const registry={icons:new Set(['help','info','close','reset','lock','unlock','pin','eye','settings','refresh','chevronRight','download','palette','filter','search','resize','image','export','copy','responsive']),has(id){return this.icons.has(id)},get(id){return this.has(id)?`<${id}>`:null},render(id,{title=null,className='' }={}){return this.has(id)?`<svg data-id="${id}" class="${className}"${title?` aria-label="${title}"`:''}></svg>`:''}};
+const wiz=new IconWiz({registry});
+assert.ok(IconWiz.semanticIds().includes('qr'));assert.ok(IconWiz.states().includes('danger'));assert.equal(wiz.resolve('visibility').physicalId,'eye');assert.equal(wiz.resolve('settings',{state:'danger'}).state,'danger');assert.equal(wiz.resolve('settings',{state:'locked'}).physicalId,'lock');assert.equal(wiz.resolve('lock',{state:'unlocked'}).physicalId,'unlock');assert.equal(wiz.resolve('save').substitute,true);assert.equal(wiz.resolve('save').physicalId,'export');assert.equal(wiz.resolve('unknown').physicalId,'help');assert.equal(wiz.resolve('unknown').fallbackUsed,true);
+wiz.registerPack('rounded',{settings:'palette',save:{default:'download',success:'info'} });wiz.usePack('rounded');assert.equal(wiz.resolve('settings').physicalId,'palette');assert.equal(wiz.resolve('save',{state:'success'}).physicalId,'info');assert.equal(wiz.resolve('close').physicalId,'close');assert.deepEqual(wiz.packNames(),['core','rounded']);wiz.removePack('rounded');assert.equal(wiz.activePack,'core');
+const audit=wiz.audit();assert.equal(audit.total,IconWiz.semanticIds().length);assert.ok(audit.substitutes.some(x=>x.semanticId==='qr'));assert.equal(audit.missing.length,0);
+const stringRender=wiz.render('info',{state:'active',title:'Information'});assert.match(stringRender.html,/data-id="info"/);assert.match(stringRender.html,/nlab-icon-wiz--active/);
+class El{constructor(){this.attrs=new Map();this.className='';this.textContent=''}setAttribute(k,v){this.attrs.set(k,String(v))}}class Doc{createElement(){return new El()}}
+const dom=wiz.render('close',{state:'danger',document:new Doc()});assert.equal(dom.node.attrs.get('data-icon-state'),'danger');assert.equal(dom.node.attrs.get('aria-hidden'),'true');assert.match(dom.node.textContent,/data-id="close"/);
+assert.throws(()=>wiz.registerPack('bad',{x:{}}),TypeError);assert.ok(CORE_SEMANTIC_ICON_PACK.info);
+console.log('icon wiz tests: ok');
