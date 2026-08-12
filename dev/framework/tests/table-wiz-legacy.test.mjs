@@ -367,6 +367,16 @@ scoreEditor.value='8';
 scoreEditor.dispatch('change',{});
 assert.equal(domEditItems[1].score,8);
 
+// A6 — unsafe prototype-sensitive paths are rejected before mutation.
+const unsafeTarget=[{id:'safe'}];
+const unsafeTable=new TableWiz({editable:true,columns:[
+  {id:'danger',field:'__proto__.polluted',editable:true}
+]});
+const unsafeEdit=unsafeTable.editCell(unsafeTarget,0,'danger','yes',{mutate:true});
+assert.equal(unsafeEdit.ok,false);
+assert.equal(unsafeEdit.error.code,'UNSAFE_FIELD_PATH');
+assert.equal({}.polluted,undefined);
+
 // A7 — profiles/presets and injectable persistence.
 const storage=new MemoryStorage();
 const profileTable=new TableWiz({
