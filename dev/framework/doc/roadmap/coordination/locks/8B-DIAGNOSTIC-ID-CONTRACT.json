@@ -1,0 +1,22 @@
+{
+  "task_id": "8B-DIAGNOSTIC-ID-CONTRACT",
+  "agent": "A",
+  "status": "in_progress",
+  "base": "4b144e3404ab9edce095b1805a1816050e79d4d0",
+  "branch": "agent-a/diagnostic-id-contract",
+  "file_scope": [
+    "dev/framework/core/diagnostic-id-registry.js",
+    "dev/framework/tests/diagnostic-id-registry*.mjs",
+    "dev/framework/doc/diagnostic/*.md"
+  ],
+  "reserved_at": "2026-08-12T14:35:00+02:00",
+  "source": "foundation/BACKLOG-UX.md — Identification et diagnostic",
+  "current_increment": "G1-HUMAN-TECHNICAL-IDS-TEST-DESCRIPTOR",
+  "objective": "Provide stable human/technical diagnostic IDs, uniqueness/indexing, test descriptors, classic/advanced diagnostic projections and DOM attribute descriptors without modifying Inspector UI components.",
+  "coordination": {
+    "inspectors": "Existing Inspector tabs/snapshot/control inventory/dock files remain outside this lock.",
+    "agent_b": "File-format/search/codeblock work is disjoint.",
+    "agent_d": "DataWiz provenance was integrated before reservation; no provenance files are modified."
+  },
+  "notes": "Do not modify demo, Inspector components, EventBus or FrameworkRegistry. This is a standalone contract consumed later by those layers."
+}
