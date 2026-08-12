@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { DataJoinWorkspace } from '../core/data-join-workspace.js';
 
 const join={type:'left',keys:[{left:'customerId',right:'id'}],expectedCardinality:'N:1'};
-const orders=[{id:'o1',customerId:'c1',amount:10},{id:'o2',customerId:'c2',amount:20}];
+const orders=[{id:'o1',customerId:'c1',amount:10},{id:'o2',customerId:'c1',amount:15},{id:'o3',customerId:'c2',amount:20}];
 const customers=[{id:'c1',name:'Alpha'},{id:'c2',name:'Beta'}];
 const w=new DataJoinWorkspace({
   sources:{
@@ -17,7 +17,7 @@ assert.equal(w.status().left.bound,false);
 w.bind('left',orders,{sourceId:'orders'});
 w.bind('right',customers,{sourceId:'customers'});
 assert.equal(w.status().ready,true);
-assert.equal(w.status().left.rows,2);
+assert.equal(w.status().left.rows,3);
 assert.equal(w.diagnose().joinType,'left');
 const result=w.execute({strictCardinality:true});
 assert.equal(result.workspace.leftSourceId,'orders');
