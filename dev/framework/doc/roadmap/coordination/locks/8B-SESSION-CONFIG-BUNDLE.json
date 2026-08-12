@@ -1,7 +1,7 @@
 {
   "task_id": "8B-SESSION-CONFIG-BUNDLE",
   "agent": "B",
-  "status": "in_progress",
+  "status": "done",
   "base": "e3f855fb835998465b07a0dc3ecaeb6199379bcd",
   "branch": "agent-b/session-config-bundle",
   "file_scope": [
@@ -10,16 +10,19 @@
     "dev/framework/doc/config/session-config-bundle.md"
   ],
   "reserved_at": "2026-08-12T16:00:00+02:00",
+  "completed_at": "2026-08-12T16:08:00+02:00",
+  "pull_request": 74,
+  "head_sha": "758ec64accdb6b97751682727abafe6e218d93e3",
+  "merged_sha": "63c73f5ea79439153018084097be6ff3369d153d",
   "source": "foundation/BACKLOG-UX.md — Bloc JSON global rassemblant toutes les configurations validées de la session",
   "objective": "Ajouter un agrégateur DOM-free et versionné des configurations validées de session, avec snapshots isolés, révisions, références figées, import/export JSON et ordre déterministe, sans modifier PresetManager, VisitorPreferences, Theme, QR, Header ou les Studios.",
-  "coordination": {
-    "agent_a": "VisitorPreferences VP1 vient d'être intégré et son scope themes/tests/doc reste distinct.",
-    "forbidden": [
-      "dev/framework/themes/**",
-      "dev/framework/wiz/**",
-      "dev/framework/components/**",
-      "dev/framework/demo/**",
-      "dev/framework/doc/roadmap/roadmap.md"
-    ]
+  "verification": {
+    "node": "22.16.0",
+    "tests": "session config bundle tests: ok",
+    "final_scope": "3 new files, all inside file_scope",
+    "sync": "Branch synchronized without force using a two-parent commit after three disjoint coordination commits on New.",
+    "parallel_agents": "A Data Refresh and D Data Join Executor scopes are disjoint; only their lock files changed while B was developing.",
+    "ci_statuses": "none",
+    "pr_mergeable": true
   }
 }
