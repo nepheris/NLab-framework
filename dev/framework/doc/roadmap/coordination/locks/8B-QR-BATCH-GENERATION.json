@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-QR-BATCH-GENERATION",
+  "agent": "B",
+  "status": "in_progress",
+  "base": "b7198674e7eb9218d60631bc46ca636bb0ff7496",
+  "branch": "agent-b/qr-batch-generation",
+  "file_scope": [
+    "dev/framework/wiz/qr-wiz.js",
+    "dev/framework/tests/qr-media-robustness.test.mjs",
+    "dev/framework/doc/qr-media/contracts.md"
+  ],
+  "reserved_at": "2026-08-12T11:54:00+02:00",
+  "objective": "Ajouter une génération multiple QR structurée avec index, nom, libellé, statut et gestion d'erreurs par entrée, sans modifier MediaWiz ni les périmètres A."
+}
