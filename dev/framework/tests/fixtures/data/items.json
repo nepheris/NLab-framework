@@ -1,0 +1,26 @@
+[
+  {
+    "uid": "ITEM-100",
+    "name": "Sample One",
+    "groupCode": "GRP-A",
+    "tagIds": ["TAG-1", "TAG-2"],
+    "score": 12.5,
+    "active": true
+  },
+  {
+    "uid": "ITEM-200",
+    "name": "Sample Two",
+    "groupCode": "GRP-B",
+    "tagIds": ["TAG-3", "TAG-MISSING"],
+    "score": 7,
+    "active": true
+  },
+  {
+    "uid": "ITEM-300",
+    "name": "Sample Three",
+    "groupCode": "GRP-A",
+    "tagIds": [],
+    "score": 0,
+    "active": false
+  }
+]
