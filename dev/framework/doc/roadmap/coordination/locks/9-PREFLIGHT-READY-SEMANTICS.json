@@ -1,7 +1,7 @@
 {
   "task_id": "9-PREFLIGHT-READY-SEMANTICS",
   "agent": "A",
-  "status": "in_progress",
+  "status": "done",
   "base": "c23d43b4d84a0671f23a17d19a3aedfcf7083e25",
   "branch": "agent-a/preflight-ready-semantics-v2",
   "file_scope": [
@@ -11,21 +11,19 @@
   ],
   "reserved_at": "2026-08-12T19:49:00+02:00",
   "restarted_at": "2026-08-12T19:52:00+02:00",
+  "completed_at": "2026-08-12T19:56:00+02:00",
+  "pr": 115,
+  "merge_sha": "8b945ef962e62d8536dd878dc6005c35b802ff22",
+  "tests": [
+    "node --check preflight-gate-evaluator.js: ok",
+    "node --check preflight-gate-evaluator.test.mjs: ok",
+    "preflight gate evaluator tests: ok"
+  ],
   "source": "Actual Lot 9 machine checklist marks P9-009/P9-010 as required+ready but excludes them from blocking_gates_snapshot; evaluator treated ready as blocking and mapped coordination review to ready.",
-  "objective": "Align evaluator semantics with the canonical Lot 9 machine checklist: gate status ready is non-blocking for entry, while coordination task status review remains unfinished and maps to in_progress.",
+  "objective": "Align evaluator semantics with canonical Lot 9: ready is non-blocking for entry; coordination review remains unfinished and maps to in_progress.",
   "coordination": {
-    "agent_c": "lot9-preflight.machine.json is read-only source evidence and remains unchanged.",
-    "agent_d": "PlotlyAdapter completed while v1 branch was tested; its scope is disjoint.",
-    "branch_rebuild": "Exact tested PGE blobs will be republished from current New without force merge.",
-    "forbidden": [
-      "dev/framework/doc/roadmap/lot9-preflight.machine.json",
-      "dev/framework/tools/coordination/run-live-preflight.mjs",
-      "dev/framework/tools/coordination/check-lock-overlaps.mjs",
-      "dev/framework/wiz/data-wiz-*.js",
-      "dev/framework/doc/roadmap/roadmap.md",
-      "dev/framework/doc/roadmap/coordination/agent-board.md",
-      "dev/framework/doc/roadmap/coordination/README.md",
-      "dev/framework/demo/**"
-    ]
+    "agent_c": "lot9-preflight.machine.json used read-only as source evidence.",
+    "agent_d": "PlotlyAdapter/VisualizationSession remained disjoint.",
+    "result": "Exact tested blobs rebuilt on current New and merged via #115; no checklist, live runner, DataWiz, roadmap canonical or demo modified."
   }
 }
