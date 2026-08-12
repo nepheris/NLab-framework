@@ -1,7 +1,7 @@
 {
   "task_id": "8B-QR-STUDIO-FILMSTRIP",
   "agent": "A",
-  "status": "in_progress",
+  "status": "done",
   "base": "83bb4b6e9f50065fd2c204377a14cd8d40dc7c31",
   "branch": "agent-a/qr-studio-filmstrip",
   "file_scope": [
@@ -10,16 +10,21 @@
     "dev/framework/doc/qr-studio/qr-studio-filmstrip*.md"
   ],
   "reserved_at": "2026-08-12T17:56:00+02:00",
+  "completed_at": "2026-08-12T18:03:00+02:00",
+  "pull_request": 97,
+  "merged_sha": "73f6239fb0b07703b964d5e3a7dc4b87c836c4bb",
   "source": "foundation/BACKLOG-UX.md — vue pellicule compacte présentant tous les presets QR simultanément",
   "current_increment": "QF1-ALL-PRESETS-SELECTION-ACTIONS-PREVIEW-STATE",
-  "objective": "Create a DOM-free QR Studio filmstrip presentation adapter that exposes all system presets simultaneously, synchronizes selection/navigation with QRStudioSession, delegates filmstrip navigation to FilmstripController and surfaces edit/dirty/validated/generation preview states without generating QR or styling the UI.",
-  "coordination": {
-    "qr_session": "QRStudioSession #91 remains the workflow source of truth and is consumed through its public API only.",
-    "filmstrip_controller": "FilmstripController remains the generic navigation source of truth and is consumed without modification.",
-    "qr_generation": "QRWiz remains the QR generator; previews come only from session generation results or an injected preview adapter.",
-    "agent_d": "DataJoinCompositeKeyMatcher is integrated before reservation and does not overlap.",
-    "parallel": "ResponsivePreview/TableWiz review scopes remain disjoint and untouched.",
-    "human": "No CSS, visual calibration or demo wiring in this lot."
+  "verification": {
+    "tests": "Node 22 — qr studio filmstrip tests: ok with real QRStudioSession/QRStudioSchema",
+    "component_blob": "477177b29b74d7e2713c3bfccffc7c5585b8565b",
+    "test_blob": "258c159e44262a3da6fd13a5b9d65ddd0eceb286",
+    "diff": "exactly 3 files inside reserved scope"
   },
-  "notes": "No QRStudioSession, QRStudioSchema, FilmstripController, QRWiz, CSS, demo or roadmap canonical files modified."
+  "coordination": {
+    "agent_d": "DataJoinSuggestionSession active on core/data-join-suggestion-session.js + test/doc and explicitly forbids qr-studio-filmstrip.js; no overlap.",
+    "qr_boundaries": "QRStudioSession, QRStudioSchema, FilmstripController and QRWiz remain unchanged.",
+    "shared": "No CSS, demo or canonical roadmap modified."
+  },
+  "notes": "Integrated in New via PR #97."
 }
