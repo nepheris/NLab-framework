@@ -1,0 +1,25 @@
+{
+  "task_id": "8B-SESSION-CONFIG-TRANSFER",
+  "agent": "A",
+  "status": "in_progress",
+  "base": "f0d0530959eebe068c408f5e2ea7676ae9d38643",
+  "branch": "agent-a/session-config-transfer",
+  "file_scope": [
+    "dev/framework/core/session-config-transfer.js",
+    "dev/framework/tests/session-config-transfer*.mjs",
+    "dev/framework/doc/config/session-config-transfer*.md"
+  ],
+  "reserved_at": "2026-08-12T17:41:00+02:00",
+  "source": "foundation/BACKLOG-UX.md — bloc JSON global, copier la configuration machine, export/import JSON local",
+  "current_increment": "SCT1-COPY-DOWNLOAD-IMPORT-TEXT-FILE",
+  "objective": "Create a transport adapter around SessionConfigRegistry/SessionConfigBundle for clipboard copy, downloadable JSON descriptors and text/file import with injected IO, without modifying Registry, Bundle, Storage, CodeBlock or demos.",
+  "coordination": {
+    "session_registry": "SessionConfigRegistry remains the source of truth for the global validated session payload and is consumed read-only except through its public import API.",
+    "session_bundle": "SessionConfigBundle remains the bundle codec/model and is not modified.",
+    "session_storage": "SessionConfigStorage is done and remains responsible only for persistence, not user transfer IO.",
+    "agent_b": "Last observed B task SettingsPanelMode is done; no B lock active at reservation.",
+    "parallel_a": "ResponsivePreview review/in-progress scope remains disjoint and untouched.",
+    "human": "No DOM layout or visual calibration in this lot."
+  },
+  "notes": "No registry/bundle/storage/CodeBlock/demo/CSS/roadmap canonical files modified."
+}
