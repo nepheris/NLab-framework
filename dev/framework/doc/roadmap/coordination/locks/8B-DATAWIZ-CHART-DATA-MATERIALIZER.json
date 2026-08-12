@@ -1,0 +1,36 @@
+{
+  "task_id": "8B-DATAWIZ-CHART-DATA-MATERIALIZER",
+  "agent": "D",
+  "status": "reserved",
+  "base": "e2dd45e7cf6780ef7b9368f74454c7c2008d9ccd",
+  "branch": "agent-d/datawiz-chart-data-materializer",
+  "file_scope": [
+    "dev/framework/wiz/data-wiz-chart-data-materializer.js",
+    "dev/framework/tests/data-wiz-chart-data-materializer.test.mjs",
+    "dev/framework/doc/data-wiz/chart-data-materializer.md"
+  ],
+  "reserved_at": "2026-08-12T19:34:00+02:00",
+  "source": "Agent D visual analytics architecture after RendererAdapter #108: renderer adapters must not reimplement ChartSpec aggregate/bin/timeUnit semantics",
+  "objective": "Ajouter une matérialisation DOM-free et renderer-neutral de rows + DataWizChartSpec vers une table encodée déterministe, couvrant champs, agrégats, binning numérique, timeUnit, groupement multi-canaux et provenance d'indices, afin que les adapters concrets ne portent pas le moteur de données.",
+  "coordination": {
+    "agent_a": "LivePreflightRunner is on tools/coordination + tests/doc and explicitly forbids data-wiz files; no overlap.",
+    "agent_b": "No chart materializer scope announced or found.",
+    "agent_c": "No chart materializer scope observed.",
+    "agent_d_previous": "ChartSpec/Recommender/RendererAdapter are done and consumed read-only.",
+    "forbidden": [
+      "dev/framework/wiz/data-wiz.js",
+      "dev/framework/wiz/data-wiz-provenance.js",
+      "dev/framework/wiz/data-wiz-dataset-profile.js",
+      "dev/framework/wiz/data-wiz-chart-spec.js",
+      "dev/framework/wiz/data-wiz-chart-recommender.js",
+      "dev/framework/wiz/data-wiz-renderer-adapter.js",
+      "dev/framework/core/data-join-*.js",
+      "dev/framework/wiz/table-wiz.js",
+      "dev/framework/demo/**",
+      "dev/framework/doc/architecture/**",
+      "dev/framework/doc/roadmap/roadmap.md",
+      "dev/framework/doc/roadmap/coordination/agent-board.md",
+      "dev/framework/doc/roadmap/coordination/README.md"
+    ]
+  }
+}
