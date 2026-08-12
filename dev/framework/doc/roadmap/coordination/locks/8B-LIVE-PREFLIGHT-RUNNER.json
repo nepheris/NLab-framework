@@ -1,29 +1,30 @@
 {
   "task_id": "8B-LIVE-PREFLIGHT-RUNNER",
   "agent": "A",
-  "status": "reserved",
+  "status": "done",
   "base": "d5d03e4e354a29b4881c8ef5a17ea2ed734d30e8",
-  "branch": "agent-a/live-preflight-runner",
+  "branch": "agent-a/live-preflight-runner-v2",
   "file_scope": [
     "dev/framework/tools/coordination/run-live-preflight.mjs",
     "dev/framework/tests/live-preflight-runner.test.mjs",
     "dev/framework/doc/preflight/live-preflight-runner.md"
   ],
   "reserved_at": "2026-08-12T19:31:00+02:00",
+  "completed_at": "2026-08-12T19:36:00+02:00",
+  "pr": 110,
+  "superseded_pr": 109,
+  "merge_sha": "49eec6093059aca081992b5305eaf54de1228097",
+  "tests": [
+    "node --check run-live-preflight.mjs: ok",
+    "node --check live-preflight-runner.test.mjs: ok",
+    "live preflight runner tests: ok"
+  ],
   "source": "PreflightGateEvaluator #105 and CoordinationLockHealthAudit #107 are integrated; missing file-system runner that composes them against a machine checklist and live lock directory.",
   "objective": "Add a read-only CLI/library runner that loads a preflight JSON, validates the live lock registry, maps task states by task_id, applies optional explicit overrides, evaluates effective gates and emits a deterministic go/no-go report without modifying checklist, locks or roadmap.",
   "coordination": {
     "dependencies": "Consumes PreflightGateEvaluator and audit-lock-health public APIs read-only.",
-    "agent_d": "RendererAdapter scope remains under dev/framework/wiz/data-wiz-* and is disjoint.",
-    "forbidden": [
-      "dev/framework/core/preflight-gate-evaluator.js",
-      "dev/framework/tools/coordination/audit-lock-health.mjs",
-      "dev/framework/wiz/data-wiz-*.js",
-      "dev/framework/doc/roadmap/lot9-preflight.machine.json",
-      "dev/framework/doc/roadmap/roadmap.md",
-      "dev/framework/doc/roadmap/coordination/agent-board.md",
-      "dev/framework/doc/roadmap/coordination/README.md",
-      "dev/framework/demo/**"
-    ]
+    "agent_d": "RendererAdapter/DataWiz work stayed disjoint.",
+    "scope_guard": "PR #109 was closed unmerged after New diverged; exact tested blobs were republished on a clean branch and merged via #110.",
+    "result": "Exactly 3 scoped files merged; no checklist, other lock, canonical roadmap, demo or DataWiz file modified."
   }
 }
