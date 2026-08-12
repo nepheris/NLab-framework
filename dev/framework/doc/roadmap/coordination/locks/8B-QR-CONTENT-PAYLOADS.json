@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-QR-CONTENT-PAYLOADS",
+  "agent": "B",
+  "status": "in_progress",
+  "base": "5e911451050f3b30f519ad082832e0488f9b208a",
+  "branch": "agent-b/qr-content-payloads",
+  "file_scope": [
+    "dev/framework/wiz/qr-wiz.js",
+    "dev/framework/tests/qr-media-robustness.test.mjs",
+    "dev/framework/doc/qr-media/contracts.md"
+  ],
+  "reserved_at": "2026-08-12T11:49:00+02:00",
+  "objective": "Étendre QRWiz aux payloads texte, email, téléphone, Wi-Fi et contact/vCard avec échappements déterministes, sans modifier MediaWiz ni les périmètres A."
+}
