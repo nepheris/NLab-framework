@@ -1,0 +1,23 @@
+{
+  "task_id": "8B-LINK-THEME-TOKENS",
+  "agent": "A",
+  "status": "in_progress",
+  "base": "185f35b6f4790aaa1cb8e568e8c49595cef5c2cb",
+  "branch": "agent-a/link-theme-tokens",
+  "file_scope": [
+    "dev/framework/themes/link-theme-tokens.js",
+    "dev/framework/tests/link-theme-tokens*.mjs",
+    "dev/framework/doc/themes/link-theme-tokens*.md"
+  ],
+  "reserved_at": "2026-08-12T16:33:00+02:00",
+  "source": "foundation/BACKLOG-UX.md — LinkWiz tokens ThemeWiz couleur/hover/visited/focus/active/disabled/décoration",
+  "current_increment": "LT1-PSEUDO-STATES-CSS-VARIABLES",
+  "objective": "Create an isolated visual token contract for link normal/hover/focus/visited/active/disabled pseudo-states and decoration, with deterministic CSS variable output, without storing pseudo-states in LinkWiz or modifying ThemeEngine/CSS/demo.",
+  "coordination": {
+    "link_wiz": "Existing LinkWiz remains unchanged; its normal/active/disabled business state model is preserved.",
+    "agent_b": "PanelActionRegistry scope is disjoint.",
+    "agent_d": "DataJoinWorkspace scope is disjoint.",
+    "responsive_preview": "ResponsivePreview scope is disjoint."
+  },
+  "notes": "No ThemeEngine/default theme/CSS/demo changes. This lot defines only semantic visual tokens and variable projection."
+}
