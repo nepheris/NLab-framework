@@ -1,0 +1,33 @@
+{
+  "task_id": "9-SITE-GENERATION-CHECKLIST-CONTRACT",
+  "agent": "A",
+  "status": "reserved",
+  "base": "9185a751f7c2697c4cfeefb1baa84ea73845a16a",
+  "branch": "agent-a/site-generation-checklist-contract",
+  "file_scope": [
+    "dev/framework/data/site-generation-checklist.schema.json",
+    "dev/framework/tests/fixtures/site-generation-checklist.json",
+    "dev/framework/tests/site-generation-checklist.test.mjs",
+    "dev/framework/doc/preflight/site-generation-checklist.md"
+  ],
+  "reserved_at": "2026-08-12T20:47:00+02:00",
+  "source": "Lot 9 detailed preflight explicitly allows preparing a generation checklist while business source/Preview blockers remain unresolved.",
+  "objective": "Formalize a generic, non-executable site generation checklist contract and reference fixture covering preflight, data, validation, relation resolution, rendering, assets, routes, output, preview/comparison and report stages without embedding business logic or creating a site workspace.",
+  "coordination": {
+    "lot9": "Consumes lot9-recettes-du-coeur-preflight.md read-only as source intent.",
+    "workspace": "site-workspace.schema.json remains the separate folder contract and is not modified.",
+    "agent_d": "DataWiz visualization work remains disjoint under wiz/data-wiz-* + tests/doc.",
+    "forbidden": [
+      "Sites/**",
+      "dev/framework/data/site-workspace.schema.json",
+      "dev/framework/doc/roadmap/lot9-recettes-du-coeur-preflight.md",
+      "dev/framework/doc/roadmap/lot9-preflight.machine.json",
+      "dev/framework/core/**",
+      "dev/framework/wiz/**",
+      "dev/framework/demo/**",
+      "dev/framework/doc/roadmap/roadmap.md",
+      "dev/framework/doc/roadmap/coordination/agent-board.md",
+      "dev/framework/doc/roadmap/coordination/README.md"
+    ]
+  }
+}
