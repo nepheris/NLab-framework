@@ -1,7 +1,7 @@
 {
   "task_id": "8B-DATA-JOIN-CONFIG-DRAFT",
   "agent": "D",
-  "status": "in_progress",
+  "status": "done",
   "base": "15aa64e9c0f67c2703c2e6487d2caabba7be2e82",
   "branch": "agent-d/data-join-config-draft",
   "file_scope": [
@@ -11,13 +11,24 @@
   ],
   "reserved_at": "2026-08-12T18:12:00+02:00",
   "started_at": "2026-08-12T18:13:00+02:00",
+  "completed_at": "2026-08-12T18:23:00+02:00",
+  "pr": 101,
+  "merge_sha": "8d64b8df13639acd883b12321aaef7dd8b70cd0c",
   "source": "Agent D graphical DataJoin roadmap after SuggestionSession #99: explicit reviewed configuration draft before any JoinSpec/Workspace mutation",
   "objective": "Ajouter un modèle DOM-free de brouillon qui adopte une proposition de DataJoinSuggestionSession, conserve les choix métier par sections, exige une revue explicite des politiques de jointure avant finalisation et produit un payload DataJoinSpec V1 cloné/validable sans jamais modifier un DataJoinSpec ou DataJoinWorkspace existant.",
+  "validation": {
+    "node_check": "ok",
+    "tests": "data join config draft tests: ok",
+    "fuzz": "500 randomized valid configurations: ok",
+    "source_blob": "f7eb481c773264423797e4eb4984c97bb9b90f14",
+    "test_blob": "3a67eec9f6fb7c29186aa46bb637ba807d9b0036",
+    "doc_blob": "d7afaa35c3cb5bb3f086516d783f4ba40fb223ca"
+  },
   "coordination": {
-    "agent_a": "8B-DIAGNOSTIC-COVERAGE-AUDIT is in_progress on diagnostic-coverage-audit.js + tests/doc only; exact scope checked and disjoint.",
-    "agent_b": "No active B DataJoin configuration scope observed in latest coordination state.",
-    "agent_c": "No active DataJoin configuration draft scope observed.",
-    "agent_d_previous": "SuggestionSession #99 is done; DataJoinSpec and all existing DataJoin modules remain read-only/unchanged.",
+    "agent_a": "Diagnostic Coverage Audit remained on diagnostic-coverage-audit.* and disjoint through merge.",
+    "agent_b": "No B overlap observed on DataJoin config draft.",
+    "agent_c": "No DataJoin config draft overlap observed.",
+    "agent_d_previous": "SuggestionSession #99 and all prior DataJoin modules were consumed without modification.",
     "forbidden": [
       "dev/framework/core/data-join-spec.js",
       "dev/framework/core/data-join-executor.js",
