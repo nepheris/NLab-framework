@@ -1,7 +1,7 @@
 {
   "task_id": "8B-INSPECTOR-SNAPSHOT-JSON",
   "agent": "B",
-  "status": "in_progress",
+  "status": "done",
   "base": "d44c284149c48e1c0c5e3d12bd1f34cc1e1409a8",
   "branch": "agent-b/inspector-snapshot-json",
   "file_scope": [
@@ -10,5 +10,9 @@
     "dev/framework/doc/components/inspector-snapshot.md"
   ],
   "reserved_at": "2026-08-12T12:35:00+02:00",
-  "objective": "Ajouter un snapshot JSON déterministe et portable pour InspectorPanel/FloatingPanel, avec validation, copie isolée et import/export versionné, sans toucher aux périmètres A."
+  "completed_at": "2026-08-12T12:38:00+02:00",
+  "pr": 43,
+  "final_sha": "35f8232eb5e5bde721b0d262ae54be3ccd1544a8",
+  "objective": "Ajouter un snapshot JSON déterministe et portable pour InspectorPanel/FloatingPanel, avec validation, copie isolée et import/export versionné, sans toucher aux périmètres A.",
+  "validation": "Node 22.16.0 — inspector snapshot tests: ok; 3 fichiers neufs dans le file_scope; PR #43 mergée dans New."
 }
