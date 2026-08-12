@@ -1,0 +1,38 @@
+{
+  "task_id": "8B-DATAWIZ-VISUALIZATION-SESSION",
+  "agent": "D",
+  "status": "reserved",
+  "base": "c23d43b4d84a0671f23a17d19a3aedfcf7083e25",
+  "branch": "agent-d/datawiz-visualization-session",
+  "file_scope": [
+    "dev/framework/wiz/data-wiz-visualization-session.js",
+    "dev/framework/tests/data-wiz-visualization-session.test.mjs",
+    "dev/framework/doc/data-wiz/visualization-session.md"
+  ],
+  "reserved_at": "2026-08-12T19:54:00+02:00",
+  "source": "Agent D integration axis after DatasetProfile/ChartRecommender/ChartSpec/ChartDataMaterializer/RendererAdapter/PlotlyAdapter: provide a neutral explicit-choice workflow without UI",
+  "objective": "Ajouter une session DOM-free qui lie profilage, recommandations, sélection explicite d'un ChartSpec, matérialisation et compilation via un RendererAdapter injectable, tout en gardant les rows runtime-only, en invalidant proprement les dérivés lors d'un rebind et sans auto-sélection/auto-application.",
+  "coordination": {
+    "agent_a": "Latest preflight semantics scope is core/test/doc and explicitly forbids data-wiz files.",
+    "agent_b": "No visualization-session scope found.",
+    "agent_c": "No visualization-session scope found.",
+    "agent_d_previous": "All DataWiz building blocks are done and consumed read-only.",
+    "forbidden": [
+      "dev/framework/wiz/data-wiz.js",
+      "dev/framework/wiz/data-wiz-provenance.js",
+      "dev/framework/wiz/data-wiz-dataset-profile.js",
+      "dev/framework/wiz/data-wiz-chart-spec.js",
+      "dev/framework/wiz/data-wiz-chart-recommender.js",
+      "dev/framework/wiz/data-wiz-renderer-adapter.js",
+      "dev/framework/wiz/data-wiz-chart-data-materializer.js",
+      "dev/framework/wiz/data-wiz-plotly-adapter.js",
+      "dev/framework/core/data-join-*.js",
+      "dev/framework/wiz/table-wiz.js",
+      "dev/framework/demo/**",
+      "dev/framework/doc/architecture/**",
+      "dev/framework/doc/roadmap/roadmap.md",
+      "dev/framework/doc/roadmap/coordination/agent-board.md",
+      "dev/framework/doc/roadmap/coordination/README.md"
+    ]
+  }
+}
