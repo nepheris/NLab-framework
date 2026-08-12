@@ -1,7 +1,7 @@
 {
   "task_id": "8B-BACKGROUNDWIZ-CONTRACT",
   "agent": "A",
-  "status": "in_progress",
+  "status": "done",
   "base": "350ebf4b3d3f2943c7766e2c28f11cff8b920e60",
   "branch": "agent-a/backgroundwiz-contract",
   "file_scope": [
@@ -10,13 +10,19 @@
     "dev/framework/doc/background/*.md"
   ],
   "reserved_at": "2026-08-12T14:42:00+02:00",
+  "completed_at": "2026-08-12T14:45:00+02:00",
   "source": "foundation/BACKLOG-UX.md — BackgroundWiz",
-  "current_increment": "BG1-TRANSPARENT-SOLID-GRADIENT-IMAGE",
-  "objective": "Create a pure background descriptor engine for transparent, solid, gradient and image backgrounds with editable stops, angle/orientation, normalized scopes and deterministic CSS/style output.",
-  "coordination": {
-    "v20": "V20 Scope/Layout remains HUMAN-blocked and is not modified.",
-    "theme_workshop": "Theme Workshop/theme-engine files remain outside this lock.",
-    "parallel_agents": "No BackgroundWiz file or lock found before reservation."
+  "pull_request": 66,
+  "final_sha": "2cb2d31d90ba7b56c157f1ef2c6a170d791f1ca1",
+  "merged_sha": "7dca89a0d90e4707da542a02bfad376db0bfd621",
+  "completed_increments": ["BG1-TRANSPARENT-SOLID-GRADIENT-IMAGE","BG1-SECURITY-REVIEW"],
+  "verification": {
+    "engine_blob": "d6df03951d69e1554ccbabcb7b57e3c24cf06a41",
+    "test_blob": "668f3273e951a11c700c6820422350093210b500",
+    "tests": "Node 22 exact blobs: background wiz tests: ok",
+    "scope": "3 new files only; no V20/Theme Workshop/ThemeEngine/demo modifications",
+    "security": "Color fields reject image/gradient functions; executable URL schemes rejected; data URLs limited to data:image/*"
   },
-  "notes": "No demo/CSS/theme-engine changes. Visual validation and wiring are separate tasks."
+  "human_follow_up": "Visual/scoped wiring into Theme Workshop/V20 remains separate and HUMAN-gated.",
+  "notes": "BackgroundWiz pure descriptor contract integrated via PR #66."
 }
