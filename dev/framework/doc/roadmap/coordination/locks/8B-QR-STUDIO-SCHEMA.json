@@ -1,7 +1,7 @@
 {
   "task_id": "8B-QR-STUDIO-SCHEMA",
   "agent": "A",
-  "status": "in_progress",
+  "status": "done",
   "base": "a735f9a951d3e683440fe620d0b3470bfecaf6ed",
   "branch": "agent-a/qr-studio-schema-clean",
   "file_scope": [
@@ -14,19 +14,23 @@
   "current_increment": "QS1-FIELDS-ERROR-LEVELS-BASE-PRESETS",
   "objective": "Create a descriptor-only QR Studio schema exposing human field labels/help, error-correction level descriptors and the six standard preset templates without modifying QRWiz, QRPresetCodec, QRPresetStorage or PresetManager.",
   "coordination": {
-    "qr_existing": "QRWiz, QR batch/content/media robustness, preset codec and preset storage are all done and remain unchanged.",
-    "preset_manager": "Generic PresetManager remains unchanged.",
-    "agent_d": "DataJoin Field Catalog #85 integrated and DataJoin key matcher is active on a disjoint scope.",
-    "agent_b": "StatusPanelModel remains on a disjoint scope."
+    "qr_existing": "QRWiz, QR batch/content/media robustness, preset codec and preset storage remained unchanged.",
+    "preset_manager": "Generic PresetManager remained unchanged.",
+    "agent_d": "DataJoin Field Catalog #85 integrated and DataJoin KeyMatcher remained on a disjoint scope.",
+    "agent_b": "StatusPanelModel/AssetLogoProfile remained on disjoint scopes."
   },
   "superseded_pull_request": 86,
   "superseded_reason": "Closed before merge because a coordination lock checkpoint entered the old PR diff outside file_scope. No QS1 code was merged from that PR.",
-  "clean_head": "56fabfc4b989f795681feec031c75e3cbb1d4193",
+  "pull_request": 88,
+  "final_sha": "ec073d1a4a39ac8a6b3cf233196ff07440c454c8",
+  "merged_sha": "4815f5a26b1c8b9515cff0806cd9fe96fafb830d",
+  "completed_at": "2026-08-12T16:55:00+02:00",
   "verification": {
+    "diff": "3 files exactly, all inside reserved file_scope",
     "tests": "Node 22 — qr studio schema tests: ok",
     "component_blob": "6b0d4730debae4497b0fab2c18cbf43d352e161c",
     "test_blob": "6051682ab82024364e7d4e70d17133dd60ddb59e",
     "doc_blob": "b505b93807c688fc179f2102f88061194b951a42"
   },
-  "notes": "Clean branch is rebuilt from current New with exactly the three reserved QR Studio blobs."
+  "notes": "PR #88 merged only after a clean rebuild from New and GitHub mergeable=true; #86 remains closed/unmerged as scope-drift audit trail."
 }
