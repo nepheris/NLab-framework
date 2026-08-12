@@ -1,0 +1,30 @@
+{
+  "task_id": "9-LIVE-PREFLIGHT-ERROR-CONTRACT",
+  "agent": "A",
+  "status": "reserved",
+  "base": "4d38bf7d7c81b1ba7d3d41ba58fb18ca8b6ec035",
+  "branch": "agent-a/live-preflight-error-contract",
+  "file_scope": [
+    "dev/framework/tools/coordination/run-live-preflight.mjs",
+    "dev/framework/tests/live-preflight-runner.test.mjs",
+    "dev/framework/data/live-preflight-error.schema.json",
+    "dev/framework/doc/preflight/live-preflight-error-schema.md"
+  ],
+  "reserved_at": "2026-08-12T20:19:00+02:00",
+  "source": "Success reports are now versioned/schema'd, while CLI errors still emit an unversioned {ok:false,error} object.",
+  "objective": "Version the machine-readable CLI error envelope as nlab.live-preflight-error V1, add a Draft 2020-12 schema and test emitted error JSON without changing preflight decision behavior or exit codes.",
+  "coordination": {
+    "agent_d": "DataWiz visualization scopes remain disjoint under wiz/data-wiz-* + tests/doc.",
+    "success_schema": "live-preflight-report.schema.json remains unchanged; this lot covers only CLI error output.",
+    "forbidden": [
+      "dev/framework/data/live-preflight-report.schema.json",
+      "dev/framework/core/preflight-gate-evaluator.js",
+      "dev/framework/doc/roadmap/lot9-preflight.machine.json",
+      "dev/framework/wiz/data-wiz-*.js",
+      "dev/framework/doc/roadmap/roadmap.md",
+      "dev/framework/doc/roadmap/coordination/agent-board.md",
+      "dev/framework/doc/roadmap/coordination/README.md",
+      "dev/framework/demo/**"
+    ]
+  }
+}
