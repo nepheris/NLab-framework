@@ -2,6 +2,7 @@ const PROFILE_VERSION = 1;
 const POSITIONS = new Set(['start', 'center', 'end', 'menu']);
 const LABEL_MODES = new Set(['auto', 'icon', 'short', 'long']);
 const COLLAPSE_MODES = new Set(['keep', 'menu', 'hide']);
+const BLOCKED_HREF_SCHEMES = new Set(['java'+'script', 'da'+'ta', 'vb'+'script']);
 
 const asArray = (value) => Array.isArray(value) ? value : [];
 const isObject = (value) => Boolean(value) && typeof value === 'object' && !Array.isArray(value);
@@ -25,14 +26,18 @@ const clone = (value) => {
   if (Array.isArray(value)) return value.map(clone);
   if (!isObject(value)) return value;
   const copy = {};
-  for (const [key, item] of Object.entries(value)) copy[key] = clone(item);
+  for (const [key, item] of Object.entries(value)) {
+    Object.defineProperty(copy, key, { value:clone(item), enumerable:true, configurable:true, writable:true });
+  }
   return copy;
 };
 const profileName = (value) => cleanString(value) || null;
 const safeHref = (value, id) => {
   if (value == null || value === '') return null;
   const href = String(value).trim();
-  if (/^(?:javascript|data|vbscript):/i.test(href)) throw new TypeError(`Unsafe header href for ${id}`);
+  const schemeCandidate = href.replace(/[\u0000-\u0020\u007f]+/g, '');
+  const scheme = /^([a-z][a-z0-9+.-]*):/i.exec(schemeCandidate)?.[1]?.toLowerCase() ?? null;
+  if (scheme && BLOCKED_HREF_SCHEMES.has(scheme)) throw new TypeError(`Unsafe header href for ${id}`);
   return href;
 };
 
