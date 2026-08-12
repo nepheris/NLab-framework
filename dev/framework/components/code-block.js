@@ -6,6 +6,7 @@ const LANGUAGE_PRESETS = Object.freeze({
   bash: { extension: 'sh', mime: 'text/x-shellscript;charset=utf-8', aliases: ['sh', 'shell', 'zsh'] },
   html: { extension: 'html', mime: 'text/html;charset=utf-8', aliases: ['htm'] },
   css: { extension: 'css', mime: 'text/css;charset=utf-8', aliases: [] },
+  csv: { extension: 'csv', mime: 'text/csv;charset=utf-8', aliases: ['comma-separated-values'] },
   markdown: { extension: 'md', mime: 'text/markdown;charset=utf-8', aliases: ['md'] }
 });
 
@@ -15,6 +16,17 @@ const LANGUAGE_ALIAS_MAP = Object.freeze(Object.entries(LANGUAGE_PRESETS).reduce
   return map;
 }, {}));
 
+const EXTENSION_LANGUAGE_MAP = Object.freeze(Object.entries(LANGUAGE_PRESETS).reduce((map, [name, preset]) => {
+  map[preset.extension] = name;
+  for (const alias of preset.aliases) {
+    if (/^[a-z0-9]+$/i.test(alias)) map[alias] ??= name;
+  }
+  return map;
+}, {
+  markdown: 'markdown',
+  bash: 'bash'
+}));
+
 const SCRIPT_PATTERNS = Object.freeze({
   javascript: /(?<comment>\/\*[\s\S]*?\*\/|\/\/[^\n]*)|(?<string>`(?:\\.|[^`\\])*`|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|(?<keyword>\b(?:const|let|var|function|return|if|else|for|while|class|new|import|from|export|async|await|true|false|null)\b)|(?<number>\b\d+(?:\.\d+)?\b)/g,
   python: /(?<comment>#[^\n]*)|(?<string>"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|(?<keyword>\b(?:def|return|if|elif|else|for|while|class|import|from|as|True|False|None|with|lambda|in|not|and|or)\b)|(?<number>\b\d+(?:\.\d+)?\b)/g,
@@ -22,6 +34,8 @@ const SCRIPT_PATTERNS = Object.freeze({
 });
 
 const JSON_PATTERN = /(?<key>"(?:\\.|[^"\\])*"\s*:)|(?<string>"(?:\\.|[^"\\])*")|(?<literal>\b(?:true|false|null)\b)|(?<number>-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)/g;
+const HTML_PATTERN = /(?<comment><!--[\s\S]*?-->)|(?<tag><\/?[A-Za-z][^>]*>)/g;
+const CSS_PATTERN = /(?<comment>\/\*[\s\S]*?\*\/)|(?<string>"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|(?<property>--?[A-Za-z][\w-]*|[A-Za-z][\w-]*)(?=\s*:)|(?<number>-?\b\d+(?:\.\d+)?(?:px|rem|em|%|vh|vw|s|ms|deg)?\b)/g;
 
 function escapeHtml(value = '') {
   return String(value).replace(/[&<>"']/g, (char) => ({
@@ -34,6 +48,10 @@ function normalizeLanguage(value = 'text') {
   return LANGUAGE_ALIAS_MAP[key] ?? 'text';
 }
 
+function isAutoLanguage(value) {
+  return String(value ?? '').trim().toLowerCase() === 'auto';
+}
+
 function presetFor(language) {
   return LANGUAGE_PRESETS[normalizeLanguage(language)];
 }
@@ -41,6 +59,93 @@ function presetFor(language) {
 function defaultFilename(language, base = 'export') {
   const safeBase = String(base || 'export').trim() || 'export';
   return `${safeBase}.${presetFor(language).extension}`;
+}
+
+function languageFromFilename(filename) {
+  const clean = String(filename ?? '').trim().toLowerCase().split(/[?#]/, 1)[0];
+  const match = clean.match(/\.([a-z0-9]+)$/i);
+  if (!match) return null;
+  return EXTENSION_LANGUAGE_MAP[match[1]] ?? null;
+}
+
+function countDelimitedColumns(line, separator) {
+  let columns = 1;
+  let quoted = false;
+
+  for (let index = 0; index < line.length; index += 1) {
+    const char = line[index];
+    if (char === '"') {
+      if (quoted && line[index + 1] === '"') {
+        index += 1;
+      } else {
+        quoted = !quoted;
+      }
+    } else if (!quoted && char === separator) {
+      columns += 1;
+    }
+  }
+
+  return quoted ? 0 : columns;
+}
+
+function looksLikeCsv(source) {
+  const lines = String(source ?? '').split(/\r?\n/).map((line) => line.trim()).filter(Boolean).slice(0, 6);
+  if (lines.length < 2) return false;
+
+  for (const separator of [',', ';', '\t']) {
+    const counts = lines.map((line) => countDelimitedColumns(line, separator));
+    if (counts[0] >= 2 && counts.every((count) => count === counts[0])) return true;
+  }
+  return false;
+}
+
+function detectLanguage(source, { filename = null, fallback = 'text' } = {}) {
+  const fromFilename = languageFromFilename(filename);
+  if (fromFilename) return fromFilename;
+
+  const text = String(source ?? '');
+  const trimmed = text.trim();
+  if (!trimmed) return normalizeLanguage(fallback);
+
+  if (/^[\[{]/.test(trimmed)) {
+    try {
+      JSON.parse(trimmed);
+      return 'json';
+    } catch {
+      // Keep evaluating conservative signatures below.
+    }
+  }
+
+  if (/^#!.*\bpython(?:3(?:\.\d+)*)?\b/im.test(trimmed)
+      || /^(?:from\s+\S+\s+import\s+|import\s+\S+|def\s+\w+\s*\([^)]*\)\s*:|class\s+\w+.*:)/m.test(trimmed)) {
+    return 'python';
+  }
+
+  if (/^#!.*\/(?:usr\/bin\/env\s+)?(?:ba|z|k)?sh\b/im.test(trimmed)
+      || /^(?:export\s+[A-Za-z_]\w*=|(?:echo|printf)\s+.+|\w+\(\)\s*\{)/m.test(trimmed)) {
+    return 'bash';
+  }
+
+  if (/<!doctype\s+html\b/i.test(trimmed)
+      || /<(?:html|head|body|main|section|article|div|span|p|h[1-6]|form|table)\b[^>]*>[\s\S]*<\/(?:html|head|body|main|section|article|div|span|p|h[1-6]|form|table)>/i.test(trimmed)) {
+    return 'html';
+  }
+
+  if (/(?:^|})\s*(?::root|[.#]?[A-Za-z][\w-]*(?:\s+[.#]?[A-Za-z][\w-]*)*)\s*\{[^{}]*\b(?:color|background|display|position|margin|padding|font(?:-family|-size|-weight)?|border|width|height|grid|flex|--[\w-]+)\s*:/ms.test(trimmed)) {
+    return 'css';
+  }
+
+  if (/^(?:import|export)\s+.+from\s+['"][^'"]+['"];?$/m.test(trimmed)
+      || /\b(?:const|let|var)\s+[A-Za-z_$][\w$]*\s*=/m.test(trimmed)
+      || /\bfunction\s+[A-Za-z_$][\w$]*\s*\(/m.test(trimmed)
+      || /=>\s*(?:\{|[^\n;]+)/m.test(trimmed)) {
+    return 'javascript';
+  }
+
+  if (/^(?:#{1,6}\s+\S+|```[\w-]*\s*$)/m.test(trimmed)) return 'markdown';
+  if (looksLikeCsv(trimmed)) return 'csv';
+
+  return normalizeLanguage(fallback);
 }
 
 function highlightTokens(source, pattern, classPrefix = 'nlab-codeblock__') {
@@ -81,6 +186,10 @@ export class CodeBlock {
     return normalizeLanguage(value);
   }
 
+  static detectLanguage(value, options = {}) {
+    return detectLanguage(value, options);
+  }
+
   constructor({
     value = '',
     language = 'text',
@@ -95,7 +204,10 @@ export class CodeBlock {
     BlobRef = globalThis.Blob ?? null
   } = {}) {
     this.value = String(value ?? '');
-    this.language = normalizeLanguage(language);
+    this.autoLanguage = isAutoLanguage(language);
+    this.language = this.autoLanguage
+      ? detectLanguage(this.value, { filename, fallback: 'text' })
+      : normalizeLanguage(language);
     this.autoFilename = filename == null || String(filename).trim() === '';
     this.filename = this.autoFilename ? defaultFilename(this.language) : String(filename);
     this.theme = theme === 'dark' ? 'dark' : 'light';
@@ -117,6 +229,13 @@ export class CodeBlock {
 
   setValue(value) {
     this.value = String(value ?? '');
+    if (this.autoLanguage) {
+      this.language = detectLanguage(this.value, {
+        filename: this.autoFilename ? null : this.filename,
+        fallback: this.language
+      });
+      if (this.autoFilename) this.filename = defaultFilename(this.language);
+    }
     this.render();
     return this;
   }
@@ -134,16 +253,36 @@ export class CodeBlock {
   }
 
   setLanguage(value) {
-    this.language = normalizeLanguage(value);
+    this.autoLanguage = isAutoLanguage(value);
+    this.language = this.autoLanguage
+      ? detectLanguage(this.value, { filename: this.autoFilename ? null : this.filename, fallback: this.language })
+      : normalizeLanguage(value);
     if (this.autoFilename) this.filename = defaultFilename(this.language);
     this.render();
     return this;
+  }
+
+  detectLanguage({ apply = true, filename = this.autoFilename ? null : this.filename, fallback = this.language } = {}) {
+    const detected = detectLanguage(this.value, { filename, fallback });
+    if (apply) {
+      this.language = detected;
+      if (this.autoFilename) this.filename = defaultFilename(this.language);
+      this.render();
+    }
+    return detected;
   }
 
   setFilename(value) {
     const normalized = String(value ?? '').trim();
     this.autoFilename = normalized === '';
     this.filename = this.autoFilename ? defaultFilename(this.language) : normalized;
+    if (this.autoLanguage) {
+      this.language = detectLanguage(this.value, {
+        filename: this.autoFilename ? null : this.filename,
+        fallback: this.language
+      });
+      if (this.autoFilename) this.filename = defaultFilename(this.language);
+    }
     this.render();
     return this;
   }
@@ -235,6 +374,8 @@ export class CodeBlock {
     if (!this.highlighted) return escapeHtml(this.value);
     if (this.language === 'json') return highlightJson(this.value);
     if (['javascript', 'python', 'bash'].includes(this.language)) return highlightScript(this.value, this.language);
+    if (this.language === 'html') return highlightTokens(this.value, HTML_PATTERN);
+    if (this.language === 'css') return highlightTokens(this.value, CSS_PATTERN);
     return escapeHtml(this.value);
   }
 
