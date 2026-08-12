@@ -10,7 +10,7 @@
 
 Ne pas recopier un header métier ni une barre de navigation spécifique à une application.
 
-`HeaderStudio` devient un moteur générique de composition d’un header : l’application fournit les items et les callbacks, le composant gère ordre, visibilité, présentation, responsive, menu et profils.
+`HeaderStudio` devient un moteur générique de composition d’un header : l’application fournit les items et les callbacks ; le composant gère ordre, visibilité, présentation, responsive, menu et profils.
 
 Le composant ne connaît ni MVola, ni MadaNotes, ni les routes d’une application.
 
@@ -81,7 +81,7 @@ En compact, chaque item décide :
 
 Un item dont `position=menu` reste toujours dans le menu.
 
-`resolve({ width })` produit un état pur :
+`resolve({ width })` produit un état pur avec :
 
 - `mode` ;
 - zones `start`, `center`, `end`, `menu` ;
@@ -112,9 +112,7 @@ Le composant ne contient aucune logique métier.
 - `onAction({ id, item, event })` transmet l’action au consommateur ;
 - un item `disabled` ne déclenche pas l’action.
 
-Les labels et icônes fallback sont injectés via `textContent` et non `innerHTML`.
-
-Une application peut injecter `iconRenderer(icon, item)` pour produire un nœud DOM d’icône sans coupler HeaderStudio à IconRegistry.
+Les labels et icônes fallback sont injectés via `textContent`, jamais via `innerHTML`.
 
 ### Profils / presets
 
@@ -140,7 +138,52 @@ L’import de profils est atomique : un payload invalide ne remplace pas la coll
 
 Le stockage est injectable via `getItem/setItem`; aucune dépendance directe à `localStorage`.
 
-## Validation H1
+## H2 — audit d’intégration et sécurité
+
+### NavigationWiz
+
+`NavigationWiz` reste une brique indépendante : il construit le sommaire de contenu et suit la section active. `HeaderStudio` ne doit pas absorber cette logique.
+
+L’intégration applicative se fait simplement en déclarant dans HeaderStudio un item « Sommaire » / « Navigation » dont le callback pilote l’UI NavigationWiz. Cette séparation évite de dupliquer la hiérarchie de navigation dans le header.
+
+### IconRegistry
+
+`IconRegistry.render()` retourne actuellement une chaîne SVG. HeaderStudio ne l’injecte volontairement pas par `innerHTML`.
+
+Le contrat d’intégration est :
+
+```js
+iconRenderer(iconId, item, documentRef)
+```
+
+L’adaptateur peut retourner un vrai nœud DOM construit par le consommateur. Si l’adaptateur retourne une chaîne, HeaderStudio la traite comme texte et non comme HTML.
+
+Cette frontière conserve la possibilité d’utiliser IconRegistry sans transformer HeaderStudio en point d’injection SVG/HTML arbitraire.
+
+### Hrefs sûrs
+
+Les `href` relatifs, ancres et URLs normales restent acceptés.
+
+Les schémas exécutables ou embarqués suivants sont rejetés dès la construction de l’item :
+
+- `javascript:` ;
+- `data:` ;
+- `vbscript:`.
+
+Un `href` refusé produit une erreur explicite `Unsafe header href for <id>` avant tout rendu DOM.
+
+### Dépendances
+
+HeaderStudio conserve **zéro import runtime** vers :
+
+- `NavigationWiz` ;
+- `IconRegistry` ;
+- `BrowserStorage` ;
+- la démo.
+
+Les interactions se font par callbacks/adaptateurs et stockage injecté.
+
+## Validation automatisée
 
 Test : `dev/framework/tests/header-studio.test.mjs`.
 
@@ -158,19 +201,25 @@ Couverture :
 - rendu DOM / ARIA ;
 - callback action ;
 - drag/drop ;
-- item désactivé.
+- item désactivé ;
+- rejet des `href` dangereux ;
+- lien relatif conservé comme ancre ;
+- adaptateur d’icône retournant un nœud DOM.
 
-Résultat Node 22 :
+Résultat Node 22 après H2 :
 
 ```text
 header studio tests: ok
 ```
 
-## Suites autonomes envisagées
+## Restant avant revue
 
-1. tester les cas de groupes multiples et profils responsive plus fins ;
-2. ajouter une API de presets d’appareil / stratégie de collapse si nécessaire sans logique métier ;
-3. audit d’intégration avec `NavigationWiz`, `IconRegistry` et les patterns de la démo sans modifier leurs fichiers ;
-4. synchroniser la branche avec `New`, contrôler le diff et passer en review lorsque le contrat est stable.
+Travail autonome :
 
-Une validation HUMAN n’est utile qu’au moment où le rendu visuel / ergonomique réel doit être arbitré.
+1. contrôler le `New` courant et les locks parallèles ;
+2. comparer la branche au `New` courant et vérifier que le diff reste limité aux trois fichiers Header Studio ;
+3. synchroniser la branche avec `New` si celui-ci a avancé ;
+4. créer la PR et effectuer l’audit final API / sécurité / tests ;
+5. passer le lock en `review` lorsque ces contrôles sont verts.
+
+Une validation HUMAN n’est utile qu’au moment où le rendu visuel / ergonomique réel du header doit être arbitré.
