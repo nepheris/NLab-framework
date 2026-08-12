@@ -1,7 +1,7 @@
 {
   "task_id": "8B-DATAWIZ-CHART-DATA-MATERIALIZER",
   "agent": "D",
-  "status": "in_progress",
+  "status": "done",
   "base": "b75f2e1597de6016896e0f0894e9452a1d9f57d3",
   "branch": "agent-d/datawiz-chart-data-materializer",
   "file_scope": [
@@ -11,27 +11,24 @@
   ],
   "reserved_at": "2026-08-12T19:34:00+02:00",
   "started_at": "2026-08-12T19:36:00+02:00",
-  "source": "Agent D visual analytics architecture after RendererAdapter #108: renderer adapters must not reimplement ChartSpec aggregate/bin/timeUnit semantics",
-  "objective": "Ajouter une matérialisation DOM-free et renderer-neutral de rows + DataWizChartSpec vers une table encodée déterministe, couvrant champs, agrégats, binning numérique, timeUnit, groupement multi-canaux et provenance d'indices, afin que les adapters concrets ne portent pas le moteur de données.",
+  "completed_at": "2026-08-12T19:43:00+02:00",
+  "pull_request": 112,
+  "merge_sha": "bd2617f659f976fab8a46f7a4060947da3d8d4e6",
+  "validation": {
+    "node_check": "ok",
+    "tests": "data wiz chart data materializer tests: ok",
+    "fuzz_datasets": 500,
+    "published_blobs": {
+      "engine": "edf7773516d34c4bc965db9e987a521bb329c1a2",
+      "test": "30f814c03971f4f8152eba76e0c6eeed4ee6a877",
+      "doc": "5ea8984220710f8a996bb945fdeca106c3715f7d"
+    }
+  },
+  "result": "Renderer-neutral ChartDataMaterializer V1 now owns explicit raw/aggregate/histogram data semantics, numeric bins, UTC timeUnit grouping and source-index provenance so concrete renderer adapters do not reimplement data transforms.",
   "coordination": {
-    "agent_a": "LivePreflightRunner is on tools/coordination + tests/doc and explicitly forbids data-wiz files; no overlap.",
-    "agent_b": "No chart materializer scope announced or found.",
-    "agent_c": "No chart materializer scope observed.",
-    "agent_d_previous": "ChartSpec/Recommender/RendererAdapter are done and consumed read-only.",
-    "forbidden": [
-      "dev/framework/wiz/data-wiz.js",
-      "dev/framework/wiz/data-wiz-provenance.js",
-      "dev/framework/wiz/data-wiz-dataset-profile.js",
-      "dev/framework/wiz/data-wiz-chart-spec.js",
-      "dev/framework/wiz/data-wiz-chart-recommender.js",
-      "dev/framework/wiz/data-wiz-renderer-adapter.js",
-      "dev/framework/core/data-join-*.js",
-      "dev/framework/wiz/table-wiz.js",
-      "dev/framework/demo/**",
-      "dev/framework/doc/architecture/**",
-      "dev/framework/doc/roadmap/roadmap.md",
-      "dev/framework/doc/roadmap/coordination/agent-board.md",
-      "dev/framework/doc/roadmap/coordination/README.md"
-    ]
+    "agent_a": "LivePreflightRunner and LivePreflightOverlapGate completed concurrently on tools/coordination + tests/doc only and remained disjoint.",
+    "agent_b": "No B file modified.",
+    "agent_c": "No C file modified.",
+    "datawiz_dependencies": "ChartSpec/Recommender/RendererAdapter consumed read-only and unchanged."
   }
 }
