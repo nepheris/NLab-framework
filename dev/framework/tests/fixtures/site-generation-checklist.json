@@ -1,0 +1,143 @@
+{
+  "schema": "nlab.site-generation-checklist",
+  "version": 1,
+  "name": "Generic static site generation",
+  "stages": [
+    {
+      "id": "generation.preflight",
+      "type": "preflight",
+      "label": "Preflight",
+      "mode": "hybrid",
+      "required": true,
+      "depends_on": [],
+      "inputs": ["workspace.contract", "generation.config"],
+      "outputs": ["preflight.report"],
+      "success_criteria": ["Required technical and human gates are explicitly classified"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "generation.data-load",
+      "type": "data-load",
+      "label": "Load source data",
+      "mode": "machine",
+      "required": true,
+      "depends_on": ["generation.preflight"],
+      "inputs": ["data.registry", "data.sources"],
+      "outputs": ["data.loaded"],
+      "success_criteria": ["All required collections are loaded without ad hoc source conversion"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "generation.validation",
+      "type": "validation",
+      "label": "Validate data",
+      "mode": "machine",
+      "required": true,
+      "depends_on": ["generation.data-load"],
+      "inputs": ["data.loaded", "data.schemas"],
+      "outputs": ["validation.report"],
+      "success_criteria": ["Required records and schema constraints pass"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "generation.relations",
+      "type": "relations",
+      "label": "Resolve relations",
+      "mode": "machine",
+      "required": true,
+      "depends_on": ["generation.validation"],
+      "inputs": ["data.loaded", "data.registry"],
+      "outputs": ["data.resolved", "relations.report"],
+      "success_criteria": ["Required relations resolve and optional misses follow declared policy"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "generation.render",
+      "type": "render",
+      "label": "Render pages",
+      "mode": "machine",
+      "required": true,
+      "depends_on": ["generation.relations"],
+      "inputs": ["data.resolved", "render.config"],
+      "outputs": ["pages.rendered"],
+      "success_criteria": ["Expected page families render without embedding business logic in the framework"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "generation.assets",
+      "type": "assets",
+      "label": "Prepare assets",
+      "mode": "machine",
+      "required": true,
+      "depends_on": ["generation.render"],
+      "inputs": ["pages.rendered", "assets.sources"],
+      "outputs": ["assets.prepared"],
+      "success_criteria": ["Required media are copied or transformed and declared fallbacks remain available"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "generation.routes",
+      "type": "routes",
+      "label": "Build routes",
+      "mode": "machine",
+      "required": true,
+      "depends_on": ["generation.render"],
+      "inputs": ["pages.rendered", "routes.config"],
+      "outputs": ["routes.manifest"],
+      "success_criteria": ["Generated public routes are unique and reproducible"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "generation.output",
+      "type": "output",
+      "label": "Assemble web output",
+      "mode": "machine",
+      "required": true,
+      "depends_on": ["generation.assets", "generation.routes"],
+      "inputs": ["pages.rendered", "assets.prepared", "routes.manifest"],
+      "outputs": ["web.output"],
+      "success_criteria": ["Publishable output is assembled only in the declared web output directory"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "generation.preview",
+      "type": "preview",
+      "label": "Publish preview",
+      "mode": "hybrid",
+      "required": true,
+      "depends_on": ["generation.output"],
+      "inputs": ["web.output"],
+      "outputs": ["preview.location"],
+      "success_criteria": ["A reviewable preview location is available"],
+      "on_failure": "stop"
+    },
+    {
+      "id": "generation.comparison",
+      "type": "comparison",
+      "label": "Compare reference",
+      "mode": "human",
+      "required": false,
+      "depends_on": ["generation.preview"],
+      "inputs": ["preview.location", "reference.location"],
+      "outputs": ["comparison.report"],
+      "success_criteria": ["Meaningful differences from the selected reference are recorded"],
+      "on_failure": "warn"
+    },
+    {
+      "id": "generation.report",
+      "type": "report",
+      "label": "Generation report",
+      "mode": "machine",
+      "required": true,
+      "depends_on": ["generation.preview"],
+      "inputs": ["preflight.report", "validation.report", "relations.report", "routes.manifest", "preview.location"],
+      "outputs": ["generation.report"],
+      "success_criteria": ["The run report records stages, outputs and unresolved warnings"],
+      "on_failure": "stop"
+    }
+  ],
+  "metadata": {
+    "purpose": "Reference fixture for generic generation contracts",
+    "business_domain": null
+  }
+}
