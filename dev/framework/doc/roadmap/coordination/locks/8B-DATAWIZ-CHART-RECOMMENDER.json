@@ -1,7 +1,7 @@
 {
   "task_id": "8B-DATAWIZ-CHART-RECOMMENDER",
   "agent": "D",
-  "status": "in_progress",
+  "status": "done",
   "base": "2a70ae36e609a702b86ea30afb9e1bcb8c9cd004",
   "branch": "agent-d/datawiz-chart-recommender",
   "file_scope": [
@@ -11,25 +11,24 @@
   ],
   "reserved_at": "2026-08-12T19:15:00+02:00",
   "started_at": "2026-08-12T19:17:00+02:00",
-  "source": "Agent D visual analytics architecture after DatasetProfile #103 + ChartSpec #104: deterministic explainable visualization recommendations before renderer adapters",
-  "objective": "Ajouter un moteur DOM-free déterministe qui consomme DataWizDatasetProfile et produit des propositions ChartSpec classées avec score, raisons et warnings pour les patterns V1 (numérique, catégorie, temps+mesure, catégorie+mesure, deux mesures, distributions), sans jamais auto-appliquer une proposition ni dépendre d'un renderer.",
+  "completed_at": "2026-08-12T19:25:00+02:00",
+  "pull_request": 106,
+  "merge_sha": "1023645b42baf1d3fc4fe095bc70054bd0bd2989",
+  "validation": {
+    "node_check": "ok",
+    "tests": "data wiz chart recommender tests: ok",
+    "fuzz_profiles": 500,
+    "published_blobs": {
+      "engine": "57e51ee3ab3fd84a7c0ccf9ff50535224b716a24",
+      "test": "746d93ecd1acde39c80b0f55f94516ca3008cb3a",
+      "doc": "08a56e12691e6ab6a998bf11c73ed7d227b19c47"
+    }
+  },
+  "result": "Deterministic explainable ChartRecommender V1 now produces ranked non-blocked ChartSpec proposals with stable IDs, score/reason/warnings and autoApplied=false across numeric, categorical, temporal, pair and distribution patterns.",
   "coordination": {
-    "agent_a": "No new commit or chart recommendation scope observed since ChartSpec completion; protected TableWiz/Header/architecture/V20 remain untouched.",
-    "agent_b": "No chart recommender scope announced or found.",
-    "agent_c": "No chart recommender scope observed.",
-    "agent_d_previous": "DatasetProfile #103 and ChartSpec #104 are done and consumed read-only.",
-    "forbidden": [
-      "dev/framework/wiz/data-wiz.js",
-      "dev/framework/wiz/data-wiz-provenance.js",
-      "dev/framework/wiz/data-wiz-dataset-profile.js",
-      "dev/framework/wiz/data-wiz-chart-spec.js",
-      "dev/framework/core/data-join-*.js",
-      "dev/framework/wiz/table-wiz.js",
-      "dev/framework/demo/**",
-      "dev/framework/doc/architecture/**",
-      "dev/framework/doc/roadmap/roadmap.md",
-      "dev/framework/doc/roadmap/coordination/agent-board.md",
-      "dev/framework/doc/roadmap/coordination/README.md"
-    ]
+    "agent_a": "PreflightGateEvaluator was reserved and completed concurrently on disjoint core/tests/doc scope; ChartRecommender/ChartSpec/DatasetProfile were explicitly forbidden in A lock.",
+    "agent_b": "No B file modified.",
+    "agent_c": "No C file modified.",
+    "renderers": "No Plotly/Perspective/ECharts/Vega dependency or renderer-specific option introduced."
   }
 }
