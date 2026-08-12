@@ -2,7 +2,14 @@ import assert from 'node:assert/strict';
 import { promises as fs } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { runLivePreflight, LivePreflightRunnerError, runCli } from '../tools/coordination/run-live-preflight.mjs';
+import {
+  runLivePreflight,
+  LivePreflightRunnerError,
+  runCli,
+  livePreflightErrorPayload,
+  LIVE_PREFLIGHT_ERROR_SCHEMA,
+  LIVE_PREFLIGHT_ERROR_VERSION
+} from '../tools/coordination/run-live-preflight.mjs';
 
 const temp=await fs.mkdtemp(path.join(os.tmpdir(),'nlab-live-preflight-'));
 const locks=path.join(temp,'locks');
@@ -46,6 +53,13 @@ try{
     error=>error instanceof LivePreflightRunnerError&&error.code==='OVERRIDE_REASON_REQUIRED'
   );
 
+  const directError=livePreflightErrorPayload(new LivePreflightRunnerError('sample','SAMPLE',{value:1}));
+  assert.equal(directError.schema,LIVE_PREFLIGHT_ERROR_SCHEMA);
+  assert.equal(directError.version,LIVE_PREFLIGHT_ERROR_VERSION);
+  assert.equal(directError.ok,false);
+  assert.equal(directError.exit_code,1);
+  assert.deepEqual(directError.error,{name:'LivePreflightRunnerError',code:'SAMPLE',message:'sample',details:{value:1}});
+
   await fs.writeFile(overridesFile,JSON.stringify({overrides:{P2:{status:'pass',reason:'human approved'}}}));
   report=await runLivePreflight({preflightFile,locksDirectory:locks,overridesFile,clock});
   assert.equal(report.ready_for_real_integration,true);
@@ -76,17 +90,32 @@ try{
   );
 
   const originalLog=console.log,originalError=console.error;
-  console.log=()=>{};console.error=()=>{};
+  const errors=[];
+  console.log=()=>{};console.error=value=>errors.push(String(value));
   try{
     assert.equal(await runCli([preflightFile,locks]),2);
+    const payload=JSON.parse(errors.at(-1));
+    assert.equal(payload.schema,LIVE_PREFLIGHT_ERROR_SCHEMA);
+    assert.equal(payload.version,LIVE_PREFLIGHT_ERROR_VERSION);
+    assert.equal(payload.ok,false);
+    assert.equal(payload.exit_code,2);
+    assert.equal(payload.error.code,'ACTIVE_LOCK_OVERLAP');
+    assert.equal(Array.isArray(payload.error.details.conflicts),true);
   }finally{console.log=originalLog;console.error=originalError;}
   await fs.rm(conflictA);await fs.rm(conflictB);
 
-  console.log=()=>{};console.error=()=>{};
+  console.log=()=>{};console.error=value=>errors.push(String(value));
   try{
     assert.equal(await runCli([preflightFile,locks]),2);
     assert.equal(await runCli([preflightFile,locks,overridesFile]),0);
+    errors.length=0;
     assert.equal(await runCli([]),1);
+    const usage=JSON.parse(errors.at(-1));
+    assert.equal(usage.schema,LIVE_PREFLIGHT_ERROR_SCHEMA);
+    assert.equal(usage.version,LIVE_PREFLIGHT_ERROR_VERSION);
+    assert.equal(usage.exit_code,1);
+    assert.equal(usage.error.code,'USAGE');
+    assert.match(usage.error.details.usage,/run-live-preflight\.mjs/);
   }finally{console.log=originalLog;console.error=originalError;}
 }finally{
   await fs.rm(temp,{recursive:true,force:true});

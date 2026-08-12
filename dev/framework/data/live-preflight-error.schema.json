@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nlab.dev/schemas/live-preflight-error.schema.json",
+  "title": "nLab Live Preflight CLI Error",
+  "description": "Versioned machine-readable stderr envelope emitted by run-live-preflight.mjs when the CLI cannot produce a successful report.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "version", "ok", "exit_code", "error"],
+  "properties": {
+    "schema": { "const": "nlab.live-preflight-error" },
+    "version": { "const": 1 },
+    "ok": { "const": false },
+    "exit_code": {
+      "type": "integer",
+      "enum": [1, 2]
+    },
+    "error": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "code", "message", "details"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "code": { "type": "string", "minLength": 1 },
+        "message": { "type": "string", "minLength": 1 },
+        "details": {
+          "oneOf": [
+            { "type": "object" },
+            { "type": "array" },
+            { "type": "string" },
+            { "type": "number" },
+            { "type": "boolean" },
+            { "type": "null" }
+          ]
+        }
+      }
+    }
+  }
+}
