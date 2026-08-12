@@ -74,27 +74,11 @@ Sources principales : anciens rapports HTML solaires et pages MVola V15/V16.
 
 ### P2 — renderers typés
 
-Une colonne doit pouvoir déclarer un renderer sans incorporer la logique métier dans TableWiz :
-
-- `text` ;
-- `number` ;
-- `badge` ;
-- `tags` ;
-- `link` ;
-- `image` ;
-- `boolean` ;
-- `date` ;
-- renderer personnalisé fourni par le consommateur.
+Une colonne doit pouvoir déclarer un renderer sans incorporer la logique métier dans TableWiz : `text`, `number`, `badge`, `tags`, `link`, `image`, `boolean`, `date` ou renderer personnalisé.
 
 ## Contrat avec JSON Studio
 
-TableWiz doit être stabilisé avant les nouveaux développements de JSON Studio qui dépendent de la vue tabulaire.
-
-JSON Studio réutilisera :
-
-- `CodeBlock` pour Raw ;
-- `TableWiz` pour Table ;
-- une brique Tree/Form spécifique pour la hiérarchie.
+TableWiz doit être stabilisé avant les nouveaux développements de JSON Studio qui dépendent de la vue tabulaire. JSON Studio réutilisera `CodeBlock` pour Raw, `TableWiz` pour Table et une brique Tree/Form spécifique pour la hiérarchie.
 
 Aucune fonctionnalité tabulaire ne doit être recodée dans JSON Studio si elle appartient naturellement à TableWiz.
 
@@ -112,35 +96,42 @@ Aucune fonctionnalité tabulaire ne doit être recodée dans JSON Studio si elle
 
 ## Incrément A1 — moteur / tri / regex / reset
 
-L’incrément A1 conserve `SearchWiz`, `FilterWiz` et `PaginationModel` comme briques spécialisées et renforce uniquement l’orchestration TableWiz :
-
-- tri normalisé `asc|desc` et `toggleSort()` fiable, y compris si une colonne ne déclare que `id` ;
+- tri normalisé `asc|desc` et `toggleSort()` fiable, y compris pour une colonne déclarée uniquement avec `id` ;
 - `clearSort()` et `reset()` ;
-- restauration facultative de la configuration initiale des colonnes via `resetColumns()` ;
+- restauration facultative de la configuration initiale via `resetColumns()` ;
 - `setRegexFilter()` comme façade vers `FilterWiz` ;
-- regex de recherche ou filtre invalides confinées et exposées via `lastError` / `result.error` ;
-- retour automatique à la page 1 lors d’un changement de recherche, filtre ou tri ;
-- entrées non-tableau traitées défensivement ;
-- en-têtes triables au clavier avec `aria-sort` dans le rendu DOM.
-
-Test dédié : `dev/framework/tests/table-wiz-legacy.test.mjs`.
+- regex invalides confinées via `lastError` / `result.error` ;
+- retour page 1 après changement recherche/filtre/tri ;
+- entrées non-tableau défensives ;
+- headers triables au clavier avec `aria-sort`.
 
 ## Incrément A2 — resize réel des colonnes
 
-A2 transforme la largeur déclarative en interaction générique intégrée à TableWiz, sans dépendance CSS/DOM externe :
+- paramètres globaux `resizable`, `minColumnWidth`, `maxColumnWidth`, `resizeStep` ;
+- overrides colonne `resizable:false`, `minWidth`, `maxWidth` ;
+- largeur numérique ou `px` normalisée et bornée ; valeurs CSS non-px conservées ;
+- API `columnWidth()`, `resizeColumn()`, `adjustColumnWidth()`, `resetColumnWidth()` ;
+- `colgroup` pour propager les largeurs à la colonne ;
+- poignée `role=separator`, pointer + `ArrowLeft`/`ArrowRight` ;
+- callback `onColumnResize` ;
+- nettoyage des listeners via `destroy()` et avant rerender ;
+- offsets sticky calculés depuis les largeurs connues ;
+- tests DOM via faux document sans dépendance navigateur.
 
-- paramètres globaux `resizable`, `minColumnWidth`, `maxColumnWidth` et `resizeStep` ;
-- override par colonne avec `resizable:false`, `minWidth` et `maxWidth` ;
-- largeur numérique ou `px` normalisée et bornée ; les autres valeurs CSS restent déclaratives pour compatibilité ;
-- API `columnWidth()`, `resizeColumn()`, `adjustColumnWidth()` et `resetColumnWidth()` ;
-- `colgroup` généré pour appliquer la largeur à toute la colonne ;
-- poignée accessible `role=separator`, utilisable au pointer et avec `ArrowLeft` / `ArrowRight` ;
-- callback `onColumnResize` après validation du changement ;
-- nettoyage des listeners globaux de drag via `destroy()` et avant chaque nouveau rendu ;
-- recalcul des offsets sticky à partir des largeurs réellement connues plutôt que d’un pas fixe par index ;
-- tests DOM sans navigateur via faux document injecté par `ownerDocument`.
+## Incrément A3 — visibilité, ordre et état de pilotage
 
-Validation locale Node 22 : `table wiz legacy tests: ok`.
+A3 prépare la toolbar et la persistance sans prendre le scope du composant Toolbar externe :
+
+- `setColumnsVisible()`, `toggleColumn()`, `showAllColumns()` et `visibleColumnIds()` ;
+- `reorder()` devient déterministe avec liste partielle : les colonnes nommées passent en tête et les autres conservent leur ordre relatif ;
+- `moveColumn()` permet un déplacement indexé ;
+- `resetColumnOrder()` restaure uniquement l’ordre initial ;
+- `columnState()` expose un état sérialisable (`id`, champ, label, visibilité, ordre, largeur, sticky, resizable) ;
+- `applyColumnState()` restaure visibilité, largeur, sticky et ordre sans introduire de dépendance de stockage ;
+- `toolbarState()` expose recherche, filtres, tri, état des colonnes, compteurs et `canReset` ;
+- le composant Toolbar concret pourra consommer cet état dans un lot ultérieur sans modifier le contrat TableWiz.
+
+Validation locale Node 22 après A3 : `table wiz legacy tests: ok`.
 
 ## Critères de validation
 
