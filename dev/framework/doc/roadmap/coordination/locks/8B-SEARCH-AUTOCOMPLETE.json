@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-SEARCH-AUTOCOMPLETE",
+  "agent": "B",
+  "status": "in_progress",
+  "base": "7bb4a6742a05e03620d2e557adde68cdb46d1399",
+  "branch": "agent-b/search-autocomplete",
+  "file_scope": [
+    "dev/framework/wiz/search-wiz.js",
+    "dev/framework/tests/search-filter-robustness.test.mjs",
+    "dev/framework/doc/search-filter/contracts.md"
+  ],
+  "reserved_at": "2026-08-12T11:44:00+02:00",
+  "objective": "Ajouter une autocomplétion configurable SearchWiz déterministe, Unicode/locale aware, dédupliquée, sans modifier FilterWiz/TableWiz ni la démo."
+}
