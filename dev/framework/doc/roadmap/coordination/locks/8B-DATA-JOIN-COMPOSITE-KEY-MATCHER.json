@@ -1,7 +1,7 @@
 {
   "task_id": "8B-DATA-JOIN-COMPOSITE-KEY-MATCHER",
   "agent": "D",
-  "status": "in_progress",
+  "status": "done",
   "base": "e1228bea1f7498c2aaf29a7e98f90c2cbe15bab4",
   "branch": "agent-d/data-join-composite-key-matcher",
   "file_scope": [
@@ -11,13 +11,24 @@
   ],
   "reserved_at": "2026-08-12T17:43:00+02:00",
   "started_at": "2026-08-12T17:46:00+02:00",
+  "completed_at": "2026-08-12T17:56:00+02:00",
+  "pr": 96,
+  "merge_sha": "83bb4b6e9f50065fd2c204377a14cd8d40dc7c31",
   "source": "Agent D DataJoin roadmap after DataJoinKeyMatcher #89: bounded explainable composite-key suggestions validated against actual rows",
   "objective": "Ajouter une brique DOM-free séparée qui combine des suggestions simples en clés composites compatibles DataJoinSpec V1, les évalue sur les lignes réelles via DataJoinSpec.diagnose(), classe les candidats avec score et raisons, borne l'exploration combinatoire et refuse les combinaisons dont les besoins d'opération/comparaison ne peuvent pas être représentés par la coercition globale V1. Aucune suggestion n'est appliquée automatiquement.",
+  "validation": {
+    "node_check": "ok",
+    "tests": "data join composite key matcher tests: ok",
+    "fuzz": "400 randomized explorations: ok",
+    "source_blob": "ec5f94dd41870d695d3d4b11d005a3ff2ec33fac",
+    "test_blob": "0aeefb4a8bad75301c8fc13c81dd9dd448e86edf",
+    "doc_blob": "dc075a728b175bf9e54a0f8f08a1f603e434a651"
+  },
   "coordination": {
-    "agent_a": "Recent A scopes are QR Studio / ComponentSizeConstraints and legacy TableWiz/Header/ResponsivePreview review scopes; no DataJoin composite matcher scope observed.",
-    "agent_b": "SettingsPanelMode #94 is done and Issue #1 states no active B lock after closure.",
-    "agent_c": "No recent PR or lock observed on DataJoin composite matching.",
-    "agent_d_previous": "DataJoinSpec, Executor, Workspace, FieldCatalog and KeyMatcher are integrated and consumed read-only by this new lot.",
+    "agent_a": "SessionConfigTransfer is in_progress on session-config-transfer.* and remained disjoint through merge.",
+    "agent_b": "SettingsPanelMode #94 done; no B overlap observed.",
+    "agent_c": "No DataJoin composite matcher scope observed.",
+    "agent_d_previous": "DataJoinSpec, Executor, Workspace, FieldCatalog and KeyMatcher are consumed without modification.",
     "forbidden": [
       "dev/framework/core/data-join-spec.js",
       "dev/framework/core/data-join-executor.js",
