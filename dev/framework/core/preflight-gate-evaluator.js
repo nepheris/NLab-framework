@@ -1,10 +1,10 @@
 const GATE_STATUSES = new Set(['pass','ready','in_progress','pending','blocked_human','blocked_external']);
-const BLOCKING = new Set(['ready','in_progress','pending','blocked_human','blocked_external']);
+const BLOCKING = new Set(['in_progress','pending','blocked_human','blocked_external']);
 const LOCK_MAP = Object.freeze({
   done:'pass',
   completed:'pass',
   complete:'pass',
-  review:'ready',
+  review:'in_progress',
   reserved:'in_progress',
   in_progress:'in_progress',
   blocked:'pending',

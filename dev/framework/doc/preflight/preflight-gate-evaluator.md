@@ -9,16 +9,20 @@ Il ne lit pas GitHub, ne parcourt pas le filesystem et ne modifie aucun lock. L'
 
 ## Objectif
 
-Le préflight Lot 9 déclare explicitement `status_is_snapshot: true` et `live_status_source: dev/framework/doc/roadmap/coordination/locks/`. L'évaluateur fournit la brique générique manquante entre ces deux niveaux afin d'éviter de prendre un ancien statut documentaire pour un état courant.
+Le préflight Lot 9 déclare explicitement `status_is_snapshot: true` et `live_status_source: dev/framework/doc/roadmap/coordination/locks/`. L'évaluateur fournit la brique générique entre ces deux niveaux afin d'éviter de prendre un ancien statut documentaire pour un état courant.
+
+La sémantique `ready` est alignée sur le fichier machine Lot 9 : `P9-009` et `P9-010` sont des gates requis marqués `ready` mais absents de `blocking_gates_snapshot`. Un gate `ready` signifie donc **préparé et non bloquant pour l'entrée dans l'intégration**, sans être équivalent à `pass`.
 
 ## Mapping des états de coordination
 
 | état de tâche | état de gate |
 |---|---|
 | `done`, `complete`, `completed` | `pass` |
-| `review` | `ready` |
+| `review` | `in_progress` |
 | `reserved`, `in_progress` | `in_progress` |
 | `blocked`, `free` | `pending` |
+
+`review` reste volontairement inachevé : un travail présent uniquement sur une branche de revue ne doit pas débloquer un gate comme s'il était intégré dans `New`.
 
 Un statut inconnu n'est jamais interprété silencieusement : il produit un warning et le snapshot conserve son rôle de repli.
 
@@ -27,9 +31,10 @@ Un statut inconnu n'est jamais interprété silencieusement : il produit un warn
 - Un gate multi-tâches utilise l'état le plus contraignant des tâches connues.
 - Si une des tâches attendues n'a pas d'état exploitable, le gate ne peut pas être promu au-delà de son snapshot.
 - Un snapshot `blocked_human` ou `blocked_external` reste bloquant même si une tâche technique passe à `done`.
-- La levée d'un blocage humain/externe exige un `override` explicite avec son motif.
-- `review` n'est jamais assimilé à `pass`.
-- Les gates `ready`, `pending`, `in_progress`, `blocked_human` et `blocked_external` restent bloquants pour `ready_for_real_integration` lorsqu'ils sont requis.
+- La levée d'un blocage humain/externe exige un `override` explicite ; le LivePreflightRunner impose en plus un motif d'audit.
+- `review` n'est jamais assimilé à `ready` ni à `pass`.
+- Les gates requis `in_progress`, `pending`, `blocked_human` et `blocked_external` sont bloquants.
+- Les gates requis `pass` et `ready` sont non bloquants ; ils restent distincts dans le rapport et les compteurs.
 
 ## API
 
@@ -75,11 +80,11 @@ Chaque gate expose notamment :
 La synthèse fournit :
 
 - compte par statut ;
-- liste des gates bloquants ;
+- liste des gates réellement bloquants ;
 - `ready_for_real_integration` ;
 - `preparation_work_allowed_now`.
 
-`assertReady()` retourne le rapport si tous les gates requis sont `pass`, sinon lève `PreflightGateEvaluatorError` avec le code `PREFLIGHT_BLOCKED`.
+`assertReady()` retourne le rapport lorsque tous les gates requis sont dans un état d'entrée non bloquant (`pass` ou `ready`). Sinon il lève `PreflightGateEvaluatorError` avec le code `PREFLIGHT_BLOCKED`.
 
 ## Frontières
 
