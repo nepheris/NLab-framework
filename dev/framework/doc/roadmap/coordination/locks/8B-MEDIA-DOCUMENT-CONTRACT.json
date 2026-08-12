@@ -1,7 +1,7 @@
 {
   "task_id": "8B-MEDIA-DOCUMENT-CONTRACT",
   "agent": "A",
-  "status": "in_progress",
+  "status": "done",
   "base": "e24589cac319b63dc23b5f6cf19c53040b453807",
   "branch": "agent-a/media-document-contract",
   "file_scope": [
@@ -10,14 +10,19 @@
     "dev/framework/doc/media-document/*.md"
   ],
   "reserved_at": "2026-08-12T15:08:00+02:00",
+  "completed_at": "2026-08-12T15:13:00+02:00",
   "source": "foundation/BACKLOG-UX.md — MediaWiz / documents",
-  "current_increment": "MD1-DOCUMENT-PRESENTATION-PDF-ACTIONS-LINKWIZ",
-  "objective": "Create a descriptor-only document/media contract for inline, thumbnail, gallery, viewer, link and download modes, PDF initial page/preview metadata and permission-gated open/download/share/print actions routed through LinkWiz.",
-  "coordination": {
-    "media_wiz": "Existing media-wiz.js remains unchanged; this contract does not compose or inject its HTML strings.",
-    "link_wiz": "Existing LinkWiz is consumed as the canonical link descriptor/security layer and remains unchanged.",
-    "file_format_registry": "Existing FileFormatRegistry is consumed for format/icon metadata and remains unchanged.",
-    "parallel_agents": "No MEDIA-DOCUMENT lock found before reservation."
+  "pull_request": 71,
+  "final_sha": "a1aeceba30ca3dc014607a472dfd31d80970a3c6",
+  "merged_sha": "4f524fab01474b185c8d9d4f2a79f7ce3ab528f4",
+  "completed_increments": ["MD1-DOCUMENT-PRESENTATION-PDF-ACTIONS-LINKWIZ"],
+  "verification": {
+    "engine_blob": "c0245a007b333cb56fcd85d5b0f0eb75193a955e",
+    "test_blob": "5bcf0043417f6645c7607750f474553e5a8e600d",
+    "tests": "Node 22 prototype: media document wiz tests: ok",
+    "scope": "3 new files only; MediaWiz/LinkWiz/FileFormatRegistry/demo unchanged",
+    "merge": "PR #71 recalculated mergeable=true and was merged without rebase or force."
   },
-  "notes": "No MediaWiz/FileFormatRegistry/LinkWiz/demo modifications. Future renderer integration is a separate lot."
+  "follow_up": "Renderer wiring MediaWiz → MediaDocumentWiz/LinkWiz remains a separate integration lot.",
+  "notes": "Descriptor-only document/media contract integrated via PR #71."
 }
