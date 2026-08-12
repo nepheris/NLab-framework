@@ -1,8 +1,8 @@
 {
   "task_id": "8B-DATAWIZ-PLOTLY-ADAPTER",
   "agent": "D",
-  "status": "reserved",
-  "base": "76df9a25172dcc51b899ca8404085b8105215f9e",
+  "status": "in_progress",
+  "base": "42a04c0375fd9940f9adbdc5e94d3c23f314dd08",
   "branch": "agent-d/datawiz-plotly-adapter",
   "file_scope": [
     "dev/framework/wiz/data-wiz-plotly-adapter.js",
@@ -10,6 +10,7 @@
     "dev/framework/doc/data-wiz/plotly-adapter.md"
   ],
   "reserved_at": "2026-08-12T19:45:00+02:00",
+  "started_at": "2026-08-12T19:47:00+02:00",
   "source": "Agent D visual analytics architecture after ChartDataMaterializer #112 and RendererAdapter #108: first concrete renderer compiler without runtime coupling",
   "objective": "Ajouter un adapter Plotly V1 purement compilateur qui déclare ses capabilities via DataWizRendererAdapter et traduit ChartSpec + payload ChartDataMaterializer vers un plan JSON-safe {data, layout, config}, sans importer Plotly.js, sans DOM et sans réimplémenter les transformations de données.",
   "coordination": {
