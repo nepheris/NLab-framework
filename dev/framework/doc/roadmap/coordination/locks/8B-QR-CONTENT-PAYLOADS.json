@@ -1,7 +1,7 @@
 {
   "task_id": "8B-QR-CONTENT-PAYLOADS",
   "agent": "B",
-  "status": "in_progress",
+  "status": "done",
   "base": "5e911451050f3b30f519ad082832e0488f9b208a",
   "branch": "agent-b/qr-content-payloads",
   "file_scope": [
@@ -10,5 +10,9 @@
     "dev/framework/doc/qr-media/contracts.md"
   ],
   "reserved_at": "2026-08-12T11:49:00+02:00",
-  "objective": "Étendre QRWiz aux payloads texte, email, téléphone, Wi-Fi et contact/vCard avec échappements déterministes, sans modifier MediaWiz ni les périmètres A."
+  "completed_at": "2026-08-12T11:53:00+02:00",
+  "pr": 38,
+  "final_sha": "fb6bb8199ae164150c25fe0020eead92d8d9096d",
+  "objective": "Étendre QRWiz aux payloads texte, email, téléphone, Wi-Fi et contact/vCard avec échappements déterministes, sans modifier MediaWiz ni les périmètres A.",
+  "validation": "Node 22.16.0 — qr media robustness tests: ok; checkpoint A TableWiz concurrent sans overlap; PR #38 mergée dans New."
 }
