@@ -3,12 +3,15 @@
   "agent": "B",
   "status": "in_progress",
   "base": "0f13d4affa15840837d730475ca079cb533cd447",
-  "branch": "agent-b/codeblock-color-packs",
+  "branch": "agent-b/codeblock-color-packs-v2",
+  "previous_branch": "agent-b/codeblock-color-packs",
   "file_scope": [
-    "dev/framework/components/code-block.js",
-    "dev/framework/tests/code-block.test.mjs",
-    "dev/framework/doc/components/code-block.md"
+    "dev/framework/components/code-block-color-packs.js",
+    "dev/framework/tests/code-block-color-packs.test.mjs",
+    "dev/framework/doc/components/code-block-color-packs.md"
   ],
   "reserved_at": "2026-08-12T13:29:00+02:00",
-  "objective": "Ajouter des packs de coloration configurables à CodeBlock via un contrat DOM-free et rétrocompatible, avec validation et fallback sûrs, sans toucher DataWiz, JSON Studio, TableWiz, Header Studio, V20 ou la démo."
+  "scope_refined_at": "2026-08-12T13:31:00+02:00",
+  "objective": "Ajouter un adaptateur autonome de packs de coloration configurables pour les classes sémantiques de CodeBlock, DOM injectable et rétrocompatible, sans modifier code-block.js ni les périmètres A.",
+  "coordination_note": "Le scope initial sur code-block.js/tests/doc existants a été réduit avant toute modification métier afin d'utiliser trois fichiers neufs et de minimiser le risque de collision. La branche initiale ne contient aucun changement métier."
 }
