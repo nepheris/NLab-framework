@@ -1,14 +1,451 @@
-function escapeHtml(value='') { return String(value).replace(/[&<>"']/g,(char)=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[char])); }
-function highlightJson(source){const escaped=escapeHtml(source);return escaped.replace(/("(?:\\.|[^"\\])*"\s*:)|("(?:\\.|[^"\\])*")|\b(true|false|null)\b|(-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)/g,(match,key,string,literal,number)=>{if(key)return `<span class="nlab-codeblock__key">${key}</span>`;if(string)return `<span class="nlab-codeblock__string">${string}</span>`;if(literal)return `<span class="nlab-codeblock__literal">${literal}</span>`;if(number)return `<span class="nlab-codeblock__number">${number}</span>`;return match;});}
-function highlightScript(source,language){let escaped=escapeHtml(source);const comment=language==='python'?/#.*$/gm:/#.*$|\/\/.*$/gm;escaped=escaped.replace(comment,m=>`<span class="nlab-codeblock__comment">${m}</span>`);escaped=escaped.replace(/(&quot;[^&]*?&quot;|'[^']*?')/g,'<span class="nlab-codeblock__string">$1</span>');const words={javascript:'const|let|var|function|return|if|else|for|while|class|new|import|from|export|async|await|true|false|null',python:'def|return|if|elif|else|for|while|class|import|from|as|True|False|None|with|lambda|in|not|and|or',bash:'if|then|else|fi|for|do|done|case|esac|function|echo|export|local|readonly|in'}[language]||'';if(words)escaped=escaped.replace(new RegExp(`\\b(${words})\\b`,'g'),'<span class="nlab-codeblock__keyword">$1</span>');escaped=escaped.replace(/\b(\d+(?:\.\d+)?)\b/g,'<span class="nlab-codeblock__number">$1</span>');return escaped;}
+const LANGUAGE_PRESETS = Object.freeze({
+  text: { extension: 'txt', mime: 'text/plain;charset=utf-8', aliases: ['txt', 'plain', 'plaintext'] },
+  json: { extension: 'json', mime: 'application/json;charset=utf-8', aliases: [] },
+  javascript: { extension: 'js', mime: 'text/javascript;charset=utf-8', aliases: ['js', 'mjs', 'cjs'] },
+  python: { extension: 'py', mime: 'text/x-python;charset=utf-8', aliases: ['py'] },
+  bash: { extension: 'sh', mime: 'text/x-shellscript;charset=utf-8', aliases: ['sh', 'shell', 'zsh'] },
+  html: { extension: 'html', mime: 'text/html;charset=utf-8', aliases: ['htm'] },
+  css: { extension: 'css', mime: 'text/css;charset=utf-8', aliases: [] },
+  csv: { extension: 'csv', mime: 'text/csv;charset=utf-8', aliases: ['comma-separated-values'] },
+  markdown: { extension: 'md', mime: 'text/markdown;charset=utf-8', aliases: ['md'] }
+});
+
+const LANGUAGE_ALIAS_MAP = Object.freeze(Object.entries(LANGUAGE_PRESETS).reduce((map, [name, preset]) => {
+  map[name] = name;
+  for (const alias of preset.aliases) map[alias] = name;
+  return map;
+}, {}));
+
+const EXTENSION_LANGUAGE_MAP = Object.freeze(Object.entries(LANGUAGE_PRESETS).reduce((map, [name, preset]) => {
+  map[preset.extension] = name;
+  for (const alias of preset.aliases) {
+    if (/^[a-z0-9]+$/i.test(alias)) map[alias] ??= name;
+  }
+  return map;
+}, {
+  markdown: 'markdown',
+  bash: 'bash'
+}));
+
+const SCRIPT_PATTERNS = Object.freeze({
+  javascript: /(?<comment>\/\*[\s\S]*?\*\/|\/\/[^\n]*)|(?<string>`(?:\\.|[^`\\])*`|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|(?<keyword>\b(?:const|let|var|function|return|if|else|for|while|class|new|import|from|export|async|await|true|false|null)\b)|(?<number>\b\d+(?:\.\d+)?\b)/g,
+  python: /(?<comment>#[^\n]*)|(?<string>"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|(?<keyword>\b(?:def|return|if|elif|else|for|while|class|import|from|as|True|False|None|with|lambda|in|not|and|or)\b)|(?<number>\b\d+(?:\.\d+)?\b)/g,
+  bash: /(?<comment>#[^\n]*)|(?<string>"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|(?<keyword>\b(?:if|then|else|fi|for|do|done|case|esac|function|echo|export|local|readonly|in)\b)|(?<number>\b\d+(?:\.\d+)?\b)/g
+});
+
+const JSON_PATTERN = /(?<key>"(?:\\.|[^"\\])*"\s*:)|(?<string>"(?:\\.|[^"\\])*")|(?<literal>\b(?:true|false|null)\b)|(?<number>-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)/g;
+const HTML_PATTERN = /(?<comment><!--[\s\S]*?-->)|(?<tag><\/?[A-Za-z][^>]*>)/g;
+const CSS_PATTERN = /(?<comment>\/\*[\s\S]*?\*\/)|(?<string>"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|(?<property>--?[A-Za-z][\w-]*|[A-Za-z][\w-]*)(?=\s*:)|(?<number>-?\b\d+(?:\.\d+)?(?:px|rem|em|%|vh|vw|s|ms|deg)?\b)/g;
+
+function escapeHtml(value = '') {
+  return String(value).replace(/[&<>"']/g, (char) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[char]));
+}
+
+function normalizeLanguage(value = 'text') {
+  const key = String(value ?? 'text').trim().toLowerCase();
+  return LANGUAGE_ALIAS_MAP[key] ?? 'text';
+}
+
+function isAutoLanguage(value) {
+  return String(value ?? '').trim().toLowerCase() === 'auto';
+}
+
+function presetFor(language) {
+  return LANGUAGE_PRESETS[normalizeLanguage(language)];
+}
+
+function defaultFilename(language, base = 'export') {
+  const safeBase = String(base || 'export').trim() || 'export';
+  return `${safeBase}.${presetFor(language).extension}`;
+}
+
+function languageFromFilename(filename) {
+  const clean = String(filename ?? '').trim().toLowerCase().split(/[?#]/, 1)[0];
+  const match = clean.match(/\.([a-z0-9]+)$/i);
+  if (!match) return null;
+  return EXTENSION_LANGUAGE_MAP[match[1]] ?? null;
+}
+
+function countDelimitedColumns(line, separator) {
+  let columns = 1;
+  let quoted = false;
+
+  for (let index = 0; index < line.length; index += 1) {
+    const char = line[index];
+    if (char === '"') {
+      if (quoted && line[index + 1] === '"') {
+        index += 1;
+      } else {
+        quoted = !quoted;
+      }
+    } else if (!quoted && char === separator) {
+      columns += 1;
+    }
+  }
+
+  return quoted ? 0 : columns;
+}
+
+function looksLikeCsv(source) {
+  const lines = String(source ?? '').split(/\r?\n/).map((line) => line.trim()).filter(Boolean).slice(0, 6);
+  if (lines.length < 2) return false;
+
+  for (const separator of [',', ';', '\t']) {
+    const counts = lines.map((line) => countDelimitedColumns(line, separator));
+    if (counts[0] >= 2 && counts.every((count) => count === counts[0])) return true;
+  }
+  return false;
+}
+
+function detectLanguage(source, { filename = null, fallback = 'text' } = {}) {
+  const fromFilename = languageFromFilename(filename);
+  if (fromFilename) return fromFilename;
+
+  const text = String(source ?? '');
+  const trimmed = text.trim();
+  if (!trimmed) return normalizeLanguage(fallback);
+
+  if (/^[\[{]/.test(trimmed)) {
+    try {
+      JSON.parse(trimmed);
+      return 'json';
+    } catch {
+      // Keep evaluating conservative signatures below.
+    }
+  }
+
+  if (/^#!.*\bpython(?:3(?:\.\d+)*)?\b/im.test(trimmed)
+      || /^(?:from\s+\S+\s+import\s+|import\s+\S+|def\s+\w+\s*\([^)]*\)\s*:|class\s+\w+.*:)/m.test(trimmed)) {
+    return 'python';
+  }
+
+  if (/^#!.*\/(?:usr\/bin\/env\s+)?(?:ba|z|k)?sh\b/im.test(trimmed)
+      || /^(?:export\s+[A-Za-z_]\w*=|(?:echo|printf)\s+.+|\w+\(\)\s*\{)/m.test(trimmed)) {
+    return 'bash';
+  }
+
+  if (/<!doctype\s+html\b/i.test(trimmed)
+      || /<(?:html|head|body|main|section|article|div|span|p|h[1-6]|form|table)\b[^>]*>[\s\S]*<\/(?:html|head|body|main|section|article|div|span|p|h[1-6]|form|table)>/i.test(trimmed)) {
+    return 'html';
+  }
+
+  if (/(?:^|})\s*(?::root|[.#]?[A-Za-z][\w-]*(?:\s+[.#]?[A-Za-z][\w-]*)*)\s*\{[^{}]*\b(?:color|background|display|position|margin|padding|font(?:-family|-size|-weight)?|border|width|height|grid|flex|--[\w-]+)\s*:/ms.test(trimmed)) {
+    return 'css';
+  }
+
+  if (/^(?:import|export)\s+.+from\s+['"][^'"]+['"];?$/m.test(trimmed)
+      || /\b(?:const|let|var)\s+[A-Za-z_$][\w$]*\s*=/m.test(trimmed)
+      || /\bfunction\s+[A-Za-z_$][\w$]*\s*\(/m.test(trimmed)
+      || /=>\s*(?:\{|[^\n;]+)/m.test(trimmed)) {
+    return 'javascript';
+  }
+
+  if (/^(?:#{1,6}\s+\S+|```[\w-]*\s*$)/m.test(trimmed)) return 'markdown';
+  if (looksLikeCsv(trimmed)) return 'csv';
+
+  return normalizeLanguage(fallback);
+}
+
+function highlightTokens(source, pattern, classPrefix = 'nlab-codeblock__') {
+  const text = String(source ?? '');
+  pattern.lastIndex = 0;
+  let output = '';
+  let lastIndex = 0;
+  let match;
+
+  while ((match = pattern.exec(text)) !== null) {
+    output += escapeHtml(text.slice(lastIndex, match.index));
+    const kind = Object.keys(match.groups ?? {}).find((name) => match.groups[name] !== undefined);
+    output += kind
+      ? `<span class="${classPrefix}${kind}">${escapeHtml(match[0])}</span>`
+      : escapeHtml(match[0]);
+    lastIndex = match.index + match[0].length;
+  }
+
+  output += escapeHtml(text.slice(lastIndex));
+  return output;
+}
+
+function highlightJson(source) {
+  return highlightTokens(source, JSON_PATTERN);
+}
+
+function highlightScript(source, language) {
+  const pattern = SCRIPT_PATTERNS[language];
+  return pattern ? highlightTokens(source, pattern) : escapeHtml(source);
+}
+
 export class CodeBlock {
-  constructor({value='',language='text',filename='export.txt',theme='light',highlighted=false,editable=false,fontScale=100}={}){this.value=String(value);this.language=language;this.filename=filename;this.theme=theme;this.highlighted=highlighted;this.editable=Boolean(editable);this.editing=false;this.fontScale=Number(fontScale)||100;this.element=null;}
-  setValue(v){this.value=String(v??'');this.render();return this;} setTheme(v){this.theme=v==='dark'?'dark':'light';this.render();return this;} setHighlighted(v){this.highlighted=Boolean(v);this.render();return this;} setLanguage(v){this.language=v||'text';this.render();return this;} setEditable(v=true){this.editable=Boolean(v);if(!this.editable)this.editing=false;this.render();return this;} setEditing(v=true){if(!this.editable)return this;this.editing=Boolean(v);this.render();return this;} setFontScale(v){this.fontScale=Math.max(70,Math.min(160,Number(v)||100));this.render();return this;}
-  async copy(){await navigator.clipboard.writeText(this.value);return true;} download(){const blob=new Blob([this.value],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=this.filename||'export.txt';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),0);}
-  mount(element){this.element=element;this.render();return this;} formatted(){if(!this.highlighted)return escapeHtml(this.value);if(this.language==='json')return highlightJson(this.value);if(['javascript','python','bash'].includes(this.language))return highlightScript(this.value,this.language);return escapeHtml(this.value);}
-  feedback(message,kind='ok'){const node=this.element?.querySelector('.nlab-codeblock__feedback');if(!node)return;node.textContent=message;node.dataset.kind=kind;node.hidden=false;clearTimeout(this.feedbackTimer);this.feedbackTimer=setTimeout(()=>{if(node){node.hidden=true;node.textContent='';}},1800);}
-  render(){if(!this.element)return;this.element.classList.add('nlab-codeblock');this.element.dataset.theme=this.theme;this.element.style.setProperty('--nlab-code-font-scale',String(this.fontScale/100));this.element.innerHTML=`<div class="nlab-codeblock__toolbar"><span class="nlab-codeblock__meta">${escapeHtml(this.filename)} · ${escapeHtml(this.language)}</span><label title="Taille du texte">Aa <input type="range" min="70" max="160" step="5" value="${this.fontScale}" data-code-font><output>${this.fontScale}%</output></label><button type="button" data-code-theme title="Basculer thème local">${this.theme==='dark'?'☀':'◐'} <span>${this.theme==='dark'?'Thème sombre':'Thème clair'}</span></button><button type="button" data-code-highlight title="Visualisation brute / colorisée" aria-pressed="${this.highlighted}">${this.highlighted?'◈':'◇'} <span>${this.highlighted?'Colorisé':'Brut'}</span></button>${this.editable?`<button type="button" data-code-edit title="Modifier le contenu">✎ <span>${this.editing?'Valider':'Modifier'}</span></button>`:''}<button type="button" data-code-copy title="Copier tout">⧉ <span>Copier tout</span></button><button type="button" data-code-download title="Télécharger">⇩ <span>Télécharger</span></button></div>${this.editing?`<textarea class="nlab-codeblock__editor" spellcheck="false" style="font-size:calc(13px * var(--nlab-code-font-scale))">${escapeHtml(this.value)}</textarea>`:`<pre class="nlab-codeblock__pre" style="font-size:calc(13px * var(--nlab-code-font-scale))"><code>${this.formatted()}</code></pre>`}<div class="nlab-codeblock__feedback" role="status" aria-live="polite" hidden></div>`;
-    this.element.querySelector('[data-code-font]')?.addEventListener('input',e=>{this.fontScale=Number(e.target.value);e.target.nextElementSibling.textContent=`${this.fontScale}%`;this.element.style.setProperty('--nlab-code-font-scale',String(this.fontScale/100));for(const n of this.element.querySelectorAll('.nlab-codeblock__pre,.nlab-codeblock__editor'))n.style.fontSize=`calc(13px * var(--nlab-code-font-scale))`;});
-    this.element.querySelector('[data-code-theme]')?.addEventListener('click',()=>{const next=this.theme==='dark'?'light':'dark';this.setTheme(next);this.feedback(`Thème ${next==='dark'?'sombre':'clair'} activé ✓`);});this.element.querySelector('[data-code-highlight]')?.addEventListener('click',()=>{const next=!this.highlighted;this.setHighlighted(next);this.feedback(`${next?'Colorisation':'Vue brute'} activée ✓`);});this.element.querySelector('[data-code-edit]')?.addEventListener('click',()=>{if(this.editing){const editor=this.element.querySelector('.nlab-codeblock__editor');if(editor)this.value=editor.value;this.setEditing(false);this.feedback('Modifications appliquées ✓');}else{this.setEditing(true);this.feedback('Mode édition : la coloration revient après validation');}});this.element.querySelector('[data-code-copy]')?.addEventListener('click',async()=>{try{await this.copy();this.feedback('Copié dans le presse-papiers ✓');}catch{this.feedback('Copie indisponible','error');}});this.element.querySelector('[data-code-download]')?.addEventListener('click',()=>{this.download();this.feedback('Téléchargement lancé ✓');});
+  static languagePresets() {
+    return Object.fromEntries(Object.entries(LANGUAGE_PRESETS).map(([name, preset]) => [name, { ...preset, aliases: [...preset.aliases] }]));
+  }
+
+  static normalizeLanguage(value) {
+    return normalizeLanguage(value);
+  }
+
+  static detectLanguage(value, options = {}) {
+    return detectLanguage(value, options);
+  }
+
+  constructor({
+    value = '',
+    language = 'text',
+    filename = null,
+    theme = 'light',
+    highlighted = false,
+    editable = false,
+    fontScale = 100,
+    clipboard = null,
+    documentRef = globalThis.document ?? null,
+    urlRef = globalThis.URL ?? null,
+    BlobRef = globalThis.Blob ?? null
+  } = {}) {
+    this.value = String(value ?? '');
+    this.autoLanguage = isAutoLanguage(language);
+    this.language = this.autoLanguage
+      ? detectLanguage(this.value, { filename, fallback: 'text' })
+      : normalizeLanguage(language);
+    this.autoFilename = filename == null || String(filename).trim() === '';
+    this.filename = this.autoFilename ? defaultFilename(this.language) : String(filename);
+    this.theme = theme === 'dark' ? 'dark' : 'light';
+    this.highlighted = Boolean(highlighted);
+    this.editable = Boolean(editable);
+    this.editing = false;
+    this.fontScale = Math.max(70, Math.min(160, Number(fontScale) || 100));
+    this.clipboard = clipboard;
+    this.document = documentRef;
+    this.url = urlRef;
+    this.Blob = BlobRef;
+    this.element = null;
+    this.feedbackTimer = null;
+  }
+
+  get preset() {
+    return { ...presetFor(this.language), aliases: [...presetFor(this.language).aliases] };
+  }
+
+  setValue(value) {
+    this.value = String(value ?? '');
+    if (this.autoLanguage) {
+      this.language = detectLanguage(this.value, {
+        filename: this.autoFilename ? null : this.filename,
+        fallback: this.language
+      });
+      if (this.autoFilename) this.filename = defaultFilename(this.language);
+    }
+    this.render();
+    return this;
+  }
+
+  setTheme(value) {
+    this.theme = value === 'dark' ? 'dark' : 'light';
+    this.render();
+    return this;
+  }
+
+  setHighlighted(value) {
+    this.highlighted = Boolean(value);
+    this.render();
+    return this;
+  }
+
+  setLanguage(value) {
+    this.autoLanguage = isAutoLanguage(value);
+    this.language = this.autoLanguage
+      ? detectLanguage(this.value, { filename: this.autoFilename ? null : this.filename, fallback: this.language })
+      : normalizeLanguage(value);
+    if (this.autoFilename) this.filename = defaultFilename(this.language);
+    this.render();
+    return this;
+  }
+
+  detectLanguage({ apply = true, filename = this.autoFilename ? null : this.filename, fallback = this.language } = {}) {
+    const detected = detectLanguage(this.value, { filename, fallback });
+    if (apply) {
+      this.language = detected;
+      if (this.autoFilename) this.filename = defaultFilename(this.language);
+      this.render();
+    }
+    return detected;
+  }
+
+  setFilename(value) {
+    const normalized = String(value ?? '').trim();
+    this.autoFilename = normalized === '';
+    this.filename = this.autoFilename ? defaultFilename(this.language) : normalized;
+    if (this.autoLanguage) {
+      this.language = detectLanguage(this.value, {
+        filename: this.autoFilename ? null : this.filename,
+        fallback: this.language
+      });
+      if (this.autoFilename) this.filename = defaultFilename(this.language);
+    }
+    this.render();
+    return this;
+  }
+
+  useLanguageFilename(base = 'export') {
+    this.autoFilename = true;
+    this.filename = defaultFilename(this.language, base);
+    this.render();
+    return this;
+  }
+
+  setEditable(value = true) {
+    this.editable = Boolean(value);
+    if (!this.editable) this.editing = false;
+    this.render();
+    return this;
+  }
+
+  setEditing(value = true) {
+    if (!this.editable) return this;
+    this.editing = Boolean(value);
+    this.render();
+    return this;
+  }
+
+  setFontScale(value) {
+    this.fontScale = Math.max(70, Math.min(160, Number(value) || 100));
+    this.render();
+    return this;
+  }
+
+  exportText() {
+    return {
+      value: this.value,
+      language: this.language,
+      filename: this.filename || defaultFilename(this.language),
+      mime: presetFor(this.language).mime
+    };
+  }
+
+  formatJson({ indent = 2, apply = true } = {}) {
+    if (this.language !== 'json') {
+      return { formatted: false, reason: 'not-json', value: this.value };
+    }
+
+    const safeIndent = Math.max(0, Math.min(8, Math.floor(Number(indent) || 0)));
+    try {
+      const value = JSON.stringify(JSON.parse(this.value), null, safeIndent);
+      if (apply) this.setValue(value);
+      return { formatted: true, value };
+    } catch (error) {
+      return { formatted: false, reason: 'invalid-json', value: this.value, error };
+    }
+  }
+
+  async copy() {
+    const clipboard = this.clipboard ?? globalThis.navigator?.clipboard ?? null;
+    if (!clipboard || typeof clipboard.writeText !== 'function') return false;
+    await clipboard.writeText(this.value);
+    return true;
+  }
+
+  download() {
+    const documentRef = this.document ?? globalThis.document ?? null;
+    const urlRef = this.url ?? globalThis.URL ?? null;
+    const BlobRef = this.Blob ?? globalThis.Blob ?? null;
+    if (!documentRef?.createElement || !documentRef?.body?.append || !urlRef?.createObjectURL || !BlobRef) return false;
+
+    const payload = this.exportText();
+    const blob = new BlobRef([payload.value], { type: payload.mime });
+    const objectUrl = urlRef.createObjectURL(blob);
+    const link = documentRef.createElement('a');
+    link.href = objectUrl;
+    link.download = payload.filename;
+    documentRef.body.append(link);
+    link.click?.();
+    link.remove?.();
+    setTimeout(() => urlRef.revokeObjectURL?.(objectUrl), 0);
+    return true;
+  }
+
+  mount(element) {
+    this.element = element ?? null;
+    this.render();
+    return this;
+  }
+
+  formatted() {
+    if (!this.highlighted) return escapeHtml(this.value);
+    if (this.language === 'json') return highlightJson(this.value);
+    if (['javascript', 'python', 'bash'].includes(this.language)) return highlightScript(this.value, this.language);
+    if (this.language === 'html') return highlightTokens(this.value, HTML_PATTERN);
+    if (this.language === 'css') return highlightTokens(this.value, CSS_PATTERN);
+    return escapeHtml(this.value);
+  }
+
+  feedback(message, kind = 'ok') {
+    const node = this.element?.querySelector?.('.nlab-codeblock__feedback');
+    if (!node) return;
+    node.textContent = message;
+    node.dataset.kind = kind;
+    node.hidden = false;
+    clearTimeout(this.feedbackTimer);
+    this.feedbackTimer = setTimeout(() => {
+      if (node) {
+        node.hidden = true;
+        node.textContent = '';
+      }
+    }, 1800);
+  }
+
+  render() {
+    if (!this.element) return;
+    this.element.classList?.add?.('nlab-codeblock');
+    if (this.element.dataset) this.element.dataset.theme = this.theme;
+    this.element.style?.setProperty?.('--nlab-code-font-scale', String(this.fontScale / 100));
+    this.element.innerHTML = `<div class="nlab-codeblock__toolbar"><span class="nlab-codeblock__meta">${escapeHtml(this.filename)} · ${escapeHtml(this.language)}</span><label title="Taille du texte">Aa <input type="range" min="70" max="160" step="5" value="${this.fontScale}" data-code-font><output>${this.fontScale}%</output></label><button type="button" data-code-theme title="Basculer thème local">${this.theme === 'dark' ? '☀' : '◐'} <span>${this.theme === 'dark' ? 'Thème sombre' : 'Thème clair'}</span></button><button type="button" data-code-highlight title="Visualisation brute / colorisée" aria-pressed="${this.highlighted}">${this.highlighted ? '◈' : '◇'} <span>${this.highlighted ? 'Colorisé' : 'Brut'}</span></button>${this.editable ? `<button type="button" data-code-edit title="Modifier le contenu">✎ <span>${this.editing ? 'Valider' : 'Modifier'}</span></button>` : ''}<button type="button" data-code-copy title="Copier tout">⧉ <span>Copier tout</span></button><button type="button" data-code-download title="Télécharger">⇩ <span>Télécharger</span></button></div>${this.editing ? `<textarea class="nlab-codeblock__editor" spellcheck="false" style="font-size:calc(13px * var(--nlab-code-font-scale))">${escapeHtml(this.value)}</textarea>` : `<pre class="nlab-codeblock__pre" style="font-size:calc(13px * var(--nlab-code-font-scale))"><code>${this.formatted()}</code></pre>`}<div class="nlab-codeblock__feedback" role="status" aria-live="polite" hidden></div>`;
+
+    this.element.querySelector?.('[data-code-font]')?.addEventListener?.('input', (event) => {
+      this.fontScale = Number(event.target.value);
+      if (event.target.nextElementSibling) event.target.nextElementSibling.textContent = `${this.fontScale}%`;
+      this.element.style?.setProperty?.('--nlab-code-font-scale', String(this.fontScale / 100));
+      for (const node of this.element.querySelectorAll?.('.nlab-codeblock__pre,.nlab-codeblock__editor') ?? []) {
+        node.style.fontSize = 'calc(13px * var(--nlab-code-font-scale))';
+      }
+    });
+
+    this.element.querySelector?.('[data-code-theme]')?.addEventListener?.('click', () => {
+      const next = this.theme === 'dark' ? 'light' : 'dark';
+      this.setTheme(next);
+      this.feedback(`Thème ${next === 'dark' ? 'sombre' : 'clair'} activé ✓`);
+    });
+
+    this.element.querySelector?.('[data-code-highlight]')?.addEventListener?.('click', () => {
+      const next = !this.highlighted;
+      this.setHighlighted(next);
+      this.feedback(`${next ? 'Colorisation' : 'Vue brute'} activée ✓`);
+    });
+
+    this.element.querySelector?.('[data-code-edit]')?.addEventListener?.('click', () => {
+      if (this.editing) {
+        const editor = this.element.querySelector?.('.nlab-codeblock__editor');
+        if (editor) this.value = editor.value;
+        this.setEditing(false);
+        this.feedback('Modifications appliquées ✓');
+      } else {
+        this.setEditing(true);
+        this.feedback('Mode édition : la coloration revient après validation');
+      }
+    });
+
+    this.element.querySelector?.('[data-code-copy]')?.addEventListener?.('click', async () => {
+      try {
+        const copied = await this.copy();
+        this.feedback(copied ? 'Copié dans le presse-papiers ✓' : 'Copie indisponible', copied ? 'ok' : 'error');
+      } catch {
+        this.feedback('Copie indisponible', 'error');
+      }
+    });
+
+    this.element.querySelector?.('[data-code-download]')?.addEventListener?.('click', () => {
+      const downloaded = this.download();
+      this.feedback(downloaded ? 'Téléchargement lancé ✓' : 'Téléchargement indisponible', downloaded ? 'ok' : 'error');
+    });
   }
 }

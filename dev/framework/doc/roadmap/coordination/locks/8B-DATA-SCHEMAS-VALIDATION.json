@@ -1,9 +1,9 @@
 {
   "task_id": "8B-DATA-SCHEMAS-VALIDATION",
   "agent": "B",
-  "status": "in_progress",
-  "base": "641583b6c49b40832aa3314fd033db6dcd8e71b0",
-  "branch": "agent-b/data-schemas-validation",
+  "status": "done",
+  "base": "3d424e31afff4c09cde94dc3fefe7ad8eb03fa1a",
+  "branch": "agent-b/data-schemas-validation-r2",
   "file_scope": [
     "dev/framework/data/collection.schema.json",
     "dev/framework/data/data-registry.schema.json",
@@ -12,5 +12,14 @@
     "dev/framework/doc/data-schemas/*.md"
   ],
   "reserved_at": "2026-08-12T00:10:00+02:00",
-  "notes": "Valider les schémas collection/registry/relation avec fixtures positives et négatives, compatibilité des identifiants et relations. Aucun changement TableWiz, Header, V20 ou démo."
+  "final_sha": "fa78ff67da09a7da7257717e90f4ebf11c31ae34",
+  "merged_sha": "1257647aa0f9862bc98cadf7938796d7db6fcff4",
+  "pull_request": 7,
+  "verification": {
+    "diff": "4 commits / 4 fichiers, tous dans le file_scope réservé",
+    "json_schema": "Draft 2020-12 : registre réel de démo = 0 erreur ; fixture invalide rejetée",
+    "runtime_focus": "scénario Node ciblé : targetField omis + target idField=code = 0 erreur / 0 warning",
+    "full_branch_node": "non exécuté depuis le checkout distant : DNS github.com indisponible dans le conteneur"
+  },
+  "notes": "Intégré dans New via PR #7 en squash. Corrige le faux default targetField=id, documente le fallback dynamique vers target.idField et rejette version vide. Aucun fichier A/C, TableWiz, Header, V20 ou démo modifié."
 }

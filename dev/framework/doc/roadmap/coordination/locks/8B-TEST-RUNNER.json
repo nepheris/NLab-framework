@@ -1,0 +1,23 @@
+{
+  "task_id": "8B-TEST-RUNNER",
+  "agent": "C",
+  "status": "done",
+  "base": "New@branch-creation",
+  "branch": "agent-c/test-runner",
+  "file_scope": [
+    "dev/framework/tools/testing/run-tests.mjs",
+    "dev/framework/tests/test-runner.test.mjs",
+    "dev/framework/doc/testing/test-runner.md"
+  ],
+  "reserved_at": "2026-08-12T02:20:00+02:00",
+  "final_sha": "4cbb16d9de03d23dc13e23702b219387dac33d7e",
+  "merged_sha": "9a1b8c14c69ae57297ea3f0e42ab473c145bc26f",
+  "pull_request": 31,
+  "closed_by": "A",
+  "closed_at": "2026-08-12T11:04:00+02:00",
+  "verification": {
+    "source": "PR #31 merged",
+    "result": "Test runner tests: OK"
+  },
+  "notes": "Livraison réalisée par C et intégrée via PR #31. A clôt uniquement le lock administratif resté in_progress après disparition de la session C."
+}

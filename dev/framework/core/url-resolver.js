@@ -1,12 +1,26 @@
+const FALLBACK_BASE = 'http://localhost/';
+const text = (value) => value instanceof URL ? value.toString() : String(value ?? '');
+const absolute = (value, fallback = FALLBACK_BASE) => {
+  const target = text(value);
+  const base = text(fallback || FALLBACK_BASE);
+  try { return new URL(target, base).toString(); }
+  catch {
+    if (base === FALLBACK_BASE) throw new TypeError(`Invalid URL: ${target}`);
+    return new URL(target, FALLBACK_BASE).toString();
+  }
+};
+
 export class URLResolver {
   constructor({ baseUrl = null, assetsBase = 'assets/', apiBase = null } = {}) {
-    this.baseUrl = baseUrl ?? globalThis.location?.href ?? 'http://localhost/';
-    this.assetsBase = assetsBase;
-    this.apiBase = apiBase;
+    const runtimeBase = globalThis.location?.href ?? FALLBACK_BASE;
+    this.baseUrl = absolute(baseUrl ?? runtimeBase, runtimeBase);
+    this.assetsBase = assetsBase == null ? 'assets/' : text(assetsBase);
+    this.apiBase = apiBase == null || apiBase === '' ? null : text(apiBase);
   }
 
   resolve(path = '', base = this.baseUrl) {
-    return new URL(path, base).toString();
+    const baseUrl = absolute(base ?? this.baseUrl, this.baseUrl);
+    return new URL(text(path), baseUrl).toString();
   }
 
   asset(path = '') {
@@ -19,7 +33,13 @@ export class URLResolver {
   }
 
   current({ stripHash = false, stripQuery = false } = {}) {
-    const url = new URL(globalThis.location?.href ?? this.baseUrl);
+    let source = this.baseUrl;
+    try {
+      if (globalThis.location?.href) source = absolute(globalThis.location.href, this.baseUrl);
+    } catch {
+      source = this.baseUrl;
+    }
+    const url = new URL(source);
     if (stripHash) url.hash = '';
     if (stripQuery) url.search = '';
     return url.toString();

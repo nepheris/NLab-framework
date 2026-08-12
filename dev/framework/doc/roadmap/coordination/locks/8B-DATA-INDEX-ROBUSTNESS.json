@@ -1,0 +1,22 @@
+{
+  "task_id": "8B-DATA-INDEX-ROBUSTNESS",
+  "agent": "B",
+  "status": "done",
+  "base": "6c33b486f681bc21ade5efc43b62c4eb466f8b33",
+  "branch": "agent-b/data-index-robustness",
+  "file_scope": [
+    "dev/framework/core/data-index.js",
+    "dev/framework/tests/data-index-robustness.test.mjs",
+    "dev/framework/doc/data-index/*.md"
+  ],
+  "reserved_at": "2026-08-12T01:20:00+02:00",
+  "final_sha": "223dcc4b0eaba06accb109eaa6fc72530bad6962",
+  "merged_sha": "00d1a5738a8eb5dcf56049ec02ff3af2e08db4f3",
+  "pull_request": 19,
+  "verification": {
+    "diff": "3 commits / 3 files, all inside reserved file_scope",
+    "tests": "local Node contract test",
+    "result": "data index robustness tests: ok"
+  },
+  "notes": "DataIndex valide collection/champ/records, publie atomiquement les index, conserve l'index précédent sur doublon, expose des erreurs structurées et ajoute has/size. Aucun fichier A/C, TableWiz, Registry, EventBus, StateStore, démo ou roadmap modifié dans la branche métier."
+}

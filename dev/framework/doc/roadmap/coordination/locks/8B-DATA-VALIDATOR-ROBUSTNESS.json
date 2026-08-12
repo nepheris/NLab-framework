@@ -1,0 +1,24 @@
+{
+  "task_id": "8B-DATA-VALIDATOR-ROBUSTNESS",
+  "agent": "B",
+  "status": "done",
+  "base": "2ddb998d1364384deceb2ddb255ad0dce240952f",
+  "branch": "agent-b/data-validator-robustness",
+  "file_scope": [
+    "dev/framework/core/data-validator.js",
+    "dev/framework/tests/data-validator-robustness.test.mjs",
+    "dev/framework/doc/data-validator/*.md"
+  ],
+  "reserved_at": "2026-08-12T02:06:00+02:00",
+  "final_sha": "c716c79994e0bb7fb1f1dc5f9552642dff1c2765",
+  "merged_sha": "c8325a9029e984e342666adc7e553cf4b0f29e22",
+  "pull_request": 29,
+  "verification": {
+    "diff": "3 commits / 3 files, all inside reserved file_scope",
+    "tests": "local Node contract test",
+    "result": "data validator robustness tests: ok",
+    "source_sha_before_merge": "83478b3fe3133ab05a916ff49d2addc0b7f346df",
+    "branch_collision_check": "no other *validator* branch found"
+  },
+  "notes": "DataValidator protège les lookups own-property, valide shapes/provider/relations, agrège les erreurs structurées et convertit les doublons de clé cible en issues. Aucun fichier A/C, TableWiz, démo ou roadmap modifié dans la branche métier."
+}

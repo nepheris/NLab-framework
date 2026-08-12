@@ -1,0 +1,23 @@
+{
+  "task_id": "8B-URL-RESOLVER-ROBUSTNESS",
+  "agent": "B",
+  "status": "done",
+  "base": "e4bc36e3102647045215d5bcaa6cfd2ac4651f56",
+  "branch": "agent-b/url-resolver-robustness",
+  "file_scope": [
+    "dev/framework/core/url-resolver.js",
+    "dev/framework/tests/url-resolver-robustness.test.mjs",
+    "dev/framework/doc/url-resolver/*.md"
+  ],
+  "reserved_at": "2026-08-12T01:04:00+02:00",
+  "final_sha": "556786c181cef7b49003f48cd32228e96bb10d6e",
+  "merged_sha": "cf606f256329567200bc8d054d7ef073a1e393cc",
+  "pull_request": 13,
+  "verification": {
+    "diff": "4 commits / 3 fichiers, tous dans le file_scope réservé",
+    "collision_check": "core/url-resolver.js sur New conservait le SHA du point de départ avant fusion",
+    "tests": "tests/url-resolver-robustness.test.mjs exécuté localement sur le contenu exact du lot",
+    "result": "url resolver robustness tests: ok"
+  },
+  "notes": "Intégré dans New via PR #13 en squash. Bases relatives/objets URL, fallback hors navigateur et current() résilient. Aucun fichier A/C, démo, TableWiz, Navigation, Preset Manager ou CodeBlock modifié."
+}

@@ -1,9 +1,9 @@
 {
   "task_id": "8B-SEO-SHARE-CONTRACTS",
   "agent": "B",
-  "status": "in_progress",
-  "base": "4800e1cc36812784049c1bd9dd55da38274e8f63",
-  "branch": "agent-b/seo-share-contracts",
+  "status": "done",
+  "base": "ee870d31e906605ed5b1f7ed812a5a11e1f5a5a0",
+  "branch": "agent-b/seo-share-contracts-r2",
   "file_scope": [
     "dev/framework/wiz/seo-wiz.js",
     "dev/framework/wiz/share-wiz.js",
@@ -11,5 +11,13 @@
     "dev/framework/doc/seo-share/*.md"
   ],
   "reserved_at": "2026-08-12T00:09:00+02:00",
-  "notes": "Contrats et cas négatifs SEO/Share indépendants du chantier UX V20 : canonical, metadata, JSON-LD, URL/payload, fallbacks et APIs absentes. Aucun changement de démo. Premier défaut isolé corrigé sur branche : fallback Web Share/Clipboard sûr hors navigateur."
+  "final_sha": "eeb2c9beb69d6dc5f591ea62ef2035dc9ae6d33b",
+  "merged_sha": "5d95554858a5a4a60ed205e779dcd4aa4d77b61f",
+  "pull_request": 10,
+  "verification": {
+    "diff": "4 commits / 4 fichiers, tous dans le file_scope réservé",
+    "tests": "tests/seo-share-contracts.test.mjs exécuté localement sur le contenu exact du lot",
+    "result": "seo share contracts tests: ok"
+  },
+  "notes": "Intégré dans New via PR #10 en squash. SEOWiz/ShareWiz durcis sans fichier A/C ni démo modifié."
 }

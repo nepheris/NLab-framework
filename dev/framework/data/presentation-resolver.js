@@ -1,18 +1,91 @@
-export class PresentationResolver {
-  constructor({ registry = null } = {}) { this.registry = registry; }
-  format(value, resolved = null, { mode = 'label', labelField = 'label', imageField = 'image', iconField = 'icon', urlField = 'url' } = {}) {
-    const object = resolved ?? value;
-    const id = typeof value === 'object' ? value?.id : value;
-    const label = object && typeof object === 'object' ? object[labelField] ?? object.name ?? object.id ?? id : String(object ?? id ?? '');
-    const image = object && typeof object === 'object' ? object[imageField] ?? object.image_url ?? null : null;
-    const icon = object && typeof object === 'object' ? object[iconField] ?? null : null;
-    const url = object && typeof object === 'object' ? object[urlField] ?? null : null;
-    if (mode === 'id') return { text:String(id ?? ''), id, label, image, icon, url };
-    if (mode === 'id+label') return { text:[id,label].filter(Boolean).join(' — '), id, label, image, icon, url };
-    if (mode === 'image') return { text:'', id, label, image, icon, url };
-    if (mode === 'image+label') return { text:label, id, label, image, icon, url };
-    if (mode === 'icon') return { text:'', id, label, image, icon, url };
-    return { text:label, id, label, image, icon, url };
+function isPlainObject(value) {
+  return Boolean(value) && typeof value === 'object' && !Array.isArray(value)
+    && [Object.prototype, null].includes(Object.getPrototypeOf(value));
+}
+
+function cloneConfig(value, ancestors = new WeakSet()) {
+  if (Array.isArray(value)) {
+    if (ancestors.has(value)) throw new TypeError('Presentation configuration must not be circular');
+    ancestors.add(value);
+    const copy = value.map((item) => cloneConfig(item, ancestors));
+    ancestors.delete(value);
+    return copy;
   }
-  formatMany(values = [], resolved = [], options = {}) { return values.map((value,index)=>this.format(value,resolved?.[index],options)); }
+  if (!isPlainObject(value)) return value;
+  if (ancestors.has(value)) throw new TypeError('Presentation configuration must not be circular');
+  ancestors.add(value);
+  const copy = {};
+  for (const [key, item] of Object.entries(value)) copy[key] = cloneConfig(item, ancestors);
+  ancestors.delete(value);
+  return copy;
+}
+
+function configObject(value, label) {
+  if (value == null) return {};
+  if (!isPlainObject(value)) throw new TypeError(`${label} must be an object`);
+  return cloneConfig(value);
+}
+
+function viewObject(value, label) {
+  if (value == null) return {};
+  if (!isPlainObject(value)) throw new TypeError(`${label} must be an object`);
+  return cloneConfig(value);
+}
+
+function firstDefined(...values) {
+  return values.find((value) => value !== undefined);
+}
+
+function outputValue(value) {
+  return cloneConfig(value);
+}
+
+export class PresentationResolver {
+  constructor({ defaults = {}, byType = {} } = {}) {
+    this.defaults = configObject(defaults, 'defaults');
+    const typeConfigs = configObject(byType, 'byType');
+    this.byType = {};
+    for (const [type, config] of Object.entries(typeConfigs)) {
+      this.byType[type] = configObject(config, `byType.${type}`);
+    }
+  }
+
+  resolve({ type = 'collection', schema = {}, override = {} } = {}) {
+    const typeKey = String(type ?? 'collection').trim() || 'collection';
+    const schemaConfig = configObject(schema, 'schema');
+    const overrideConfig = configObject(override, 'override');
+    const typeConfig = this.byType[typeKey] ?? {};
+    const base = { ...this.defaults, ...typeConfig };
+
+    return {
+      renderer: outputValue(firstDefined(
+        overrideConfig.renderer,
+        schemaConfig.renderer,
+        base.renderer,
+        'table'
+      )),
+      view: {
+        ...viewObject(base.view, 'base.view'),
+        ...viewObject(schemaConfig.view, 'schema.view'),
+        ...viewObject(overrideConfig.view, 'override.view')
+      },
+      sort: outputValue(firstDefined(
+        overrideConfig.sort,
+        schemaConfig.defaultSort,
+        base.sort,
+        null
+      )),
+      groupBy: outputValue(firstDefined(
+        overrideConfig.groupBy,
+        schemaConfig.defaultGroupBy,
+        base.groupBy,
+        null
+      )),
+      filter: outputValue(firstDefined(
+        overrideConfig.filter,
+        base.filter,
+        null
+      ))
+    };
+  }
 }

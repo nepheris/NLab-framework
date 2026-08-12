@@ -5,7 +5,7 @@
   "type": "object",
   "required": ["version", "providers", "collections"],
   "properties": {
-    "version": { "type": "string" },
+    "version": { "type": "string", "minLength": 1 },
     "providers": {
       "type": "object",
       "additionalProperties": {

@@ -1,0 +1,22 @@
+{
+  "task_id": "8B-CODEBLOCK-CONTRACT",
+  "agent": "C",
+  "status": "done",
+  "base": "4287257267671f5310ec47d6cb02dddbeab4bf87",
+  "branch": "agent-c/codeblock-contract",
+  "file_scope": [
+    "dev/framework/components/code-block.js",
+    "dev/framework/tests/code-block.test.mjs",
+    "dev/framework/doc/components/code-block.md"
+  ],
+  "reserved_at": "2026-08-12T00:44:00+02:00",
+  "final_sha": "794f61bffdf41a3fca918577a790daeb6463b9d6",
+  "merged_sha": "86f12ae01f199f60c422e79c5f5fa81ee0c4d1d9",
+  "pull_request": 5,
+  "verification": {
+    "diff": "5 commits / 3 files, all inside reserved file_scope",
+    "tests": "local Node contract test + render syntax check",
+    "result": "code block tests: ok"
+  },
+  "notes": "CodeBlock normalise les langages, expose des presets extension/MIME, formate JSON défensivement, sécurise le tokeniseur, gère copie/téléchargement hors navigateur et conserve l'API existante. Intégré dans New via PR #5 ; aucun fichier A/B ni démo touché."
+}

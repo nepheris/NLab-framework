@@ -1,0 +1,14 @@
+{
+  "task_id": "8B-ARCHITECTURE-MAP",
+  "agent": "A",
+  "status": "review",
+  "base": "181ab313a73e00bd74749119e41a939f526856a9",
+  "branch": "agent-a/architecture-map",
+  "file_scope": [
+    "dev/framework/doc/architecture/nlab-architecture-map.json",
+    "dev/framework/doc/architecture/nlab-architecture-map.html"
+  ],
+  "reserved_at": "2026-08-12T01:04:00+02:00",
+  "draft_sha": "57e5a9cce86e63eb75f1f354a369e363e40706be",
+  "notes": "Carte hiérarchique Framework + Data métier prête à revue : JSON canonique + HTML interactif pliable/dépliable. Aucun runtime ni Preview modifié."
+}

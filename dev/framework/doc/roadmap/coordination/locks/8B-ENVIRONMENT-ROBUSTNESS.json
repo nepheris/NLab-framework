@@ -1,0 +1,24 @@
+{
+  "task_id": "8B-ENVIRONMENT-ROBUSTNESS",
+  "agent": "B",
+  "status": "done",
+  "base": "70957882b87d76b3c7ddd3a7d13b5a817b58886a",
+  "branch": "agent-b/environment-robustness",
+  "file_scope": [
+    "dev/framework/core/environment.js",
+    "dev/framework/tests/environment-robustness.test.mjs",
+    "dev/framework/doc/environment/*.md"
+  ],
+  "reserved_at": "2026-08-12T01:51:00+02:00",
+  "final_sha": "eb3200a71e7b6cc8d009f6bdb8c9ec093a446ccb",
+  "merged_sha": "fa8a4d2c7c19030cf2256d15d3ea41b3ae821e35",
+  "pull_request": 27,
+  "verification": {
+    "diff": "3 commits / 3 files, all inside reserved file_scope",
+    "tests": "local Node contract test",
+    "result": "environment robustness tests: ok",
+    "post_reservation_lock_check": "full lock directory checked; no competing environment.js scope",
+    "pre_merge_source_check": "New environment.js SHA unchanged from reservation: 33fcfc0c7397e2609e95a0960a7949c06c40c46e"
+  },
+  "notes": "Environment normalise modes/experiences, ajoute erreurs structurées, bases string/URL/null et isVisitorExperience. Aucun fichier A/C, démo ou TableWiz modifié."
+}

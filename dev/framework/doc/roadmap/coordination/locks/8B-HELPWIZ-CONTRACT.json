@@ -1,0 +1,22 @@
+{
+  "task_id": "8B-HELPWIZ-CONTRACT",
+  "agent": "C",
+  "status": "done",
+  "base": "a1ab7234bc59e7941704ee4c053c0b5161546334",
+  "branch": "agent-c/helpwiz-contract",
+  "file_scope": [
+    "dev/framework/help/help-wiz.js",
+    "dev/framework/tests/help-wiz.test.mjs",
+    "dev/framework/doc/help/help-wiz.md"
+  ],
+  "reserved_at": "2026-08-12T01:05:00+02:00",
+  "final_sha": "7c1f810cb3c93d99fe65af5f7e7787f3f7ec84df",
+  "merged_sha": "181ab313a73e00bd74749119e41a939f526856a9",
+  "pull_request": 14,
+  "verification": {
+    "diff": "3 commits / 3 files, all inside reserved file_scope",
+    "tests": "local Node contract test",
+    "result": "HelpWiz tests: OK"
+  },
+  "notes": "HelpWiz clone son registre, sépare visitor/webmaster, attache les triggers de façon idempotente, supporte panel/event injectables et fournit detach/destroy sans dépendance DOM implicite. Intégré dans New via PR #14."
+}

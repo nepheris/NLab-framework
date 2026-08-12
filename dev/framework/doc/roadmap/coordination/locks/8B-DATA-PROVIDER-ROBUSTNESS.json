@@ -1,0 +1,22 @@
+{
+  "task_id": "8B-DATA-PROVIDER-ROBUSTNESS",
+  "agent": "C",
+  "status": "done",
+  "base": "a61a1a0d14e16c55847381eaec07e91f9dfa6e47",
+  "branch": "agent-c/data-provider-robustness",
+  "file_scope": [
+    "dev/framework/core/data-provider.js",
+    "dev/framework/tests/data-provider-robustness.test.mjs",
+    "dev/framework/doc/data-provider/data-provider.md"
+  ],
+  "reserved_at": "2026-08-12T01:36:00+02:00",
+  "final_sha": "cbcd9170e024330ebf4653e16b66eb3e424e0ca4",
+  "merged_sha": "539f418b38e5f5b82743d16df362e5653b558d81",
+  "pull_request": 21,
+  "verification": {
+    "diff": "3 commits / 3 files, all inside reserved file_scope",
+    "tests": "local Node base + concrete JsonDataProvider compatibility test",
+    "result": "DataProvider tests: OK"
+  },
+  "notes": "DataProvider valide/clône ses options, expose supports(), fiabilise getRecord avec collection/idField/result iterable validés, structure les erreurs read-only/abstractes et reste compatible avec JsonDataProvider. Intégré dans New via PR #21."
+}

@@ -65,8 +65,7 @@ export class PresetManager {
 
   duplicate(id, { label = null } = {}) {
     const source = this.#require(id);
-    const copy = this.create({ label: label ?? `${source.label} copie`, settings: source.settings, meta: source.meta });
-    return copy;
+    return this.create({ label: label ?? `${source.label} copie`, settings: source.settings, meta: source.meta });
   }
 
   rename(id, label) {
@@ -136,17 +135,31 @@ export class PresetManager {
   }
 
   importJSON(input, { replace = false } = {}) {
-    const data = typeof input === 'string' ? JSON.parse(input) : clone(input);
-    if (data?.type !== 'nlab-preset-collection') throw new Error('Unsupported preset collection');
-    if (data.namespace && data.namespace !== this.namespace) throw new Error(`Preset namespace mismatch: ${data.namespace}`);
-    if (replace) {
-      this.presets = new Map([...this.canonical.entries()].map(([id, preset]) => [id, clone(preset)]));
+    const data = this.#parseCollection(input);
+    const staged = replace
+      ? new Map([...this.canonical.entries()].map(([id, preset]) => [id, clone(preset)]))
+      : new Map([...this.presets.entries()].map(([id, preset]) => [id, clone(preset)]));
+    const importedIds = new Set();
+
+    for (const preset of data.presets) {
+      if (preset?.canonical) continue;
+      const normalized = this.#normalize({ ...preset, canonical: false }, { canonical: false });
+      if (importedIds.has(normalized.id)) throw new Error(`Duplicate imported preset: ${normalized.id}`);
+      importedIds.add(normalized.id);
+      if (staged.get(normalized.id)?.canonical) throw new Error(`Cannot overwrite canonical preset: ${normalized.id}`);
+      staged.set(normalized.id, normalized);
     }
-    for (const preset of data.presets ?? []) {
-      if (preset.canonical) continue;
-      this.upsert({ ...preset, canonical: false }, { persist: false });
+
+    let nextActiveId = replace ? null : this.activeId;
+    if (data.activeId != null && data.activeId !== '') {
+      if (!staged.has(data.activeId)) throw new Error(`Unknown active preset in collection: ${data.activeId}`);
+      nextActiveId = data.activeId;
+    } else if (nextActiveId && !staged.has(nextActiveId)) {
+      nextActiveId = null;
     }
-    if (data.activeId && this.presets.has(data.activeId)) this.activeId = data.activeId;
+
+    this.presets = staged;
+    this.activeId = nextActiveId;
     this.#persist();
     return this.list();
   }
@@ -162,6 +175,17 @@ export class PresetManager {
     }
     if (saved.activeId && this.presets.has(saved.activeId)) this.activeId = saved.activeId;
     return this;
+  }
+
+  #parseCollection(input) {
+    const data = typeof input === 'string' ? JSON.parse(input) : clone(input);
+    if (!data || typeof data !== 'object' || Array.isArray(data)) throw new TypeError('Preset collection must be an object');
+    if (data.type !== 'nlab-preset-collection') throw new Error('Unsupported preset collection');
+    if (data.version !== undefined && data.version !== 1) throw new Error(`Unsupported preset collection version: ${data.version}`);
+    if (data.namespace && data.namespace !== this.namespace) throw new Error(`Preset namespace mismatch: ${data.namespace}`);
+    if (!Array.isArray(data.presets)) throw new TypeError('Preset collection presets must be an array');
+    if (data.activeId != null && typeof data.activeId !== 'string') throw new TypeError('Preset collection activeId must be a string or null');
+    return data;
   }
 
   #normalize(preset, { canonical = Boolean(preset?.canonical) } = {}) {
