@@ -1,0 +1,27 @@
+{
+  "task_id": "8B-ASSET-LOGO-PROFILE",
+  "agent": "B",
+  "status": "in_progress",
+  "base": "d8741f9a8b352f3c7811cd32879940b210cfd358",
+  "branch": "agent-b/asset-logo-profile",
+  "file_scope": [
+    "dev/framework/core/asset-logo-profile.js",
+    "dev/framework/tests/asset-logo-profile.test.mjs",
+    "dev/framework/doc/assets/asset-logo-profile.md"
+  ],
+  "reserved_at": "2026-08-12T16:53:00+02:00",
+  "source": "foundation/BACKLOG-UX.md — Asset/Logo Workshop : original, couleur transparent, couleur avec fond, monochrome recolorable, favicon ; previews clair/sombre et formes carrées/arrondies",
+  "objective": "Ajouter un contrat DOM-free de profil logo/assets : variantes canoniques, source/mime/dimensions, monochrome recolorable, favicon, matrices de preview clair/sombre et carré/arrondi, audit de complétude et snapshots, sans générer ni modifier d'images.",
+  "coordination": {
+    "agent_a": "QR Studio Schema et ResponsivePreview sont sur des scopes distincts ; aucun asset/logo profile observé avant réservation.",
+    "agent_d": "DataJoin KeyMatcher est sur core/data-join-key-matcher.js + test/doc.",
+    "forbidden": [
+      "dev/framework/components/qr-studio-schema.js",
+      "dev/framework/core/responsive-preview.js",
+      "dev/framework/core/data-join-key-matcher.js",
+      "dev/framework/icons/**",
+      "dev/framework/demo/**",
+      "dev/framework/doc/roadmap/roadmap.md"
+    ]
+  }
+}
