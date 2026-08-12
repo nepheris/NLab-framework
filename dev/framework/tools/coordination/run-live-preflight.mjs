@@ -5,6 +5,8 @@ import { auditLocks } from './audit-lock-health.mjs';
 import { PreflightGateEvaluator } from '../../core/preflight-gate-evaluator.js';
 
 const plain=value=>Boolean(value)&&typeof value==='object'&&!Array.isArray(value);
+const clean=value=>String(value??'').trim();
+const EXPLICIT_BLOCKERS=new Set(['blocked_human','blocked_external']);
 
 export class LivePreflightRunnerError extends Error {
   constructor(message,code='LIVE_PREFLIGHT_RUNNER_ERROR',details=null){
@@ -32,6 +34,23 @@ function nowIso(clock){
   const ms=raw instanceof Date?raw.getTime():Number(raw);
   if(!Number.isFinite(ms))throw new LivePreflightRunnerError('clock must return a finite timestamp or Date','INVALID_CLOCK');
   return new Date(ms).toISOString();
+}
+function validateOverrides(preflight,overrides){
+  if(overrides==null)return;
+  if(!plain(overrides))throw new LivePreflightRunnerError('Overrides must be an object','INVALID_OVERRIDES');
+  const gates=Array.isArray(preflight?.gates)?preflight.gates:[];
+  const byId=new Map(gates.map(gate=>[clean(gate?.gate_id),gate]).filter(([id])=>id));
+  for(const [rawGateId,override] of Object.entries(overrides)){
+    const gateId=clean(rawGateId);
+    const gate=byId.get(gateId);
+    if(!gate)throw new LivePreflightRunnerError('Override references an unknown gate','UNKNOWN_OVERRIDE_GATE',{gateId});
+    const targetStatus=clean(typeof override==='string'?override:override?.status);
+    const snapshotStatus=clean(gate.status);
+    if(EXPLICIT_BLOCKERS.has(snapshotStatus)&&targetStatus&&targetStatus!==snapshotStatus){
+      const reason=clean(plain(override)?override.reason:'');
+      if(!reason)throw new LivePreflightRunnerError('Lifting a human/external blocker requires an explicit reason','OVERRIDE_REASON_REQUIRED',{gateId,snapshotStatus,targetStatus});
+    }
+  }
 }
 
 export async function runLivePreflight({
@@ -64,9 +83,7 @@ export async function runLivePreflight({
     const document=await readJson(overridesFile,'overrides file');
     effectiveOverrides=plain(document?.overrides)?document.overrides:document;
   }
-  if(effectiveOverrides!=null&&!plain(effectiveOverrides)){
-    throw new LivePreflightRunnerError('Overrides must be an object','INVALID_OVERRIDES');
-  }
+  validateOverrides(preflight,effectiveOverrides);
 
   const evaluator=new PreflightGateEvaluator({
     taskStates:taskStatesFromLocks(loaded.locks),
