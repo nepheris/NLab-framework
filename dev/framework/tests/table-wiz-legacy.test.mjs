@@ -79,7 +79,6 @@ const table = new TableWiz({ columns:[
   { id:'score' }
 ], pageSize:2 });
 
-// Baseline: process is non-mutating and pagination remains coherent.
 const original = structuredClone(items);
 let result = table.process(items);
 assert.deepEqual(items, original);
@@ -87,7 +86,6 @@ assert.equal(result.total, 3);
 assert.deepEqual(result.page.map((row)=>row.id), ['A','B']);
 assert.equal(result.pageModel.pageCount, 2);
 
-// Sorting accepts id-only columns, normalizes direction and toggles deterministically.
 table.setSort('score', 'DESC');
 assert.equal(table.sortState.direction, 'desc');
 assert.deepEqual(table.process(items).all.map((row)=>row.id), ['A','C','B']);
@@ -95,13 +93,11 @@ table.toggleSort('score');
 assert.equal(table.sortState.direction, 'asc');
 assert.deepEqual(table.process(items).all.map((row)=>row.id), ['B','C','A']);
 
-// Query/filter changes bring pagination back to the first page.
 table.pagination.setPage(2);
 table.setQuery('pommes');
 assert.equal(table.pagination.page, 1);
 assert.equal(table.process(items).total, 2);
 
-// Regex filters reuse FilterWiz and fail closed without throwing.
 table.setQuery('').setRegexFilter('name', '^Tarte');
 result = table.process(items);
 assert.deepEqual(result.all.map((row)=>row.id), ['A']);
@@ -112,7 +108,6 @@ assert.deepEqual(result.all, []);
 assert.equal(result.error?.code, 'INVALID_REGEX');
 assert.equal(result.error?.field, 'name');
 
-// Invalid regex search is contained by TableWiz rather than escaping to consumers.
 table.reset().setQuery('[', { regex:true });
 result = table.process(items);
 assert.deepEqual(result.all, []);
@@ -121,7 +116,6 @@ table.setQuery('pommes');
 assert.deepEqual(table.queryOptions, {});
 assert.equal(table.process(items).total, 2);
 
-// Reset restores interaction state and optionally the initial column configuration.
 table.setColumnVisible('category', false).setColumnWidth('name', 320).reorder(['score','name','category']);
 table.setFilters([{ field:'category', operator:'eq', value:'dessert' }]).setSort('name','desc');
 table.pagination.setPage(2);
@@ -134,7 +128,6 @@ assert.deepEqual(table.visibleColumns().map((column)=>column.id), ['name','categ
 assert.equal(table.columns.find((column)=>column.id==='category').visible, true);
 assert.equal(table.columns.find((column)=>column.id==='name').width, undefined);
 
-// A2: numeric/px widths are clamped; arbitrary CSS widths stay declarative.
 const resizeTable = new TableWiz({
   columns:[
     { id:'name', label:'Nom', width:120, minWidth:80, maxWidth:220 },
@@ -161,7 +154,6 @@ assert.equal(resizeTable.columnWidth('name'), null);
 resizeTable.adjustColumnWidth('name', 15, { fallback:100 });
 assert.equal(resizeTable.columnWidth('name'), 115);
 
-// A2: pointer and keyboard resize are covered without a browser dependency.
 const fakeDocument = new FakeDocument();
 const container = new FakeElement('div', fakeDocument);
 const resizeEvents = [];
@@ -192,7 +184,52 @@ assert.equal(resizeTable.columnWidth('name'), 220);
 resizeTable.destroy();
 assert.equal(fakeDocument.listenerCount('pointermove'), 0);
 
-// Defensive inputs and exports remain safe without narrowing valid JSON export values.
+const stateTable = new TableWiz({
+  columns:[
+    { id:'a', label:'A' },
+    { id:'b', label:'B' },
+    { id:'c', label:'C' },
+    { id:'d', label:'D' }
+  ]
+});
+stateTable.reorder(['c','a']);
+assert.deepEqual(stateTable.visibleColumnIds(), ['c','a','b','d']);
+stateTable.moveColumn('d', 1);
+assert.deepEqual(stateTable.visibleColumnIds(), ['c','d','a','b']);
+stateTable.setColumnsVisible(['c','b'], false);
+assert.deepEqual(stateTable.visibleColumnIds(), ['d','a']);
+stateTable.toggleColumn('c');
+assert.deepEqual(stateTable.visibleColumnIds(), ['c','d','a']);
+stateTable.showAllColumns();
+assert.deepEqual(stateTable.visibleColumnIds(), ['c','d','a','b']);
+
+stateTable.applyColumnState([
+  { id:'b', order:0, visible:false, width:150, sticky:true },
+  { id:'a', order:1 },
+  { id:'d', order:2 },
+  { id:'c', order:3 }
+]);
+assert.deepEqual(stateTable.columnState().map((column)=>column.id), ['b','a','d','c']);
+assert.equal(stateTable.columnState()[0].visible, false);
+assert.equal(stateTable.columnState()[0].width, 150);
+assert.equal(stateTable.columnState()[0].sticky, true);
+
+let toolbar = stateTable.toolbarState();
+assert.equal(toolbar.counts.columns, 4);
+assert.equal(toolbar.counts.visibleColumns, 3);
+assert.equal(toolbar.canReset, true);
+stateTable.setQuery('alpha').setFilters({ field:'a', operator:'eq', value:1 }).setSort('a','desc');
+toolbar = stateTable.toolbarState();
+assert.equal(toolbar.query, 'alpha');
+assert.equal(toolbar.filters.length, 1);
+assert.deepEqual(toolbar.sort, { field:'a', direction:'desc' });
+
+stateTable.reset({ columns:true });
+assert.deepEqual(stateTable.visibleColumnIds(), ['a','b','c','d']);
+assert.equal(stateTable.toolbarState().canReset, false);
+stateTable.reorder(['d','c','b','a']).resetColumnOrder();
+assert.deepEqual(stateTable.visibleColumnIds(), ['a','b','c','d']);
+
 assert.equal(table.process(null).total, 0);
 assert.equal(table.exportJSON(null), '[]');
 assert.match(table.exportJSON({ ok:true }), /"ok": true/);
