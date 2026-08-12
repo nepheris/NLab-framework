@@ -1,7 +1,7 @@
 {
   "task_id": "COORD-ROADMAP-AGENT-DASHBOARD",
-  "agent": "C",
-  "status": "in_progress",
+  "agent": "A",
+  "status": "released",
   "base": "eb9fcb7e72bde8c14586d3b262e8073ab83afc03",
   "branch": "New",
   "file_scope": [
@@ -10,5 +10,14 @@
     "dev/framework/doc/roadmap/coordination/agent-board.md"
   ],
   "reserved_at": "2026-08-12T02:04:00+02:00",
-  "notes": "Synchroniser DataAdapter #25, DataSource consolidation #26, Environment B #27 et checker anti-collision #28 ; raccorder le checker exécutable à la procédure renforcée par B."
+  "original_agent": "C",
+  "taken_over_at": "2026-08-12T11:04:00+02:00",
+  "takeover_reason": "Session C absente après fermeture des conversations ; mutex laissé in_progress et snapshot documentaire incomplet.",
+  "released_at": "2026-08-12T11:20:00+02:00",
+  "snapshot": {
+    "agent_board_commit": "43692edb4c6e92d3d090f33bbb94ec3616fce253",
+    "coordination_readme_commit": "827fc5451bb314edbed14286654bab98636529a4",
+    "roadmap_commit": "60b806618963c8f18cbd5f208286953c8978c375"
+  },
+  "notes": "Reprise C terminée : #30/#31/#32 clôturés administrativement sans changer leur attribution C ; Pagination interrompu repris et intégré par A via #34 ; tableau, procédure et roadmap actuelle synchronisés ; nouveau template non appliqué. Mutex désormais libre."
 }

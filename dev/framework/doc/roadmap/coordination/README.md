@@ -38,6 +38,8 @@ La couleur du propriétaire **ne disparaît pas quand une tâche passe à `done`
 
 La roadmap et `agent-board.md` doivent conserver cette attribution afin de savoir, a posteriori, qui a réalisé chaque chantier et d'améliorer le découpage des futurs travaux parallèles. Les tâches historiques antérieures au protocole de locks ne sont pas attribuées rétroactivement sans preuve Git/lock/PR fiable.
 
+Lorsqu'un lot commencé par un agent est réellement repris et terminé par un autre, le **même lock** peut conserver en plus `original_agent`, `taken_over_at`, `takeover_reason` et `completed_by`. Cela distingue l'origine du chantier de sa livraison effective sans effacer l'historique.
+
 ## Règles obligatoires
 
 1. Lire `coordination/locks/` avant de choisir une action.
@@ -47,7 +49,7 @@ La roadmap et `agent-board.md` doivent conserver cette attribution afin de savoi
 5. Un verrou contient au minimum : `task_id`, `agent`, `status`, `branch`, `file_scope`, `reserved_at`, `base`.
 6. **Après création du lock et avant création de la branche**, relire le dossier de locks complet : deux tâches de noms différents peuvent viser le même fichier.
 7. Utiliser une branche dédiée pour tout chantier substantiel (`agent-a/...`, `agent-b/...`, `agent-c/...` ou branche de review explicitement réservée).
-8. Ne modifier **aucun fichier** présent dans le `file_scope` d'un autre verrou `reserved`, `in_progress` ou `review` tant que ce verrou n'est pas explicitement libéré ou réattribué.
+8. Ne modifier **aucun fichier** présent dans le `file_scope` d'un autre verrou `reserved`, `in_progress` ou `review` tant que ce verrou n'est pas explicitement libéré, réattribué ou qualifié d'orphelin selon la procédure ci-dessous.
 9. Si deux locks actifs se chevauchent malgré les contrôles, **le lock actif le plus ancien sur le `file_scope` a priorité**. Le second agent arrête le chantier, ne fusionne rien et passe son lock à `released` ou `blocked` avec une note de collision.
 10. Un commit doit rester **mono-action** : uniquement les fichiers nécessaires à la tâche réservée ; pas de reformatage ou de correction opportuniste hors périmètre.
 11. Avant intégration, comparer la branche à sa base, relire **tous les locks actifs une nouvelle fois** et vérifier que les fichiers modifiés restent dans le périmètre annoncé.
@@ -57,9 +59,52 @@ La roadmap et `agent-board.md` doivent conserver cette attribution afin de savoi
 15. Après création ou changement d'état d'un lock, le tableau multi-agent doit être rafraîchi dès que le mutex documentaire est disponible.
 16. Après intégration d'une tâche, conserver la **pastille de l'agent + `✅`** dans la roadmap et le tableau historique.
 
+## Session inactive / lock orphelin
+
+Un fichier de lock, une branche Git ou une ancienne PR sont **persistants**. Leur existence ne prouve donc pas qu'une conversation ChatGPT ou qu'un agent est encore actif.
+
+Un lock peut être qualifié d'orphelin uniquement après contrôle explicite :
+
+1. relire le lock et son `file_scope` ;
+2. vérifier Issue #1, les PR et branches associées, ainsi que le HEAD de `New` ;
+3. rechercher un signal récent de travail ou de coordination du propriétaire ;
+4. lorsqu'une autre session pourrait encore exister, publier dans Issue #1 une demande d'identification avant reprise ;
+5. si l'utilisateur confirme que les conversations concernées ont été fermées, cette confirmation constitue une preuve suffisante d'absence de session active ;
+6. déterminer si le travail est **déjà livré mais mal clôturé** ou **réellement interrompu**.
+
+### Travail déjà livré mais lock non clôturé
+
+Si une PR est réellement mergée et que le `file_scope` correspond :
+
+- ne pas réattribuer rétroactivement la livraison ;
+- conserver `agent` au propriétaire qui a réalisé le lot ;
+- passer le lock à `done` avec `final_sha`, `merged_sha`, `pull_request` ;
+- ajouter `closed_by` / `closed_at` si un autre agent effectue seulement la clôture administrative.
+
+### Travail réellement interrompu
+
+Si aucune livraison complète n'existe :
+
+- **réutiliser le lock existant** ;
+- changer explicitement `agent` vers l'agent repreneur ;
+- conserver `original_agent` ;
+- ajouter `taken_over_at` et `takeover_reason` ;
+- repartir du HEAD actuel de `New` sur une nouvelle branche du repreneur ;
+- revalider le `file_scope`, tester, ouvrir la PR et enregistrer `completed_by` à la clôture.
+
+Cette procédure évite à la fois les verrous fantômes et le vol silencieux d'un chantier encore actif.
+
 ### Incident de référence — DataSource
 
-Le 12/08/2026, deux locks de noms différents ont couvert `core/data-source.js` en parallèle. Le chantier B antérieur a détecté la modification de `New` avant PR et n'a pas été fusionné ; la PR #24 de C a été conservée et créditée à C. Cet incident confirme que le contrôle doit porter sur les **`file_scope`**, pas seulement sur les IDs de tâches.
+Le 12/08/2026, deux locks de noms différents ont couvert `core/data-source.js` en parallèle. Le chantier B antérieur a détecté la modification de `New` avant PR et n'a pas été fusionné ; la PR #24 de C a été conservée et créditée à C. Cet incident confirme que le contrôle doit porter sur les **`file_scope`**, pas seulement sur les IDs de tâches. La consolidation C #26 a ensuite réconcilié les apports compatibles, et le checker #28 fournit désormais un garde-fou mécanique.
+
+### Incident de référence — session C fermée
+
+Le 12/08/2026, la fermeture des conversations a laissé plusieurs locks C en `in_progress` :
+
+- PresentationResolver #30, Test Runner #31 et Workflow manuel #32 étaient déjà mergés : A a uniquement clôturé administrativement leurs locks en conservant 🟧 C ;
+- Pagination n'avait pas de PR réelle complète : le même lock a été réattribué à A, conservant `original_agent: C`, puis terminé et intégré via PR #34 ;
+- le mutex roadmap laissé par C a été repris temporairement par A pour synchroniser le pilotage avant libération.
 
 ## Statuts
 
@@ -97,11 +142,12 @@ Son `file_scope` couvre :
 Procédure :
 
 1. lire le mutex avant d'éditer un de ces fichiers ;
-2. s'il est `in_progress` chez un autre agent, ne pas éditer le pilotage ;
+2. s'il est `in_progress` chez un autre agent, ne pas éditer le pilotage tant que la session est réellement active ou que son état n'a pas été qualifié ;
 3. s'il est `released` ou `done`, mettre à jour **ce même lock** à son nom, statut `in_progress`, avant édition ;
-4. rafraîchir la roadmap et `agent-board.md` depuis les locks réels ;
-5. conserver dans les lignes `done` la couleur de l'agent qui a livré ;
-6. passer ensuite le mutex à `released` avec le SHA de sortie.
+4. s'il est qualifié d'orphelin, réattribuer explicitement **ce même lock** selon la procédure de reprise ;
+5. rafraîchir la roadmap et `agent-board.md` depuis les locks réels ;
+6. conserver dans les lignes `done` la couleur de l'agent qui a livré ;
+7. passer ensuite le mutex à `released` avec le SHA de sortie.
 
 Les agents peuvent continuer leurs chantiers métier pendant qu'un autre agent possède le mutex documentaire : seuls les fichiers de pilotage sont sérialisés.
 

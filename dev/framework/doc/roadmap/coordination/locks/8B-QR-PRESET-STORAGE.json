@@ -1,0 +1,18 @@
+{
+  "task_id": "8B-QR-PRESET-STORAGE",
+  "agent": "B",
+  "status": "done",
+  "base": "109aac8a517f9e2fecf19b7b590a807f26b3c9b3",
+  "branch": "agent-b/qr-preset-storage",
+  "file_scope": [
+    "dev/framework/wiz/qr-preset-storage.js",
+    "dev/framework/tests/qr-preset-storage.test.mjs",
+    "dev/framework/doc/qr-media/qr-preset-storage.md"
+  ],
+  "reserved_at": "2026-08-12T12:04:00+02:00",
+  "completed_at": "2026-08-12T12:06:00+02:00",
+  "pr": 41,
+  "final_sha": "3467031a4ed087430aff598bb8a9849953a87ae9",
+  "objective": "Ajouter un adaptateur de stockage local optionnel pour les collections de presets QR, basé sur QRPresetCodec, avec erreurs structurées et stockage injectable.",
+  "validation": "Node 22 — qr preset storage tests: ok; 3 fichiers neufs dans le file_scope; PR #41 mergée dans New."
+}

@@ -10,6 +10,18 @@ const presets = CodeBlock.languagePresets();
 assert.equal(presets.json.extension, 'json');
 assert.match(presets.json.mime, /application\/json/);
 assert.ok(presets.javascript.aliases.includes('js'));
+assert.equal(presets.csv.extension, 'csv');
+assert.match(presets.csv.mime, /text\/csv/);
+
+assert.equal(CodeBlock.detectLanguage('{"ok":true}'), 'json');
+assert.equal(CodeBlock.detectLanguage('<!doctype html><html><body><main>ok</main></body></html>'), 'html');
+assert.equal(CodeBlock.detectLanguage(':root { --accent: #fff; color: #111; }'), 'css');
+assert.equal(CodeBlock.detectLanguage('name,score\nAlice,10\nBob,20'), 'csv');
+assert.equal(CodeBlock.detectLanguage('const answer = 42;'), 'javascript');
+assert.equal(CodeBlock.detectLanguage('def hello(name):\n    return name'), 'python');
+assert.equal(CodeBlock.detectLanguage('plain sentence without a strong signature'), 'text');
+assert.equal(CodeBlock.detectLanguage('anything', { filename: 'snippet.CSS' }), 'css');
+assert.equal(CodeBlock.detectLanguage('anything', { filename: 'data.csv?download=1' }), 'csv');
 
 const auto = new CodeBlock({ value: '{"b":2,"a":1}', language: 'json' });
 assert.equal(auto.language, 'json');
@@ -24,6 +36,20 @@ auto.setFilename('');
 assert.equal(auto.filename, 'export.py');
 auto.useLanguageFilename('snippet');
 assert.equal(auto.filename, 'snippet.py');
+
+const autoDetected = new CodeBlock({ value: 'name,score\nAlice,10\nBob,20', language: 'auto' });
+assert.equal(autoDetected.autoLanguage, true);
+assert.equal(autoDetected.language, 'csv');
+assert.equal(autoDetected.filename, 'export.csv');
+autoDetected.setValue('{"ok":true}');
+assert.equal(autoDetected.language, 'json');
+assert.equal(autoDetected.filename, 'export.json');
+autoDetected.setFilename('theme.css');
+assert.equal(autoDetected.language, 'css');
+assert.equal(autoDetected.filename, 'theme.css');
+autoDetected.setFilename('');
+assert.equal(autoDetected.language, 'json');
+assert.equal(autoDetected.filename, 'export.json');
 
 const raw = new CodeBlock({ value: '<script>"x" & y</script>' });
 assert.equal(raw.formatted(), '&lt;script&gt;&quot;x&quot; &amp; y&lt;/script&gt;');
@@ -46,6 +72,23 @@ assert.match(scriptHtml, /nlab-codeblock__string/);
 assert.match(scriptHtml, /nlab-codeblock__comment/);
 assert.ok(!scriptHtml.includes('<tag>'));
 assert.ok(scriptHtml.includes('&lt;tag&gt;'));
+
+const htmlHighlighted = new CodeBlock({
+  value: '<section class="x"><strong>Safe</strong></section>',
+  language: 'html',
+  highlighted: true
+}).formatted();
+assert.match(htmlHighlighted, /nlab-codeblock__tag/);
+assert.ok(!htmlHighlighted.includes('<section class="x">'));
+assert.ok(htmlHighlighted.includes('&lt;section class=&quot;x&quot;&gt;'));
+
+const cssHighlighted = new CodeBlock({
+  value: '.card { color: #123; margin: 1rem; }',
+  language: 'css',
+  highlighted: true
+}).formatted();
+assert.match(cssHighlighted, /nlab-codeblock__property/);
+assert.match(cssHighlighted, /nlab-codeblock__number/);
 
 const json = new CodeBlock({ value: '{"b":2,"a":1}', language: 'json' });
 const formatted = json.formatJson({ indent: 2 });
@@ -89,6 +132,10 @@ const payload = new CodeBlock({ value: 'const x = 1;', language: 'js' }).exportT
 assert.equal(payload.language, 'javascript');
 assert.equal(payload.filename, 'export.js');
 assert.match(payload.mime, /javascript/);
+
+const csvPayload = new CodeBlock({ value: 'a,b\n1,2', language: 'csv' }).exportText();
+assert.equal(csvPayload.filename, 'export.csv');
+assert.match(csvPayload.mime, /text\/csv/);
 
 class FakeBlob {
   constructor(parts, options) {
