@@ -2,8 +2,8 @@
   "task_id": "8B-QR-STUDIO-SCHEMA",
   "agent": "A",
   "status": "in_progress",
-  "base": "ed04012ebd9c67d07b9f86d42a1bc5c516406158",
-  "branch": "agent-a/qr-studio-schema",
+  "base": "a735f9a951d3e683440fe620d0b3470bfecaf6ed",
+  "branch": "agent-a/qr-studio-schema-clean",
   "file_scope": [
     "dev/framework/components/qr-studio-schema.js",
     "dev/framework/tests/qr-studio-schema*.mjs",
@@ -15,18 +15,18 @@
   "objective": "Create a descriptor-only QR Studio schema exposing human field labels/help, error-correction level descriptors and the six standard preset templates without modifying QRWiz, QRPresetCodec, QRPresetStorage or PresetManager.",
   "coordination": {
     "qr_existing": "QRWiz, QR batch/content/media robustness, preset codec and preset storage are all done and remain unchanged.",
-    "preset_manager": "Generic PresetManager remains the owner of create/duplicate/validate/import-export workflows and is unchanged.",
-    "agent_d": "Agent D DataJoin Field Catalog #85 was integrated on a disjoint scope while QS1 was open; branch sync preserves only the three QR Studio blobs.",
-    "agent_b": "StatusPanelModel remains on components/status-panel-model.js + test/doc and is disjoint.",
-    "human": "No visual demo/CSS calibration is included; this task only defines UI-consumable descriptors."
+    "preset_manager": "Generic PresetManager remains unchanged.",
+    "agent_d": "DataJoin Field Catalog #85 integrated and DataJoin key matcher is active on a disjoint scope.",
+    "agent_b": "StatusPanelModel remains on a disjoint scope."
   },
-  "pull_request": 86,
-  "review_head_before_sync": "7fd22485c31e85b80b9b3491e5df98c39f1d04e3",
-  "sync_commit": "d94d152e4ba811d09de035a01d19c16c766a6ff8",
+  "superseded_pull_request": 86,
+  "superseded_reason": "Closed before merge because a coordination lock checkpoint entered the old PR diff outside file_scope. No QS1 code was merged from that PR.",
+  "clean_head": "56fabfc4b989f795681feec031c75e3cbb1d4193",
   "verification": {
     "tests": "Node 22 — qr studio schema tests: ok",
     "component_blob": "6b0d4730debae4497b0fab2c18cbf43d352e161c",
-    "test_blob": "6051682ab82024364e7d4e70d17133dd60ddb59e"
+    "test_blob": "6051682ab82024364e7d4e70d17133dd60ddb59e",
+    "doc_blob": "b505b93807c688fc179f2102f88061194b951a42"
   },
-  "notes": "No qr-wiz.js, qr-preset-codec.js, qr-preset-storage.js, preset-manager.js, demo, CSS or roadmap canonical files modified."
+  "notes": "Clean branch is rebuilt from current New with exactly the three reserved QR Studio blobs."
 }
