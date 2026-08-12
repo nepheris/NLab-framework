@@ -1,7 +1,7 @@
 {
   "task_id": "8B-CODEBLOCK-LANGUAGE-EXTENSIONS",
   "agent": "B",
-  "status": "in_progress",
+  "status": "done",
   "base": "ea802e88408af5b4d25bc9cadd38d6e3f7ad249f",
   "branch": "agent-b/codeblock-language-extensions",
   "file_scope": [
@@ -10,5 +10,9 @@
     "dev/framework/doc/components/code-block.md"
   ],
   "reserved_at": "2026-08-12T11:23:00+02:00",
-  "objective": "Ajouter CSV, coloration légère HTML/CSS et détection automatique prudente du langage, sans modifier la démo ni les périmètres A."
+  "completed_at": "2026-08-12T11:34:00+02:00",
+  "pr": 35,
+  "final_sha": "7fc0cc5c7b05ec6ac76c1e505d205fceb4180ac5",
+  "objective": "Ajouter CSV, coloration légère HTML/CSS et détection automatique prudente du langage, sans modifier la démo ni les périmètres A.",
+  "validation": "Node 22.16.0 — code block tests: ok; diff 3 fichiers dans le file_scope; PR #35 mergée dans New."
 }
