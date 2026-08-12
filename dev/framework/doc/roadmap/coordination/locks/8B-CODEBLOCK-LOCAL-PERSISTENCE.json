@@ -1,7 +1,7 @@
 {
   "task_id": "8B-CODEBLOCK-LOCAL-PERSISTENCE",
   "agent": "B",
-  "status": "in_progress",
+  "status": "done",
   "base": "fd973a35817fb9ac4f87bfbdfc7ca5899f75a35b",
   "branch": "agent-b/codeblock-local-persistence-v2",
   "file_scope": [
@@ -12,6 +12,10 @@
   "reserved_at": "2026-08-12T11:35:00+02:00",
   "released_at": "2026-08-12T11:38:00+02:00",
   "reopened_at": "2026-08-12T12:07:00+02:00",
+  "completed_at": "2026-08-12T12:10:00+02:00",
+  "pr": 42,
+  "final_sha": "4bae80a13d6c5b2c96a551c7029a12fe7ae23ede",
   "objective": "Ajouter une persistance locale optionnelle du contenu CodeBlock édité sous forme d'adaptateur indépendant, stockage injectable et sans dépendance DOM.",
-  "history": "Premier scope libéré avant modification métier ; reprise sur trois fichiers neufs pour ne pas rouvrir code-block.js."
+  "history": "Premier scope libéré avant modification métier ; reprise sur trois fichiers neufs pour ne pas rouvrir code-block.js.",
+  "validation": "Node 22 — code block storage tests: ok; 3 fichiers neufs dans le file_scope; PR #42 mergée dans New."
 }
