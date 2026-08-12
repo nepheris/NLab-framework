@@ -27,6 +27,7 @@ try{
 
   let report=await runLivePreflight({preflightFile,locksDirectory:locks,clock,staleAfterMs:24*60*60*1000});
   assert.equal(report.schema,'nlab.live-preflight-report');
+  assert.equal(report.coordination.active_lock_overlaps,0);
   assert.equal(report.evaluation.gates[0].effective_status,'pass');
   assert.equal(report.evaluation.gates[1].effective_status,'blocked_human');
   assert.equal(report.ready_for_real_integration,false);
@@ -46,7 +47,28 @@ try{
   );
   await fs.rm(path.join(locks,'bad.json'));
 
+  const conflictA=path.join(locks,'C1.json');
+  const conflictB=path.join(locks,'C2.json');
+  await fs.writeFile(conflictA,JSON.stringify({
+    task_id:'C1',agent:'A',status:'in_progress',branch:'agent-a/c1',file_scope:['shared.js'],
+    reserved_at:'2026-08-12T18:00:00Z',started_at:'2026-08-12T18:05:00Z'
+  }));
+  await fs.writeFile(conflictB,JSON.stringify({
+    task_id:'C2',agent:'B',status:'reserved',branch:'agent-b/c2',file_scope:['shared.js'],
+    reserved_at:'2026-08-12T18:10:00Z'
+  }));
+  await assert.rejects(
+    ()=>runLivePreflight({preflightFile,locksDirectory:locks,clock}),
+    error=>error instanceof LivePreflightRunnerError&&error.code==='ACTIVE_LOCK_OVERLAP'&&error.details.conflicts.length===1
+  );
+
   const originalLog=console.log,originalError=console.error;
+  console.log=()=>{};console.error=()=>{};
+  try{
+    assert.equal(await runCli([preflightFile,locks]),2);
+  }finally{console.log=originalLog;console.error=originalError;}
+  await fs.rm(conflictA);await fs.rm(conflictB);
+
   console.log=()=>{};console.error=()=>{};
   try{
     assert.equal(await runCli([preflightFile,locks]),2);
