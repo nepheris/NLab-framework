@@ -1,7 +1,7 @@
 {
   "task_id": "8B-SETTINGS-PANEL-MODE",
   "agent": "B",
-  "status": "in_progress",
+  "status": "done",
   "base": "e64b0a7bc14c14f0950ea65c8aad1eb5dd5e279e",
   "branch": "agent-b/settings-panel-mode",
   "file_scope": [
@@ -10,16 +10,18 @@
     "dev/framework/doc/config/settings-panel-mode.md"
   ],
   "reserved_at": "2026-08-12T17:13:00+02:00",
+  "completed_at": "2026-08-12T17:20:00+02:00",
+  "pull_request": 94,
+  "head_sha": "609663648f0aa04cdd8d6a5c4ec3c14ee14baad9",
+  "merged_sha": "12ad6e364a4e1fadce55ac19513657931d296973",
   "source": "foundation/BACKLOG-UX.md — Contrat commun Classique / Avancé pour les panneaux de réglage",
   "objective": "Ajouter un modèle DOM-free et générique du mode classique/avancé des panneaux : visibilité des sections/champs, overrides explicites, mode initial, snapshots et descripteurs de rendu, sans modifier les panneaux/Studios existants.",
-  "coordination": {
-    "parallel_agents": "A ComponentSizeConstraints vient d'être clôturé; aucune lock/fichier SettingsPanelMode observé avant réservation.",
-    "forbidden": [
-      "dev/framework/components/**",
-      "dev/framework/wiz/**",
-      "dev/framework/themes/**",
-      "dev/framework/demo/**",
-      "dev/framework/doc/roadmap/roadmap.md"
-    ]
+  "verification": {
+    "node": "22.16.0",
+    "tests": "settings panel mode tests: ok",
+    "final_scope": "3 new files only",
+    "pr_mergeable": true,
+    "ci_statuses": "none",
+    "rule": "Advanced is a superset of classic by default; explicit per-mode overrides are supported while global visible=false remains authoritative."
   }
 }
