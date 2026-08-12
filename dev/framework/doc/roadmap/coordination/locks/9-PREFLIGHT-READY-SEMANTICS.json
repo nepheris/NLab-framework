@@ -1,0 +1,29 @@
+{
+  "task_id": "9-PREFLIGHT-READY-SEMANTICS",
+  "agent": "A",
+  "status": "reserved",
+  "base": "cfea183803d0fba1b6a0d5e7edc47e9a574ac63a",
+  "branch": "agent-a/preflight-ready-semantics",
+  "file_scope": [
+    "dev/framework/core/preflight-gate-evaluator.js",
+    "dev/framework/tests/preflight-gate-evaluator.test.mjs",
+    "dev/framework/doc/preflight/preflight-gate-evaluator.md"
+  ],
+  "reserved_at": "2026-08-12T19:49:00+02:00",
+  "source": "Actual Lot 9 machine checklist marks P9-009/P9-010 as required+ready but excludes them from blocking_gates_snapshot; current evaluator incorrectly treats ready as blocking and maps coordination review to ready.",
+  "objective": "Align evaluator semantics with the canonical Lot 9 machine checklist: gate status ready is non-blocking for entry, while coordination task status review remains unfinished and must map to in_progress rather than gaining readiness implicitly.",
+  "coordination": {
+    "agent_c": "lot9-preflight.machine.json is read-only source evidence and will not be modified.",
+    "agent_d": "PlotlyAdapter remains on wiz/data-wiz-* + test/doc and is disjoint.",
+    "forbidden": [
+      "dev/framework/doc/roadmap/lot9-preflight.machine.json",
+      "dev/framework/tools/coordination/run-live-preflight.mjs",
+      "dev/framework/tools/coordination/check-lock-overlaps.mjs",
+      "dev/framework/wiz/data-wiz-*.js",
+      "dev/framework/doc/roadmap/roadmap.md",
+      "dev/framework/doc/roadmap/coordination/agent-board.md",
+      "dev/framework/doc/roadmap/coordination/README.md",
+      "dev/framework/demo/**"
+    ]
+  }
+}
