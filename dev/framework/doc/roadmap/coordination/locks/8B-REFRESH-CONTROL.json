@@ -1,7 +1,7 @@
 {
   "task_id": "8B-REFRESH-CONTROL",
   "agent": "A",
-  "status": "in_progress",
+  "status": "done",
   "base": "4bba35aa0a90450e6b0a9e78e3f4f51ccaef62d4",
   "branch": "agent-a/refresh-control-contract",
   "file_scope": [
@@ -14,9 +14,20 @@
   "current_increment": "RC1-STATE-A11Y-RELOAD-CALLBACK",
   "objective": "Create an isolated refresh control primitive with deterministic idle/running/success/error state, accessible DOM rendering, semantic refresh icon adapter, async callback/reload activation and visible feedback without modifying NavigationWiz, HeaderStudio or DataRefresh.",
   "coordination": {
-    "session_config_registry": "Another Agent A session owns core/session-config-registry.js + tests/doc and remains untouched.",
+    "session_config_registry": "Parallel Agent A SessionConfig Registry completed on a disjoint scope before merge.",
     "tablewiz": "TableWiz PR #33 remains HUMAN review and is untouched.",
-    "parallel_agents": "No refresh-control file or lock existed immediately before reservation."
+    "responsive_preview": "Parallel Agent A ResponsivePreview scope is disjoint and was not modified.",
+    "filmstrip": "Parallel FilmstripController was integrated on a disjoint scope during RC1."
   },
-  "notes": "No NavigationWiz/Header/DataRefresh/demo/CSS changes. This lot establishes only the reusable control contract."
+  "pull_request": 79,
+  "final_sha": "0aaef60bd2ccd78ef4af339d260981c559fb7608",
+  "merged_sha": "e1ad34a0ccac67035e32c417258eeb75c15e4a1a",
+  "completed_at": "2026-08-12T16:24:00+02:00",
+  "verification": {
+    "diff": "3 files, all inside reserved file_scope",
+    "tests": "Node 22.16.0",
+    "result": "refresh control tests: ok",
+    "published_component_blob": "f82cfa66a15bd0f7e1715b56f034eb5b5fefa782"
+  },
+  "notes": "Merged only after GitHub reported mergeable=true and parallel New changes were checked as disjoint. No NavigationWiz/Header/DataRefresh/demo/CSS changes."
 }
