@@ -1,7 +1,7 @@
 {
   "task_id": "8B-DATAWIZ-PROVENANCE-MODEL",
   "agent": "D",
-  "status": "reserved",
+  "status": "in_progress",
   "base": "a7a63cda73dcf351fb0f0b4dfcc9a647ca5f1d1a",
   "branch": "agent-d/datawiz-provenance-model",
   "file_scope": [
@@ -10,6 +10,7 @@
     "dev/framework/doc/data-wiz/provenance.md"
   ],
   "reserved_at": "2026-08-12T14:26:00+02:00",
+  "started_at": "2026-08-12T14:28:00+02:00",
   "source": "foundation/BACKLOG-UX.md — DataWiz : expliciter source, variable, mesure et résultat",
   "objective": "Ajouter un modèle DOM-free, sérialisable et déterministe de provenance DataWiz source -> variable -> mesure -> résultat, sans modifier data-wiz.js ni imposer un moteur graphique. Le contrat prépare les futures ViewSpec/ChartSpec et permet à l'UI d'expliquer clairement comment un résultat a été produit.",
   "coordination": {
