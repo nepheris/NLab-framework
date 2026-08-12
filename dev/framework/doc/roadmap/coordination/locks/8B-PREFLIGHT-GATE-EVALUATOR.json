@@ -1,0 +1,30 @@
+{
+  "task_id": "8B-PREFLIGHT-GATE-EVALUATOR",
+  "agent": "A",
+  "status": "reserved",
+  "base": "03dadb5cc34a7e16f09424cd22a2e9a379c10e98",
+  "branch": "agent-a/preflight-gate-evaluator",
+  "file_scope": [
+    "dev/framework/core/preflight-gate-evaluator.js",
+    "dev/framework/tests/preflight-gate-evaluator.test.mjs",
+    "dev/framework/doc/preflight/preflight-gate-evaluator.md"
+  ],
+  "reserved_at": "2026-08-12T19:18:00+02:00",
+  "source": "Lot 9 machine preflight declares status_is_snapshot=true and live_status_source=coordination/locks; missing reusable evaluator for live gate status.",
+  "objective": "Add a DOM-free evaluator that combines a machine preflight document with injected coordination task states and explicit human/external overrides, producing effective gates and go/no-go synthesis without modifying the source checklist, locks, roadmap, demos or runtime modules.",
+  "coordination": {
+    "agent_d": "8B-DATAWIZ-CHART-RECOMMENDER is in_progress on data-wiz-chart-recommender.js + test/doc only and is disjoint.",
+    "agent_c": "Lot 9 preflight machine checklist is consumed read-only and not modified.",
+    "agent_b": "No current preflight evaluator scope observed.",
+    "forbidden": [
+      "dev/framework/wiz/data-wiz-chart-recommender.js",
+      "dev/framework/wiz/data-wiz-chart-spec.js",
+      "dev/framework/wiz/data-wiz-dataset-profile.js",
+      "dev/framework/doc/roadmap/lot9-preflight.machine.json",
+      "dev/framework/doc/roadmap/roadmap.md",
+      "dev/framework/doc/roadmap/coordination/agent-board.md",
+      "dev/framework/doc/roadmap/coordination/README.md",
+      "dev/framework/demo/**"
+    ]
+  }
+}
