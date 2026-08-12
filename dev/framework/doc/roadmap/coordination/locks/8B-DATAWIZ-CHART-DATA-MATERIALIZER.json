@@ -1,8 +1,8 @@
 {
   "task_id": "8B-DATAWIZ-CHART-DATA-MATERIALIZER",
   "agent": "D",
-  "status": "reserved",
-  "base": "e2dd45e7cf6780ef7b9368f74454c7c2008d9ccd",
+  "status": "in_progress",
+  "base": "b75f2e1597de6016896e0f0894e9452a1d9f57d3",
   "branch": "agent-d/datawiz-chart-data-materializer",
   "file_scope": [
     "dev/framework/wiz/data-wiz-chart-data-materializer.js",
@@ -10,6 +10,7 @@
     "dev/framework/doc/data-wiz/chart-data-materializer.md"
   ],
   "reserved_at": "2026-08-12T19:34:00+02:00",
+  "started_at": "2026-08-12T19:36:00+02:00",
   "source": "Agent D visual analytics architecture after RendererAdapter #108: renderer adapters must not reimplement ChartSpec aggregate/bin/timeUnit semantics",
   "objective": "Ajouter une matérialisation DOM-free et renderer-neutral de rows + DataWizChartSpec vers une table encodée déterministe, couvrant champs, agrégats, binning numérique, timeUnit, groupement multi-canaux et provenance d'indices, afin que les adapters concrets ne portent pas le moteur de données.",
   "coordination": {
