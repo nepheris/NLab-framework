@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {BackgroundWiz,BackgroundWizError} from '../wiz/background-wiz.js';
+const w=new BackgroundWiz();
+assert.deepEqual(w.normalize({type:'transparent'}),{type:'transparent',scope:'instance',target:null});assert.equal(w.css({type:'transparent'}),'transparent');
+assert.equal(w.css({type:'solid',color:'#fff',scope:'global'}),'#fff');assert.equal(w.normalize({type:'solid',color:'red'}).scope,'instance');assert.throws(()=>w.normalize({type:'solid',color:'red;position:absolute'}),e=>e.code==='INVALID_CSS_TOKEN');assert.throws(()=>w.normalize({type:'solid',color:'url(/x.png)'}),e=>e.code==='INVALID_COLOR');
+const g=w.normalize({type:'gradient',kind:'linear',angle:-90,stops:[{color:'#000',position:0},{color:'#888',position:50},{color:'#fff',position:100}]});assert.equal(g.gradient.angle,270);assert.equal(w.css(g),'linear-gradient(270deg, #000 0%, #888 50%, #fff 100%)');
+const auto=w.normalize({type:'gradient',stops:['red','blue','green']});assert.deepEqual(auto.gradient.stops.map(s=>s.position),[0,50,100]);assert.throws(()=>w.normalize({type:'gradient',stops:['red']}),e=>e instanceof BackgroundWizError&&e.code==='GRADIENT_STOPS_REQUIRED');
+assert.equal(w.css({type:'gradient',kind:'radial',shape:'circle',stops:['red','blue']}),'radial-gradient(circle, red 0%, blue 100%)');
+const image=w.normalize({type:'image',url:'/hero image.jpg',size:'contain',position:'top right',repeat:'repeat-x',attachment:'fixed',color:'#111',scope:'type',target:'hero'});assert.equal(image.scope,'type');assert.match(w.css(image),/^#111 url\("\/hero image\.jpg"\) top right \/ contain repeat-x fixed$/);const style=w.style(image);assert.equal(style.backgroundSize,'contain');assert.equal(style.backgroundColor,'#111');
+const blocked=['java','script:alert(1)'].join('');assert.throws(()=>w.normalize({type:'image',url:blocked}),e=>e.code==='UNSAFE_IMAGE_URL');assert.throws(()=>w.normalize({type:'image'}),e=>e.code==='IMAGE_URL_REQUIRED');assert.throws(()=>w.normalize({type:'image',url:'data:text/html,blocked'}),e=>e.code==='UNSAFE_IMAGE_URL');assert.doesNotThrow(()=>w.normalize({type:'image',url:'data:image/png;base64,AAAA'}));
+const vars=w.variables({type:'solid',color:'rgb(1 2 3)'},{prefix:'--x'});assert.equal(vars['--x-type'],'solid');assert.equal(vars['--x-value'],'rgb(1 2 3)');
+const snap=w.snapshot({type:'gradient',stops:['red','blue']});snap.gradient.stops[0].color='black';assert.equal(w.snapshot({type:'gradient',stops:['red','blue']}).gradient.stops[0].color,'red');
+console.log('background wiz tests: ok');
