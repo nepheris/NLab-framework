@@ -1,0 +1,34 @@
+{
+  "task_id": "8B-DATA-JOIN-COMPOSITE-KEY-MATCHER",
+  "agent": "D",
+  "status": "reserved",
+  "base": "f0d0530959eebe068c408f5e2ea7676ae9d38643",
+  "branch": "agent-d/data-join-composite-key-matcher",
+  "file_scope": [
+    "dev/framework/core/data-join-composite-key-matcher.js",
+    "dev/framework/tests/data-join-composite-key-matcher.test.mjs",
+    "dev/framework/doc/data-join/data-join-composite-key-matcher.md"
+  ],
+  "reserved_at": "2026-08-12T17:43:00+02:00",
+  "source": "Agent D DataJoin roadmap after DataJoinKeyMatcher #89: bounded explainable composite-key suggestions validated against actual rows",
+  "objective": "Ajouter une brique DOM-free séparée qui combine des suggestions simples en clés composites compatibles DataJoinSpec V1, les évalue sur les lignes réelles via DataJoinSpec.diagnose(), classe les candidats avec score et raisons, borne l'exploration combinatoire et refuse les combinaisons dont les besoins d'opération/comparaison ne peuvent pas être représentés par la coercition globale V1. Aucune suggestion n'est appliquée automatiquement.",
+  "coordination": {
+    "agent_a": "Recent A scopes are QR Studio / ComponentSizeConstraints and legacy TableWiz/Header/ResponsivePreview review scopes; no DataJoin composite matcher scope observed.",
+    "agent_b": "SettingsPanelMode #94 is done and Issue #1 states no active B lock after closure.",
+    "agent_c": "No recent PR or lock observed on DataJoin composite matching.",
+    "agent_d_previous": "DataJoinSpec, Executor, Workspace, FieldCatalog and KeyMatcher are integrated and consumed read-only by this new lot.",
+    "forbidden": [
+      "dev/framework/core/data-join-spec.js",
+      "dev/framework/core/data-join-executor.js",
+      "dev/framework/core/data-join-workspace.js",
+      "dev/framework/core/data-join-field-catalog.js",
+      "dev/framework/core/data-join-key-matcher.js",
+      "dev/framework/wiz/**",
+      "dev/framework/demo/**",
+      "dev/framework/doc/architecture/**",
+      "dev/framework/doc/roadmap/roadmap.md",
+      "dev/framework/doc/roadmap/coordination/agent-board.md",
+      "dev/framework/doc/roadmap/coordination/README.md"
+    ]
+  }
+}
