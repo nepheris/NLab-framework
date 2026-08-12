@@ -1,7 +1,7 @@
 {
   "task_id": "8B-JSON-STUDIO-INDUSTRIALIZATION",
   "agent": "A",
-  "status": "review",
+  "status": "done",
   "base": "5811e0c6fe293a57553bf0d8112514ec5022a9dc",
   "branch": "agent-a/json-studio-industrialization",
   "file_scope": [
@@ -11,38 +11,36 @@
   ],
   "reserved_at": "2026-08-12T12:52:00+02:00",
   "review_at": "2026-08-12T13:10:00+02:00",
+  "completed_at": "2026-08-12T14:05:00+02:00",
   "pull_request": 51,
-  "review_head": "281103206f2ee00f551adbce8316927e72e9de82",
-  "dependencies": [
-    {
-      "task_id": "8B-TABLEWIZ-LEGACY-EXTRACTION",
-      "pull_request": 33,
-      "status": "review",
-      "rule": "No TableWiz file is modified. JSON Studio remains compatible with the historical table.render(container, rows) contract and does not require A1-A7 APIs."
-    }
-  ],
+  "final_sha": "e591b4fc15924cf7592e27541f4902db57127af7",
+  "merged_sha": "c0672fe44faa499fbb8cb29038d9b71154bf8131",
   "completed_increments": [
     "J1-CORE-SAFETY-HISTORY",
     "J2-DOM-SAFETY-TREE-FORM",
-    "J3-BUFFER-VALIDATION-RELATION-DISPLAY"
+    "J3-BUFFER-VALIDATION-RELATION-DISPLAY",
+    "REVIEW-HISTORY-RESET-DOTTED-KEYS"
   ],
   "verification": {
     "existing_json_studio_sha": "d2fbcb870b699a548e157ca81fd45c98a0e6b003",
-    "review_engine_blob": "8d8edcd1b0559d413060ad43a9ae819ca3ddf0ee",
+    "final_engine_blob": "1c4867ae8329322933c8db98aee10c25b44a74bb",
     "engine_blob_local_match": true,
     "tests": [
       "Node 22: json studio core tests: ok",
       "Node 22: json studio DOM tests: ok",
       "Node 22: json studio relation/display tests: ok"
     ],
+    "review_fixes": [
+      "setData without history now clears stale undo/redo stacks",
+      "Tree/Form keep internal array paths so literal JSON keys containing dots remain editable"
+    ],
     "contracts": {
       "DataValidator": "Edited collections are validated record-by-record through validateRecord(); validateCollection() is not used for the local buffer.",
       "DataResolver": "resolved()/resolvedDisplay() consume resolveRecord(collection, record) and preserve raw relation IDs separately from display values.",
       "TableWiz": "Minimal render(container, rows) contract retained; no TableWiz code changed."
     },
-    "branch_diff": "6 commits / 5 files / 0 behind before PR creation; all files inside JSON Studio file_scope",
-    "parallel_agent_b": "No JSON Studio overlap observed; New remained unchanged during J1-J3."
+    "final_scope": "5 files, all inside JSON Studio file_scope",
+    "parallel_agents": "New JSON Studio blob was unchanged by parallel agents before synchronization and merge."
   },
-  "review_scope": "J1-J3 implement the roadmap requirements: validation, undo/redo, history, diff, multiple relations and display mapping. Remaining work is code/API review before merge, not additional autonomous feature scope.",
-  "notes": "Keep JSON Studio scope reserved to A during review. PR #51 is the integration vehicle."
+  "notes": "JSON Studio integrated autonomously via PR #51 after code/API review. No HUMAN visual decision was required for this engine-level integration."
 }
