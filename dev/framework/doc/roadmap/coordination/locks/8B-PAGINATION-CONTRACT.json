@@ -1,14 +1,17 @@
 {
   "task_id": "8B-PAGINATION-CONTRACT",
-  "agent": "C",
+  "agent": "A",
   "status": "in_progress",
-  "base": "e3497e50d6907504311415631b469465817b8e94",
-  "branch": "agent-c/pagination-contract",
+  "base": "9a4979d004bbfd397ad47201f2d8430d74fb194a",
+  "branch": "agent-a/pagination-contract-recovery",
   "file_scope": [
     "dev/framework/components/pagination.js",
     "dev/framework/tests/pagination.test.mjs",
     "dev/framework/doc/components/pagination.md"
   ],
   "reserved_at": "2026-08-12T02:12:00+02:00",
-  "notes": "Durcir Pagination sans toucher TableWiz/démo : normalisation total/page/pageSize, DOM/CustomEvent injectables, render défensif, aria, événement page, destroy et tests faux DOM."
+  "original_agent": "C",
+  "taken_over_at": "2026-08-12T11:04:00+02:00",
+  "takeover_reason": "Session C absente ; lock in_progress sans PR Pagination réelle ni branche C persistante identifiable.",
+  "notes": "A reprend le même lock, sans créer de lock concurrent. Objectif conservé : normalisation total/page/pageSize, DOM/CustomEvent injectables, rendu défensif, ARIA, événement nlab:page, destroy et tests faux DOM."
 }
