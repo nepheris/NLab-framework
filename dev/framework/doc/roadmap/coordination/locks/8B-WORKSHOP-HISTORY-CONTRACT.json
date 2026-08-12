@@ -1,0 +1,22 @@
+{
+  "task_id": "8B-WORKSHOP-HISTORY-CONTRACT",
+  "agent": "A",
+  "status": "in_progress",
+  "base": "c0fa1cd693d16394e58cbc51edcdb1e133f39c8b",
+  "branch": "agent-a/workshop-history-contract",
+  "file_scope": [
+    "dev/framework/core/workshop-history.js",
+    "dev/framework/tests/workshop-history*.mjs",
+    "dev/framework/doc/workshop-history/*.md"
+  ],
+  "reserved_at": "2026-08-12T14:55:00+02:00",
+  "source": "foundation/BACKLOG-UX.md — Undo/Redo + Reset commun aux Workshops",
+  "current_increment": "WH1-GENERIC-UNDO-REDO-RESET-BASELINE",
+  "objective": "Create a generic JSON-like workshop history engine with bounded undo/redo, undoable reset, baseline management, atomic transactions and optional change callback, without modifying existing workshops.",
+  "coordination": {
+    "json_studio": "JsonStudio keeps its own integrated editing history for now; no JsonStudio files modified.",
+    "theme_workshop": "Theme Workshop/V20 remain outside this lock.",
+    "parallel_agents": "No workshop-history file or lock found before reservation."
+  },
+  "notes": "Adoption by individual workshops is a later integration task; this lot only establishes the common contract."
+}
