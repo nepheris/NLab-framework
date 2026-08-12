@@ -1,7 +1,7 @@
 {
   "task_id": "8B-LIVE-PREFLIGHT-OVERLAP-GATE",
   "agent": "A",
-  "status": "reserved",
+  "status": "done",
   "base": "6cc127bd6b14d1ca225120f16de9083efd576d16",
   "branch": "agent-a/live-preflight-overlap-gate",
   "file_scope": [
@@ -10,21 +10,18 @@
     "dev/framework/doc/preflight/live-preflight-runner.md"
   ],
   "reserved_at": "2026-08-12T19:37:00+02:00",
-  "source": "Lot 9 gate P9-011 requires no active file_scope overlap; LivePreflightRunner #110 currently validates lock health but not overlap conflicts.",
-  "objective": "Extend the existing live preflight runner to invoke the established read-only overlap checker and refuse a false readiness verdict when active lock scopes collide, without modifying the overlap checker, evaluator, health auditor, checklist or roadmap.",
+  "completed_at": "2026-08-12T19:41:00+02:00",
+  "pr": 111,
+  "merge_sha": "69f600caff955123c4218d1aed1c54408292e6f3",
+  "tests": [
+    "node --check run-live-preflight.mjs: ok",
+    "node --check live-preflight-runner.test.mjs: ok",
+    "live preflight runner tests: ok (including active overlap scenario)"
+  ],
+  "source": "Lot 9 gate P9-011 requires no active file_scope overlap; LivePreflightRunner #110 validated lock health but not overlap conflicts.",
+  "objective": "Extend the live preflight runner to invoke the established read-only overlap checker and refuse a false readiness verdict when active lock scopes collide.",
   "coordination": {
-    "agent_d": "8B-DATAWIZ-CHART-DATA-MATERIALIZER is in_progress on data-wiz-chart-data-materializer.js + test/doc only and explicitly declares LivePreflightRunner disjoint.",
-    "dependencies": "check-lock-overlaps.mjs, audit-lock-health.mjs and PreflightGateEvaluator consumed read-only.",
-    "forbidden": [
-      "dev/framework/tools/coordination/check-lock-overlaps.mjs",
-      "dev/framework/tools/coordination/audit-lock-health.mjs",
-      "dev/framework/core/preflight-gate-evaluator.js",
-      "dev/framework/wiz/data-wiz-*.js",
-      "dev/framework/doc/roadmap/lot9-preflight.machine.json",
-      "dev/framework/doc/roadmap/roadmap.md",
-      "dev/framework/doc/roadmap/coordination/agent-board.md",
-      "dev/framework/doc/roadmap/coordination/README.md",
-      "dev/framework/demo/**"
-    ]
+    "agent_d": "DataWiz ChartDataMaterializer remained disjoint.",
+    "result": "Exactly 3 scoped runner/test/doc files updated via #111; no overlap checker, health auditor, evaluator, DataWiz, checklist, roadmap canonical or demo modified."
   }
 }
