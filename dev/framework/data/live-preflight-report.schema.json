@@ -1,0 +1,196 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nlab.dev/schemas/live-preflight-report.schema.json",
+  "title": "nLab Live Preflight Report",
+  "description": "Successful read-only Lot 9/live coordination preflight report emitted by run-live-preflight.mjs.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "version",
+    "generated_at",
+    "source",
+    "coordination",
+    "lock_health",
+    "evaluation",
+    "ready_for_real_integration"
+  ],
+  "properties": {
+    "schema": {
+      "const": "nlab.live-preflight-report"
+    },
+    "version": {
+      "const": 1
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["preflight_file", "locks_directory", "overrides_file"],
+      "properties": {
+        "preflight_file": { "type": "string", "minLength": 1 },
+        "locks_directory": { "type": "string", "minLength": 1 },
+        "overrides_file": {
+          "oneOf": [
+            { "type": "string", "minLength": 1 },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+    "coordination": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["active_lock_overlaps"],
+      "properties": {
+        "active_lock_overlaps": { "const": 0 }
+      }
+    },
+    "lock_health": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ok", "total_locks", "occupied_locks", "warnings"],
+      "properties": {
+        "ok": { "const": true },
+        "total_locks": { "type": "integer", "minimum": 0 },
+        "occupied_locks": { "type": "integer", "minimum": 0 },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["code"],
+            "properties": {
+              "code": { "type": "string", "minLength": 1 },
+              "severity": { "type": "string" },
+              "task_id": { "type": ["string", "null"] },
+              "file": { "type": ["string", "null"] }
+            },
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "evaluation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["metadata", "policy", "gates", "summary", "warnings"],
+      "properties": {
+        "metadata": { "type": "object" },
+        "policy": { "type": "object" },
+        "gates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "gate_id",
+              "snapshot_status",
+              "effective_status",
+              "status_source",
+              "coordination_tasks",
+              "coordination_state",
+              "override_reason"
+            ],
+            "properties": {
+              "gate_id": { "type": "string", "minLength": 1 },
+              "snapshot_status": { "$ref": "#/$defs/gateStatus" },
+              "effective_status": { "$ref": "#/$defs/gateStatus" },
+              "status_source": {
+                "enum": [
+                  "snapshot",
+                  "coordination",
+                  "coordination-incomplete",
+                  "snapshot-blocker",
+                  "override"
+                ]
+              },
+              "coordination_tasks": {
+                "type": "array",
+                "items": { "type": "string", "minLength": 1 },
+                "uniqueItems": true
+              },
+              "coordination_state": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "required": ["task_id", "found", "status", "mapped_status"],
+                  "properties": {
+                    "task_id": { "type": "string", "minLength": 1 },
+                    "found": { "type": "boolean" },
+                    "status": { "type": ["string", "null"] },
+                    "mapped_status": {
+                      "oneOf": [
+                        { "$ref": "#/$defs/gateStatus" },
+                        { "type": "null" }
+                      ]
+                    }
+                  }
+                }
+              },
+              "override_reason": { "type": ["string", "null"] }
+            },
+            "additionalProperties": true
+          }
+        },
+        "summary": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "total",
+            "required",
+            "counts",
+            "blocking_gate_ids",
+            "ready_for_real_integration",
+            "preparation_work_allowed_now"
+          ],
+          "properties": {
+            "total": { "type": "integer", "minimum": 0 },
+            "required": { "type": "integer", "minimum": 0 },
+            "counts": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["pass", "ready", "in_progress", "pending", "blocked_human", "blocked_external"],
+              "properties": {
+                "pass": { "type": "integer", "minimum": 0 },
+                "ready": { "type": "integer", "minimum": 0 },
+                "in_progress": { "type": "integer", "minimum": 0 },
+                "pending": { "type": "integer", "minimum": 0 },
+                "blocked_human": { "type": "integer", "minimum": 0 },
+                "blocked_external": { "type": "integer", "minimum": 0 }
+              }
+            },
+            "blocking_gate_ids": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 1 },
+              "uniqueItems": true
+            },
+            "ready_for_real_integration": { "type": "boolean" },
+            "preparation_work_allowed_now": { "type": "boolean" }
+          }
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["code"],
+            "properties": {
+              "code": { "type": "string", "minLength": 1 },
+              "gate_id": { "type": "string" },
+              "task_id": { "type": "string" }
+            },
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "ready_for_real_integration": { "type": "boolean" }
+  },
+  "$defs": {
+    "gateStatus": {
+      "enum": ["pass", "ready", "in_progress", "pending", "blocked_human", "blocked_external"]
+    }
+  }
+}
