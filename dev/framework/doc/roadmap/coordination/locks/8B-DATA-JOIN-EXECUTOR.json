@@ -1,7 +1,7 @@
 {
   "task_id": "8B-DATA-JOIN-EXECUTOR",
   "agent": "D",
-  "status": "in_progress",
+  "status": "done",
   "base": "3fe87e0229795ba10d8f7069f06e312c2c2632fe",
   "branch": "agent-d/data-join-executor",
   "file_scope": [
@@ -11,8 +11,18 @@
   ],
   "reserved_at": "2026-08-12T15:59:00+02:00",
   "started_at": "2026-08-12T16:00:00+02:00",
+  "completed_at": "2026-08-12T16:10:00+02:00",
+  "pr": 75,
+  "merge_sha": "cd2e5b0e9291dccdf3d7556fdb31f147e625f4e9",
   "source": "DataJoinSpec V1 + Agent D roadmap: executeur non destructif de jointures",
   "objective": "Ajouter un moteur DOM-free qui exécute un DataJoinSpec sans modifier les sources, respecte les types de jointure et politiques de collision, retourne lignes + provenance d'exécution et refuse les cardinalités invalides lorsqu'une exécution stricte est demandée.",
+  "validation": {
+    "deterministic_tests": "ok",
+    "fuzz": "250 datasets x 8 join types: ok",
+    "syntax": "node --check: ok",
+    "published_blob_match": true,
+    "scope_compare": "exactly 3 added files"
+  },
   "coordination": {
     "agent_a": "PR #73 VisitorPreferences sur themes/tests/doc distincts; PR #33 TableWiz en review; PR #47/#48 documentaires.",
     "agent_b": "Aucun scope Join Executor observé dans les PR/locks actifs.",
