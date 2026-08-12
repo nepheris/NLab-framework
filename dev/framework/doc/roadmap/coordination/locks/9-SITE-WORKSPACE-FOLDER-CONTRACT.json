@@ -1,7 +1,7 @@
 {
   "task_id": "9-SITE-WORKSPACE-FOLDER-CONTRACT",
   "agent": "A",
-  "status": "reserved",
+  "status": "done",
   "base": "ce9d6e95cebd4ea9a4b3d0cfc28bb2e6d1a4eacd",
   "branch": "agent-a/site-workspace-folder-contract",
   "file_scope": [
@@ -10,21 +10,17 @@
     "dev/framework/doc/preflight/site-workspace-contract.md"
   ],
   "reserved_at": "2026-08-12T20:32:00+02:00",
-  "source": "Lot 9 safe_parallel_work explicitly allows preparing the atelier/config/assets/web folder contract; detailed preflight defines generic separation roles atelier/data/assets/config/web and keeps framework separate.",
-  "objective": "Formalize a generic Draft 2020-12 site workspace contract with standard directory roles and explicit framework/business separation, without creating a Recettes-du-Coeur workspace or adding business logic to runtime.",
+  "completed_at": "2026-08-12T20:35:00+02:00",
+  "pr": 123,
+  "merge_sha": "94c03dea7e51ecab5f1ad617971dd37a747c8511",
+  "tests": [
+    "workspace root regex positive/negative cases: ok",
+    "site workspace role constants/flags contract covered by versioned test",
+    "generic data-schema-integrity test will auto-cover the schema"
+  ],
+  "source": "Lot 9 safe_parallel_work explicitly allows preparing the atelier/config/assets/web folder contract; detailed preflight defines atelier/data/assets/config/web with framework separation.",
+  "objective": "Formalize a generic site workspace folder contract without creating a business workspace or embedding business logic in runtime.",
   "coordination": {
-    "lot9": "Consumes lot9-recettes-du-coeur-preflight.md read-only as source evidence.",
-    "agent_d": "DataWiz visualization work remains disjoint under wiz/data-wiz-* + tests/doc.",
-    "forbidden": [
-      "Sites/**",
-      "dev/framework/doc/roadmap/lot9-recettes-du-coeur-preflight.md",
-      "dev/framework/doc/roadmap/lot9-preflight.machine.json",
-      "dev/framework/core/**",
-      "dev/framework/wiz/**",
-      "dev/framework/demo/**",
-      "dev/framework/doc/roadmap/roadmap.md",
-      "dev/framework/doc/roadmap/coordination/agent-board.md",
-      "dev/framework/doc/roadmap/coordination/README.md"
-    ]
+    "result": "Exactly 3 schema/test/doc files merged via #123; no Sites folder, runtime, DataWiz, checklist, canonical roadmap or demo modified."
   }
 }
