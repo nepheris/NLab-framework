@@ -27,7 +27,7 @@ node dev/framework/tools/coordination/run-live-preflight.mjs \
 
 - `0` : tous les gates requis sont `pass` ;
 - `2` : rapport valide mais intégration réelle encore bloquée **ou chevauchement actif de locks** ;
-- `1` : usage, JSON, registre de locks ou exécution invalide.
+- `1` : usage, JSON, registre de locks, override ou exécution invalide.
 
 ## Ordre de contrôle
 
@@ -39,7 +39,7 @@ node dev/framework/tools/coordination/run-live-preflight.mjs \
 6. Recherche des chevauchements de `file_scope` entre locks occupés.
 7. Refus d'un verdict de readiness si une collision active existe (`ACTIVE_LOCK_OVERLAP`).
 8. Construction du mapping `task_id → lock`.
-9. Chargement éventuel des overrides.
+9. Chargement et validation éventuelle des overrides.
 10. Évaluation des gates.
 11. Production du rapport `nlab.live-preflight-report` V1.
 
@@ -73,7 +73,25 @@ Le fichier facultatif peut contenir directement les gates :
 
 ou les encapsuler dans une clé `overrides`.
 
-Les overrides sont délégués au `PreflightGateEvaluator`. Ils constituent le seul mécanisme permettant de lever explicitement un `blocked_human` ou `blocked_external` documentaire. Ils ne permettent pas de contourner une collision de locks : le contrôle d'overlap est exécuté avant l'évaluation des overrides.
+Les overrides sont délégués au `PreflightGateEvaluator`, mais le runner leur applique d'abord deux invariants d'audit :
+
+1. chaque clé d'override doit correspondre à un `gate_id` réellement présent dans le checklist ; sinon `UNKNOWN_OVERRIDE_GATE` ;
+2. changer un snapshot `blocked_human` ou `blocked_external` exige un objet avec un `reason` non vide ; sinon `OVERRIDE_REASON_REQUIRED`.
+
+Ainsi, les formes suivantes sont volontairement refusées :
+
+```json
+{
+  "P9-999": "pass",
+  "P9-007": "pass"
+}
+```
+
+La première contient un ID inconnu ; la seconde tente de lever un blocker HUMAN sans trace d'audit.
+
+Un override qui conserve le même état bloqué n'est pas considéré comme une levée et n'exige pas de motif. Les validations de statut (`pass`, `ready`, etc.) restent assurées par `PreflightGateEvaluator`.
+
+Les overrides ne permettent jamais de contourner une collision de locks : le contrôle d'overlap est exécuté avant leur validation et avant l'évaluation des gates.
 
 ## Rapport
 
@@ -96,6 +114,7 @@ Le runner est strictement read-only :
 - aucune validation visuelle automatique ;
 - aucun accès GitHub implicite ;
 - aucune exécution de tests métier à la place des gates ;
-- aucune résolution automatique d'une collision.
+- aucune résolution automatique d'une collision ;
+- aucune création automatique d'un override HUMAN/externe.
 
 Il transforme simplement l'état documentaire et l'état de coordination local en décision machine reproductible.
