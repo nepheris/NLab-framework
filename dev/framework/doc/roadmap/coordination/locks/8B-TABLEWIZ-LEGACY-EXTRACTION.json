@@ -11,26 +11,38 @@
   ],
   "reserved_at": "2026-08-11T23:58:00+02:00",
   "started_at": "2026-08-12T10:30:00+02:00",
-  "heartbeat_at": "2026-08-12T11:43:00+02:00",
+  "heartbeat_at": "2026-08-12T11:50:00+02:00",
   "current_increment": "A5-ADVANCED-EXPORTS",
+  "checkpoint_status": "complete",
+  "next_increment": "A6-TYPED-EDITING",
   "sources": [
     "anciens rapports solaires : tableaux interactifs",
     "MVola V15/V16 DataViz et exports"
   ],
   "verification": {
-    "new_head_latest": "7bb4a6742a05e03620d2e557adde68cdb46d1399",
+    "new_head_latest": "8f3783ea1c8384979014ccce8f1635b681778bfa",
     "new_table_wiz_sha": "ad1756ba771494f03a40957eb2081a0b17f4f4bf",
     "scope_collision": "No change to dev/framework/wiz/table-wiz.js on New since the original reservation; A scope remains exclusive.",
     "parallel_agent_b": {
-      "last_observed_activity": "Agent B CodeBlock extensions then independent DatePicker work on New",
+      "active_task": "8B-QR-CONTENT-PAYLOADS",
+      "branch": "agent-b/qr-content-payloads",
+      "file_scope": [
+        "dev/framework/wiz/qr-wiz.js",
+        "dev/framework/tests/qr-media-robustness.test.mjs",
+        "dev/framework/doc/qr-media/contracts.md"
+      ],
       "overlap": false
     },
     "completed_increments": [
       "A1-MOTOR-SORT-REGEX-RESET",
       "A2-REAL-COLUMN-RESIZE",
       "A3-COLUMN-VISIBILITY-ORDER-STATE",
-      "A4-MOBILE-STANDALONE"
-    ]
+      "A4-MOBILE-STANDALONE",
+      "A5-ADVANCED-EXPORTS"
+    ],
+    "test": "Node 22: table wiz legacy tests: ok",
+    "tested_engine_blob": "cb86e19ac4c5b99c5f0a1efa150ae411c0addce0",
+    "branch_diff": "17 commits / exactly 3 files, all inside TableWiz file_scope"
   },
-  "notes": "Verrou A maintenu actif pour empêcher toute collision avec les agents parallèles. PR draft #33 contient A1-A4 dans trois fichiers TableWiz seulement. Incrément courant A5 : exports ligne/colonne/sélection, CSV ciblé et HTML standalone imprimable/paysage, sans dépendance PDF externe ni modification hors file_scope."
+  "notes": "Verrou A reste actif et exclusif : ne pas reprendre TableWiz dans une session parallèle. PR draft #33 contient A1-A5. A5 est complet ; prochaine étape prévue dans le même lock : édition typée, puis profils/presets et revue d'intégration. B est actif sur QRWiz avec un scope disjoint."
 }
