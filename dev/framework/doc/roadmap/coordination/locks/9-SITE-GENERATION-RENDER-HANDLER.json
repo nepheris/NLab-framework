@@ -1,7 +1,7 @@
 {
   "task_id": "9-SITE-GENERATION-RENDER-HANDLER",
   "agent": "B",
-  "status": "reserved",
+  "status": "done",
   "base": "7e6cc5955f6dd8c70bb4da8428144d3561536c61",
   "branch": "agent-b/site-generation-render-handler",
   "file_scope": [
@@ -10,6 +10,7 @@
     "dev/framework/doc/preflight/site-generation-render-handler.md"
   ],
   "reserved_at": "2026-08-13T12:54:00+02:00",
+  "completed_at": "2026-08-13T13:02:00+02:00",
   "objective": "Brancher le stage machine render du Lot 9 sur RendererWiz existant pour transformer data.resolved en pages.rendered à partir d'un render.config déclaratif, sans logique métier ni validation HUMAN.",
   "dependencies": [
     "dev/framework/wiz/renderer-wiz.js",
@@ -23,6 +24,14 @@
       "id_status": "not_declared"
     }
   ],
+  "pull_request": 139,
+  "merge_sha": "3b40a39f7b9678cc256f6b804ba7ecb016194bba",
+  "verification": {
+    "compare": "3 commits, exactly 3 scoped files, behind_by=0",
+    "github_mergeable": true,
+    "ci_statuses": "none_attached",
+    "human_validation_required": false
+  },
   "forbidden_scope": [
     "dev/framework/wiz/table-wiz.js",
     "dev/framework/demo/",
