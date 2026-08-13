@@ -1,18 +1,15 @@
 {
   "task_id": "COORD-ROADMAP-AGENT-DASHBOARD",
   "agent": "B",
-  "status": "released",
-  "base": "dee3cf70dd8278ab7d840ba14d4a0bb71dff5edc",
-  "branch": "agent-b/roadmap-state-sync-20260813",
+  "status": "in_progress",
+  "base": "7145d109e4dbc780cfe8df52b0576fe3a5985551",
+  "branch": "New",
   "file_scope": [
     "dev/framework/doc/roadmap/roadmap.md",
     "dev/framework/doc/roadmap/coordination/README.md",
     "dev/framework/doc/roadmap/coordination/agent-board.md"
   ],
-  "reserved_at": "2026-08-13T04:20:00+02:00",
-  "released_at": "2026-08-13T04:31:00+02:00",
-  "pull_request": 127,
-  "merged_sha": "7a526f7f6a12b880d1d4519902eaee5ec963cc35",
-  "result": "agent-board.md synchronisé avec l'état réel des locks/PRs récents ; aucun runtime modifié.",
-  "notes": "Mutex libre. La roadmap détaillée reste à synchroniser lors d'un prochain lot documentaire si nécessaire ; les locks JSON et agent-board actuel priment pour le choix de tâches."
+  "reserved_at": "2026-08-13T04:42:00+02:00",
+  "objective": "Clarifier la différence entre activité réelle d'une session et protection persistante d'un scope afin d'éliminer les verrous fantômes.",
+  "notes": "Lot documentaire de clarification uniquement. Aucun runtime ni scope métier A/C/D modifié."
 }
