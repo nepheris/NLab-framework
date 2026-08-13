@@ -1,7 +1,7 @@
 {
   "task_id": "9-SITE-GENERATION-HUMAN-SUMMARY",
   "agent": "B",
-  "status": "reserved",
+  "status": "done",
   "base": "c9cd0ceb6cc1170aa5989ea6e6763b0579684cd6",
   "branch": "agent-b/site-generation-human-summary",
   "file_scope": [
@@ -10,6 +10,7 @@
     "dev/framework/doc/preflight/site-generation-human-summary.md"
   ],
   "reserved_at": "2026-08-13T09:42:00+02:00",
+  "completed_at": "2026-08-13T09:47:00+02:00",
   "objective": "Dériver une synthèse HUMAN GO/NO-GO lisible du run report machine V1, sans créer de second état ni modifier le runner.",
   "dependencies": [
     "dev/framework/data/site-generation-run-report.schema.json",
@@ -21,5 +22,13 @@
     "dev/framework/demo/",
     "dev/framework/doc/architecture/",
     "dev/framework/doc/roadmap/roadmap.md"
-  ]
+  ],
+  "pull_request": 131,
+  "merged_sha": "52376e4a98adb8582cd26983286b4c9c4d4968b6",
+  "final_sha": "52376e4a98adb8582cd26983286b4c9c4d4968b6",
+  "validation": {
+    "node_syntax": "ok",
+    "tests": "site generation human summary tests: ok",
+    "compare": "3 commits / 3 scoped files / behind_by=0"
+  }
 }
