@@ -1,23 +1,20 @@
 {
   "task_id": "COORD-ROADMAP-AGENT-DASHBOARD",
-  "agent": "A",
-  "status": "released",
-  "base": "eb9fcb7e72bde8c14586d3b262e8073ab83afc03",
-  "branch": "New",
+  "agent": "B",
+  "status": "in_progress",
+  "base": "dee3cf70dd8278ab7d840ba14d4a0bb71dff5edc",
+  "branch": "agent-b/roadmap-state-sync-20260813",
   "file_scope": [
     "dev/framework/doc/roadmap/roadmap.md",
     "dev/framework/doc/roadmap/coordination/README.md",
     "dev/framework/doc/roadmap/coordination/agent-board.md"
   ],
-  "reserved_at": "2026-08-12T02:04:00+02:00",
-  "original_agent": "C",
-  "taken_over_at": "2026-08-12T11:04:00+02:00",
-  "takeover_reason": "Session C absente après fermeture des conversations ; mutex laissé in_progress et snapshot documentaire incomplet.",
-  "released_at": "2026-08-12T11:20:00+02:00",
-  "snapshot": {
-    "agent_board_commit": "43692edb4c6e92d3d090f33bbb94ec3616fce253",
-    "coordination_readme_commit": "827fc5451bb314edbed14286654bab98636529a4",
-    "roadmap_commit": "60b806618963c8f18cbd5f208286953c8978c375"
+  "reserved_at": "2026-08-13T04:20:00+02:00",
+  "previous_snapshot": {
+    "agent": "A",
+    "status": "released",
+    "released_at": "2026-08-12T11:20:00+02:00"
   },
-  "notes": "Reprise C terminée : #30/#31/#32 clôturés administrativement sans changer leur attribution C ; Pagination interrompu repris et intégré par A via #34 ; tableau, procédure et roadmap actuelle synchronisés ; nouveau template non appliqué. Mutex désormais libre."
+  "objective": "Synchroniser le pilotage humain avec les locks/PRs déjà intégrés sur New, sans modifier le runtime ni les scopes A/D.",
+  "notes": "Session B dédiée au refresh documentaire. Le mutex protège roadmap.md, coordination/README.md et agent-board.md uniquement. Aucun lock métier n'est repris."
 }
