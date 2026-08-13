@@ -1,0 +1,25 @@
+{
+  "task_id": "9-SITE-GENERATION-HANDLER-REGISTRY",
+  "agent": "B",
+  "status": "reserved",
+  "base": "c101c3580202c26f9419a5ec4bfeb2c5ec7a27d7",
+  "branch": "agent-b/site-generation-handler-registry",
+  "file_scope": [
+    "dev/framework/tools/site/site-generation-handler-registry.mjs",
+    "dev/framework/tests/site-generation-handler-registry.test.mjs",
+    "dev/framework/doc/preflight/site-generation-handler-registry.md"
+  ],
+  "reserved_at": "2026-08-13T11:23:00+02:00",
+  "objective": "Ajouter un registre générique de handlers de génération, avec résolution stage-id/type, inspection de couverture et export compatible avec SiteGenerationRunner, sans logique métier ni décision HUMAN.",
+  "dependencies": [
+    "dev/framework/tools/site/run-site-generation.mjs",
+    "dev/framework/tests/fixtures/site-generation-checklist.json"
+  ],
+  "forbidden_scope": [
+    "dev/framework/wiz/table-wiz.js",
+    "dev/framework/demo/",
+    "dev/framework/doc/architecture/",
+    "dev/framework/doc/roadmap/roadmap.md",
+    "dev/framework/doc/roadmap/human-check.md"
+  ]
+}
