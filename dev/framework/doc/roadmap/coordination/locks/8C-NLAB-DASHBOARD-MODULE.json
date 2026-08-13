@@ -1,12 +1,14 @@
 {
   "task_id": "8C-NLAB-DASHBOARD-MODULE",
   "agent": "A",
-  "status": "reserved",
+  "status": "released",
   "base": "b454fb83ca791329ef402d1c14854be63a5b5f38",
   "branch": "New",
   "file_scope": [
     "dev/framework/doc/roadmap/roadmap.md"
   ],
   "reserved_at": "2026-08-13T15:00:00+02:00",
-  "notes": "Ajout d'un lot candidat de capitalisation nLab Dashboard / Project Management / Gantt à partir des REX Cockpit, Post-it, Agent Board et vues Roadmap/Gantt. Aucun runtime modifié."
+  "released_at": "2026-08-13T15:08:00+02:00",
+  "result": "Ajout de dev/framework/doc/roadmap/dashboard-project-management-module.md comme backlog de capitalisation pour un module générique Dashboard / Project Management / Gantt. Aucun runtime modifié.",
+  "notes": "Le fichier roadmap.md principal n'a pas été réécrit afin d'éviter une modification aveugle d'un document long via le connecteur. Le candidat est placé dans le dossier roadmap et pourra être référencé depuis la roadmap principale lors d'un prochain cycle de pilotage."
 }
