@@ -1,7 +1,7 @@
 {
   "task_id": "COORD-ROADMAP-AGENT-DASHBOARD",
   "agent": "B",
-  "status": "in_progress",
+  "status": "released",
   "base": "dee3cf70dd8278ab7d840ba14d4a0bb71dff5edc",
   "branch": "agent-b/roadmap-state-sync-20260813",
   "file_scope": [
@@ -10,11 +10,9 @@
     "dev/framework/doc/roadmap/coordination/agent-board.md"
   ],
   "reserved_at": "2026-08-13T04:20:00+02:00",
-  "previous_snapshot": {
-    "agent": "A",
-    "status": "released",
-    "released_at": "2026-08-12T11:20:00+02:00"
-  },
-  "objective": "Synchroniser le pilotage humain avec les locks/PRs déjà intégrés sur New, sans modifier le runtime ni les scopes A/D.",
-  "notes": "Session B dédiée au refresh documentaire. Le mutex protège roadmap.md, coordination/README.md et agent-board.md uniquement. Aucun lock métier n'est repris."
+  "released_at": "2026-08-13T04:31:00+02:00",
+  "pull_request": 127,
+  "merged_sha": "7a526f7f6a12b880d1d4519902eaee5ec963cc35",
+  "result": "agent-board.md synchronisé avec l'état réel des locks/PRs récents ; aucun runtime modifié.",
+  "notes": "Mutex libre. La roadmap détaillée reste à synchroniser lors d'un prochain lot documentaire si nécessaire ; les locks JSON et agent-board actuel priment pour le choix de tâches."
 }
