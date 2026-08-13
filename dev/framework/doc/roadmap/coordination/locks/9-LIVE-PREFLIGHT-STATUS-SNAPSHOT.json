@@ -1,0 +1,13 @@
+{
+  "task_id": "9-LIVE-PREFLIGHT-STATUS-SNAPSHOT",
+  "agent": "B",
+  "status": "in_progress",
+  "base": "7145d109e4dbc780cfe8df52b0576fe3a5985551",
+  "branch": "agent-b/lot9-live-status-snapshot-20260813",
+  "file_scope": [
+    "dev/framework/doc/preflight/lot9-live-status.md"
+  ],
+  "reserved_at": "2026-08-13T04:34:00+02:00",
+  "objective": "Documenter le statut live des gates Lot 9 à partir des locks actuels, sans modifier le checklist machine, le runtime, TableWiz, V20 ni les scopes A.",
+  "notes": "Snapshot documentaire uniquement. La source de vérité demeure lot9-preflight.machine.json + coordination/locks/*.json."
+}
