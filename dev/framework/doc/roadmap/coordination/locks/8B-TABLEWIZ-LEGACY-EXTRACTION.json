@@ -14,6 +14,11 @@
   "review_at": "2026-08-12T12:25:00+02:00",
   "review_head": "fc73fff6b06670ef860021ac310a71631a082baf",
   "pull_request": 33,
+  "autonomous_work_complete": true,
+  "session_activity_observed": false,
+  "scope_protection": "review_pending_integration_and_optional_human_visual_check",
+  "state_checked_at": "2026-08-13T04:46:00+02:00",
+  "state_checked_by": "B",
   "completed_increments": [
     "A1-MOTOR-SORT-REGEX-RESET",
     "A2-REAL-COLUMN-RESIZE",
@@ -35,19 +40,8 @@
       "Node 22: data ux tests: ok"
     ],
     "security": "Prototype-sensitive edit paths (__proto__, prototype, constructor) are rejected before mutation; regression test green.",
-    "integration": "Current JsonStudio imports TableWiz for table view; current data-ux integration test passes with A7 engine.",
-    "parallel_agent_b": {
-      "latest_observed_task": "8B-CODEBLOCK-LOCAL-PERSISTENCE",
-      "status": "done",
-      "pull_request": 42,
-      "overlap": false,
-      "scope": [
-        "dev/framework/components/code-block-storage.js",
-        "dev/framework/tests/code-block-storage.test.mjs",
-        "dev/framework/doc/components/code-block-storage.md"
-      ]
-    }
+    "integration": "Current JsonStudio imports TableWiz for table view; current data-ux integration test passes with A7 engine."
   },
-  "review_scope": "Autonomous implementation is complete. Remaining review is API/code review plus optional HUMAN visual validation of resize, editable cells and mobile/standalone UX before merge.",
-  "notes": "Do not take or modify TableWiz scope in a parallel session while this lock is in review. PR #33 contains A1-A7 and remains the integration vehicle."
+  "review_scope": "Autonomous implementation is complete. Remaining work is review/integration plus optional HUMAN visual validation of resize, editable cells and mobile/standalone UX.",
+  "notes": "Production autonome A1-A7 terminée et vérifiée. Aucun agent A n'est présumé actif sur ce lot au contrôle du 13/08 04:46. Le scope reste protégé pour éviter une seconde implémentation pendant la revue de la PR #33."
 }
