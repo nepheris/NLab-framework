@@ -69,6 +69,25 @@ Cela permet de préparer la checklist avant que la source/référence métier r�
 
 À l'inverse, les stages requis de la fixture utilisent `on_failure: stop`.
 
+
+## Contrôle de promotion Web : Lighthouse
+
+Après publication d'une URL de preview accessible et avant promotion, appliquer le processus :
+
+`dev/framework/doc/testing/lighthouse-benchmark.md`
+
+Ce contrôle reste externe au DAG machine v1 de génération tant qu'une baseline représentative n'est pas établie. Il vérifie au minimum :
+
+- l'URL publique réellement livrée, sa version visible et son commit ;
+- les profils Mobile et Bureau ;
+- la médiane d'au moins trois exécutions ;
+- Performance, Accessibilité, Bonnes pratiques et SEO ;
+- FCP, LCP, Speed Index, TBT et CLS ;
+- le nombre de requêtes, le poids transféré, les tâches longues et les ressources bloquant le rendu ;
+- l'écart par rapport à la baseline et la décision HUMAN.
+
+Le rapport Lighthouse est une preuve de validation rattachée à la preview. Un audit de la page GitHub du dépôt ne constitue pas un audit du site généré.
+
 ## Relation avec le workspace contract
 
 `site-workspace.schema.json` définit **où** vivent `atelier/data/assets/config/web`.
