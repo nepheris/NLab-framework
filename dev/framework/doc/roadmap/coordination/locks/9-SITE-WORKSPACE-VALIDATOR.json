@@ -1,0 +1,21 @@
+{
+  "task_id": "9-SITE-WORKSPACE-VALIDATOR",
+  "agent": "B",
+  "status": "reserved",
+  "base": "3ff550dd5892385cbed849575ec8be8f4c7ef633",
+  "branch": "agent-b/site-workspace-validator",
+  "file_scope": [
+    "dev/framework/tools/site/validate-site-workspace.mjs",
+    "dev/framework/tests/site-workspace-validator.test.mjs",
+    "dev/framework/doc/preflight/site-workspace-validator.md"
+  ],
+  "reserved_at": "2026-08-13T05:08:00+02:00",
+  "objective": "Ajouter un validateur DOM-free et read-only d'un workspace site réel contre le contrat nlab.site-workspace V1, avant génération Lot 9.",
+  "dependencies": ["dev/framework/data/site-workspace.schema.json"],
+  "forbidden_scope": [
+    "dev/framework/wiz/table-wiz.js",
+    "dev/framework/demo/",
+    "dev/framework/doc/architecture/",
+    "dev/framework/doc/roadmap/roadmap.md"
+  ]
+}
