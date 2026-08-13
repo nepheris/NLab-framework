@@ -39,8 +39,14 @@ function routeOutputFile(route) {
   if (typeof route.output_file === 'string' && route.output_file.trim()) {
     return safeRelativePath(route.output_file, 'route.output_file');
   }
-  if (typeof route.path !== 'string' || !route.path.startsWith('/')) {
-    throw new SiteGenerationOutputHandlerError('route.path must be an absolute public path', 'INVALID_ROUTE_PATH', { route });
+  if (
+    typeof route.path !== 'string' ||
+    !route.path.startsWith('/') ||
+    route.path.includes('\\') ||
+    route.path.includes('?') ||
+    route.path.includes('#')
+  ) {
+    throw new SiteGenerationOutputHandlerError('route.path must be a safe absolute public path', 'INVALID_ROUTE_PATH', { route });
   }
   const segments = route.path.split('/').filter(Boolean);
   if (segments.some((segment) => segment === '.' || segment === '..')) {
