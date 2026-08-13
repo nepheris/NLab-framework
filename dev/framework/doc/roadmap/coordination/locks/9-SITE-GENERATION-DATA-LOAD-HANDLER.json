@@ -1,7 +1,7 @@
 {
   "task_id": "9-SITE-GENERATION-DATA-LOAD-HANDLER",
   "agent": "B",
-  "status": "reserved",
+  "status": "done",
   "base": "8c4fb9dbaeab1f8654fd484eac4d18facfacddc4",
   "branch": "agent-b/site-generation-data-load-handler",
   "file_scope": [
@@ -10,6 +10,7 @@
     "dev/framework/doc/preflight/site-generation-data-load-handler.md"
   ],
   "reserved_at": "2026-08-13T11:34:00+02:00",
+  "completed_at": "2026-08-13T11:37:00+02:00",
   "objective": "Brancher un premier handler machine réel au pipeline Lot 9 : chargement générique de collections via l'interface DataProvider, testé avec le vrai JsonDataProvider, sans logique métier ni validation HUMAN.",
   "dependencies": [
     "dev/framework/core/data-provider.js",
@@ -23,5 +24,14 @@
     "dev/framework/doc/architecture/",
     "dev/framework/doc/roadmap/roadmap.md",
     "dev/framework/doc/roadmap/human-check.md"
-  ]
+  ],
+  "pull_request": 135,
+  "merged_sha": "726c59b74c64a83cc1ea89cb9b953884ee384f71",
+  "final_sha": "726c59b74c64a83cc1ea89cb9b953884ee384f71",
+  "validation": {
+    "compare": "3 scoped files, behind_by=0",
+    "github_mergeable": true,
+    "ci_statuses": 0,
+    "note": "No CI status context was attached to the PR head; the versioned test exercises JsonDataProvider, HandlerRegistry and SiteGenerationRunner."
+  }
 }
