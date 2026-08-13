@@ -1,0 +1,24 @@
+{
+  "task_id": "9-SITE-GENERATION-REPORT-SCHEMA",
+  "agent": "B",
+  "status": "reserved",
+  "base": "49e27d1099ca6123d16234eba2143a8299d368bb",
+  "branch": "agent-b/site-generation-report-schema",
+  "file_scope": [
+    "dev/framework/data/site-generation-run-report.schema.json",
+    "dev/framework/tests/site-generation-run-report-schema.test.mjs",
+    "dev/framework/doc/preflight/site-generation-run-report-schema.md"
+  ],
+  "reserved_at": "2026-08-13T06:01:00+02:00",
+  "objective": "Figer en JSON Schema le rapport machine nlab.site-generation-run-report V1 déjà émis par SiteGenerationRunner.",
+  "dependencies": [
+    "dev/framework/tools/site/run-site-generation.mjs",
+    "dev/framework/data/site-generation-checklist.schema.json"
+  ],
+  "forbidden_scope": [
+    "dev/framework/wiz/table-wiz.js",
+    "dev/framework/demo/",
+    "dev/framework/doc/architecture/",
+    "dev/framework/doc/roadmap/roadmap.md"
+  ]
+}
