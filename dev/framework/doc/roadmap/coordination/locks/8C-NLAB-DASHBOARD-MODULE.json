@@ -1,0 +1,12 @@
+{
+  "task_id": "8C-NLAB-DASHBOARD-MODULE",
+  "agent": "A",
+  "status": "reserved",
+  "base": "b454fb83ca791329ef402d1c14854be63a5b5f38",
+  "branch": "New",
+  "file_scope": [
+    "dev/framework/doc/roadmap/roadmap.md"
+  ],
+  "reserved_at": "2026-08-13T15:00:00+02:00",
+  "notes": "Ajout d'un lot candidat de capitalisation nLab Dashboard / Project Management / Gantt à partir des REX Cockpit, Post-it, Agent Board et vues Roadmap/Gantt. Aucun runtime modifié."
+}
