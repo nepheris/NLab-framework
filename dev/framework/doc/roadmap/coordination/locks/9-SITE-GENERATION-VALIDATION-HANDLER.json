@@ -1,7 +1,7 @@
 {
   "task_id": "9-SITE-GENERATION-VALIDATION-HANDLER",
   "agent": "B",
-  "status": "reserved",
+  "status": "done",
   "base": "6b8d6c285df29dd45b400faf1fb1e0fdbc4644d0",
   "branch": "agent-b/site-generation-validation-handler",
   "file_scope": [
@@ -10,7 +10,16 @@
     "dev/framework/doc/preflight/site-generation-validation-handler.md"
   ],
   "reserved_at": "2026-08-13T12:26:00+02:00",
+  "completed_at": "2026-08-13T12:31:00+02:00",
   "objective": "Brancher le stage machine validation du pipeline Lot 9 sur le DataValidator existant en validant exactement le snapshot data.loaded de l'étape précédente, sans rechargement des sources ni logique métier.",
+  "result": "Handler validation intégré sur New. Le stage consomme le snapshot data.loaded, construit un provider read-only interne, réutilise DataValidator, publie validation.report et mappe pass/warn/fail sans relecture des sources.",
+  "evidence": {
+    "pull_request": "https://github.com/nepheris/nLab-Web-Framework/pull/136",
+    "merge_commit": "b0d945b38b0141eeaa5a20f069fce8b9426248fe",
+    "handler": "dev/framework/tools/site/handlers/validation-handler.mjs",
+    "test": "dev/framework/tests/site-generation-validation-handler.test.mjs",
+    "documentation": "dev/framework/doc/preflight/site-generation-validation-handler.md"
+  },
   "dependencies": [
     "dev/framework/core/data-validator.js",
     "dev/framework/tools/site/handlers/data-load-handler.mjs",
