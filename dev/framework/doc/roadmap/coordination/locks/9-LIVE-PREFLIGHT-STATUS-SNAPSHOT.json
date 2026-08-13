@@ -1,13 +1,16 @@
 {
   "task_id": "9-LIVE-PREFLIGHT-STATUS-SNAPSHOT",
   "agent": "B",
-  "status": "in_progress",
+  "status": "done",
   "base": "7145d109e4dbc780cfe8df52b0576fe3a5985551",
   "branch": "agent-b/lot9-live-status-snapshot-20260813",
   "file_scope": [
     "dev/framework/doc/preflight/lot9-live-status.md"
   ],
   "reserved_at": "2026-08-13T04:34:00+02:00",
+  "completed_at": "2026-08-13T04:38:00+02:00",
+  "commit_sha": "1c2cc3004915aa2bfd37d7d2b1535c5290152cb0",
   "objective": "Documenter le statut live des gates Lot 9 à partir des locks actuels, sans modifier le checklist machine, le runtime, TableWiz, V20 ni les scopes A.",
+  "result": "Snapshot ajouté dans dev/framework/doc/preflight/lot9-live-status.md. Il constate que P9-002/P9-004/P9-005/P9-006 sont franchis et que les blocages restants sont P9-003 TableWiz review, P9-007 HUMAN V20 et P9-008 données métier externes.",
   "notes": "Snapshot documentaire uniquement. La source de vérité demeure lot9-preflight.machine.json + coordination/locks/*.json."
 }
