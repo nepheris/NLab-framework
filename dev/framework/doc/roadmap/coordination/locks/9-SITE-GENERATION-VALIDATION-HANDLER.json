@@ -1,0 +1,27 @@
+{
+  "task_id": "9-SITE-GENERATION-VALIDATION-HANDLER",
+  "agent": "B",
+  "status": "reserved",
+  "base": "6b8d6c285df29dd45b400faf1fb1e0fdbc4644d0",
+  "branch": "agent-b/site-generation-validation-handler",
+  "file_scope": [
+    "dev/framework/tools/site/handlers/validation-handler.mjs",
+    "dev/framework/tests/site-generation-validation-handler.test.mjs",
+    "dev/framework/doc/preflight/site-generation-validation-handler.md"
+  ],
+  "reserved_at": "2026-08-13T12:26:00+02:00",
+  "objective": "Brancher le stage machine validation du pipeline Lot 9 sur le DataValidator existant en validant exactement le snapshot data.loaded de l'étape précédente, sans rechargement des sources ni logique métier.",
+  "dependencies": [
+    "dev/framework/core/data-validator.js",
+    "dev/framework/tools/site/handlers/data-load-handler.mjs",
+    "dev/framework/tools/site/run-site-generation.mjs",
+    "dev/framework/tools/site/site-generation-handler-registry.mjs"
+  ],
+  "forbidden_scope": [
+    "dev/framework/wiz/table-wiz.js",
+    "dev/framework/demo/",
+    "dev/framework/doc/architecture/",
+    "dev/framework/doc/roadmap/roadmap.md",
+    "dev/framework/doc/roadmap/human-check.md"
+  ]
+}
