@@ -1,7 +1,7 @@
 {
   "task_id": "9-SITE-GENERATION-RELATIONS-HANDLER",
   "agent": "B",
-  "status": "reserved",
+  "status": "done",
   "base": "0f612b9a49523d831266f7c401406cc95baeb107",
   "branch": "agent-b/site-generation-relations-handler",
   "file_scope": [
@@ -10,6 +10,7 @@
     "dev/framework/doc/preflight/site-generation-relations-handler.md"
   ],
   "reserved_at": "2026-08-13T12:37:00+02:00",
+  "completed_at": "2026-08-13T12:39:00+02:00",
   "objective": "Brancher le stage machine relations du pipeline Lot 9 sur le DataResolver existant en consommant le snapshot data.loaded propagé par le runner, sans rechargement des sources ni logique métier.",
   "dependencies": [
     "dev/framework/core/data-resolver.js",
@@ -22,5 +23,10 @@
     "dev/framework/doc/architecture/",
     "dev/framework/doc/roadmap/roadmap.md",
     "dev/framework/doc/roadmap/human-check.md"
-  ]
+  ],
+  "result": {
+    "pr": 138,
+    "merge_sha": "ff17e6b388714d756183471aa84c0e683957b99d",
+    "summary": "Handler relations générique intégré avec DataResolver, data.resolved, relations.report et consommation du snapshot data.loaded propagé."
+  }
 }
