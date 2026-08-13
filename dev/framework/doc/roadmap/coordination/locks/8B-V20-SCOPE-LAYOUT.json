@@ -10,6 +10,11 @@
   ],
   "reserved_at": "2026-08-11T23:58:00+02:00",
   "blocker": "HUMAN_VISUAL_VALIDATION",
+  "autonomous_work_complete": true,
+  "session_activity_observed": false,
+  "scope_protection": "blocked_human_validation_only",
+  "state_checked_at": "2026-08-13T04:46:00+02:00",
+  "state_checked_by": "B",
   "resume_condition": "Validation ou corrections demandées après contrôle visuel des Scope Lab / Layout Lab V20.",
-  "notes": "Scope Lab et Layout Lab reconstruits depuis la référence V16. Aucun travail autonome supplémentaire n'est justifié avant validation humaine ; le scope reste réservé à A pour éviter une reprise parallèle accidentelle."
+  "notes": "Scope Lab et Layout Lab reconstruits depuis la référence V16. Aucun travail autonome agent n'est en cours ni justifié avant validation humaine ; le scope reste protégé uniquement pour préserver la version à contrôler."
 }
