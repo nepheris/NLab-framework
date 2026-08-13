@@ -12,6 +12,11 @@
   "draft_sha": "57e5a9cce86e63eb75f1f354a369e363e40706be",
   "review_head": "5a62a6e81afce41078ba7e4c5a3f3216fd6d5aae",
   "pull_request": 48,
+  "autonomous_work_complete": true,
+  "session_activity_observed": false,
+  "scope_protection": "review_pending_human_architecture_visual_decision",
+  "state_checked_at": "2026-08-13T04:45:00+02:00",
+  "state_checked_by": "B",
   "verification": {
     "branch_sync": "Resynchronized with current New using a two-parent merge, no force-push.",
     "branch_diff": "ahead_by 3 / behind_by 0 / exactly 2 files",
@@ -19,5 +24,5 @@
     "scope": "Documentation only; no runtime, demo or preview files modified.",
     "decision_boundary": "Hierarchy, target statuses and visual readability remain subject to HUMAN architecture/visual review."
   },
-  "notes": "PR #48 is ready for architecture/visual review. No runtime migration is implied by the map itself."
+  "notes": "PR #48 is ready for architecture/visual review. Production autonome terminée ; aucun agent A n'est présumé actif sur ce lot. Le scope reste protégé uniquement jusqu'à décision/merge/release."
 }
