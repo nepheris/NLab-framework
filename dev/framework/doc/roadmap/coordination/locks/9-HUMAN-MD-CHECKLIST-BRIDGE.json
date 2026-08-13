@@ -1,0 +1,25 @@
+{
+  "task_id": "9-HUMAN-MD-CHECKLIST-BRIDGE",
+  "agent": "B",
+  "status": "reserved",
+  "base": "c14260b49de732a67a0f4698e759ab2e7c8eaf13",
+  "branch": "agent-b/human-md-checklist-bridge",
+  "file_scope": [
+    "dev/framework/tools/site/human-validation-markdown.mjs",
+    "dev/framework/tests/human-validation-markdown.test.mjs",
+    "dev/framework/doc/preflight/human-validation-markdown.md"
+  ],
+  "reserved_at": "2026-08-13T10:03:00+02:00",
+  "objective": "Créer un pont bidirectionnel entre rapports Markdown HUMAN à cases Validé/À retravailler et décisions machine exploitables par le SiteGenerationRunner.",
+  "dependencies": [
+    "dev/framework/tools/site/present-site-generation-run.mjs",
+    "H002 HUMAN — séparation JSON machine / vue synthétique validée"
+  ],
+  "forbidden_scope": [
+    "dev/framework/wiz/table-wiz.js",
+    "dev/framework/demo/",
+    "dev/framework/doc/architecture/",
+    "dev/framework/doc/roadmap/roadmap.md",
+    "dev/framework/doc/roadmap/human-check.md"
+  ]
+}
