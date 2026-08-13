@@ -111,4 +111,96 @@ await assert.rejects(
   (error) => error instanceof SiteGenerationRunnerError && error.code === 'DEPENDENCY_CYCLE'
 );
 
+const artifactChecklist = {
+  schema: 'nlab.site-generation-checklist',
+  version: 1,
+  name: 'Artifact propagation test',
+  stages: [
+    {
+      id: 'generation.load',
+      type: 'data-load',
+      label: 'Load',
+      mode: 'machine',
+      required: true,
+      depends_on: [],
+      inputs: ['data.registry'],
+      outputs: ['data.loaded'],
+      success_criteria: [],
+      on_failure: 'stop'
+    },
+    {
+      id: 'generation.validate',
+      type: 'validation',
+      label: 'Validate',
+      mode: 'machine',
+      required: true,
+      depends_on: ['generation.load'],
+      inputs: ['data.loaded'],
+      outputs: ['validation.report'],
+      success_criteria: [],
+      on_failure: 'stop'
+    },
+    {
+      id: 'generation.resolve',
+      type: 'relations',
+      label: 'Resolve',
+      mode: 'machine',
+      required: true,
+      depends_on: ['generation.validate'],
+      inputs: ['data.loaded', 'data.registry'],
+      outputs: ['data.resolved'],
+      success_criteria: [],
+      on_failure: 'stop'
+    }
+  ]
+};
+
+let resolveSeen = null;
+report = await runSiteGeneration(artifactChecklist, {
+  artifacts: {
+    'data.registry': { collections: { items: {} } }
+  },
+  handlers: {
+    'generation.load': ({ inputs }) => {
+      assert.deepEqual(inputs['data.registry'], { collections: { items: {} } });
+      return {
+        status: 'pass',
+        outputs: {
+          'data.loaded': { collections: { items: [{ id: 'i1' }] } }
+        }
+      };
+    },
+    'generation.validate': ({ artifacts, inputs }) => {
+      assert.deepEqual(inputs['data.loaded'], { collections: { items: [{ id: 'i1' }] } });
+      assert.deepEqual(artifacts['data.registry'], { collections: { items: {} } });
+      return {
+        status: 'pass',
+        outputs: {
+          'validation.report': { valid: true }
+        }
+      };
+    },
+    'generation.resolve': ({ artifacts, inputs, dependencies }) => {
+      resolveSeen = { artifacts, inputs, dependencies };
+      return {
+        status: 'pass',
+        outputs: {
+          'data.resolved': { items: [{ id: 'i1' }] }
+        }
+      };
+    }
+  }
+});
+
+assert.equal(report.ok, true);
+assert.deepEqual(resolveSeen.inputs['data.loaded'], { collections: { items: [{ id: 'i1' }] } });
+assert.deepEqual(resolveSeen.inputs['data.registry'], { collections: { items: {} } });
+assert.deepEqual(resolveSeen.artifacts['validation.report'], { valid: true });
+assert.equal(Object.prototype.hasOwnProperty.call(resolveSeen.dependencies['generation.validate'].outputs, 'data.loaded'), false);
+
+await assert.rejects(
+  () => runSiteGeneration(artifactChecklist, { artifacts: [] }),
+  (error) => error instanceof SiteGenerationRunnerError && error.code === 'INVALID_ARTIFACTS'
+);
+
 console.log('site generation runner tests: ok');
