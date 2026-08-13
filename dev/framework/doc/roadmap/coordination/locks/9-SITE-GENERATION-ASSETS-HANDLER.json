@@ -1,0 +1,22 @@
+{
+  "task_id": "9-SITE-GENERATION-ASSETS-HANDLER",
+  "agent": "B",
+  "status": "reserved",
+  "base": "7e508c195edd8a4ddcff15847ce58bdecc643a0c",
+  "branch": "agent-b/site-generation-assets-handler",
+  "file_scope": [
+    "dev/framework/tools/site/handlers/assets-handler.mjs",
+    "dev/framework/tests/site-generation-assets-handler.test.mjs",
+    "dev/framework/doc/preflight/site-generation-assets-handler.md"
+  ],
+  "reserved_at": "2026-08-13T13:28:00+02:00",
+  "objective": "Brancher le stage machine assets du Lot 9 sur une préparation filesystem générique et déterministe pages.rendered + assets.sources -> assets.prepared, avec fallback explicite, chemins sûrs et aucune logique métier ni validation HUMAN.",
+  "referenced_nlab_artifacts": [],
+  "forbidden_scope": [
+    "dev/framework/wiz/table-wiz.js",
+    "dev/framework/demo/",
+    "dev/framework/doc/architecture/",
+    "dev/framework/doc/roadmap/roadmap.md",
+    "dev/framework/doc/roadmap/human-check.md"
+  ]
+}
