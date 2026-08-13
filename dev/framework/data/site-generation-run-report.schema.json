@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nlab.dev/schemas/site-generation-run-report.schema.json",
+  "title": "nLab Site Generation Run Report",
+  "description": "Machine-readable result emitted by the generic nLab SiteGenerationRunner.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "version",
+    "generated_at",
+    "checklist",
+    "ok",
+    "halted",
+    "halt_stage",
+    "blocking_stage_ids",
+    "skipped_required_stage_ids",
+    "warnings",
+    "stages"
+  ],
+  "properties": {
+    "schema": { "const": "nlab.site-generation-run-report" },
+    "version": { "const": 1 },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "checklist": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "stage_count"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "stage_count": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "ok": { "type": "boolean" },
+    "halted": { "type": "boolean" },
+    "halt_stage": {
+      "oneOf": [
+        { "type": "string", "minLength": 1 },
+        { "type": "null" }
+      ]
+    },
+    "blocking_stage_ids": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "skipped_required_stage_ids": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "warnings": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/warning" }
+    },
+    "stages": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/stageResult" }
+    }
+  },
+  "$defs": {
+    "warning": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stage_id", "message"],
+      "properties": {
+        "stage_id": { "type": "string", "minLength": 1 },
+        "message": { "type": "string", "minLength": 1 }
+      }
+    },
+    "stageResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "mode",
+        "required",
+        "status",
+        "outputs",
+        "warnings"
+      ],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "type": {
+          "enum": [
+            "preflight",
+            "data-load",
+            "validation",
+            "relations",
+            "render",
+            "assets",
+            "routes",
+            "output",
+            "preview",
+            "comparison",
+            "report"
+          ]
+        },
+        "mode": { "enum": ["machine", "human", "hybrid"] },
+        "required": { "type": "boolean" },
+        "status": { "enum": ["pass", "warn", "fail", "blocked", "skipped"] },
+        "raw_status": { "enum": ["pass", "warn", "fail", "blocked"] },
+        "reason": { "type": "string", "minLength": 1 },
+        "outputs": { "type": "object" },
+        "warnings": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "details": {}
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "skipped" } }, "required": ["status"] },
+          "then": { "required": ["reason"] },
+          "else": { "required": ["raw_status", "details"] }
+        }
+      ]
+    }
+  }
+}
