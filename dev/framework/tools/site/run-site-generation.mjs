@@ -15,6 +15,12 @@ function clone(value) {
   return value == null ? value : JSON.parse(JSON.stringify(value));
 }
 
+function assertObject(value, label, code) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) {
+    throw new SiteGenerationRunnerError(`${label} must be an object`, code);
+  }
+}
+
 function assertChecklist(checklist) {
   if (!checklist || typeof checklist !== 'object') {
     throw new SiteGenerationRunnerError('Checklist must be an object', 'INVALID_CHECKLIST');
@@ -95,16 +101,30 @@ function normalizeResult(raw, stage) {
   };
 }
 
+function selectDeclaredInputs(stage, artifacts) {
+  const names = Array.isArray(stage.inputs) ? stage.inputs : [];
+  const selected = {};
+  for (const name of names) {
+    if (typeof name === 'string' && Object.prototype.hasOwnProperty.call(artifacts, name)) {
+      selected[name] = clone(artifacts[name]);
+    }
+  }
+  return selected;
+}
+
 export async function runSiteGeneration(checklist, {
   handlers = {},
   decisions = {},
   context = {},
+  artifacts = {},
   clock = () => new Date().toISOString()
 } = {}) {
   assertChecklist(checklist);
+  assertObject(artifacts, 'artifacts', 'INVALID_ARTIFACTS');
   const ordered = orderStages(checklist.stages);
   const results = [];
   const resultById = new Map();
+  const artifactStore = clone(artifacts);
   let halted = false;
   let haltStage = null;
 
@@ -138,7 +158,9 @@ export async function runSiteGeneration(checklist, {
         context: clone(context),
         dependencies: clone(Object.fromEntries(
           stage.depends_on.map((id) => [id, resultById.get(id)])
-        ))
+        )),
+        artifacts: clone(artifactStore),
+        inputs: selectDeclaredInputs(stage, artifactStore)
       });
     } else if (Object.prototype.hasOwnProperty.call(decisions, stage.id)) {
       rawResult = decisions[stage.id];
@@ -170,6 +192,10 @@ export async function runSiteGeneration(checklist, {
     };
     results.push(entry);
     resultById.set(stage.id, entry);
+
+    if (effectiveStatus === 'pass' || effectiveStatus === 'warn') {
+      Object.assign(artifactStore, clone(normalized.outputs));
+    }
 
     if (
       (effectiveStatus === 'fail' || effectiveStatus === 'blocked') &&
