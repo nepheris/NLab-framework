@@ -17,6 +17,7 @@ Le runner reste **DOM-free**, renderer-neutral et dépend uniquement de handlers
 - refuser silencieusement l'absence de handler machine en produisant un échec structuré ;
 - appliquer `stop`, `warn` ou `continue` ;
 - propager les dépendances non satisfaites sous forme `skipped` ;
+- propager les outputs réussis comme artefacts cumulés vers les stages suivants ;
 - produire un rapport `nlab.site-generation-run-report` V1.
 
 ## Contrat des handlers
@@ -27,11 +28,19 @@ Un handler reçoit :
 {
   stage,
   context,
-  dependencies
+  dependencies,
+  artifacts,
+  inputs
 }
 ```
 
-et retourne, de manière synchrone ou asynchrone :
+`dependencies` contient uniquement les résultats des stages déclarés dans `depends_on`.
+
+`artifacts` contient une copie de l'ensemble des outputs déjà produits par les stages en `pass` ou `warn`, ainsi que les artefacts initiaux fournis au runner.
+
+`inputs` est une projection de `artifacts` limitée aux clés déclarées dans `stage.inputs`. Cela permet à un stage de consommer un artefact produit plusieurs étapes auparavant sans créer une fausse dépendance d'exécution directe.
+
+Le handler retourne, de manière synchrone ou asynchrone :
 
 ```js
 {
@@ -43,6 +52,22 @@ et retourne, de manière synchrone ou asynchrone :
 ```
 
 Le runner ne connaît pas la nature interne des artefacts. Le stage déclare les entrées/sorties ; le handler concret décide comment les produire.
+
+## Artefacts initiaux et propagation
+
+Le paramètre optionnel `artifacts` de `runSiteGeneration()` permet d'injecter des artefacts disponibles avant le premier stage, par exemple `data.registry`, `generation.config` ou d'autres contrats externes au pipeline.
+
+Après chaque stage en `pass` ou `warn`, ses `outputs` sont ajoutés au magasin d'artefacts. Les stages suivants reçoivent une copie de ce magasin ; aucune mutation d'un handler ne modifie directement l'état interne du runner.
+
+Les outputs d'un stage en `fail`, `blocked` ou `skipped` ne sont pas propagés.
+
+Cette séparation est volontaire :
+
+- `depends_on` exprime l'ordre et la condition d'exécution ;
+- `inputs` exprime les artefacts nécessaires ;
+- `artifacts` transporte les résultats déjà produits.
+
+Ainsi un stage `relations` peut dépendre directement de `validation` tout en consommant `data.loaded` produit par `data-load`.
 
 ## Décisions HUMAN / hybrid
 
@@ -72,6 +97,8 @@ Le rapport contient notamment :
 - warnings structurés ;
 - résultat de chaque stage, y compris `raw_status`, outputs et détails.
 
+Le magasin d'artefacts cumulé n'est pas dupliqué dans le run report V1 : les outputs restent tracés sur leur stage producteur.
+
 ## Limites V1
 
 Le runner :
@@ -96,7 +123,11 @@ Ces opérations restent fournies par les briques concrètes injectées lors d'un
 - décision hybrid explicite ;
 - handler machine absent ;
 - dépendance inconnue ;
-- cycle de dépendances.
+- cycle de dépendances ;
+- artefacts initiaux ;
+- propagation d'un output au-delà de la dépendance directe ;
+- projection de `stage.inputs` ;
+- refus d'un magasin d'artefacts initial invalide.
 
 Commande :
 
