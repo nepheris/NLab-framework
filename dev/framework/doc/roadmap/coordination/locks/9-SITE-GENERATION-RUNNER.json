@@ -1,7 +1,7 @@
 {
   "task_id": "9-SITE-GENERATION-RUNNER",
   "agent": "B",
-  "status": "reserved",
+  "status": "done",
   "base": "e2c2a382a71da0e04408693ec91d007e9f09b9a6",
   "branch": "agent-b/site-generation-runner",
   "file_scope": [
@@ -10,16 +10,20 @@
     "dev/framework/doc/preflight/site-generation-runner.md"
   ],
   "reserved_at": "2026-08-13T05:31:00+02:00",
+  "completed_at": "2026-08-13T05:34:00+02:00",
+  "pull_request": 129,
+  "merged_sha": "6cfd04955575d1174d339e1e8ad7c24d8515ebda",
   "objective": "Transformer le contrat déclaratif nlab.site-generation-checklist V1 en orchestration générique contrôlée avec handlers injectés, dépendances, décisions HUMAN explicites et rapport machine.",
+  "verification": {
+    "compare": "3 commits / exactement 3 fichiers du file_scope / behind_by:0 avant merge",
+    "syntax": "node --check: ok",
+    "tests": "scénarios Node: parcours complet, stop, warn, décision explicite, handler absent, dépendance inconnue, cycle",
+    "mergeable_before_merge": true
+  },
   "dependencies": [
     "dev/framework/data/site-generation-checklist.schema.json",
     "dev/framework/tests/fixtures/site-generation-checklist.json",
     "9-SITE-WORKSPACE-VALIDATOR"
   ],
-  "forbidden_scope": [
-    "dev/framework/wiz/table-wiz.js",
-    "dev/framework/demo/",
-    "dev/framework/doc/architecture/",
-    "dev/framework/doc/roadmap/roadmap.md"
-  ]
+  "result": "Runner générique intégré dans New ; aucun scope TableWiz, V20, démo, architecture ou roadmap canonique modifié."
 }
