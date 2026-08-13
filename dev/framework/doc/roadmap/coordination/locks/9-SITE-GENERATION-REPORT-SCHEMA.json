@@ -1,7 +1,7 @@
 {
   "task_id": "9-SITE-GENERATION-REPORT-SCHEMA",
   "agent": "B",
-  "status": "reserved",
+  "status": "done",
   "base": "49e27d1099ca6123d16234eba2143a8299d368bb",
   "branch": "agent-b/site-generation-report-schema",
   "file_scope": [
@@ -10,6 +10,7 @@
     "dev/framework/doc/preflight/site-generation-run-report-schema.md"
   ],
   "reserved_at": "2026-08-13T06:01:00+02:00",
+  "completed_at": "2026-08-13T06:04:00+02:00",
   "objective": "Figer en JSON Schema le rapport machine nlab.site-generation-run-report V1 déjà émis par SiteGenerationRunner.",
   "dependencies": [
     "dev/framework/tools/site/run-site-generation.mjs",
@@ -20,5 +21,13 @@
     "dev/framework/demo/",
     "dev/framework/doc/architecture/",
     "dev/framework/doc/roadmap/roadmap.md"
-  ]
+  ],
+  "pull_request": 130,
+  "final_sha": "8e1389ed4dbe0f6fbc5d41c9b5bea45b822942ed",
+  "merged_sha": "b19c0a8333e93be69e0da41476103fd4ee712651",
+  "verification": {
+    "compare": "3 commits / exactly 3 scoped files / behind_by:0",
+    "mergeable_before_merge": true,
+    "test_contract": "imports the real SiteGenerationRunner and covers nominal + blocked report invariants"
+  }
 }
