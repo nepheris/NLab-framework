@@ -1,7 +1,7 @@
 {
   "task_id": "9-SITE-GENERATION-HANDLER-REGISTRY",
   "agent": "B",
-  "status": "reserved",
+  "status": "done",
   "base": "c101c3580202c26f9419a5ec4bfeb2c5ec7a27d7",
   "branch": "agent-b/site-generation-handler-registry",
   "file_scope": [
@@ -21,5 +21,13 @@
     "dev/framework/doc/architecture/",
     "dev/framework/doc/roadmap/roadmap.md",
     "dev/framework/doc/roadmap/human-check.md"
-  ]
+  ],
+  "pull_request": 133,
+  "merged_sha": "9af5f5a5b776469ad983b4c1088189fe01b9773e",
+  "completed_at": "2026-08-13T11:27:00+02:00",
+  "validation": {
+    "compare": "3 scoped files; behind_by:0",
+    "mergeable": true,
+    "human_validation_required": false
+  }
 }
