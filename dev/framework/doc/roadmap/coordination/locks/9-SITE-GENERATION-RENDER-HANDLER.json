@@ -1,0 +1,33 @@
+{
+  "task_id": "9-SITE-GENERATION-RENDER-HANDLER",
+  "agent": "B",
+  "status": "reserved",
+  "base": "7e6cc5955f6dd8c70bb4da8428144d3561536c61",
+  "branch": "agent-b/site-generation-render-handler",
+  "file_scope": [
+    "dev/framework/tools/site/handlers/render-handler.mjs",
+    "dev/framework/tests/site-generation-render-handler.test.mjs",
+    "dev/framework/doc/preflight/site-generation-render-handler.md"
+  ],
+  "reserved_at": "2026-08-13T12:54:00+02:00",
+  "objective": "Brancher le stage machine render du Lot 9 sur RendererWiz existant pour transformer data.resolved en pages.rendered à partir d'un render.config déclaratif, sans logique métier ni validation HUMAN.",
+  "dependencies": [
+    "dev/framework/wiz/renderer-wiz.js",
+    "dev/framework/tools/site/run-site-generation.mjs",
+    "dev/framework/tools/site/handlers/relations-handler.mjs"
+  ],
+  "referenced_nlab_artifacts": [
+    {
+      "name": "RendererWiz",
+      "nlab_id": null,
+      "id_status": "not_declared"
+    }
+  ],
+  "forbidden_scope": [
+    "dev/framework/wiz/table-wiz.js",
+    "dev/framework/demo/",
+    "dev/framework/doc/architecture/",
+    "dev/framework/doc/roadmap/roadmap.md",
+    "dev/framework/doc/roadmap/human-check.md"
+  ]
+}
