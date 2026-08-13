@@ -1,0 +1,22 @@
+{
+  "task_id": "9-SITE-GENERATION-ROUTES-HANDLER",
+  "agent": "B",
+  "status": "reserved",
+  "base": "c1260b275dbdf3f7ee5563f242c587a10fa3db0c",
+  "branch": "agent-b/site-generation-routes-handler",
+  "file_scope": [
+    "dev/framework/tools/site/handlers/routes-handler.mjs",
+    "dev/framework/tests/site-generation-routes-handler.test.mjs",
+    "dev/framework/doc/preflight/site-generation-routes-handler.md"
+  ],
+  "reserved_at": "2026-08-13T13:16:00+02:00",
+  "objective": "Brancher le stage machine routes du Lot 9 sur un contrat déclaratif déterministe pages.rendered + routes.config -> routes.manifest, sans logique métier ni validation HUMAN.",
+  "referenced_nlab_artifacts": [],
+  "forbidden_scope": [
+    "dev/framework/wiz/table-wiz.js",
+    "dev/framework/demo/",
+    "dev/framework/doc/architecture/",
+    "dev/framework/doc/roadmap/roadmap.md",
+    "dev/framework/doc/roadmap/human-check.md"
+  ]
+}
