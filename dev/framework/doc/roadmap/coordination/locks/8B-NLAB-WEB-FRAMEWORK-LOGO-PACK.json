@@ -1,0 +1,13 @@
+{
+  "task_id": "8B-NLAB-WEB-FRAMEWORK-LOGO-PACK",
+  "agent": "C",
+  "status": "reserved",
+  "base": "63abce4c84a054ec49b3059ca018017ee2d9a15b",
+  "branch": "agent-c/framework-logo-pack",
+  "file_scope": [
+    "dev/framework/doc/roadmap/icons/"
+  ],
+  "reserved_at": "2026-08-13T18:03:00+02:00",
+  "objective": "Intégrer le logo nLab Web Framework déjà validé : retrouver les fichiers source validés, créer doc/roadmap/icons/, y déposer le pack officiel (variantes, icône, manifest/README) et le référencer dans la documentation sans modifier roadmap.md ni les périmètres A.",
+  "validation": null
+}
