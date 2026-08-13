@@ -1,7 +1,7 @@
 {
   "task_id": "COORD-ROADMAP-AGENT-DASHBOARD",
   "agent": "B",
-  "status": "in_progress",
+  "status": "released",
   "base": "7145d109e4dbc780cfe8df52b0576fe3a5985551",
   "branch": "New",
   "file_scope": [
@@ -10,6 +10,7 @@
     "dev/framework/doc/roadmap/coordination/agent-board.md"
   ],
   "reserved_at": "2026-08-13T04:42:00+02:00",
-  "objective": "Clarifier la différence entre activité réelle d'une session et protection persistante d'un scope afin d'éliminer les verrous fantômes.",
-  "notes": "Lot documentaire de clarification uniquement. Aucun runtime ni scope métier A/C/D modifié."
+  "released_at": "2026-08-13T04:47:00+02:00",
+  "result": "agent-board clarifié : activité de session séparée de la protection de scope ; locks A review/blocked enrichis avec autonomous_work_complete, session_activity_observed et scope_protection.",
+  "notes": "Mutex libre. Aucun runtime modifié. Les lots TableWiz/architecture/V20 ne sont plus interprétés comme des sessions A actives ; seuls leurs scopes de revue/validation restent protégés."
 }
