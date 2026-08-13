@@ -1,7 +1,7 @@
 {
   "task_id": "9-SITE-WORKSPACE-VALIDATOR",
   "agent": "B",
-  "status": "reserved",
+  "status": "done",
   "base": "3ff550dd5892385cbed849575ec8be8f4c7ef633",
   "branch": "agent-b/site-workspace-validator",
   "file_scope": [
@@ -10,7 +10,20 @@
     "dev/framework/doc/preflight/site-workspace-validator.md"
   ],
   "reserved_at": "2026-08-13T05:08:00+02:00",
+  "completed_at": "2026-08-13T05:13:00+02:00",
+  "pull_request": 128,
+  "merged_sha": "9742c66184a6ba0fa338749ddaeb9a99809e50a6",
+  "autonomous_work_complete": true,
+  "session_activity_observed": false,
+  "scope_protection": "none",
   "objective": "Ajouter un validateur DOM-free et read-only d'un workspace site réel contre le contrat nlab.site-workspace V1, avant génération Lot 9.",
+  "result": "Validateur filesystem générique intégré dans New avec rapport machine V1, codes de sortie CLI, tests de contrat et documentation. Aucun runtime métier ni scope A touché.",
+  "verification": {
+    "pull_request_mergeable_before_merge": true,
+    "changed_files": 3,
+    "scope_ok": true,
+    "workflow_ci": "aucun workflow PR automatique observé pour ce commit"
+  },
   "dependencies": ["dev/framework/data/site-workspace.schema.json"],
   "forbidden_scope": [
     "dev/framework/wiz/table-wiz.js",
